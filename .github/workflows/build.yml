@@ -1,0 +1,97 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build PCAPdroid APK with apktool
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Download apktool
+        run: |
+          mkdir -p $HOME/bin
+          wget -q https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar -O $HOME/bin/apktool.jar
+          wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O $HOME/bin/apktool
+          chmod +x $HOME/bin/apktool
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Verify apktool
+        run: apktool --version
+
+      - name: Build APK from smali + resources
+        run: |
+          mkdir -p output
+          apktool b . -o output/PCAPdroid-rebuilt.apk --use-aapt2
+          echo "Build done: $(ls -lh output/PCAPdroid-rebuilt.apk)"
+
+      - name: Generate debug keystore
+        run: |
+          keytool -genkey -v \
+            -keystore debug.keystore \
+            -alias androiddebugkey \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass android \
+            -keypass android \
+            -dname "CN=Android Debug,O=Android,C=US"
+
+      - name: Zipalign APK
+        run: |
+          $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -V | tail -1)/zipalign \
+            -v 4 \
+            output/PCAPdroid-rebuilt.apk \
+            output/PCAPdroid-aligned.apk
+
+      - name: Sign APK
+        run: |
+          $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -V | tail -1)/apksigner sign \
+            --ks debug.keystore \
+            --ks-key-alias androiddebugkey \
+            --ks-pass pass:android \
+            --key-pass pass:android \
+            --out output/PCAPdroid-signed.apk \
+            output/PCAPdroid-aligned.apk
+          echo "Signed APK: $(ls -lh output/PCAPdroid-signed.apk)"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PCAPdroid-APK
+          path: output/PCAPdroid-signed.apk
+          retention-days: 30
+
+      - name: Create Release (on push to main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.9.1-rebuilt
+          name: PCAPdroid v1.9.1 — Rebuilt from source
+          body: |
+            ## PCAPdroid v1.9.1 — Rebuilt APK
+
+            این APK از سورس کد decompile شده با استفاده از apktool بازسازی شده است.
+
+            - **روش build:** apktool (smali → APK)
+            - **امضا:** debug keystore
+            - **نسخه اصلی:** 1.9.1 (versionCode: 91)
+          files: output/PCAPdroid-signed.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
