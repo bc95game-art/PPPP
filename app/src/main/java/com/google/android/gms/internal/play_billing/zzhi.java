@@ -93,7 +93,7 @@ public final class zzhi {
                 } else if (i6 == 2) {
                     int zzC3 = zzem.zzC(i5 << 3);
                     int zzd = ((zzeg) this.zzd[i3]).zzd();
-                    i2 = ViewModelProvider.Factory.CC.m(zzd, zzd, zzC3, i2);
+                    i2 = ViewModelProvider.Factory.CC.m606m(zzd, zzd, zzC3, i2);
                 } else if (i6 == 3) {
                     int zzC4 = zzem.zzC(i5 << 3);
                     zzC = zzC4 + zzC4;

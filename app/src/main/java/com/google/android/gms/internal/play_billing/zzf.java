@@ -9,11 +9,13 @@ public final class zzf extends Throwable {
         this.$r8$classId = i;
     }
 
-    private final synchronized Throwable fillInStackTrace$com$google$android$gms$internal$play_billing$zzf() {
+    /* renamed from: fillInStackTrace$com$google$android$gms$internal$play_billing$zzf */
+    private final synchronized Throwable m568xa9bc7004() {
         return this;
     }
 
-    private final synchronized Throwable fillInStackTrace$com$google$android$gms$internal$play_billing$zzq() {
+    /* renamed from: fillInStackTrace$com$google$android$gms$internal$play_billing$zzq */
+    private final synchronized Throwable m567xa9bc700f() {
         return this;
     }
 
@@ -21,10 +23,10 @@ public final class zzf extends Throwable {
     public final synchronized Throwable fillInStackTrace() {
         switch (this.$r8$classId) {
             case 0:
-                fillInStackTrace$com$google$android$gms$internal$play_billing$zzf();
+                m568xa9bc7004();
                 return this;
             default:
-                fillInStackTrace$com$google$android$gms$internal$play_billing$zzq();
+                m567xa9bc700f();
                 return this;
         }
     }

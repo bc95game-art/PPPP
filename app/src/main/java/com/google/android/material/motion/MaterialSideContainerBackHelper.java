@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.activity.BackEventCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 /* loaded from: classes.dex */
 public final class MaterialSideContainerBackHelper extends MaterialBackAnimationHelper {
@@ -24,9 +24,9 @@ public final class MaterialSideContainerBackHelper extends MaterialBackAnimation
     public MaterialSideContainerBackHelper(View view) {
         super(view);
         Resources resources = view.getResources();
-        this.maxScaleXDistanceShrink = resources.getDimension(R.dimen.m3_back_progress_side_container_max_scale_x_distance_shrink);
-        this.maxScaleXDistanceGrow = resources.getDimension(R.dimen.m3_back_progress_side_container_max_scale_x_distance_grow);
-        this.maxScaleYDistance = resources.getDimension(R.dimen.m3_back_progress_side_container_max_scale_y_distance);
+        this.maxScaleXDistanceShrink = resources.getDimension(C0130R.dimen.m3_back_progress_side_container_max_scale_x_distance_shrink);
+        this.maxScaleXDistanceGrow = resources.getDimension(C0130R.dimen.m3_back_progress_side_container_max_scale_x_distance_grow);
+        this.maxScaleYDistance = resources.getDimension(C0130R.dimen.m3_back_progress_side_container_max_scale_y_distance);
     }
 
     public final void cancelBackProgress() {

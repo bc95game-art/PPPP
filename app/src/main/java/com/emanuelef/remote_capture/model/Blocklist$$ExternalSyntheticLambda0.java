@@ -54,13 +54,13 @@ public final /* synthetic */ class Blocklist$$ExternalSyntheticLambda0 implement
                 EditCtrlPermissions.lambda$generateApiKey$1(dialogInterface, i);
                 return;
             case 10:
-                PayloadAdapter.m152$r8$lambda$PT0FHf8FgbttixgXKaDLHJic2E(dialogInterface, i);
+                PayloadAdapter.m782$r8$lambda$PT0FHf8FgbttixgXKaDLHJic2E(dialogInterface, i);
                 return;
             case 11:
-                PayloadAdapter.m151$r8$lambda$BqwgkR6qyjppnHynKUOou6XJQI(dialogInterface, i);
+                PayloadAdapter.m781$r8$lambda$BqwgkR6qyjppnHynKUOou6XJQI(dialogInterface, i);
                 return;
             case 12:
-                PayloadAdapter.m150$r8$lambda$76p8Dx_kFpzCWboUzJlRFUu7xc(dialogInterface, i);
+                PayloadAdapter.m780$r8$lambda$76p8Dx_kFpzCWboUzJlRFUu7xc(dialogInterface, i);
                 return;
             case 13:
                 PayloadAdapter.$r8$lambda$rcsfvlWpjych1jb4p0lOwt1GJAY(dialogInterface, i);
@@ -96,7 +96,7 @@ public final /* synthetic */ class Blocklist$$ExternalSyntheticLambda0 implement
                 PortMapFragment.lambda$confirmDelete$5(dialogInterface, i);
                 return;
             case 24:
-                RuleAddDialog.m243$r8$lambda$LUAEUbD2ITqRsNQAS4nIq76lLs(dialogInterface, i);
+                RuleAddDialog.m873$r8$lambda$LUAEUbD2ITqRsNQAS4nIq76lLs(dialogInterface, i);
                 return;
             default:
                 RuleAddDialog.$r8$lambda$eEpwEpDB_sWABJ8moDKYTQ1gcZg(dialogInterface, i);

@@ -27,9 +27,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.adapters.ListEditAdapter;
 import com.emanuelef.remote_capture.model.AppDescriptor;
@@ -76,10 +76,10 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     public void confirmDelete(ActionMode actionMode) {
         zzbv zzbvVar = new zzbv(requireContext());
-        zzbvVar.setMessage(R.string.rules_delete_confirm);
+        zzbvVar.setMessage(C0130R.string.rules_delete_confirm);
         ((AlertController.AlertParams) zzbvVar.zza).mCancelable = true;
-        zzbvVar.setPositiveButton(R.string.yes, new FirewallStatus$$ExternalSyntheticLambda2(this, 4, actionMode));
-        zzbvVar.setNegativeButton(R.string.no, new Blocklist$$ExternalSyntheticLambda0(18));
+        zzbvVar.setPositiveButton(C0130R.string.yes, new FirewallStatus$$ExternalSyntheticLambda2(this, 4, actionMode));
+        zzbvVar.setNegativeButton(C0130R.string.no, new Blocklist$$ExternalSyntheticLambda0(18));
         AlertDialog create = zzbvVar.create();
         create.setCanceledOnTouchOutside(true);
         create.show();
@@ -87,10 +87,10 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     private void confirmImport(final MatchList matchList) {
         zzbv zzbvVar = new zzbv(requireContext());
-        zzbvVar.setTitle(R.string.import_action);
-        zzbvVar.setMessage(R.string.rules_merge_msg);
+        zzbvVar.setTitle(C0130R.string.import_action);
+        zzbvVar.setMessage(C0130R.string.rules_merge_msg);
         ((AlertController.AlertParams) zzbvVar.zza).mCancelable = true;
-        zzbvVar.setPositiveButton(R.string.keep_action, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.fragments.EditListFragment$$ExternalSyntheticLambda7
+        zzbvVar.setPositiveButton(C0130R.string.keep_action, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.fragments.EditListFragment$$ExternalSyntheticLambda7
             public final /* synthetic */ EditListFragment f$0;
 
             {
@@ -109,7 +109,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
                 }
             }
         });
-        zzbvVar.setNegativeButton(R.string.discard_action, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.fragments.EditListFragment$$ExternalSyntheticLambda7
+        zzbvVar.setNegativeButton(C0130R.string.discard_action, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.fragments.EditListFragment$$ExternalSyntheticLambda7
             public final /* synthetic */ EditListFragment f$0;
 
             {
@@ -135,11 +135,11 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     private void confirmLoadManyRules(String str) {
         zzbv zzbvVar = new zzbv(requireContext());
-        zzbvVar.setTitle(R.string.warning);
-        zzbvVar.setMessage(R.string.many_rules_warning);
+        zzbvVar.setTitle(C0130R.string.warning);
+        zzbvVar.setMessage(C0130R.string.many_rules_warning);
         ((AlertController.AlertParams) zzbvVar.zza).mCancelable = true;
-        zzbvVar.setPositiveButton(R.string.import_action, new FirewallStatus$$ExternalSyntheticLambda2(this, 3, str));
-        zzbvVar.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(17));
+        zzbvVar.setPositiveButton(C0130R.string.import_action, new FirewallStatus$$ExternalSyntheticLambda2(this, 3, str));
+        zzbvVar.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(17));
         AlertDialog create = zzbvVar.create();
         create.setCanceledOnTouchOutside(false);
         create.show();
@@ -155,20 +155,20 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
                 OutputStream openOutputStream = requireContext.getContentResolver().openOutputStream(intent.getData(), "rwt");
                 PrintWriter printWriter = new PrintWriter(openOutputStream);
                 printWriter.print(json);
-                Utils.showToast(requireContext, R.string.save_ok, new Object[0]);
+                Utils.showToast(requireContext, C0130R.string.save_ok, new Object[0]);
                 printWriter.close();
                 if (openOutputStream != null) {
                     openOutputStream.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Utils.showToastLong(requireContext, R.string.export_failed, new Object[0]);
+                Utils.showToastLong(requireContext, C0130R.string.export_failed, new Object[0]);
             }
         }
     }
 
     private String getExportName() {
-        return ViewModelProvider.Factory.CC.m("PCAPdroid_", getString(this.mListInfo.getTitle()).toLowerCase().replaceAll(" ", "_"), ".json");
+        return ViewModelProvider.Factory.CC.m595m("PCAPdroid_", getString(this.mListInfo.getTitle()).toLowerCase().replaceAll(" ", "_"), ".json");
     }
 
     public void importResult(ActivityResult activityResult) {
@@ -203,7 +203,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
                 }
             } catch (IOException | RuntimeException e) {
                 e.printStackTrace();
-                Utils.showToastLong(requireContext, R.string.import_failed, new Object[0]);
+                Utils.showToastLong(requireContext, C0130R.string.import_failed, new Object[0]);
             }
         }
     }
@@ -212,7 +212,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
         Context requireContext = requireContext();
         int addRules = this.mList.addRules(matchList);
         saveAndReload();
-        Toast.makeText(requireContext, String.format(requireContext.getResources().getString(R.string.rules_import_success), Integer.valueOf(addRules)), 0).show();
+        Toast.makeText(requireContext, String.format(requireContext.getResources().getString(C0130R.string.rules_import_success), Integer.valueOf(addRules)), 0).show();
         if (this.mList instanceof Blocklist) {
             Blocklist blocklist = PCAPdroid.getInstance().getBlocklist();
             if (blocklist.hasCountryRules()) {
@@ -232,7 +232,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
         }
         int fromJson = matchList.fromJson(str, i);
         if (fromJson <= 0 || matchList.isEmpty()) {
-            Utils.showToastLong(requireContext, R.string.invalid_backup, new Object[0]);
+            Utils.showToastLong(requireContext, C0130R.string.invalid_backup, new Object[0]);
         } else if (z && fromJson >= MAX_RULES_BEFORE_WARNING) {
             confirmLoadManyRules(str);
         } else if (!this.mList.isEmpty()) {
@@ -297,11 +297,11 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
             }
         }
         if (str2 == null) {
-            textView.setError(getString(R.string.invalid));
+            textView.setError(getString(C0130R.string.invalid));
             return false;
         }
         if (!this.mList.addCountry(str2)) {
-            Utils.showToastLong(context, R.string.rule_exists, new Object[0]);
+            Utils.showToastLong(context, C0130R.string.rule_exists, new Object[0]);
         } else {
             saveAndReload();
         }
@@ -311,10 +311,10 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     public /* synthetic */ boolean lambda$showAddHostRule$5(String str, TextView textView) {
         if (!Utils.validateHost(str)) {
-            textView.setError(getString(R.string.invalid));
+            textView.setError(getString(C0130R.string.invalid));
             return false;
         } else if (!this.mList.addHost(str)) {
-            Utils.showToastLong(requireContext(), R.string.rule_exists, new Object[0]);
+            Utils.showToastLong(requireContext(), C0130R.string.rule_exists, new Object[0]);
             return true;
         } else {
             saveAndReload();
@@ -324,10 +324,10 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     public /* synthetic */ boolean lambda$showAddIpRule$2(String str, TextView textView) {
         if (!Utils.validateCidr(str)) {
-            textView.setError(getString(R.string.invalid));
+            textView.setError(getString(C0130R.string.invalid));
             return false;
         } else if (!this.mList.addIp(str)) {
-            Utils.showToastLong(requireContext(), R.string.rule_exists, new Object[0]);
+            Utils.showToastLong(requireContext(), C0130R.string.rule_exists, new Object[0]);
             return true;
         } else {
             saveAndReload();
@@ -337,7 +337,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     public /* synthetic */ boolean lambda$showAddProtoRule$3(String str, TextView textView) {
         if (!this.mList.addProto(str)) {
-            Utils.showToastLong(requireContext(), R.string.rule_exists, new Object[0]);
+            Utils.showToastLong(requireContext(), C0130R.string.rule_exists, new Object[0]);
             return true;
         }
         saveAndReload();
@@ -364,13 +364,13 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
     }
 
     public void saveAndReload() {
-        Log.d(TAG, "saveAndReload");
+        Log.m587d(TAG, "saveAndReload");
         this.mList.save();
         this.mListInfo.reloadRules();
     }
 
     private void showAddAppRule() {
-        this.mAppSelDialog = new AppSelectDialog((AppCompatActivity) requireActivity(), R.string.app, new AppSelectDialog.AppSelectListener() { // from class: com.emanuelef.remote_capture.fragments.EditListFragment.2
+        this.mAppSelDialog = new AppSelectDialog((AppCompatActivity) requireActivity(), C0130R.string.app, new AppSelectDialog.AppSelectListener() { // from class: com.emanuelef.remote_capture.fragments.EditListFragment.2
             {
                 EditListFragment.this = this;
             }
@@ -384,7 +384,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
             public void onSelectedApp(AppDescriptor appDescriptor) {
                 EditListFragment.this.abortAppSelection();
                 if (!EditListFragment.this.mList.addApp(appDescriptor.getPackageName())) {
-                    Utils.showToastLong(EditListFragment.this.requireContext(), R.string.rule_exists, new Object[0]);
+                    Utils.showToastLong(EditListFragment.this.requireContext(), C0130R.string.rule_exists, new Object[0]);
                 } else {
                     EditListFragment.this.saveAndReload();
                 }
@@ -399,7 +399,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
         for (int i = 0; i < iSOCountries.length; i++) {
             strArr[i] = Utils.getCountryName(requireContext, iSOCountries[i]);
         }
-        RuleAddDialog.showCombo(requireContext(), R.string.country, strArr, new RuleAddDialog.RuleAddListener() { // from class: com.emanuelef.remote_capture.fragments.EditListFragment$$ExternalSyntheticLambda11
+        RuleAddDialog.showCombo(requireContext(), C0130R.string.country, strArr, new RuleAddDialog.RuleAddListener() { // from class: com.emanuelef.remote_capture.fragments.EditListFragment$$ExternalSyntheticLambda11
             @Override // com.emanuelef.remote_capture.views.RuleAddDialog.RuleAddListener
             public final boolean addRule(String str, TextView textView) {
                 boolean lambda$showAddCountryRule$4;
@@ -410,15 +410,15 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
     }
 
     private void showAddHostRule() {
-        RuleAddDialog.showText(requireContext(), R.string.host, new EditListFragment$$ExternalSyntheticLambda0(this, 3));
+        RuleAddDialog.showText(requireContext(), C0130R.string.host, new EditListFragment$$ExternalSyntheticLambda0(this, 3));
     }
 
     private void showAddIpRule() {
-        RuleAddDialog.showText(requireContext(), R.string.ip_address_or_cidr, new EditListFragment$$ExternalSyntheticLambda0(this, 2));
+        RuleAddDialog.showText(requireContext(), C0130R.string.ip_address_or_cidr, new EditListFragment$$ExternalSyntheticLambda0(this, 2));
     }
 
     private void showAddProtoRule() {
-        RuleAddDialog.showCombo(requireContext(), R.string.protocol, Utils.getL7Protocols(), new EditListFragment$$ExternalSyntheticLambda0(this, 0));
+        RuleAddDialog.showCombo(requireContext(), C0130R.string.protocol, Utils.getL7Protocols(), new EditListFragment$$ExternalSyntheticLambda0(this, 0));
     }
 
     private void startExport() {
@@ -461,36 +461,36 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.list_edit_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.list_edit_menu, menu);
         if (!Utils.supportsFileDialog(requireContext())) {
-            menu.findItem(R.id.action_import).setVisible(false);
-            menu.findItem(R.id.action_export).setVisible(false);
+            menu.findItem(C0130R.C0132id.action_import).setVisible(false);
+            menu.findItem(C0130R.C0132id.action_export).setVisible(false);
         }
         Set<MatchList.RuleType> supportedRules = this.mListInfo.getSupportedRules();
         if (supportedRules.contains(MatchList.RuleType.APP)) {
-            menu.findItem(R.id.add_app).setVisible(true);
+            menu.findItem(C0130R.C0132id.add_app).setVisible(true);
         }
         if (supportedRules.contains(MatchList.RuleType.HOST)) {
-            menu.findItem(R.id.add_host).setVisible(true);
+            menu.findItem(C0130R.C0132id.add_host).setVisible(true);
         }
         if (supportedRules.contains(MatchList.RuleType.IP)) {
-            menu.findItem(R.id.add_ip).setVisible(true);
+            menu.findItem(C0130R.C0132id.add_ip).setVisible(true);
         }
         if (supportedRules.contains(MatchList.RuleType.PROTOCOL)) {
-            menu.findItem(R.id.add_proto).setVisible(true);
+            menu.findItem(C0130R.C0132id.add_proto).setVisible(true);
         }
         if (supportedRules.contains(MatchList.RuleType.COUNTRY)) {
-            menu.findItem(R.id.add_country).setVisible(true);
+            menu.findItem(C0130R.C0132id.add_country).setVisible(true);
         }
         if (this.mListInfo.getHelpString() <= 0) {
-            menu.findItem(R.id.show_hint).setVisible(false);
+            menu.findItem(C0130R.C0132id.show_hint).setVisible(false);
         }
     }
 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.simple_list, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.simple_list, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -508,11 +508,11 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
     @Override // com.emanuelef.remote_capture.model.MatchList.ListChangeListener
     public void onListChanged() {
         if (this.mIsOwnUpdate) {
-            Log.d(TAG, "onListChanged: own update");
+            Log.m587d(TAG, "onListChanged: own update");
             this.mIsOwnUpdate = false;
             return;
         }
-        Log.d(TAG, "onListChanged");
+        Log.m587d(TAG, "onListChanged");
         ActionMode actionMode = this.mActionMode;
         if (actionMode != null) {
             actionMode.finish();
@@ -530,42 +530,42 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        ListView listView = (ListView) requireActivity().findViewById(R.id.listview);
+        ListView listView = (ListView) requireActivity().findViewById(C0130R.C0132id.listview);
         if (listView == null) {
             return false;
         }
-        if (itemId == R.id.action_export) {
+        if (itemId == C0130R.C0132id.action_export) {
             if (this.mList.isEmpty()) {
-                Utils.showToastLong(requireContext(), R.string.no_rules_to_export, new Object[0]);
+                Utils.showToastLong(requireContext(), C0130R.string.no_rules_to_export, new Object[0]);
             } else {
                 startExport();
             }
             return true;
-        } else if (itemId == R.id.action_import) {
+        } else if (itemId == C0130R.C0132id.action_import) {
             startImport();
             return true;
-        } else if (itemId == R.id.copy_to_clipboard) {
+        } else if (itemId == C0130R.C0132id.copy_to_clipboard) {
             Utils.copyToClipboard(requireContext(), Utils.adapter2Text((ListEditAdapter) listView.getAdapter()));
             return true;
-        } else if (itemId == R.id.share) {
+        } else if (itemId == C0130R.C0132id.share) {
             Utils.shareText(requireContext(), getString(this.mListInfo.getTitle()), Utils.adapter2Text((ListEditAdapter) listView.getAdapter()));
             return true;
-        } else if (itemId == R.id.show_hint) {
+        } else if (itemId == C0130R.C0132id.show_hint) {
             Utils.showHelpDialog(requireContext(), this.mListInfo.getHelpString());
             return true;
-        } else if (itemId == R.id.add_ip) {
+        } else if (itemId == C0130R.C0132id.add_ip) {
             showAddIpRule();
             return true;
-        } else if (itemId == R.id.add_proto) {
+        } else if (itemId == C0130R.C0132id.add_proto) {
             showAddProtoRule();
             return true;
-        } else if (itemId == R.id.add_host) {
+        } else if (itemId == C0130R.C0132id.add_host) {
             showAddHostRule();
             return true;
-        } else if (itemId == R.id.add_app) {
+        } else if (itemId == C0130R.C0132id.add_app) {
             showAddAppRule();
             return true;
-        } else if (itemId != R.id.add_country) {
+        } else if (itemId != C0130R.C0132id.add_country) {
             return false;
         } else {
             showAddCountryRule();
@@ -579,9 +579,9 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(View view, Bundle bundle) {
-        this.mListView = (ListView) view.findViewById(R.id.listview);
-        this.mEmptyText = (TextView) view.findViewById(R.id.list_empty);
-        view.findViewById(R.id.simple_list).setFitsSystemWindows(true);
+        this.mListView = (ListView) view.findViewById(C0130R.C0132id.listview);
+        this.mEmptyText = (TextView) view.findViewById(C0130R.C0132id.list_empty);
+        view.findViewById(C0130R.C0132id.simple_list).setFitsSystemWindows(true);
         ListInfo listInfo = new ListInfo((ListInfo.Type) Utils.getSerializable(getArguments(), "list_type", ListInfo.Type.class));
         this.mListInfo = listInfo;
         MatchList list = listInfo.getList();
@@ -599,11 +599,11 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
             @Override // android.view.ActionMode.Callback
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
-                if (itemId == R.id.delete_entry) {
+                if (itemId == C0130R.C0132id.delete_entry) {
                     EditListFragment.this.confirmDelete(actionMode);
                     return true;
                 }
-                if (itemId != R.id.select_all) {
+                if (itemId != C0130R.C0132id.select_all) {
                     return false;
                 }
                 if (EditListFragment.this.mSelected.size() >= EditListFragment.this.mAdapter.getCount()) {
@@ -620,7 +620,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
             @Override // android.view.ActionMode.Callback
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                EditListFragment.this.requireActivity().getMenuInflater().inflate(R.menu.list_edit_cab, menu);
+                EditListFragment.this.requireActivity().getMenuInflater().inflate(C0130R.C0134menu.list_edit_cab, menu);
                 EditListFragment.this.mActionMode = actionMode;
                 return true;
             }
@@ -640,7 +640,7 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
                     EditListFragment.this.mSelected.remove(rule);
                 }
                 EditListFragment editListFragment = EditListFragment.this;
-                actionMode.setTitle(editListFragment.getString(R.string.n_selected, Integer.valueOf(editListFragment.mSelected.size())));
+                actionMode.setTitle(editListFragment.getString(C0130R.string.n_selected, Integer.valueOf(editListFragment.mSelected.size())));
             }
 
             @Override // android.view.ActionMode.Callback

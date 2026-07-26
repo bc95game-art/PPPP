@@ -24,7 +24,7 @@ public final class JsonArray extends JsonElement implements Iterable {
         if (size == 1) {
             return ((JsonElement) arrayList.get(0)).getAsString();
         }
-        throw new IllegalStateException(ViewModelProvider.Factory.CC.m(size, "Array must have size 1, but has size "));
+        throw new IllegalStateException(ViewModelProvider.Factory.CC.m604m(size, "Array must have size 1, but has size "));
     }
 
     public final int hashCode() {

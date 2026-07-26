@@ -25,7 +25,7 @@ public final class zzgp implements zzgv {
             int zzC2 = zzem.zzC(zzhiVar.zzc[i3] >>> 3) + zzem.zzC(16);
             int zzC3 = zzem.zzC(24);
             int zzd = ((zzeg) zzhiVar.zzd[i3]).zzd();
-            i2 += zzC + zzC + zzC2 + ViewModelProvider.Factory.CC.m(zzd, zzd, zzC3);
+            i2 += zzC + zzC + zzC2 + ViewModelProvider.Factory.CC.m607m(zzd, zzd, zzC3);
         }
         zzhiVar.zze = i2;
         return i2;

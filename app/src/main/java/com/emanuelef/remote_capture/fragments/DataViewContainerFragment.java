@@ -1,5 +1,6 @@
 package com.emanuelef.remote_capture.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -7,14 +8,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.BackStackRecord;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
+import com.emanuelef.remote_capture.Utils;
+import com.emanuelef.remote_capture.model.FilterDescriptor;
 import com.google.android.material.tabs.TabLayout;
 /* loaded from: classes.dex */
 public class DataViewContainerFragment extends Fragment implements MenuProvider {
@@ -51,21 +54,21 @@ public class DataViewContainerFragment extends Fragment implements MenuProvider 
         TabLayout.Tab tabAt;
         int i2;
         FragmentActivity requireActivity = requireActivity();
-        TabLayout tabLayout = (TabLayout) requireActivity.findViewById(R.id.tablayout);
+        TabLayout tabLayout = (TabLayout) requireActivity.findViewById(C0130R.C0132id.tablayout);
         if (!(tabLayout == null || (tabAt = tabLayout.getTabAt(1)) == null)) {
             if (this.mCurrentView == 0) {
-                i2 = R.string.connections_view;
+                i2 = C0130R.string.connections_view;
             } else {
-                i2 = R.string.http_requests;
+                i2 = C0130R.string.http_requests;
             }
             tabAt.setText(getString(i2));
         }
-        View findViewById = requireActivity.findViewById(R.id.tab_switch_button);
+        View findViewById = requireActivity.findViewById(C0130R.C0132id.tab_switch_button);
         if (findViewById != null) {
             if (this.mCurrentView == 0) {
-                i = R.string.switch_to_http;
+                i = C0130R.string.switch_to_http;
             } else {
-                i = R.string.switch_to_connections;
+                i = C0130R.string.switch_to_connections;
             }
             String string = getString(i);
             findViewById.setContentDescription(string);
@@ -115,7 +118,7 @@ public class DataViewContainerFragment extends Fragment implements MenuProvider 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.data_view_container, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.data_view_container, viewGroup, false);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -156,91 +159,63 @@ public class DataViewContainerFragment extends Fragment implements MenuProvider 
     @Override // androidx.fragment.app.Fragment
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public void onViewCreated(android.view.View r8, android.os.Bundle r9) {
-        /*
-            r7 = this;
-            super.onViewCreated(r8, r9)
-            androidx.fragment.app.FragmentManager r8 = r7.getChildFragmentManager()
-            java.lang.String r9 = "connections"
-            androidx.fragment.app.Fragment r0 = r8.findFragmentByTag(r9)
-            r7.mConnectionsFragment = r0
-            java.lang.String r0 = "http_log"
-            androidx.fragment.app.Fragment r1 = r8.findFragmentByTag(r0)
-            r7.mHttpLogFragment = r1
-            androidx.fragment.app.FragmentActivity r1 = r7.requireActivity()
-            android.content.Intent r1 = r1.getIntent()
-            if (r1 == 0) goto L5a
-            java.lang.Class<com.emanuelef.remote_capture.model.FilterDescriptor> r2 = com.emanuelef.remote_capture.model.FilterDescriptor.class
-            java.lang.String r3 = "filter"
-            java.io.Serializable r2 = com.emanuelef.remote_capture.Utils.getSerializableExtra(r1, r3, r2)
-            com.emanuelef.remote_capture.model.FilterDescriptor r2 = (com.emanuelef.remote_capture.model.FilterDescriptor) r2
-            java.lang.String r4 = "query"
-            java.lang.String r5 = r1.getStringExtra(r4)
-            if (r2 != 0) goto L3b
-            if (r5 == 0) goto L5a
-            boolean r6 = r5.isEmpty()
-            if (r6 != 0) goto L5a
-        L3b:
-            r6 = 0
-            r7.mCurrentView = r6
-            android.os.Bundle r6 = new android.os.Bundle
-            r6.<init>()
-            if (r2 == 0) goto L48
-            r6.putSerializable(r3, r2)
-        L48:
-            if (r5 == 0) goto L53
-            boolean r2 = r5.isEmpty()
-            if (r2 != 0) goto L53
-            r6.putString(r4, r5)
-        L53:
-            r1.removeExtra(r3)
-            r1.removeExtra(r4)
-            goto L5b
-        L5a:
-            r6 = 0
-        L5b:
-            androidx.fragment.app.BackStackRecord r1 = new androidx.fragment.app.BackStackRecord
-            r1.<init>(r8)
-            androidx.fragment.app.Fragment r8 = r7.mConnectionsFragment
-            r2 = 1
-            r3 = 2131361979(0x7f0a00bb, float:1.8343726E38)
-            if (r8 != 0) goto L79
-            com.emanuelef.remote_capture.fragments.ConnectionsFragment r8 = new com.emanuelef.remote_capture.fragments.ConnectionsFragment
-            r8.<init>()
-            r7.mConnectionsFragment = r8
-            if (r6 == 0) goto L74
-            r8.setArguments(r6)
-        L74:
-            androidx.fragment.app.Fragment r8 = r7.mConnectionsFragment
-            r1.doAddOp(r3, r8, r9, r2)
-        L79:
-            androidx.fragment.app.Fragment r8 = r7.mHttpLogFragment
-            if (r8 != 0) goto L87
-            com.emanuelef.remote_capture.fragments.HttpLogFragment r8 = new com.emanuelef.remote_capture.fragments.HttpLogFragment
-            r8.<init>()
-            r7.mHttpLogFragment = r8
-            r1.doAddOp(r3, r8, r0, r2)
-        L87:
-            int r8 = r7.mCurrentView
-            if (r8 != 0) goto L96
-            androidx.fragment.app.Fragment r8 = r7.mConnectionsFragment
-            r1.show(r8)
-            androidx.fragment.app.Fragment r8 = r7.mHttpLogFragment
-            r1.hide(r8)
-            goto La0
-        L96:
-            androidx.fragment.app.Fragment r8 = r7.mHttpLogFragment
-            r1.show(r8)
-            androidx.fragment.app.Fragment r8 = r7.mConnectionsFragment
-            r1.hide(r8)
-        La0:
-            r1.commit()
-            r7.updateTabTitle()
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.fragments.DataViewContainerFragment.onViewCreated(android.view.View, android.os.Bundle):void");
+    public void onViewCreated(View view, Bundle bundle) {
+        Bundle bundle2;
+        super.onViewCreated(view, bundle);
+        FragmentManager childFragmentManager = getChildFragmentManager();
+        this.mConnectionsFragment = childFragmentManager.findFragmentByTag("connections");
+        this.mHttpLogFragment = childFragmentManager.findFragmentByTag("http_log");
+        Intent intent = requireActivity().getIntent();
+        if (intent != null) {
+            FilterDescriptor filterDescriptor = (FilterDescriptor) Utils.getSerializableExtra(intent, "filter", FilterDescriptor.class);
+            String stringExtra = intent.getStringExtra(ConnectionsFragment.QUERY_EXTRA);
+            if (filterDescriptor != null || (stringExtra != null && !stringExtra.isEmpty())) {
+                this.mCurrentView = 0;
+                bundle2 = new Bundle();
+                if (filterDescriptor != null) {
+                    bundle2.putSerializable("filter", filterDescriptor);
+                }
+                if (stringExtra != null && !stringExtra.isEmpty()) {
+                    bundle2.putString(ConnectionsFragment.QUERY_EXTRA, stringExtra);
+                }
+                intent.removeExtra("filter");
+                intent.removeExtra(ConnectionsFragment.QUERY_EXTRA);
+                BackStackRecord backStackRecord = new BackStackRecord(childFragmentManager);
+                if (this.mConnectionsFragment == null) {
+                    ConnectionsFragment connectionsFragment = new ConnectionsFragment();
+                    this.mConnectionsFragment = connectionsFragment;
+                    if (bundle2 != null) {
+                        connectionsFragment.setArguments(bundle2);
+                    }
+                    backStackRecord.doAddOp(C0130R.C0132id.child_fragment_container, this.mConnectionsFragment, "connections", 1);
+                }
+                if (this.mHttpLogFragment == null) {
+                    HttpLogFragment httpLogFragment = new HttpLogFragment();
+                    this.mHttpLogFragment = httpLogFragment;
+                    backStackRecord.doAddOp(C0130R.C0132id.child_fragment_container, httpLogFragment, "http_log", 1);
+                }
+                if (this.mCurrentView != 0) {
+                    backStackRecord.show(this.mConnectionsFragment);
+                    backStackRecord.hide(this.mHttpLogFragment);
+                } else {
+                    backStackRecord.show(this.mHttpLogFragment);
+                    backStackRecord.hide(this.mConnectionsFragment);
+                }
+                backStackRecord.commit();
+                updateTabTitle();
+            }
+        }
+        bundle2 = null;
+        BackStackRecord backStackRecord2 = new BackStackRecord(childFragmentManager);
+        if (this.mConnectionsFragment == null) {
+        }
+        if (this.mHttpLogFragment == null) {
+        }
+        if (this.mCurrentView != 0) {
+        }
+        backStackRecord2.commit();
+        updateTabTitle();
     }
 
     public void toggleView() {

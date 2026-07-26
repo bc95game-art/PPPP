@@ -11,8 +11,8 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.collection.ArraySet;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.model.AppDescriptor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,10 +44,10 @@ public class AppsTogglesAdapter extends RecyclerView.Adapter {
 
         public AppViewHolder(View view) {
             super(view);
-            this.appName = (TextView) view.findViewById(R.id.app_name);
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.packageName = (TextView) view.findViewById(R.id.app_package);
-            this.toggle = (SwitchCompat) view.findViewById(R.id.toggle_btn);
+            this.appName = (TextView) view.findViewById(C0130R.C0132id.app_name);
+            this.icon = (ImageView) view.findViewById(C0130R.C0132id.icon);
+            this.packageName = (TextView) view.findViewById(C0130R.C0132id.app_package);
+            this.toggle = (SwitchCompat) view.findViewById(C0130R.C0132id.toggle_btn);
         }
     }
 
@@ -106,7 +106,7 @@ public class AppsTogglesAdapter extends RecyclerView.Adapter {
                 if (i2 > i) {
                     i2--;
                 }
-                StringBuilder m = ViewModelProvider.Factory.CC.m("Item @", i, ": ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m598m("Item @", i, ": ");
                 if (z) {
                     str = "checked";
                 } else {
@@ -115,7 +115,7 @@ public class AppsTogglesAdapter extends RecyclerView.Adapter {
                 m.append(str);
                 m.append(" -> ");
                 m.append(i2);
-                Log.d(TAG, m.toString());
+                Log.m587d(TAG, m.toString());
                 notifyItemChanged(i);
                 if (i2 != i) {
                     apps.remove(i);
@@ -230,7 +230,7 @@ public class AppsTogglesAdapter extends RecyclerView.Adapter {
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public AppViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View inflate = this.mLayoutInflater.inflate(R.layout.app_selection_item, viewGroup, false);
+        View inflate = this.mLayoutInflater.inflate(C0130R.layout.app_selection_item, viewGroup, false);
         final AppViewHolder appViewHolder = new AppViewHolder(inflate);
         inflate.setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.adapters.AppsTogglesAdapter$$ExternalSyntheticLambda1
             public final /* synthetic */ AppsTogglesAdapter f$0;

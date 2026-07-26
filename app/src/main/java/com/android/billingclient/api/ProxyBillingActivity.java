@@ -49,14 +49,98 @@ public class ProxyBillingActivity extends Activity {
     @Override // android.app.Activity
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final void onActivityResult(int r8, int r9, android.content.Intent r10) {
-        /*
-            Method dump skipped, instructions count: 297
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.android.billingclient.api.ProxyBillingActivity.onActivityResult(int, int, android.content.Intent):void");
+    public final void onActivityResult(int i, int i2, Intent intent) {
+        Intent intent2;
+        int i3;
+        int i4;
+        ResultReceiver resultReceiver;
+        Bundle bundle;
+        super.onActivityResult(i, i2, intent);
+        if (i == 100 || i == 110) {
+            int i5 = zzc.zzh(intent, "ProxyBillingActivity").zza;
+            if (i2 == -1) {
+                if (i5 != 0) {
+                    i2 = -1;
+                } else {
+                    i2 = -1;
+                    if (intent != null) {
+                        zzc.zzn("ProxyBillingActivity", "Got null data with resultCode " + i2 + "!");
+                        if (i2 == -1) {
+                            i3 = 113;
+                        } else if (i2 == 0) {
+                            i3 = 114;
+                        } else if (i2 == 3) {
+                            i3 = 115;
+                        } else if (i2 == 4) {
+                            i3 = 116;
+                        } else if (i2 != 5) {
+                            i3 = 117;
+                        } else {
+                            i3 = 118;
+                        }
+                        intent2 = makePurchaseUpdatedIntentWithInternalErrorReason(i3, this.billingClientTransactionId);
+                    } else if (intent.getExtras() != null) {
+                        String string = intent.getExtras().getString("ALTERNATIVE_BILLING_USER_CHOICE_DATA");
+                        if (string != null) {
+                            intent2 = new Intent("com.android.vending.billing.ALTERNATIVE_BILLING");
+                            intent2.setPackage(getApplicationContext().getPackageName());
+                            intent2.putExtra("ALTERNATIVE_BILLING_USER_CHOICE_DATA", string);
+                            intent2.putExtra("INTENT_SOURCE", "LAUNCH_BILLING_FLOW");
+                        } else {
+                            Intent makePurchasesUpdatedIntent = makePurchasesUpdatedIntent();
+                            makePurchasesUpdatedIntent.putExtras(intent.getExtras());
+                            makePurchasesUpdatedIntent.putExtra("INTENT_SOURCE", "LAUNCH_BILLING_FLOW");
+                            intent2 = makePurchasesUpdatedIntent;
+                        }
+                        intent2.putExtra("billingClientTransactionId", this.billingClientTransactionId);
+                        intent2.putExtra("wasServiceAutoReconnected", this.wasServiceAutoReconnected);
+                    } else {
+                        zzc.zzn("ProxyBillingActivity", "Got null bundle!");
+                        intent2 = makePurchaseUpdatedIntentWithInternalErrorReason(22, this.billingClientTransactionId);
+                    }
+                    if (i == 110) {
+                        intent2.putExtra("IS_FIRST_PARTY_PURCHASE", true);
+                    }
+                    sendBroadcast(intent2);
+                }
+            }
+            zzc.zzn("ProxyBillingActivity", "Activity finished with resultCode " + i2 + " and billing's responseCode: " + i5);
+            if (intent != null) {
+            }
+            if (i == 110) {
+            }
+            sendBroadcast(intent2);
+        } else if (i == 101) {
+            if (intent == null) {
+                zzc.zzn("ProxyBillingActivity", "Got null intent!");
+            } else {
+                int i6 = zzc.zza;
+                Bundle extras = intent.getExtras();
+                if (extras == null) {
+                    zzc.zzn("ProxyBillingActivity", "Unexpected null bundle received!");
+                } else {
+                    i4 = extras.getInt("IN_APP_MESSAGE_RESPONSE_CODE", 0);
+                    resultReceiver = this.inAppMessageResultReceiver;
+                    if (resultReceiver != null) {
+                        if (intent == null) {
+                            bundle = null;
+                        } else {
+                            bundle = intent.getExtras();
+                        }
+                        resultReceiver.send(i4, bundle);
+                    }
+                }
+            }
+            i4 = 0;
+            resultReceiver = this.inAppMessageResultReceiver;
+            if (resultReceiver != null) {
+            }
+        } else {
+            zzc.zzn("ProxyBillingActivity", "Got onActivityResult with wrong requestCode: " + i + "; skipping...");
+        }
+        this.sendCancelledBroadcastIfFinished = false;
+        finish();
     }
 
     @Override // android.app.Activity

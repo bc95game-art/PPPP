@@ -9,7 +9,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import androidx.core.view.inputmethod.InputConnectionCompat$$ExternalSyntheticLambda0;
 import androidx.dynamicanimation.animation.SpringForce;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.ripple.RippleUtils;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
@@ -109,7 +109,7 @@ public final class MaterialButtonHelper {
         materialShapeDrawable2.setTint(0);
         float f = this.strokeWidth;
         if (this.shouldDrawSurfaceColorStroke) {
-            i = LazyKt__LazyJVMKt.getColor(R.attr.colorSurface, materialButton);
+            i = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorSurface, materialButton);
         } else {
             i = 0;
         }
@@ -214,7 +214,7 @@ public final class MaterialButtonHelper {
             if (materialShapeDrawable2 != null) {
                 float f = this.strokeWidth;
                 if (this.shouldDrawSurfaceColorStroke) {
-                    i = LazyKt__LazyJVMKt.getColor(R.attr.colorSurface, this.materialButton);
+                    i = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorSurface, this.materialButton);
                 }
                 materialShapeDrawable2.drawableState.strokeWidth = f;
                 materialShapeDrawable2.invalidateSelf();

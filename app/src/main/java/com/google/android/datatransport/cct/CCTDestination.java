@@ -3,12 +3,12 @@ package com.google.android.datatransport.cct;
 import androidx.navigation.Navigation;
 import com.google.android.datatransport.Encoding;
 import com.google.android.datatransport.runtime.EncodedDestination;
-import j$.util.DesugarCollections;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
+import p004j$.util.DesugarCollections;
 /* loaded from: classes.dex */
 public final class CCTDestination implements EncodedDestination {
     public static final String DEFAULT_END_POINT;

@@ -1,7 +1,7 @@
 package com.google.android.gms.common.api.internal;
 
 import android.os.Trace;
-import androidx.core.os.TraceCompat;
+import androidx.core.p002os.TraceCompat;
 import androidx.emoji2.text.EmojiCompat;
 import java.lang.reflect.Method;
 /* loaded from: classes.dex */

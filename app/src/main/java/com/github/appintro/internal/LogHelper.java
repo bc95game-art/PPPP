@@ -20,13 +20,15 @@ public final class LogHelper {
         return substring;
     }
 
-    public static final int d(String tag, String message) {
+    /* renamed from: d */
+    public static final int m577d(String tag, String message) {
         Intrinsics.checkNotNullParameter(tag, "tag");
         Intrinsics.checkNotNullParameter(message, "message");
         return Log.d(tag, message);
     }
 
-    public static final void e(String tag, String message) {
+    /* renamed from: e */
+    public static final void m576e(String tag, String message) {
         Intrinsics.checkNotNullParameter(tag, "tag");
         Intrinsics.checkNotNullParameter(message, "message");
         e$default(tag, message, null, 4, null);
@@ -36,10 +38,11 @@ public final class LogHelper {
         if ((i & 4) != 0) {
             th = null;
         }
-        e(str, str2, th);
+        m575e(str, str2, th);
     }
 
-    public static final int i(String tag, String message) {
+    /* renamed from: i */
+    public static final int m574i(String tag, String message) {
         Intrinsics.checkNotNullParameter(tag, "tag");
         Intrinsics.checkNotNullParameter(message, "message");
         return Log.i(tag, message);
@@ -50,13 +53,15 @@ public final class LogHelper {
         return Intrinsics.stringPlus(INSTANCE.cutTagLength(cls.getSimpleName(), 18), "Log: ");
     }
 
-    public static final int v(String tag, String message) {
+    /* renamed from: v */
+    public static final int m573v(String tag, String message) {
         Intrinsics.checkNotNullParameter(tag, "tag");
         Intrinsics.checkNotNullParameter(message, "message");
         return Log.v(tag, message);
     }
 
-    public static final void w(String tag, String message) {
+    /* renamed from: w */
+    public static final void m572w(String tag, String message) {
         Intrinsics.checkNotNullParameter(tag, "tag");
         Intrinsics.checkNotNullParameter(message, "message");
         w$default(tag, message, null, 4, null);
@@ -66,7 +71,7 @@ public final class LogHelper {
         if ((i & 4) != 0) {
             th = null;
         }
-        w(str, str2, th);
+        m571w(str, str2, th);
     }
 
     public static final void wtf(String tag, String message) {
@@ -82,13 +87,15 @@ public final class LogHelper {
         wtf(str, str2, th);
     }
 
-    public static final void e(String tag, String message, Throwable th) {
+    /* renamed from: e */
+    public static final void m575e(String tag, String message, Throwable th) {
         Intrinsics.checkNotNullParameter(tag, "tag");
         Intrinsics.checkNotNullParameter(message, "message");
         Log.e(tag, message, th);
     }
 
-    public static final void w(String tag, String message, Throwable th) {
+    /* renamed from: w */
+    public static final void m571w(String tag, String message, Throwable th) {
         Intrinsics.checkNotNullParameter(tag, "tag");
         Intrinsics.checkNotNullParameter(message, "message");
         Log.w(tag, message, th);

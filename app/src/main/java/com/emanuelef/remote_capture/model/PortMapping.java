@@ -9,9 +9,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
-import j$.util.Objects;
 import java.util.ArrayList;
 import java.util.Iterator;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class PortMapping {
     private static final String TAG = "PortMappings";

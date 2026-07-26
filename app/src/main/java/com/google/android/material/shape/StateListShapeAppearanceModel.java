@@ -7,12 +7,12 @@ import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
 import android.util.StateSet;
 import android.util.Xml;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.shape.ShapeAppearanceModel;
-import j$.util.Objects;
 import java.io.IOException;
 import org.xmlpull.v1.XmlPullParserException;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class StateListShapeAppearanceModel {
     public final StateListCornerSize bottomLeftCornerSizeOverride;
@@ -105,7 +105,7 @@ public final class StateListShapeAppearanceModel {
                     int i = 0;
                     for (int i2 = 0; i2 < attributeCount; i2++) {
                         int attributeNameResource = attributeSet.getAttributeNameResource(i2);
-                        if (!(attributeNameResource == R.attr.shapeAppearance || attributeNameResource == R.attr.shapeAppearanceOverlay)) {
+                        if (!(attributeNameResource == C0130R.attr.shapeAppearance || attributeNameResource == C0130R.attr.shapeAppearanceOverlay)) {
                             int i3 = i + 1;
                             if (!attributeSet.getAttributeBooleanValue(i2, false)) {
                                 attributeNameResource = -attributeNameResource;

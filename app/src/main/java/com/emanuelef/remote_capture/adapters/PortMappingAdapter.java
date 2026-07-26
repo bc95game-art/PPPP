@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.PortMapping;
 import java.util.Iterator;
@@ -17,7 +17,7 @@ public class PortMappingAdapter extends ArrayAdapter<PortMapping.PortMap> {
     private final PortMapping mMappings;
 
     public PortMappingAdapter(Context context, PortMapping portMapping) {
-        super(context, R.layout.port_mapping_item);
+        super(context, C0130R.layout.port_mapping_item);
         this.mLayoutInflater = (LayoutInflater) context.getSystemService("layout_inflater");
         this.mMappings = portMapping;
         reload();
@@ -27,13 +27,13 @@ public class PortMappingAdapter extends ArrayAdapter<PortMapping.PortMap> {
     @SuppressLint({"SetTextI18n"})
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = this.mLayoutInflater.inflate(R.layout.port_mapping_item, viewGroup, false);
+            view = this.mLayoutInflater.inflate(C0130R.layout.port_mapping_item, viewGroup, false);
         }
         PortMapping.PortMap portMap = (PortMapping.PortMap) getItem(i);
-        String string = getContext().getString(R.string.ip_and_port, portMap.redirect_host, Integer.valueOf(portMap.redirect_port));
-        ((TextView) view.findViewById(R.id.orig_port)).setText(Integer.toString(portMap.orig_port));
-        ((TextView) view.findViewById(R.id.proto)).setText(Utils.proto2str(portMap.ipproto));
-        ((TextView) view.findViewById(R.id.redirect_to)).setText(string);
+        String string = getContext().getString(C0130R.string.ip_and_port, portMap.redirect_host, Integer.valueOf(portMap.redirect_port));
+        ((TextView) view.findViewById(C0130R.C0132id.orig_port)).setText(Integer.toString(portMap.orig_port));
+        ((TextView) view.findViewById(C0130R.C0132id.proto)).setText(Utils.proto2str(portMap.ipproto));
+        ((TextView) view.findViewById(C0130R.C0132id.redirect_to)).setText(string);
         return view;
     }
 

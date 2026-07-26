@@ -8,11 +8,11 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.collection.SimpleArrayMap;
-import androidx.core.os.ConfigurationCompat$Api24Impl;
-import androidx.core.os.LocaleListCompat;
-import androidx.core.os.LocaleListPlatformWrapper;
+import androidx.core.p002os.ConfigurationCompat$Api24Impl;
+import androidx.core.p002os.LocaleListCompat;
+import androidx.core.p002os.LocaleListPlatformWrapper;
 import androidx.navigation.Navigation;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.wrappers.Wrappers;
 import java.util.Locale;
@@ -40,11 +40,11 @@ public abstract class zac {
         Resources resources = context.getResources();
         String zaa2 = zaa(context);
         if (i == 1) {
-            return resources.getString(R.string.common_google_play_services_install_text, zaa2);
+            return resources.getString(C0130R.string.common_google_play_services_install_text, zaa2);
         }
         if (i != 2) {
             if (i == 3) {
-                return resources.getString(R.string.common_google_play_services_enable_text, zaa2);
+                return resources.getString(C0130R.string.common_google_play_services_enable_text, zaa2);
             }
             if (i == 5) {
                 return zag(context, "common_google_play_services_invalid_account_text", zaa2);
@@ -53,7 +53,7 @@ public abstract class zac {
                 return zag(context, "common_google_play_services_network_error_text", zaa2);
             }
             if (i == 9) {
-                return resources.getString(R.string.common_google_play_services_unsupported_text, zaa2);
+                return resources.getString(C0130R.string.common_google_play_services_unsupported_text, zaa2);
             }
             if (i == 20) {
                 return zag(context, "common_google_play_services_restricted_profile_text", zaa2);
@@ -64,14 +64,14 @@ public abstract class zac {
                 case 17:
                     return zag(context, "common_google_play_services_sign_in_failed_text", zaa2);
                 case 18:
-                    return resources.getString(R.string.common_google_play_services_updating_text, zaa2);
+                    return resources.getString(C0130R.string.common_google_play_services_updating_text, zaa2);
                 default:
-                    return resources.getString(R.string.common_google_play_services_unknown_issue, zaa2);
+                    return resources.getString(C0130R.string.common_google_play_services_unknown_issue, zaa2);
             }
         } else if (Navigation.isWearableWithoutPlayStore(context)) {
-            return resources.getString(R.string.common_google_play_services_wear_update_text);
+            return resources.getString(C0130R.string.common_google_play_services_wear_update_text);
         } else {
-            return resources.getString(R.string.common_google_play_services_update_text, zaa2);
+            return resources.getString(C0130R.string.common_google_play_services_update_text, zaa2);
         }
     }
 
@@ -79,11 +79,11 @@ public abstract class zac {
         Resources resources = context.getResources();
         switch (i) {
             case 1:
-                return resources.getString(R.string.common_google_play_services_install_title);
+                return resources.getString(C0130R.string.common_google_play_services_install_title);
             case 2:
-                return resources.getString(R.string.common_google_play_services_update_title);
+                return resources.getString(C0130R.string.common_google_play_services_update_title);
             case 3:
-                return resources.getString(R.string.common_google_play_services_enable_title);
+                return resources.getString(C0130R.string.common_google_play_services_enable_title);
             case 4:
             case 6:
             case 18:
@@ -130,7 +130,7 @@ public abstract class zac {
         Resources resources = context.getResources();
         String zah = zah(context, str);
         if (zah == null) {
-            zah = resources.getString(R.string.common_google_play_services_unknown_issue);
+            zah = resources.getString(C0130R.string.common_google_play_services_unknown_issue);
         }
         return String.format(resources.getConfiguration().locale, zah, str2);
     }

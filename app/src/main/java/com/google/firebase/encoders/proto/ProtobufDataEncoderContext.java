@@ -6,7 +6,6 @@ import com.google.firebase.encoders.ObjectEncoder;
 import com.google.firebase.encoders.ObjectEncoderContext;
 import com.google.firebase.encoders.ValueEncoder;
 import com.google.firebase.encoders.json.JsonDataEncoderBuilder$$ExternalSyntheticLambda0;
-import j$.util.DesugarCollections;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
@@ -16,6 +15,7 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import p004j$.util.DesugarCollections;
 /* loaded from: classes.dex */
 public final class ProtobufDataEncoderContext implements ObjectEncoderContext {
     public static final FieldDescriptor MAP_KEY_DESC;

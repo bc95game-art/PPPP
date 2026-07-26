@@ -9,8 +9,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.AppOverview;
 import com.emanuelef.remote_capture.fragments.ConnectionsFragment;
@@ -49,7 +49,7 @@ public class AppDetailsActivity extends BaseActivity {
         }
 
         public int getPageTitle(int i) {
-            return i != 1 ? R.string.overview : R.string.connections_view;
+            return i != 1 ? C0130R.string.overview : C0130R.string.connections_view;
         }
     }
 
@@ -60,7 +60,7 @@ public class AppDetailsActivity extends BaseActivity {
     private void setupTabs() {
         StateAdapter stateAdapter = new StateAdapter(this);
         this.mPager.setAdapter(stateAdapter);
-        new zzw((TabLayout) findViewById(R.id.tablayout), this.mPager, new CaptureCtrl$$ExternalSyntheticLambda0(this, stateAdapter, 1)).attach();
+        new zzw((TabLayout) findViewById(C0130R.C0132id.tablayout), this.mPager, new CaptureCtrl$$ExternalSyntheticLambda0(this, stateAdapter, 1)).attach();
     }
 
     private void setupUidFilter() {
@@ -77,12 +77,12 @@ public class AppDetailsActivity extends BaseActivity {
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.app_details);
+        setTitle(C0130R.string.app_details);
         displayBackAction();
-        setContentView(R.layout.tabs_activity);
+        setContentView(C0130R.layout.tabs_activity);
         this.mUid = getIntent().getIntExtra(APP_UID_EXTRA, -1);
         setupUidFilter();
-        ViewPager2 viewPager2 = (ViewPager2) findViewById(R.id.pager);
+        ViewPager2 viewPager2 = (ViewPager2) findViewById(C0130R.C0132id.pager);
         this.mPager = viewPager2;
         Utils.fixViewPager2Insets(viewPager2);
         setupTabs();
@@ -93,14 +93,14 @@ public class AppDetailsActivity extends BaseActivity {
         View view;
         if (i == 20) {
             View currentFocus = getCurrentFocus();
-            Log.d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
+            Log.m587d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
             if (currentFocus instanceof TabLayout.TabView) {
                 int currentItem = this.mPager.getCurrentItem();
-                Log.d(TAG, "TabLayout.TabView focus pos " + currentItem);
+                Log.m587d(TAG, "TabLayout.TabView focus pos " + currentItem);
                 if (currentItem == 0) {
-                    view = findViewById(R.id.app_overview);
+                    view = findViewById(C0130R.C0132id.app_overview);
                 } else if (currentItem == 1) {
-                    view = findViewById(R.id.connections);
+                    view = findViewById(C0130R.C0132id.connections);
                 } else {
                     view = null;
                 }
@@ -110,10 +110,10 @@ public class AppDetailsActivity extends BaseActivity {
                 }
             }
         } else if (i == 22 && this.mPager.getCurrentItem() == 1) {
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.connections_view);
+            RecyclerView recyclerView = (RecyclerView) findViewById(C0130R.C0132id.connections_view);
             if (recyclerView.getFocusedChild() != null) {
-                Log.d(TAG, "onKeyDown (right) focus " + recyclerView.getFocusedChild());
-                View findViewById = findViewById(R.id.fabDown);
+                Log.m587d(TAG, "onKeyDown (right) focus " + recyclerView.getFocusedChild());
+                View findViewById = findViewById(C0130R.C0132id.fabDown);
                 if (findViewById != null) {
                     findViewById.requestFocus();
                     return true;

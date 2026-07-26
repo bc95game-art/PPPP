@@ -11,9 +11,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.util.SparseIntArray;
 import androidx.collection.ArrayMap;
 import androidx.collection.ArraySet;
 import androidx.navigation.Navigation;
+import androidx.transition.Transition;
 import com.android.billingclient.api.zzcl;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Feature;
@@ -33,7 +35,6 @@ import com.google.android.gms.common.wrappers.InstantApps;
 import com.google.android.gms.internal.base.zap;
 import com.google.android.gms.internal.base.zau;
 import com.google.android.gms.internal.common.zzd;
-import j$.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -42,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import p004j$.util.concurrent.ConcurrentHashMap;
 /* loaded from: classes.dex */
 public final class GoogleApiManager implements Handler.Callback {
     public static final Status zaa = new Status(4, "Sign-out occurred while this API call was in progress.", null, null);
@@ -428,66 +430,36 @@ public final class GoogleApiManager implements Handler.Callback {
     /* JADX WARN: Type inference failed for: r2v0, types: [com.google.android.gms.common.internal.service.zao, com.google.android.gms.common.api.GoogleApi] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public final void zaI() {
-        /*
-            r5 = this;
-            com.google.android.gms.common.internal.TelemetryData r0 = r5.zag
-            if (r0 == 0) goto L53
-            int r1 = r0.zaa
-            if (r1 > 0) goto L3a
-            boolean r1 = r5.zaf
-            if (r1 == 0) goto Ld
-            goto L50
-        Ld:
-            java.lang.Class<androidx.transition.Transition$1> r1 = androidx.transition.Transition.AnonymousClass1.class
-            monitor-enter(r1)
-            androidx.transition.Transition$1 r2 = androidx.transition.Transition.AnonymousClass1.zza     // Catch: java.lang.Throwable -> L1d
-            if (r2 != 0) goto L1f
-            androidx.transition.Transition$1 r2 = new androidx.transition.Transition$1     // Catch: java.lang.Throwable -> L1d
-            r3 = 1
-            r2.<init>(r3)     // Catch: java.lang.Throwable -> L1d
-            androidx.transition.Transition.AnonymousClass1.zza = r2     // Catch: java.lang.Throwable -> L1d
-            goto L1f
-        L1d:
-            r0 = move-exception
-            goto L38
-        L1f:
-            androidx.transition.Transition$1 r2 = androidx.transition.Transition.AnonymousClass1.zza     // Catch: java.lang.Throwable -> L1d
-            monitor-exit(r1)
-            r2.getClass()
-            com.android.billingclient.api.zzcl r1 = r5.zak
-            java.lang.Object r1 = r1.zzb
-            android.util.SparseIntArray r1 = (android.util.SparseIntArray) r1
-            r2 = 203400000(0xc1fa340, float:1.2298041E-31)
-            r3 = -1
-            int r1 = r1.get(r2, r3)
-            if (r1 == r3) goto L3a
-            if (r1 != 0) goto L50
-            goto L3a
-        L38:
-            monitor-exit(r1)     // Catch: java.lang.Throwable -> L1d
-            throw r0
-        L3a:
-            com.google.android.gms.common.internal.service.zao r1 = r5.zah
-            if (r1 != 0) goto L4b
-            android.content.Context r1 = r5.zai
-            com.google.android.gms.common.internal.service.zao r2 = new com.google.android.gms.common.internal.service.zao
-            com.android.billingclient.api.zzcl r3 = com.google.android.gms.common.internal.service.zao.zae
-            com.google.android.gms.common.api.GoogleApi$Settings r4 = com.google.android.gms.common.api.GoogleApi.Settings.DEFAULT_SETTINGS
-            r2.<init>(r1, r3, r4)
-            r5.zah = r2
-        L4b:
-            com.google.android.gms.common.internal.service.zao r1 = r5.zah
-            r1.log(r0)
-        L50:
-            r0 = 0
-            r5.zag = r0
-        L53:
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.common.api.internal.GoogleApiManager.zaI():void");
+        Transition.C01101 r2;
+        TelemetryData telemetryData = this.zag;
+        if (telemetryData != null) {
+            if (telemetryData.zaa <= 0) {
+                if (!this.zaf) {
+                    synchronized (Transition.C01101.class) {
+                        try {
+                            if (Transition.C01101.zza == null) {
+                                Transition.C01101.zza = new Transition.C01101(1);
+                            }
+                            r2 = Transition.C01101.zza;
+                        } catch (Throwable th) {
+                            throw th;
+                        }
+                    }
+                    r2.getClass();
+                    int i = ((SparseIntArray) this.zak.zzb).get(203400000, -1);
+                    if (i != -1) {
+                    }
+                }
+                this.zag = null;
+            }
+            if (this.zah == null) {
+                this.zah = new GoogleApi(this.zai, zao.zae, GoogleApi.Settings.DEFAULT_SETTINGS);
+            }
+            this.zah.log(telemetryData);
+            this.zag = null;
+        }
     }
 
     public final void zax(ConnectionResult connectionResult, int i) {

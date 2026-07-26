@@ -9,10 +9,10 @@ import android.view.ViewPropertyAnimator;
 import android.view.accessibility.AccessibilityManager;
 import androidx.appcompat.view.menu.StandardMenuPopup;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Transition;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -38,10 +38,10 @@ public class HideBottomViewOnScrollBehavior<V extends View> extends CoordinatorL
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
     public boolean onLayoutChild(CoordinatorLayout coordinatorLayout, View view, int i) {
         this.height = view.getMeasuredHeight() + ((ViewGroup.MarginLayoutParams) view.getLayoutParams()).bottomMargin;
-        this.enterAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), R.attr.motionDurationLong2, 225);
-        this.exitAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), R.attr.motionDurationMedium4, 175);
-        this.enterAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
-        this.exitAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR);
+        this.enterAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), C0130R.attr.motionDurationLong2, 225);
+        this.exitAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), C0130R.attr.motionDurationMedium4, 175);
+        this.enterAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
+        this.exitAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR);
         if (this.accessibilityManager == null) {
             this.accessibilityManager = (AccessibilityManager) BundleKt.getSystemService(view.getContext(), AccessibilityManager.class);
         }
@@ -52,7 +52,7 @@ public class HideBottomViewOnScrollBehavior<V extends View> extends CoordinatorL
         HideViewOnScrollBehavior$$ExternalSyntheticLambda0 hideViewOnScrollBehavior$$ExternalSyntheticLambda0 = new HideViewOnScrollBehavior$$ExternalSyntheticLambda0(this, view, 1);
         this.touchExplorationListener = hideViewOnScrollBehavior$$ExternalSyntheticLambda0;
         accessibilityManager.addTouchExplorationStateChangeListener(hideViewOnScrollBehavior$$ExternalSyntheticLambda0);
-        view.addOnAttachStateChangeListener(new StandardMenuPopup.AnonymousClass2(2, this));
+        view.addOnAttachStateChangeListener(new StandardMenuPopup.View$OnAttachStateChangeListenerC00202(2, this));
         return false;
     }
 
@@ -70,10 +70,10 @@ public class HideBottomViewOnScrollBehavior<V extends View> extends CoordinatorL
                     this.currentState = 1;
                     Iterator it = this.onScrollStateChangedListeners.iterator();
                     if (!it.hasNext()) {
-                        this.currentAnimator = view.animate().translationY(this.height).setInterpolator(this.exitAnimInterpolator).setDuration(this.exitAnimDuration).setListener(new Transition.AnonymousClass3(4, this));
+                        this.currentAnimator = view.animate().translationY(this.height).setInterpolator(this.exitAnimInterpolator).setDuration(this.exitAnimDuration).setListener(new Transition.C01123(4, this));
                         return;
                     }
-                    throw ViewModelProvider.Factory.CC.m(it);
+                    throw ViewModelProvider.Factory.CC.m592m(it);
                 }
             }
         } else if (i < 0) {
@@ -99,10 +99,10 @@ public class HideBottomViewOnScrollBehavior<V extends View> extends CoordinatorL
             this.currentState = 2;
             Iterator it = this.onScrollStateChangedListeners.iterator();
             if (!it.hasNext()) {
-                this.currentAnimator = view.animate().translationY(0).setInterpolator(this.enterAnimInterpolator).setDuration(this.enterAnimDuration).setListener(new Transition.AnonymousClass3(4, this));
+                this.currentAnimator = view.animate().translationY(0).setInterpolator(this.enterAnimInterpolator).setDuration(this.enterAnimDuration).setListener(new Transition.C01123(4, this));
                 return;
             }
-            throw ViewModelProvider.Factory.CC.m(it);
+            throw ViewModelProvider.Factory.CC.m592m(it);
         }
     }
 

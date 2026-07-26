@@ -3,8 +3,8 @@ package com.emanuelef.remote_capture.model;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.HttpLog;
-import com.emanuelef.remote_capture.R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import java.io.Serializable;
@@ -22,20 +22,20 @@ public class HttpLogFilterDescriptor implements Serializable {
     }
 
     private void addChip(LayoutInflater layoutInflater, ChipGroup chipGroup, int i, String str) {
-        Chip chip = (Chip) layoutInflater.inflate(R.layout.active_filter_chip, (ViewGroup) chipGroup, false);
+        Chip chip = (Chip) layoutInflater.inflate(C0130R.layout.active_filter_chip, (ViewGroup) chipGroup, false);
         chip.setId(i);
         chip.setText(str.toLowerCase());
         chipGroup.addView(chip);
     }
 
     public void clear(int i) {
-        if (i == R.id.http_method_filter) {
+        if (i == C0130R.C0132id.http_method_filter) {
             this.method = null;
-        } else if (i == R.id.http_content_type_filter) {
+        } else if (i == C0130R.C0132id.http_content_type_filter) {
             this.contentType = null;
-        } else if (i == R.id.http_status_filter) {
+        } else if (i == C0130R.C0132id.http_status_filter) {
             this.httpStatus = null;
-        } else if (i == R.id.decryption_status) {
+        } else if (i == C0130R.C0132id.decryption_status) {
             this.decryptionError = null;
         }
     }
@@ -92,22 +92,22 @@ public class HttpLogFilterDescriptor implements Serializable {
         Context context = layoutInflater.getContext();
         int i2 = 0;
         if (this.method != null) {
-            addChip(layoutInflater, chipGroup, R.id.http_method_filter, String.format(context.getString(R.string.method_filter), this.method));
+            addChip(layoutInflater, chipGroup, C0130R.C0132id.http_method_filter, String.format(context.getString(C0130R.string.method_filter), this.method));
         }
         if (this.contentType != null) {
-            addChip(layoutInflater, chipGroup, R.id.http_content_type_filter, String.format(context.getString(R.string.content_type_filter), this.contentType));
+            addChip(layoutInflater, chipGroup, C0130R.C0132id.http_content_type_filter, String.format(context.getString(C0130R.string.content_type_filter), this.contentType));
         }
         if (this.httpStatus != null) {
-            addChip(layoutInflater, chipGroup, R.id.http_status_filter, String.format(context.getString(R.string.status_filter), this.httpStatus.toString()));
+            addChip(layoutInflater, chipGroup, C0130R.C0132id.http_status_filter, String.format(context.getString(C0130R.string.status_filter), this.httpStatus.toString()));
         }
         Boolean bool = this.decryptionError;
         if (bool != null) {
             if (bool.booleanValue()) {
-                i = R.string.decryption_error;
+                i = C0130R.string.decryption_error;
             } else {
-                i = R.string.ok;
+                i = C0130R.string.ok;
             }
-            addChip(layoutInflater, chipGroup, R.id.decryption_status, String.format(context.getString(R.string.decryption_filter), context.getString(i)));
+            addChip(layoutInflater, chipGroup, C0130R.C0132id.decryption_status, String.format(context.getString(C0130R.string.decryption_filter), context.getString(i)));
         }
         if (chipGroup.getChildCount() <= 0) {
             i2 = 8;

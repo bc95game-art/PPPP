@@ -8,8 +8,8 @@ import androidx.collection.ArraySet;
 import androidx.fragment.app.BackStackRecord;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.activities.BaseActivity;
 import com.emanuelef.remote_capture.fragments.AppsToggles;
 import com.emanuelef.remote_capture.model.AppDescriptor;
@@ -40,7 +40,7 @@ public class VpnExemptionsActivity extends BaseActivity {
                 } else {
                     this.mExcludedApps.remove(packageName);
                 }
-                Log.d(TAG, "Saving " + this.mExcludedApps.size() + " exceptions");
+                Log.m587d(TAG, "Saving " + this.mExcludedApps.size() + " exceptions");
                 SharedPreferences sharedPreferences = this.mPrefs;
                 if (sharedPreferences != null) {
                     sharedPreferences.edit().putStringSet(Prefs.PREF_VPN_EXCEPTIONS, this.mExcludedApps).apply();
@@ -55,7 +55,7 @@ public class VpnExemptionsActivity extends BaseActivity {
             this.mExcludedApps.clear();
             Set<String> stringSet = this.mPrefs.getStringSet(Prefs.PREF_VPN_EXCEPTIONS, null);
             if (stringSet != null) {
-                Log.d(TAG, "Loading " + stringSet.size() + " exceptions");
+                Log.m587d(TAG, "Loading " + stringSet.size() + " exceptions");
                 this.mExcludedApps.addAll(stringSet);
             }
         }
@@ -85,8 +85,8 @@ public class VpnExemptionsActivity extends BaseActivity {
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.vpn_exemptions);
-        setContentView(R.layout.fragment_activity);
+        setTitle(C0130R.string.vpn_exemptions);
+        setContentView(C0130R.layout.fragment_activity);
         displayBackAction();
         if (bundle != null) {
             this.mFragment = (VpnExceptionsFragment) getSupportFragmentManager().getFragment(bundle, "fragment");
@@ -97,7 +97,7 @@ public class VpnExemptionsActivity extends BaseActivity {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.getClass();
         BackStackRecord backStackRecord = new BackStackRecord(supportFragmentManager);
-        backStackRecord.replace(R.id.fragment, this.mFragment, null);
+        backStackRecord.replace(C0130R.C0132id.fragment, this.mFragment, null);
         backStackRecord.commit();
     }
 

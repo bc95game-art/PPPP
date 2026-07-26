@@ -78,14 +78,98 @@ public abstract class HeaderBehavior extends ViewOffsetBehavior {
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final boolean onTouchEvent(androidx.coordinatorlayout.widget.CoordinatorLayout r21, android.view.View r22, android.view.MotionEvent r23) {
-        /*
-            Method dump skipped, instructions count: 255
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.appbar.HeaderBehavior.onTouchEvent(androidx.coordinatorlayout.widget.CoordinatorLayout, android.view.View, android.view.MotionEvent):boolean");
+    public final boolean onTouchEvent(CoordinatorLayout coordinatorLayout, View view, MotionEvent motionEvent) {
+        boolean z;
+        VelocityTracker velocityTracker;
+        VelocityTracker velocityTracker2;
+        int i;
+        int actionMasked = motionEvent.getActionMasked();
+        if (actionMasked != 1) {
+            if (actionMasked == 2) {
+                int findPointerIndex = motionEvent.findPointerIndex(this.activePointerId);
+                if (findPointerIndex != -1) {
+                    int y = (int) motionEvent.getY(findPointerIndex);
+                    int i2 = this.lastMotionY - y;
+                    this.lastMotionY = y;
+                    AppBarLayout appBarLayout = (AppBarLayout) view;
+                    setHeaderTopBottomOffset(coordinatorLayout, view, getTopBottomOffsetForScrollingSibling() - i2, appBarLayout.getTopInset() + (-appBarLayout.getDownNestedScrollRange()), 0);
+                }
+                return false;
+            } else if (actionMasked != 3) {
+                if (actionMasked == 6) {
+                    if (motionEvent.getActionIndex() == 0) {
+                        i = 1;
+                    } else {
+                        i = 0;
+                    }
+                    this.activePointerId = motionEvent.getPointerId(i);
+                    this.lastMotionY = (int) (motionEvent.getY(i) + 0.5f);
+                }
+            }
+            z = false;
+            velocityTracker = this.velocityTracker;
+            if (velocityTracker != null) {
+                velocityTracker.addMovement(motionEvent);
+            }
+            if (!this.isBeingDragged || z) {
+                return true;
+            }
+            return false;
+        }
+        VelocityTracker velocityTracker3 = this.velocityTracker;
+        if (velocityTracker3 != null) {
+            velocityTracker3.addMovement(motionEvent);
+            this.velocityTracker.computeCurrentVelocity(1000);
+            float yVelocity = this.velocityTracker.getYVelocity(this.activePointerId);
+            AppBarLayout appBarLayout2 = (AppBarLayout) view;
+            int i3 = -appBarLayout2.getTotalScrollRange();
+            Runnable runnable = this.flingRunnable;
+            if (runnable != null) {
+                view.removeCallbacks(runnable);
+                this.flingRunnable = null;
+            }
+            if (this.scroller == null) {
+                this.scroller = new OverScroller(view.getContext());
+            }
+            this.scroller.fling(0, getTopAndBottomOffset(), 0, Math.round(yVelocity), 0, 0, i3, 0);
+            if (this.scroller.computeScrollOffset()) {
+                zzam zzamVar = new zzam(this, coordinatorLayout, view);
+                this.flingRunnable = zzamVar;
+                view.postOnAnimation(zzamVar);
+            } else {
+                ((AppBarLayout.BaseBehavior) this).snapToChildIfNeeded(coordinatorLayout, appBarLayout2);
+                if (appBarLayout2.liftOnScroll) {
+                    appBarLayout2.setLiftedState(appBarLayout2.shouldLift(AppBarLayout.BaseBehavior.findFirstScrollingChild(coordinatorLayout)));
+                }
+            }
+            z = true;
+            this.isBeingDragged = false;
+            this.activePointerId = -1;
+            velocityTracker2 = this.velocityTracker;
+            if (velocityTracker2 != null) {
+                velocityTracker2.recycle();
+                this.velocityTracker = null;
+            }
+            velocityTracker = this.velocityTracker;
+            if (velocityTracker != null) {
+            }
+            if (!this.isBeingDragged) {
+            }
+            return true;
+        }
+        z = false;
+        this.isBeingDragged = false;
+        this.activePointerId = -1;
+        velocityTracker2 = this.velocityTracker;
+        if (velocityTracker2 != null) {
+        }
+        velocityTracker = this.velocityTracker;
+        if (velocityTracker != null) {
+        }
+        if (!this.isBeingDragged) {
+        }
+        return true;
     }
 
     public abstract int setHeaderTopBottomOffset(CoordinatorLayout coordinatorLayout, View view, int i, int i2, int i3);

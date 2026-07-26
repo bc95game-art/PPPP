@@ -1,8 +1,8 @@
 package com.emanuelef.remote_capture.model;
 
 import android.content.Context;
-import androidx.core.os.BundleKt;
-import com.emanuelef.remote_capture.R;
+import androidx.core.p002os.BundleKt;
+import com.emanuelef.remote_capture.C0130R;
 /* loaded from: classes.dex */
 public class BlacklistDescriptor {
     public final String fname;
@@ -57,15 +57,15 @@ public class BlacklistDescriptor {
         int i;
         int ordinal = getStatus().ordinal();
         if (ordinal == 0) {
-            i = R.color.danger;
+            i = C0130R.color.danger;
         } else if (ordinal == 1) {
-            i = R.color.warning;
+            i = C0130R.color.warning;
         } else if (ordinal == 2) {
-            i = R.color.in_progress;
+            i = C0130R.color.in_progress;
         } else if (ordinal != 3) {
             i = -1;
         } else {
-            i = R.color.ok;
+            i = C0130R.color.ok;
         }
         return BundleKt.getColor(context, i);
     }
@@ -74,15 +74,15 @@ public class BlacklistDescriptor {
         int i;
         int ordinal = getStatus().ordinal();
         if (ordinal == 0) {
-            i = R.string.status_not_loaded;
+            i = C0130R.string.status_not_loaded;
         } else if (ordinal == 1) {
-            i = R.string.status_outdated;
+            i = C0130R.string.status_outdated;
         } else if (ordinal == 2) {
-            i = R.string.status_updating;
+            i = C0130R.string.status_updating;
         } else if (ordinal != 3) {
             i = -1;
         } else {
-            i = R.string.status_uptodate;
+            i = C0130R.string.status_uptodate;
         }
         return context.getString(i);
     }
@@ -90,9 +90,9 @@ public class BlacklistDescriptor {
     public String getTypeLabel(Context context) {
         int i;
         if (this.type == Type.IP_BLACKLIST) {
-            i = R.string.blacklist_type_ip;
+            i = C0130R.string.blacklist_type_ip;
         } else {
-            i = R.string.blacklist_type_domain;
+            i = C0130R.string.blacklist_type_domain;
         }
         return context.getString(i);
     }

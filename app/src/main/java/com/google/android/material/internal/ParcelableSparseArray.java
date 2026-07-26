@@ -6,7 +6,7 @@ import android.util.SparseArray;
 import androidx.customview.view.AbsSavedState;
 /* loaded from: classes.dex */
 public final class ParcelableSparseArray extends SparseArray implements Parcelable {
-    public static final Parcelable.Creator<ParcelableSparseArray> CREATOR = new AbsSavedState.AnonymousClass2(12);
+    public static final Parcelable.Creator<ParcelableSparseArray> CREATOR = new AbsSavedState.C00522(12);
 
     public ParcelableSparseArray(Parcel parcel, ClassLoader classLoader) {
         int readInt = parcel.readInt();

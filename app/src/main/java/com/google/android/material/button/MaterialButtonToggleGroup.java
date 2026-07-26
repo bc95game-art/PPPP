@@ -11,7 +11,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.RadioButton;
 import android.widget.ToggleButton;
 import androidx.core.view.ViewCompat;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.datepicker.MaterialCalendar;
 import com.google.android.material.internal.ViewUtils;
@@ -38,8 +38,8 @@ public class MaterialButtonToggleGroup extends MaterialButtonGroup {
     public HashSet checkedIds = new HashSet();
 
     public MaterialButtonToggleGroup(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.materialButtonToggleGroupStyle, R.style.Widget_MaterialComponents_MaterialButtonToggleGroup), attributeSet);
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(getContext(), attributeSet, R$styleable.MaterialButtonToggleGroup, R.attr.materialButtonToggleGroupStyle, R.style.Widget_MaterialComponents_MaterialButtonToggleGroup, new int[0]);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.materialButtonToggleGroupStyle, C0130R.style.Widget_MaterialComponents_MaterialButtonToggleGroup), attributeSet);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(getContext(), attributeSet, R$styleable.MaterialButtonToggleGroup, C0130R.attr.materialButtonToggleGroupStyle, C0130R.style.Widget_MaterialComponents_MaterialButtonToggleGroup, new int[0]);
         setSingleSelection(obtainStyledAttributes.getBoolean(7, false));
         this.defaultCheckId = obtainStyledAttributes.getResourceId(2, -1);
         this.selectionRequired = obtainStyledAttributes.getBoolean(4, false);
@@ -88,7 +88,7 @@ public class MaterialButtonToggleGroup extends MaterialButtonGroup {
         MaterialButton materialButton = (MaterialButton) view;
         setupButtonChild(materialButton);
         checkInternal(materialButton.getId(), materialButton.checked);
-        ViewCompat.setAccessibilityDelegate(materialButton, new MaterialCalendar.AnonymousClass6(2, this));
+        ViewCompat.setAccessibilityDelegate(materialButton, new MaterialCalendar.C01796(2, this));
     }
 
     public final void checkInternal(int i, boolean z) {

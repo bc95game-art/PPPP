@@ -35,7 +35,7 @@ public class FileDumper implements PcapDumper {
 
     @Override // com.emanuelef.remote_capture.interfaces.PcapDumper
     public void startDumper() {
-        Log.d(TAG, "PCAP URI: " + this.mPcapUri);
+        Log.m587d(TAG, "PCAP URI: " + this.mPcapUri);
         this.mOutputStream = this.mContext.getContentResolver().openOutputStream(this.mPcapUri, "rwt");
     }
 

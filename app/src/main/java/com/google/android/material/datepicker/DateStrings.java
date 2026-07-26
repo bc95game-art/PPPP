@@ -5,10 +5,10 @@ import android.icu.text.DisplayContext;
 import android.icu.util.TimeZone;
 import android.os.Build;
 import android.text.format.DateUtils;
-import j$.util.stream.IntStream;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
+import p004j$.util.stream.IntStream;
 /* loaded from: classes.dex */
 public abstract class DateStrings {
     public static IntStream chars(CharSequence charSequence) {

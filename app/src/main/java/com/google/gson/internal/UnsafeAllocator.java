@@ -9,9 +9,9 @@ import java.lang.reflect.Method;
 public abstract class UnsafeAllocator {
     public static final UnsafeAllocator INSTANCE;
 
-    /* renamed from: com.google.gson.internal.UnsafeAllocator$4  reason: invalid class name */
+    /* renamed from: com.google.gson.internal.UnsafeAllocator$4 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass4 extends UnsafeAllocator {
+    public final class C02384 extends UnsafeAllocator {
         @Override // com.google.gson.internal.UnsafeAllocator
         public final Object newInstance(Class cls) {
             throw new UnsupportedOperationException("Cannot allocate " + cls + ". Usage of JDK sun.misc.Unsafe is enabled, but it could not be used. Make sure your runtime is configured correctly.");

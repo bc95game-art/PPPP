@@ -13,13 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.collection.ArraySet;
 import androidx.core.content.ContextCompat$Api21Impl;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.recyclerview.widget.RecyclerView;
 import com.emanuelef.remote_capture.AppsResolver;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.HttpLog;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.AppDescriptor;
 import com.emanuelef.remote_capture.model.HttpLogFilterDescriptor;
@@ -55,14 +55,14 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
 
         public ViewHolder(View view) {
             super(view);
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.appName = (TextView) view.findViewById(R.id.app_name);
-            this.methodAndPath = (TextView) view.findViewById(R.id.method_and_path);
-            this.protoAndHost = (TextView) view.findViewById(R.id.proto_and_host);
-            this.contentType = (TextView) view.findViewById(R.id.content_type);
-            this.reqTime = (TextView) view.findViewById(R.id.req_time);
-            this.httpStatus = (TextView) view.findViewById(R.id.http_status);
-            this.payloadSize = (TextView) view.findViewById(R.id.payload_size);
+            this.icon = (ImageView) view.findViewById(C0130R.C0132id.icon);
+            this.appName = (TextView) view.findViewById(C0130R.C0132id.app_name);
+            this.methodAndPath = (TextView) view.findViewById(C0130R.C0132id.method_and_path);
+            this.protoAndHost = (TextView) view.findViewById(C0130R.C0132id.proto_and_host);
+            this.contentType = (TextView) view.findViewById(C0130R.C0132id.content_type);
+            this.reqTime = (TextView) view.findViewById(C0130R.C0132id.req_time);
+            this.httpStatus = (TextView) view.findViewById(C0130R.C0132id.http_status);
+            this.payloadSize = (TextView) view.findViewById(C0130R.C0132id.payload_size);
         }
 
         public void bindItem(HttpLog.HttpRequest httpRequest, Context context, AppsResolver appsResolver, Drawable drawable) {
@@ -99,7 +99,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
             if (httpRequest.decryptionError.isEmpty()) {
                 str3 = HttpLogAdapter.getResponseCodeText(context, httpRequest);
             } else {
-                str3 = context.getString(R.string.decryption_error);
+                str3 = context.getString(C0130R.string.decryption_error);
             }
             textView3.setText(str3);
             HttpLog.HttpReply httpReply2 = httpRequest.reply;
@@ -112,7 +112,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
             if (httpRequest.decryptionError.isEmpty()) {
                 i = HttpLogAdapter.getResponseCodeColor(httpRequest);
             } else {
-                i = R.color.statusError;
+                i = C0130R.color.statusError;
             }
             textView4.setTextColor(BundleKt.getColor(context, i));
         }
@@ -122,7 +122,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
         this.mContext = context;
         this.mAppsResolver = appsResolver;
         this.mLayoutInflater = (LayoutInflater) context.getSystemService("layout_inflater");
-        this.mUnknownIcon = ContextCompat$Api21Impl.getDrawable(context, R.drawable.ic_image);
+        this.mUnknownIcon = ContextCompat$Api21Impl.getDrawable(context, C0130R.C0131drawable.ic_image);
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(new int[]{16843820});
         this.mSelectedColor = obtainStyledAttributes.getColor(0, 1082163328);
         obtainStyledAttributes.recycle();
@@ -138,19 +138,19 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
         if (httpReply != null) {
             int i = httpReply.responseCode;
             if (i >= 200 && i <= 299) {
-                return R.color.statusOpen;
+                return C0130R.color.statusOpen;
             }
             if (i >= 300 && i <= 399) {
-                return R.color.lightGray;
+                return C0130R.color.lightGray;
             }
             if (i < 400 || i > 599) {
-                return R.color.colorTabText;
+                return C0130R.color.colorTabText;
             }
-            return R.color.statusError;
+            return C0130R.color.statusError;
         } else if (httpRequest.httpRst) {
-            return R.color.statusError;
+            return C0130R.color.statusError;
         } else {
-            return R.color.colorTabText;
+            return C0130R.color.colorTabText;
         }
     }
 
@@ -222,12 +222,12 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
             if (httpLog != null && i >= 0 && i < httpLog.getSize()) {
                 return httpLog.getRequest(i);
             }
-            Log.w(TAG, "getItem: bad position: " + i);
+            Log.m581w(TAG, "getItem: bad position: " + i);
             return null;
         } else if (i >= 0 && i < arrayList.size()) {
             return this.mFilteredReqs.get(i);
         } else {
-            Log.w(TAG, "getItem(filtered): bad position: " + i);
+            Log.m581w(TAG, "getItem(filtered): bad position: " + i);
             return null;
         }
     }
@@ -279,7 +279,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
     @Override // com.emanuelef.remote_capture.HttpLog.Listener
     public void onHttpRequestAdded(int i) {
         HttpLog.HttpRequest request;
-        Log.d(TAG, "onHttpRequestAdded " + i);
+        Log.m587d(TAG, "onHttpRequestAdded " + i);
         HttpLog httpLog = CaptureService.getHttpLog();
         if (httpLog != null && (request = httpLog.getRequest(i)) != null) {
             if (this.mFilteredReqs == null) {
@@ -327,7 +327,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
         this.mFilteredReqs = null;
         HttpLog httpLog = CaptureService.getHttpLog();
         if (httpLog != null) {
-            Log.d(TAG, "refreshFilteredConn (" + httpLog.getSize() + ") unfiltered");
+            Log.m587d(TAG, "refreshFilteredConn (" + httpLog.getSize() + ") unfiltered");
             if (hasFilter()) {
                 this.mFilteredReqs = new ArrayList<>();
                 synchronized (httpLog) {
@@ -345,7 +345,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
                         }
                     }
                 }
-                Log.d(TAG, "refreshFilteredItems: " + this.mFilteredReqs.size() + " items matched");
+                Log.m587d(TAG, "refreshFilteredItems: " + this.mFilteredReqs.size() + " items matched");
             }
         }
         notifyDataSetChanged();
@@ -396,7 +396,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         HttpLog.HttpRequest item = getItem(i);
         if (item == null) {
-            Log.w(TAG, "bad position: " + i);
+            Log.m581w(TAG, "bad position: " + i);
             return;
         }
         viewHolder.bindItem(item, this.mContext, this.mAppsResolver, this.mUnknownIcon);
@@ -409,7 +409,7 @@ public class HttpLogAdapter extends RecyclerView.Adapter implements HttpLog.List
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View inflate = this.mLayoutInflater.inflate(R.layout.http_req_item, viewGroup, false);
+        View inflate = this.mLayoutInflater.inflate(C0130R.layout.http_req_item, viewGroup, false);
         inflate.setLongClickable(true);
         View.OnClickListener onClickListener = this.mListener;
         if (onClickListener != null) {

@@ -6,13 +6,13 @@ import com.google.firebase.encoders.ObjectEncoderContext;
 /* loaded from: classes.dex */
 public final class AutoBatchedLogRequestEncoder$LogEventEncoder implements ObjectEncoder {
     public static final AutoBatchedLogRequestEncoder$LogEventEncoder INSTANCE = new Object();
-    public static final FieldDescriptor EVENTTIMEMS_DESCRIPTOR = FieldDescriptor.of("eventTimeMs");
-    public static final FieldDescriptor EVENTCODE_DESCRIPTOR = FieldDescriptor.of("eventCode");
-    public static final FieldDescriptor EVENTUPTIMEMS_DESCRIPTOR = FieldDescriptor.of("eventUptimeMs");
-    public static final FieldDescriptor SOURCEEXTENSION_DESCRIPTOR = FieldDescriptor.of("sourceExtension");
-    public static final FieldDescriptor SOURCEEXTENSIONJSONPROTO3_DESCRIPTOR = FieldDescriptor.of("sourceExtensionJsonProto3");
-    public static final FieldDescriptor TIMEZONEOFFSETSECONDS_DESCRIPTOR = FieldDescriptor.of("timezoneOffsetSeconds");
-    public static final FieldDescriptor NETWORKCONNECTIONINFO_DESCRIPTOR = FieldDescriptor.of("networkConnectionInfo");
+    public static final FieldDescriptor EVENTTIMEMS_DESCRIPTOR = FieldDescriptor.m566of("eventTimeMs");
+    public static final FieldDescriptor EVENTCODE_DESCRIPTOR = FieldDescriptor.m566of("eventCode");
+    public static final FieldDescriptor EVENTUPTIMEMS_DESCRIPTOR = FieldDescriptor.m566of("eventUptimeMs");
+    public static final FieldDescriptor SOURCEEXTENSION_DESCRIPTOR = FieldDescriptor.m566of("sourceExtension");
+    public static final FieldDescriptor SOURCEEXTENSIONJSONPROTO3_DESCRIPTOR = FieldDescriptor.m566of("sourceExtensionJsonProto3");
+    public static final FieldDescriptor TIMEZONEOFFSETSECONDS_DESCRIPTOR = FieldDescriptor.m566of("timezoneOffsetSeconds");
+    public static final FieldDescriptor NETWORKCONNECTIONINFO_DESCRIPTOR = FieldDescriptor.m566of("networkConnectionInfo");
 
     @Override // com.google.firebase.encoders.Encoder
     public final void encode(Object obj, Object obj2) {

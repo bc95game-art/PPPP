@@ -11,18 +11,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.collection.ArraySet;
 import androidx.core.provider.FontProvider$$ExternalSyntheticLambda0;
 import androidx.core.view.MenuProvider;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.HttpLog;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.HttpLogFilterDescriptor;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
-import j$.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import p004j$.util.List;
 /* loaded from: classes.dex */
 public class HttpLogFilterActivity extends BaseActivity implements MenuProvider {
     public static final String FILTER_DESCRIPTOR = "http_log_filter";
@@ -165,8 +165,8 @@ public class HttpLogFilterActivity extends BaseActivity implements MenuProvider 
         long j;
         HttpLogFilterDescriptor httpLogFilterDescriptor;
         super.onCreate(bundle);
-        setContentView(R.layout.http_log_filter_activity);
-        setTitle(R.string.edit_filter);
+        setContentView(C0130R.layout.http_log_filter_activity);
+        setTitle(C0130R.string.edit_filter);
         addMenuProvider(this);
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
@@ -180,12 +180,12 @@ public class HttpLogFilterActivity extends BaseActivity implements MenuProvider 
         if (this.mFilter == null) {
             this.mFilter = new HttpLogFilterDescriptor();
         }
-        this.mMethodGroup = (ChipGroup) findViewById(R.id.method_group);
-        this.mContentTypeGroup = (ChipGroup) findViewById(R.id.content_type_group);
-        this.mHttpStatusGroup = (ChipGroup) findViewById(R.id.http_status_group);
-        this.mPayloadSizeSlider = (Slider) findViewById(R.id.payload_size_slider);
-        this.mDecryptionErrorChip = (Chip) findViewById(R.id.decryption_error_chip);
-        this.mDecryptionNoErrorChip = (Chip) findViewById(R.id.decryption_no_error_chip);
+        this.mMethodGroup = (ChipGroup) findViewById(C0130R.C0132id.method_group);
+        this.mContentTypeGroup = (ChipGroup) findViewById(C0130R.C0132id.content_type_group);
+        this.mHttpStatusGroup = (ChipGroup) findViewById(C0130R.C0132id.http_status_group);
+        this.mPayloadSizeSlider = (Slider) findViewById(C0130R.C0132id.payload_size_slider);
+        this.mDecryptionErrorChip = (Chip) findViewById(C0130R.C0132id.decryption_error_chip);
+        this.mDecryptionNoErrorChip = (Chip) findViewById(C0130R.C0132id.decryption_no_error_chip);
         HttpLog httpLog = CaptureService.getHttpLog();
         if (httpLog != null) {
             ArraySet arraySet = new ArraySet(0);
@@ -232,23 +232,23 @@ public class HttpLogFilterActivity extends BaseActivity implements MenuProvider 
                 while (i3 < size) {
                     Object obj = arrayList.get(i3);
                     i3++;
-                    Chip chip = (Chip) layoutInflater.inflate(R.layout.choice_chip, (ViewGroup) this.mMethodGroup, false);
+                    Chip chip = (Chip) layoutInflater.inflate(C0130R.layout.choice_chip, (ViewGroup) this.mMethodGroup, false);
                     chip.setText((String) obj);
                     this.mMethodGroup.addView(chip);
                 }
                 this.mMethodGroup.setVisibility(0);
-                findViewById(R.id.method_label).setVisibility(0);
+                findViewById(C0130R.C0132id.method_label).setVisibility(0);
             }
             if (!hashSet.isEmpty()) {
                 LayoutInflater layoutInflater2 = getLayoutInflater();
                 Iterator it = hashSet.iterator();
                 while (it.hasNext()) {
-                    Chip chip2 = (Chip) layoutInflater2.inflate(R.layout.choice_chip, (ViewGroup) this.mContentTypeGroup, false);
+                    Chip chip2 = (Chip) layoutInflater2.inflate(C0130R.layout.choice_chip, (ViewGroup) this.mContentTypeGroup, false);
                     chip2.setText((String) it.next());
                     this.mContentTypeGroup.addView(chip2);
                 }
                 this.mContentTypeGroup.setVisibility(0);
-                findViewById(R.id.content_type_label).setVisibility(0);
+                findViewById(C0130R.C0132id.content_type_label).setVisibility(0);
             }
             if (!hashSet2.isEmpty()) {
                 LayoutInflater layoutInflater3 = getLayoutInflater();
@@ -259,19 +259,19 @@ public class HttpLogFilterActivity extends BaseActivity implements MenuProvider 
                 while (i4 < size2) {
                     Object obj2 = arrayList2.get(i4);
                     i4++;
-                    Chip chip3 = (Chip) layoutInflater3.inflate(R.layout.choice_chip, (ViewGroup) this.mHttpStatusGroup, false);
+                    Chip chip3 = (Chip) layoutInflater3.inflate(C0130R.layout.choice_chip, (ViewGroup) this.mHttpStatusGroup, false);
                     chip3.setText(String.valueOf((Integer) obj2));
                     this.mHttpStatusGroup.addView(chip3);
                 }
                 this.mHttpStatusGroup.setVisibility(0);
-                findViewById(R.id.http_status_label).setVisibility(0);
+                findViewById(C0130R.C0132id.http_status_label).setVisibility(0);
             }
             long max = Math.max(j / 1024, this.mFilter.minPayloadSize / 1024);
             if (max >= 2) {
                 this.mPayloadSizeSlider.setValueTo((float) max);
                 this.mPayloadSizeSlider.setLabelFormatter(new BaseActivity$$ExternalSyntheticLambda0(23));
                 this.mPayloadSizeSlider.setVisibility(0);
-                findViewById(R.id.payload_size_label).setVisibility(0);
+                findViewById(C0130R.C0132id.payload_size_label).setVisibility(0);
             }
         }
         model2view();
@@ -279,7 +279,7 @@ public class HttpLogFilterActivity extends BaseActivity implements MenuProvider 
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.edit_filter_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.edit_filter_menu, menu);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -288,7 +288,7 @@ public class HttpLogFilterActivity extends BaseActivity implements MenuProvider 
 
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() != R.id.reset_changes) {
+        if (menuItem.getItemId() != C0130R.C0132id.reset_changes) {
             return false;
         }
         this.mFilter.clear();

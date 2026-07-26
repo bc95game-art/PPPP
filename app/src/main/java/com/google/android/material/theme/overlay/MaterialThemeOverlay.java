@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import androidx.appcompat.view.ContextThemeWrapper;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 /* loaded from: classes.dex */
 public abstract class MaterialThemeOverlay {
-    public static final int[] ANDROID_THEME_OVERLAY_ATTRS = {16842752, R.attr.theme};
-    public static final int[] MATERIAL_THEME_OVERLAY_ATTR = {R.attr.materialThemeOverlay};
+    public static final int[] ANDROID_THEME_OVERLAY_ATTRS = {16842752, C0130R.attr.theme};
+    public static final int[] MATERIAL_THEME_OVERLAY_ATTR = {C0130R.attr.materialThemeOverlay};
 
     public static Context wrap(Context context, AttributeSet attributeSet, int i, int i2) {
         return wrap(context, attributeSet, i, i2, new int[0]);

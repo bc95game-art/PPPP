@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.tracing.Trace;
 import androidx.viewpager.widget.ViewPager;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -31,10 +31,10 @@ public class MaterialToolbar extends Toolbar {
     public boolean titleCentered;
 
     public MaterialToolbar(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.toolbarStyle, R.style.Widget_MaterialComponents_Toolbar), attributeSet, 0);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.toolbarStyle, C0130R.style.Widget_MaterialComponents_Toolbar), attributeSet, 0);
         ColorStateList colorStateList;
         Context context2 = getContext();
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialToolbar, R.attr.toolbarStyle, R.style.Widget_MaterialComponents_Toolbar, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialToolbar, C0130R.attr.toolbarStyle, C0130R.style.Widget_MaterialComponents_Toolbar, new int[0]);
         if (obtainStyledAttributes.hasValue(2)) {
             setNavigationIconTint(obtainStyledAttributes.getColor(2, -1));
         }
@@ -101,7 +101,7 @@ public class MaterialToolbar extends Toolbar {
         TextView textView;
         TextView textView2;
         super.onLayout(z, i, i2, i3, i4);
-        ViewPager.AnonymousClass1 r9 = ViewUtils.VIEW_TOP_COMPARATOR;
+        ViewPager.C01171 r9 = ViewUtils.VIEW_TOP_COMPARATOR;
         int i5 = 0;
         ImageView imageView2 = null;
         if (this.titleCentered || this.subtitleCentered) {

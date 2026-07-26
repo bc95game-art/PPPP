@@ -10,10 +10,10 @@ import android.view.ViewPropertyAnimator;
 import android.view.accessibility.AccessibilityManager;
 import androidx.appcompat.view.menu.StandardMenuPopup;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Transition;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -46,7 +46,7 @@ public class HideViewOnScrollBehavior<V extends View> extends CoordinatorLayout.
             HideViewOnScrollBehavior$$ExternalSyntheticLambda0 hideViewOnScrollBehavior$$ExternalSyntheticLambda0 = new HideViewOnScrollBehavior$$ExternalSyntheticLambda0(this, view, 0);
             this.touchExplorationListener = hideViewOnScrollBehavior$$ExternalSyntheticLambda0;
             accessibilityManager.addTouchExplorationStateChangeListener(hideViewOnScrollBehavior$$ExternalSyntheticLambda0);
-            view.addOnAttachStateChangeListener(new StandardMenuPopup.AnonymousClass2(3, this));
+            view.addOnAttachStateChangeListener(new StandardMenuPopup.View$OnAttachStateChangeListenerC00202(3, this));
         }
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         int i3 = ((CoordinatorLayout.LayoutParams) view.getLayoutParams()).gravity;
@@ -62,10 +62,10 @@ public class HideViewOnScrollBehavior<V extends View> extends CoordinatorLayout.
             setViewEdgeInternal(i2);
         }
         this.size = this.hideOnScrollViewDelegate.getSize(view, marginLayoutParams);
-        this.enterAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), R.attr.motionDurationLong2, 225);
-        this.exitAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), R.attr.motionDurationMedium4, 175);
-        this.enterAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
-        this.exitAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR);
+        this.enterAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), C0130R.attr.motionDurationLong2, 225);
+        this.exitAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(view.getContext(), C0130R.attr.motionDurationMedium4, 175);
+        this.enterAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
+        this.exitAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(view.getContext(), C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR);
         return false;
     }
 
@@ -84,10 +84,10 @@ public class HideViewOnScrollBehavior<V extends View> extends CoordinatorLayout.
                     Iterator it = this.onScrollStateChangedListeners.iterator();
                     if (!it.hasNext()) {
                         int i4 = this.size;
-                        this.currentAnimator = this.hideOnScrollViewDelegate.getViewTranslationAnimator(i4, view).setInterpolator(this.exitAnimInterpolator).setDuration(this.exitAnimDuration).setListener(new Transition.AnonymousClass3(5, this));
+                        this.currentAnimator = this.hideOnScrollViewDelegate.getViewTranslationAnimator(i4, view).setInterpolator(this.exitAnimInterpolator).setDuration(this.exitAnimDuration).setListener(new Transition.C01123(5, this));
                         return;
                     }
-                    throw ViewModelProvider.Factory.CC.m(it);
+                    throw ViewModelProvider.Factory.CC.m592m(it);
                 }
             }
         } else if (i < 0) {
@@ -130,10 +130,10 @@ public class HideViewOnScrollBehavior<V extends View> extends CoordinatorLayout.
             Iterator it = this.onScrollStateChangedListeners.iterator();
             if (!it.hasNext()) {
                 this.hideOnScrollViewDelegate.getClass();
-                this.currentAnimator = this.hideOnScrollViewDelegate.getViewTranslationAnimator(0, view).setInterpolator(this.enterAnimInterpolator).setDuration(this.enterAnimDuration).setListener(new Transition.AnonymousClass3(5, this));
+                this.currentAnimator = this.hideOnScrollViewDelegate.getViewTranslationAnimator(0, view).setInterpolator(this.enterAnimInterpolator).setDuration(this.enterAnimDuration).setListener(new Transition.C01123(5, this));
                 return;
             }
-            throw ViewModelProvider.Factory.CC.m(it);
+            throw ViewModelProvider.Factory.CC.m592m(it);
         }
     }
 

@@ -16,10 +16,10 @@ import androidx.core.view.inputmethod.InputConnectionCompat$$ExternalSyntheticLa
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.activities.ConnectionDetailsActivity;
 import com.emanuelef.remote_capture.adapters.PayloadAdapter;
@@ -145,7 +145,7 @@ public class ConnectionPayload extends Fragment implements PayloadHostActivity.C
 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        return layoutInflater.inflate(R.layout.connection_payload, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.connection_payload, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -167,15 +167,15 @@ public class ConnectionPayload extends Fragment implements PayloadHostActivity.C
         ConnectionDescriptor connById = requireConnsRegister.getConnById(arguments.getInt(ConnectionDetailsActivity.CONN_ID_KEY));
         this.mConn = connById;
         if (connById == null) {
-            Utils.showToast(requireContext(), R.string.connection_not_found, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.connection_not_found, new Object[0]);
             requireActivity().finish();
             return;
         }
-        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.payload);
+        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(C0130R.C0132id.payload);
         this.mRecyclerView.setLayoutManager(new EmptyRecyclerView.MyLinearLayoutManager(requireContext()));
-        TextView textView = (TextView) view.findViewById(R.id.truncated_warning);
+        TextView textView = (TextView) view.findViewById(C0130R.C0132id.truncated_warning);
         this.mTruncatedWarning = textView;
-        textView.setText(String.format(getString(R.string.payload_truncated), getString(R.string.full_payload)));
+        textView.setText(String.format(getString(C0130R.string.payload_truncated), getString(C0130R.string.full_payload)));
         if (this.mConn.isPayloadTruncated()) {
             this.mTruncatedWarning.setVisibility(0);
         }
@@ -206,15 +206,15 @@ public class ConnectionPayload extends Fragment implements PayloadHostActivity.C
         super.setMenuVisibility(z);
         Context context = getContext();
         if (context != null) {
-            Log.d(TAG, "setMenuVisibility : " + z);
+            Log.m587d(TAG, "setMenuVisibility : " + z);
             SharedPreferences sharedPreferences = context.getSharedPreferences(PreferenceManager.getDefaultSharedPreferencesName(context), 0);
             if (z && !payloadNoticeAcknowledged(sharedPreferences)) {
                 zzbv zzbvVar = new zzbv(context);
-                zzbvVar.setTitle(R.string.warning);
-                zzbvVar.setMessage(R.string.payload_scams_notice);
+                zzbvVar.setTitle(C0130R.string.warning);
+                zzbvVar.setMessage(C0130R.string.payload_scams_notice);
                 ((AlertController.AlertParams) zzbvVar.zza).mOnCancelListener = new AppSelectDialog$$ExternalSyntheticLambda2(2, this);
-                zzbvVar.setNegativeButton(R.string.cancel_action, new AppsFragment$$ExternalSyntheticLambda0(4, this));
-                zzbvVar.setPositiveButton(R.string.show_data_action, new FirewallStatus$$ExternalSyntheticLambda2(this, 2, sharedPreferences));
+                zzbvVar.setNegativeButton(C0130R.string.cancel_action, new AppsFragment$$ExternalSyntheticLambda0(4, this));
+                zzbvVar.setPositiveButton(C0130R.string.show_data_action, new FirewallStatus$$ExternalSyntheticLambda2(this, 2, sharedPreferences));
                 zzbvVar.show().setCanceledOnTouchOutside(false);
             }
             if (z && (payloadHostActivity = this.mActivity) != null && this.mConn != null) {

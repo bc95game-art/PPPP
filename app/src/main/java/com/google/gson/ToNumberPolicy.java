@@ -9,8 +9,8 @@ import java.io.IOException;
 /* loaded from: classes.dex */
 public abstract class ToNumberPolicy extends Enum {
     public static final /* synthetic */ ToNumberPolicy[] $VALUES;
-    public static final AnonymousClass1 DOUBLE;
-    public static final AnonymousClass2 LAZILY_PARSED_NUMBER;
+    public static final C02301 DOUBLE;
+    public static final C02312 LAZILY_PARSED_NUMBER;
 
     /* JADX WARN: Multi-variable type inference failed */
     /* JADX WARN: Type inference failed for: r0v0, types: [com.google.gson.ToNumberPolicy$1] */
@@ -44,7 +44,7 @@ public abstract class ToNumberPolicy extends Enum {
                     }
                     return valueOf;
                 } catch (NumberFormatException e) {
-                    StringBuilder m = ViewModelProvider.Factory.CC.m15m("Cannot parse ", str, "; at path ");
+                    StringBuilder m = ViewModelProvider.Factory.CC.m594m("Cannot parse ", str, "; at path ");
                     m.append(jsonReader.getPath(true));
                     throw new RuntimeException(m.toString(), e);
                 }
@@ -69,7 +69,7 @@ public abstract class ToNumberPolicy extends Enum {
                 try {
                     return Streams.parseBigDecimal(nextString);
                 } catch (NumberFormatException e) {
-                    StringBuilder m = ViewModelProvider.Factory.CC.m15m("Cannot parse ", nextString, "; at path ");
+                    StringBuilder m = ViewModelProvider.Factory.CC.m594m("Cannot parse ", nextString, "; at path ");
                     m.append(jsonReader.getPath(true));
                     throw new RuntimeException(m.toString(), e);
                 }

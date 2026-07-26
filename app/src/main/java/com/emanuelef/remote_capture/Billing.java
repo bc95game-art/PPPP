@@ -34,7 +34,7 @@ public class Billing {
     public static final String FIREWALL_SKU = "no_root_firewall";
     public static final String PCAPNG_SKU = "pcapng";
     public static final List<String> ALL_SKUS = Arrays.asList(SUPPORTER_SKU, UNLOCK_TOKEN_SKU, "malware_detection", FIREWALL_SKU, PCAPNG_SKU);
-    private static final int[] res_placeholder = {R.string.billing_connecting, R.string.pending_transaction, R.string.feature_not_available, R.string.show_me, R.string.loading, R.string.purchased, R.string.no_items_for_purchase, R.string.billing_failure, R.string.learn_more, R.string.buy_action, R.string.can_use_purchased_feature, R.drawable.ic_shopping_cart, R.string.firewall_summary, R.string.no_root_firewall, R.string.unlock_token, R.string.unlock_token_summary, R.string.unlock_token_error, R.string.license_service_unavailable, R.string.requesting_unlock_token, R.string.show_action, R.string.unlock_token_msg1, R.string.qr_license_confirm, R.string.qr_purchase_required, R.string.license_limit_reached, R.string.license_error, R.string.requesting_license};
+    private static final int[] res_placeholder = {C0130R.string.billing_connecting, C0130R.string.pending_transaction, C0130R.string.feature_not_available, C0130R.string.show_me, C0130R.string.loading, C0130R.string.purchased, C0130R.string.no_items_for_purchase, C0130R.string.billing_failure, C0130R.string.learn_more, C0130R.string.buy_action, C0130R.string.can_use_purchased_feature, C0130R.C0131drawable.ic_shopping_cart, C0130R.string.firewall_summary, C0130R.string.no_root_firewall, C0130R.string.unlock_token, C0130R.string.unlock_token_summary, C0130R.string.unlock_token_error, C0130R.string.license_service_unavailable, C0130R.string.requesting_unlock_token, C0130R.string.show_action, C0130R.string.unlock_token_msg1, C0130R.string.qr_license_confirm, C0130R.string.qr_purchase_required, C0130R.string.license_limit_reached, C0130R.string.license_error, C0130R.string.requesting_license};
     private static final ArraySet mPeerSkus = new ArraySet(0);
 
     public Billing(Context context) {
@@ -126,7 +126,7 @@ public class Billing {
         if (!set.equals(arraySet)) {
             arraySet.clear();
             arraySet.addAll(set);
-            Log.i(TAG, "Peer skus updated: " + set);
+            Log.m583i(TAG, "Peer skus updated: " + set);
             this.mPrefs.edit().putStringSet(PEER_SKU_KEY, arraySet).apply();
         }
     }
@@ -174,7 +174,7 @@ public class Billing {
             }
             return false;
         } catch (IllegalArgumentException | InvalidKeyException | NoSuchAlgorithmException | SignatureException | InvalidKeySpecException e) {
-            Log.d(TAG, e.getMessage());
+            Log.m587d(TAG, e.getMessage());
             return false;
         }
     }

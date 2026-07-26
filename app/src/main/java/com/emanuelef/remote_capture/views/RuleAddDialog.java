@@ -11,11 +11,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertController;
 import androidx.appcompat.app.AlertDialog;
 import com.android.billingclient.api.zzbv;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.model.Blocklist$$ExternalSyntheticLambda0;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import j$.util.Objects;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class RuleAddDialog implements View.OnClickListener {
     private final RuleAddListener mAdapter;
@@ -43,16 +43,16 @@ public class RuleAddDialog implements View.OnClickListener {
         this.mContext = context;
         this.mViewMode = viewMode;
         this.mAdapter = ruleAddListener;
-        View inflate = LayoutInflater.from(context).inflate(R.layout.add_rule_dialog, (ViewGroup) null);
-        this.mComboLayout = (TextInputLayout) inflate.findViewById(R.id.combo_field);
-        this.mEditTextLayout = (TextInputLayout) inflate.findViewById(R.id.text_field);
-        this.mComboText = (AutoCompleteTextView) inflate.findViewById(R.id.combo_text);
-        this.mEditText = (TextInputEditText) inflate.findViewById(R.id.text_value);
+        View inflate = LayoutInflater.from(context).inflate(C0130R.layout.add_rule_dialog, (ViewGroup) null);
+        this.mComboLayout = (TextInputLayout) inflate.findViewById(C0130R.C0132id.combo_field);
+        this.mEditTextLayout = (TextInputLayout) inflate.findViewById(C0130R.C0132id.text_field);
+        this.mComboText = (AutoCompleteTextView) inflate.findViewById(C0130R.C0132id.combo_text);
+        this.mEditText = (TextInputEditText) inflate.findViewById(C0130R.C0132id.text_value);
         zzbv zzbvVar = new zzbv(context);
         ((AlertController.AlertParams) zzbvVar.zza).mView = inflate;
         zzbvVar.setTitle(i);
-        zzbvVar.setPositiveButton(R.string.add_action, new Blocklist$$ExternalSyntheticLambda0(24));
-        zzbvVar.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(25));
+        zzbvVar.setPositiveButton(C0130R.string.add_action, new Blocklist$$ExternalSyntheticLambda0(24));
+        zzbvVar.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(25));
         AlertDialog show = zzbvVar.show();
         this.mDialog = show;
         show.setCanceledOnTouchOutside(false);
@@ -68,7 +68,7 @@ public class RuleAddDialog implements View.OnClickListener {
     public static RuleAddDialog showCombo(Context context, int i, String[] strArr, RuleAddListener ruleAddListener) {
         RuleAddDialog ruleAddDialog = new RuleAddDialog(ViewMode.RULE_DIALOG_COMBO, context, i, ruleAddListener);
         ruleAddDialog.mComboLayout.setVisibility(0);
-        ruleAddDialog.mComboAdapter = new ArrayAdapter<>(context, (int) R.layout.dropdown_item, strArr);
+        ruleAddDialog.mComboAdapter = new ArrayAdapter<>(context, (int) C0130R.layout.dropdown_item, strArr);
         if (strArr.length > 0) {
             ruleAddDialog.mComboText.setText(strArr[0]);
         }
@@ -96,7 +96,7 @@ public class RuleAddDialog implements View.OnClickListener {
         Objects.requireNonNull(text);
         String charSequence = text.toString();
         if (charSequence.isEmpty()) {
-            field.setError(this.mContext.getString(R.string.required));
+            field.setError(this.mContext.getString(C0130R.string.required));
             return;
         }
         if (this.mComboAdapter != null) {
@@ -104,7 +104,7 @@ public class RuleAddDialog implements View.OnClickListener {
                 if (!this.mComboAdapter.getItem(i).equals(charSequence)) {
                 }
             }
-            field.setError(this.mContext.getString(R.string.invalid));
+            field.setError(this.mContext.getString(C0130R.string.invalid));
             return;
         }
         if (this.mAdapter.addRule(charSequence, field)) {

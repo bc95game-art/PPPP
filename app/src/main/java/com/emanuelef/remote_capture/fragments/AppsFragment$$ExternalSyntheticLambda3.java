@@ -25,10 +25,10 @@ public final /* synthetic */ class AppsFragment$$ExternalSyntheticLambda3 implem
                 ((MainActivity) this.f$0).lambda$onCreate$2((CaptureService.ServiceStatus) obj);
                 return;
             case 2:
-                StatsActivity.m122$r8$lambda$W9tVy6EFwTdZiRhj17vTe7Y8Z8((StatsActivity) this.f$0, (CaptureStats) obj);
+                StatsActivity.m752$r8$lambda$W9tVy6EFwTdZiRhj17vTe7Y8Z8((StatsActivity) this.f$0, (CaptureStats) obj);
                 return;
             case 3:
-                BlacklistsFragment.m162$r8$lambda$4KgpzBqpIW5uiMPVk3OzylcTuU((BlacklistsFragment) this.f$0, (CaptureService.ServiceStatus) obj);
+                BlacklistsFragment.m792$r8$lambda$4KgpzBqpIW5uiMPVk3OzylcTuU((BlacklistsFragment) this.f$0, (CaptureService.ServiceStatus) obj);
                 return;
             case 4:
                 ((ConnectionsFragment) this.f$0).lambda$onViewCreated$9((CaptureService.ServiceStatus) obj);

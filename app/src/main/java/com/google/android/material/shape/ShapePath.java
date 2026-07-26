@@ -100,9 +100,9 @@ public final class ShapePath {
         @Override // com.google.android.material.shape.ShapePath.ShadowCompatOperation
         public final void draw(Matrix matrix, ShadowRenderer shadowRenderer, int i, Canvas canvas) {
             PathLineOperation pathLineOperation = this.operation;
-            float f = pathLineOperation.y;
+            float f = pathLineOperation.f37y;
             float f2 = this.startY;
-            float f3 = pathLineOperation.x;
+            float f3 = pathLineOperation.f36x;
             float f4 = this.startX;
             RectF rectF = new RectF(0.0f, 0.0f, (float) Math.hypot(f - f2, f3 - f4), 0.0f);
             Matrix matrix2 = this.renderMatrix;
@@ -128,7 +128,7 @@ public final class ShapePath {
 
         public final float getAngle() {
             PathLineOperation pathLineOperation = this.operation;
-            return (float) Math.toDegrees(Math.atan((pathLineOperation.y - this.startY) / (pathLineOperation.x - this.startX)));
+            return (float) Math.toDegrees(Math.atan((pathLineOperation.f37y - this.startY) / (pathLineOperation.f36x - this.startX)));
         }
     }
 
@@ -165,15 +165,19 @@ public final class ShapePath {
 
     /* loaded from: classes.dex */
     public final class PathLineOperation extends PathOperation {
-        public float x;
-        public float y;
+
+        /* renamed from: x */
+        public float f36x;
+
+        /* renamed from: y */
+        public float f37y;
 
         @Override // com.google.android.material.shape.ShapePath.PathOperation
         public final void applyToPath(Matrix matrix, Path path) {
             Matrix matrix2 = this.matrix;
             matrix.invert(matrix2);
             path.transform(matrix2);
-            path.lineTo(this.x, this.y);
+            path.lineTo(this.f36x, this.f37y);
             path.transform(matrix);
         }
     }
@@ -224,8 +228,8 @@ public final class ShapePath {
     /* JADX WARN: Type inference failed for: r0v0, types: [com.google.android.material.shape.ShapePath$PathOperation, com.google.android.material.shape.ShapePath$PathLineOperation, java.lang.Object] */
     public final void lineTo(float f, float f2) {
         ?? pathOperation = new PathOperation();
-        pathOperation.x = f;
-        pathOperation.y = f2;
+        pathOperation.f36x = f;
+        pathOperation.f37y = f2;
         this.operations.add(pathOperation);
         LineShadowOperation lineShadowOperation = new LineShadowOperation(pathOperation, this.endX, this.endY);
         addConnectingShadowIfNecessary(lineShadowOperation.getAngle() + 270.0f);

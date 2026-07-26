@@ -22,7 +22,7 @@ public abstract class zzc {
     public static void zzb(Parcel parcel) {
         int dataAvail = parcel.dataAvail();
         if (dataAvail > 0) {
-            throw new BadParcelableException(ViewModelProvider.Factory.CC.m(dataAvail, "Parcel data not fully consumed, unread size: "));
+            throw new BadParcelableException(ViewModelProvider.Factory.CC.m604m(dataAvail, "Parcel data not fully consumed, unread size: "));
         }
     }
 }

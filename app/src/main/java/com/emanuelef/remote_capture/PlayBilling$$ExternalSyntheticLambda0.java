@@ -18,13 +18,13 @@ public final /* synthetic */ class PlayBilling$$ExternalSyntheticLambda0 impleme
     public final void onClick(DialogInterface dialogInterface, int i) {
         switch (this.$r8$classId) {
             case 0:
-                PlayBilling.m64$r8$lambda$_Bsc8vwuZUK6cOr1L2t4xv5PM((PlayBilling) this.f$0, (String) this.f$1, dialogInterface, i);
+                PlayBilling.m694$r8$lambda$_Bsc8vwuZUK6cOr1L2t4xv5PM((PlayBilling) this.f$0, (String) this.f$1, dialogInterface, i);
                 return;
             case 1:
-                PlayBilling.m56$r8$lambda$4a9pBJXr2gC0P8YPmNIsHXFfhw((PlayBilling) this.f$0, (String) this.f$1, dialogInterface, i);
+                PlayBilling.m686$r8$lambda$4a9pBJXr2gC0P8YPmNIsHXFfhw((PlayBilling) this.f$0, (String) this.f$1, dialogInterface, i);
                 return;
             case 2:
-                PlayBilling.m70$r8$lambda$vM4PV2QqI0Cvw4XpWDnfiRyWK8((PlayBilling) this.f$0, (String) this.f$1, dialogInterface, i);
+                PlayBilling.m700$r8$lambda$vM4PV2QqI0Cvw4XpWDnfiRyWK8((PlayBilling) this.f$0, (String) this.f$1, dialogInterface, i);
                 return;
             default:
                 CaptureHelper.$r8$lambda$tvZLgmnwIFZqrGCB3UIM3WaeUrA((CaptureHelper) this.f$0, (Intent) this.f$1, dialogInterface, i);

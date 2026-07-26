@@ -199,6 +199,6 @@ public final class AutoValue_AndroidClientInfo extends AndroidClientInfo {
         sb.append(", mccMnc=");
         sb.append(this.mccMnc);
         sb.append(", applicationBuild=");
-        return ViewModelProvider.Factory.CC.m(sb, this.applicationBuild, "}");
+        return ViewModelProvider.Factory.CC.m593m(sb, this.applicationBuild, "}");
     }
 }

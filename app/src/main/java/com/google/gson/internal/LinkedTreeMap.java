@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 /* loaded from: classes.dex */
 public final class LinkedTreeMap extends AbstractMap implements Serializable {
-    public static final ViewPager.AnonymousClass1 NATURAL_ORDER = new ViewPager.AnonymousClass1(6);
+    public static final ViewPager.C01171 NATURAL_ORDER = new ViewPager.C01171(6);
     public final boolean allowNullValues;
     public ArrayMap.EntrySet entrySet;
     public final Node header;
@@ -66,7 +66,7 @@ public final class LinkedTreeMap extends AbstractMap implements Serializable {
         Comparable comparable;
         Node node2;
         Node node3 = this.root;
-        ViewPager.AnonymousClass1 r2 = NATURAL_ORDER;
+        ViewPager.C01171 r2 = NATURAL_ORDER;
         Comparator comparator = this.comparator;
         if (node3 != null) {
             if (comparator == r2) {
@@ -126,27 +126,22 @@ public final class LinkedTreeMap extends AbstractMap implements Serializable {
     @Override // java.util.AbstractMap, java.util.Map
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.Object get(java.lang.Object r3) {
-        /*
-            r2 = this;
-            r0 = 0
-            if (r3 == 0) goto La
-            r1 = 0
-            com.google.gson.internal.LinkedTreeMap$Node r3 = r2.find(r3, r1)     // Catch: java.lang.ClassCastException -> L9
-            goto Lb
-        L9:
-        La:
-            r3 = r0
-        Lb:
-            if (r3 == 0) goto L10
-            java.lang.Object r3 = r3.value
-            return r3
-        L10:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.internal.LinkedTreeMap.get(java.lang.Object):java.lang.Object");
+    public final Object get(Object obj) {
+        Node node;
+        if (obj != null) {
+            try {
+                node = find(obj, false);
+            } catch (ClassCastException unused) {
+            }
+            if (node == null) {
+                return node.value;
+            }
+            return null;
+        }
+        node = null;
+        if (node == null) {
+        }
     }
 
     @Override // java.util.AbstractMap, java.util.Map
@@ -257,31 +252,27 @@ public final class LinkedTreeMap extends AbstractMap implements Serializable {
     @Override // java.util.AbstractMap, java.util.Map
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.Object remove(java.lang.Object r3) {
-        /*
-            r2 = this;
-            r0 = 0
-            if (r3 == 0) goto La
-            r1 = 0
-            com.google.gson.internal.LinkedTreeMap$Node r3 = r2.find(r3, r1)     // Catch: java.lang.ClassCastException -> L9
-            goto Lb
-        L9:
-        La:
-            r3 = r0
-        Lb:
-            if (r3 == 0) goto L11
-            r1 = 1
-            r2.removeInternal(r3, r1)
-        L11:
-            if (r3 == 0) goto L16
-            java.lang.Object r3 = r3.value
-            return r3
-        L16:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.internal.LinkedTreeMap.remove(java.lang.Object):java.lang.Object");
+    public final Object remove(Object obj) {
+        Node node;
+        if (obj != null) {
+            try {
+                node = find(obj, false);
+            } catch (ClassCastException unused) {
+            }
+            if (node != null) {
+                removeInternal(node, true);
+            }
+            if (node == null) {
+                return node.value;
+            }
+            return null;
+        }
+        node = null;
+        if (node != null) {
+        }
+        if (node == null) {
+        }
     }
 
     public final void removeInternal(Node node, boolean z) {

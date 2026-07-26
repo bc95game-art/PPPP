@@ -5,7 +5,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.core.view.inputmethod.InputConnectionCompat$$ExternalSyntheticLambda0;
 import androidx.fragment.app.FragmentManager;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.adapters.PayloadAdapter;
 import java.io.IOException;
@@ -41,16 +41,16 @@ public class PayloadExportActivity extends BaseActivity implements PayloadAdapte
                         } else {
                             openOutputStream.write(this.mRawPayloadToExport);
                         }
-                        Utils.showToast(this, R.string.save_ok, new Object[0]);
+                        Utils.showToast(this, C0130R.string.save_ok, new Object[0]);
                     } else {
-                        Utils.showToastLong(this, R.string.export_failed, new Object[0]);
+                        Utils.showToastLong(this, C0130R.string.export_failed, new Object[0]);
                     }
                     if (openOutputStream != null) {
                         openOutputStream.close();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Utils.showToastLong(this, R.string.export_failed, new Object[0]);
+                    Utils.showToastLong(this, C0130R.string.export_failed, new Object[0]);
                 }
             }
             this.mRawPayloadToExport = null;

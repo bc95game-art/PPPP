@@ -18,7 +18,7 @@ import java.util.HashMap;
 public final class GsonBuilder {
     public final Excluder excluder = Excluder.DEFAULT;
     public final int longSerializationPolicy = 1;
-    public final FieldNamingPolicy.AnonymousClass1 fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
+    public final FieldNamingPolicy.C02201 fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
     public final HashMap instanceCreators = new HashMap();
     public final ArrayList factories = new ArrayList();
     public final ArrayList hierarchyFactories = new ArrayList();
@@ -27,8 +27,8 @@ public final class GsonBuilder {
     public final boolean escapeHtmlChars = true;
     public FormattingStyle formattingStyle = Gson.DEFAULT_FORMATTING_STYLE;
     public final boolean useJdkUnsafe = true;
-    public final ToNumberPolicy.AnonymousClass1 objectToNumberStrategy = Gson.DEFAULT_OBJECT_TO_NUMBER_STRATEGY;
-    public final ToNumberPolicy.AnonymousClass2 numberToNumberStrategy = Gson.DEFAULT_NUMBER_TO_NUMBER_STRATEGY;
+    public final ToNumberPolicy.C02301 objectToNumberStrategy = Gson.DEFAULT_OBJECT_TO_NUMBER_STRATEGY;
+    public final ToNumberPolicy.C02312 numberToNumberStrategy = Gson.DEFAULT_NUMBER_TO_NUMBER_STRATEGY;
     public final ArrayDeque reflectionFilters = new ArrayDeque();
 
     public GsonBuilder() {
@@ -36,8 +36,8 @@ public final class GsonBuilder {
     }
 
     public final Gson create() {
-        TypeAdapters.AnonymousClass29 r10;
-        TypeAdapters.AnonymousClass29 r4;
+        TypeAdapters.C026429 r10;
+        TypeAdapters.C026429 r4;
         ArrayList arrayList = this.factories;
         int size = arrayList.size();
         ArrayList arrayList2 = this.hierarchyFactories;
@@ -52,15 +52,15 @@ public final class GsonBuilder {
         int i2 = this.timeStyle;
         if (!(i == 2 && i2 == 2)) {
             DefaultDateTypeAdapter defaultDateTypeAdapter = new DefaultDateTypeAdapter(DefaultDateTypeAdapter.DateType.DATE, i, i2);
-            TypeAdapters.AnonymousClass29 r6 = TypeAdapters.CLASS_FACTORY;
-            TypeAdapters.AnonymousClass29 r62 = new TypeAdapters.AnonymousClass29(Date.class, defaultDateTypeAdapter, 0);
+            TypeAdapters.C026429 r6 = TypeAdapters.CLASS_FACTORY;
+            TypeAdapters.C026429 r62 = new TypeAdapters.C026429(Date.class, defaultDateTypeAdapter, 0);
             if (z) {
-                SqlTypesSupport.AnonymousClass1 r5 = SqlTypesSupport.TIMESTAMP_DATE_TYPE;
+                SqlTypesSupport.C02771 r5 = SqlTypesSupport.TIMESTAMP_DATE_TYPE;
                 r5.getClass();
-                r10 = new TypeAdapters.AnonymousClass29(r5.dateClass, new DefaultDateTypeAdapter(r5, i, i2), 0);
-                SqlTypesSupport.AnonymousClass1 r52 = SqlTypesSupport.DATE_DATE_TYPE;
+                r10 = new TypeAdapters.C026429(r5.dateClass, new DefaultDateTypeAdapter(r5, i, i2), 0);
+                SqlTypesSupport.C02771 r52 = SqlTypesSupport.DATE_DATE_TYPE;
                 r52.getClass();
-                r4 = new TypeAdapters.AnonymousClass29(r52.dateClass, new DefaultDateTypeAdapter(r52, i, i2), 0);
+                r4 = new TypeAdapters.C026429(r52.dateClass, new DefaultDateTypeAdapter(r52, i, i2), 0);
             } else {
                 r10 = null;
                 r4 = null;
@@ -91,8 +91,8 @@ public final class GsonBuilder {
             ArrayList arrayList = this.factories;
             arrayList.add(singleTypeFactory);
             if (jsonSerializer instanceof TypeAdapter) {
-                TypeAdapters.AnonymousClass29 r1 = TypeAdapters.CLASS_FACTORY;
-                arrayList.add(new TypeAdapters.AnonymousClass29(TypeToken.get((Type) cls), (TypeAdapter) jsonSerializer, 2));
+                TypeAdapters.C026429 r1 = TypeAdapters.CLASS_FACTORY;
+                arrayList.add(new TypeAdapters.C026429(TypeToken.get((Type) cls), (TypeAdapter) jsonSerializer, 2));
                 return;
             }
             return;

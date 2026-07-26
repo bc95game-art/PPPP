@@ -16,6 +16,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.StateSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -26,14 +27,14 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.inputmethod.InputConnectionCompat$$ExternalSyntheticLambda0;
 import androidx.customview.view.AbsSavedState;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.FakeDrag;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.ripple.RippleUtils;
@@ -46,11 +47,12 @@ import com.google.android.material.theme.overlay.MaterialThemeOverlay;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import kotlin.LazyKt__LazyJVMKt;
+import kotlinx.coroutines.flow.ReadonlyStateFlow;
 /* loaded from: classes.dex */
 public class MaterialButton extends AppCompatButton implements Checkable, Shapeable {
     public static final int[] CHECKABLE_STATE_SET = {16842911};
     public static final int[] CHECKED_STATE_SET = {16842912};
-    public static final AnonymousClass1 WIDTH_INCREASE = new Object();
+    public static final C01701 WIDTH_INCREASE = new Object();
     public String accessibilityClassName;
     public float displayedWidthDecrease;
     public float displayedWidthIncrease;
@@ -80,15 +82,15 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     public int originalPaddingEnd = -1;
     public int allowedWidthDecrease = -1;
 
-    /* renamed from: com.google.android.material.button.MaterialButton$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.button.MaterialButton$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 extends BundleKt {
-        @Override // androidx.core.os.BundleKt
+    public final class C01701 extends BundleKt {
+        @Override // androidx.core.p002os.BundleKt
         public final float getValue(Shapeable shapeable) {
             return ((MaterialButton) shapeable).getDisplayedWidthIncrease();
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public final void setValue(Shapeable shapeable, float f) {
             ((MaterialButton) shapeable).setDisplayedWidthIncrease(f);
         }
@@ -100,7 +102,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
 
     /* loaded from: classes.dex */
     public final class SavedState extends AbsSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.AnonymousClass2(10);
+        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.C00522(10);
         public boolean checked;
 
         public SavedState(Parcel parcel, ClassLoader classLoader) {
@@ -119,18 +121,18 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     }
 
     /* renamed from: $r8$lambda$sTDU5mTMH-dVAgylGXPenYNnUDs  reason: not valid java name */
-    public static /* synthetic */ void m250$r8$lambda$sTDU5mTMHdVAgylGXPenYNnUDs(MaterialButton materialButton) {
+    public static /* synthetic */ void m880$r8$lambda$sTDU5mTMHdVAgylGXPenYNnUDs(MaterialButton materialButton) {
         materialButton.opticalCenterShift = materialButton.getOpticalCenterShift();
         materialButton.updatePaddingsAndSizeForWidthAnimation();
         materialButton.invalidate();
     }
 
     public MaterialButton(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.materialButtonStyle, R.style.Widget_MaterialComponents_Button, new int[]{R.attr.materialSizeOverlay}), attributeSet, R.attr.materialButtonStyle);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.materialButtonStyle, C0130R.style.Widget_MaterialComponents_Button, new int[]{C0130R.attr.materialSizeOverlay}), attributeSet, C0130R.attr.materialButtonStyle);
         ShapeAppearanceModel shapeAppearanceModel;
         boolean z = false;
         Context context2 = getContext();
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialButton, R.attr.materialButtonStyle, R.style.Widget_MaterialComponents_Button, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialButton, C0130R.attr.materialButtonStyle, C0130R.style.Widget_MaterialComponents_Button, new int[0]);
         this.iconPadding = obtainStyledAttributes.getDimensionPixelSize(13, 0);
         int i = obtainStyledAttributes.getInt(16, -1);
         PorterDuff.Mode mode = PorterDuff.Mode.SRC_IN;
@@ -143,7 +145,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
         if (create != null) {
             shapeAppearanceModel = create.getDefaultShape();
         } else {
-            shapeAppearanceModel = ShapeAppearanceModel.builder(context2, attributeSet, (int) R.attr.materialButtonStyle, (int) R.style.Widget_MaterialComponents_Button).build();
+            shapeAppearanceModel = ShapeAppearanceModel.builder(context2, attributeSet, (int) C0130R.attr.materialButtonStyle, (int) C0130R.style.Widget_MaterialComponents_Button).build();
         }
         boolean z2 = obtainStyledAttributes.getBoolean(17, false);
         MaterialButtonHelper materialButtonHelper = new MaterialButtonHelper(this, shapeAppearanceModel);
@@ -277,7 +279,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
                     this.broadcasting = false;
                     return;
                 }
-                throw ViewModelProvider.Factory.CC.m(it);
+                throw ViewModelProvider.Factory.CC.m592m(it);
             }
         }
     }
@@ -340,10 +342,10 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     public final SpringForce createSpringForce() {
         TypedArray typedArray;
         Context context = getContext();
-        TypedValue resolve = LazyKt__LazyJVMKt.resolve(context, R.attr.motionSpringFastSpatial);
+        TypedValue resolve = LazyKt__LazyJVMKt.resolve(context, C0130R.attr.motionSpringFastSpatial);
         int[] iArr = R$styleable.MaterialSpring;
         if (resolve == null) {
-            typedArray = context.obtainStyledAttributes(null, iArr, 0, R.style.Motion_Material3_Spring_Standard_Fast_Spatial);
+            typedArray = context.obtainStyledAttributes(null, iArr, 0, C0130R.style.Motion_Material3_Spring_Standard_Fast_Spatial);
         } else {
             typedArray = context.obtainStyledAttributes(resolve.resourceId, iArr);
         }
@@ -506,99 +508,69 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final void maybeAnimateSize(boolean r9) {
-        /*
-            r8 = this;
-            com.google.android.material.shape.StateListSizeChange r0 = r8.sizeChange
-            if (r0 != 0) goto L6
-            goto L86
-        L6:
-            androidx.dynamicanimation.animation.SpringAnimation r0 = r8.widthIncreaseSpringAnimation
-            if (r0 != 0) goto L19
-            androidx.dynamicanimation.animation.SpringAnimation r0 = new androidx.dynamicanimation.animation.SpringAnimation
-            com.google.android.material.button.MaterialButton$1 r1 = com.google.android.material.button.MaterialButton.WIDTH_INCREASE
-            r0.<init>(r8, r1)
-            r8.widthIncreaseSpringAnimation = r0
-            androidx.dynamicanimation.animation.SpringForce r1 = r8.createSpringForce()
-            r0.mSpring = r1
-        L19:
-            boolean r0 = r8.isInHorizontalButtonGroup
-            if (r0 == 0) goto L86
-            int r0 = r8.widthChangeMax
-            com.google.android.material.shape.StateListSizeChange r1 = r8.sizeChange
-            int[] r2 = r8.getDrawableState()
-            int[][] r3 = r1.stateSpecs
-            r4 = 0
-            r5 = 0
-        L29:
-            int r6 = r1.stateCount
-            r7 = -1
-            if (r5 >= r6) goto L3a
-            r6 = r3[r5]
-            boolean r6 = android.util.StateSet.stateSetMatches(r6, r2)
-            if (r6 == 0) goto L37
-            goto L3b
-        L37:
-            int r5 = r5 + 1
-            goto L29
-        L3a:
-            r5 = -1
-        L3b:
-            if (r5 >= 0) goto L54
-            int[] r2 = android.util.StateSet.WILD_CARD
-            int[][] r3 = r1.stateSpecs
-            r5 = 0
-        L42:
-            int r6 = r1.stateCount
-            if (r5 >= r6) goto L53
-            r6 = r3[r5]
-            boolean r6 = android.util.StateSet.stateSetMatches(r6, r2)
-            if (r6 == 0) goto L50
-            r7 = r5
-            goto L53
-        L50:
-            int r5 = r5 + 1
-            goto L42
-        L53:
-            r5 = r7
-        L54:
-            if (r5 >= 0) goto L59
-            kotlinx.coroutines.flow.ReadonlyStateFlow r1 = r1.defaultSizeChange
-            goto L5d
-        L59:
-            kotlinx.coroutines.flow.ReadonlyStateFlow[] r1 = r1.sizeChanges
-            r1 = r1[r5]
-        L5d:
-            java.lang.Object r1 = r1.$$delegate_0
-            com.google.android.material.shape.StateListSizeChange$SizeChangeAmount r1 = (com.google.android.material.shape.StateListSizeChange.SizeChangeAmount) r1
-            int r2 = r8.getWidth()
-            float r3 = r1.amount
-            int r1 = r1.type
-            r5 = 1
-            if (r1 != r5) goto L71
-            float r1 = (float) r2
-            float r3 = r3 * r1
-        L6f:
-            int r4 = (int) r3
-            goto L75
-        L71:
-            r2 = 2
-            if (r1 != r2) goto L75
-            goto L6f
-        L75:
-            int r0 = java.lang.Math.min(r0, r4)
-            androidx.dynamicanimation.animation.SpringAnimation r1 = r8.widthIncreaseSpringAnimation
-            float r0 = (float) r0
-            r1.animateToFinalPosition(r0)
-            if (r9 == 0) goto L86
-            androidx.dynamicanimation.animation.SpringAnimation r9 = r8.widthIncreaseSpringAnimation
-            r9.skipToEnd()
-        L86:
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.button.MaterialButton.maybeAnimateSize(boolean):void");
+    public final void maybeAnimateSize(boolean z) {
+        int i;
+        ReadonlyStateFlow readonlyStateFlow;
+        if (this.sizeChange != null) {
+            if (this.widthIncreaseSpringAnimation == null) {
+                SpringAnimation springAnimation = new SpringAnimation(this, WIDTH_INCREASE);
+                this.widthIncreaseSpringAnimation = springAnimation;
+                springAnimation.mSpring = createSpringForce();
+            }
+            if (this.isInHorizontalButtonGroup) {
+                int i2 = this.widthChangeMax;
+                StateListSizeChange stateListSizeChange = this.sizeChange;
+                int[] drawableState = getDrawableState();
+                int[][] iArr = stateListSizeChange.stateSpecs;
+                int i3 = 0;
+                int i4 = 0;
+                while (true) {
+                    i = -1;
+                    if (i4 >= stateListSizeChange.stateCount) {
+                        i4 = -1;
+                        break;
+                    } else if (StateSet.stateSetMatches(iArr[i4], drawableState)) {
+                        break;
+                    } else {
+                        i4++;
+                    }
+                }
+                if (i4 < 0) {
+                    int[] iArr2 = StateSet.WILD_CARD;
+                    int[][] iArr3 = stateListSizeChange.stateSpecs;
+                    int i5 = 0;
+                    while (true) {
+                        if (i5 >= stateListSizeChange.stateCount) {
+                            break;
+                        } else if (StateSet.stateSetMatches(iArr3[i5], iArr2)) {
+                            i = i5;
+                            break;
+                        } else {
+                            i5++;
+                        }
+                    }
+                    i4 = i;
+                }
+                if (i4 < 0) {
+                    readonlyStateFlow = stateListSizeChange.defaultSizeChange;
+                } else {
+                    readonlyStateFlow = stateListSizeChange.sizeChanges[i4];
+                }
+                StateListSizeChange.SizeChangeAmount sizeChangeAmount = (StateListSizeChange.SizeChangeAmount) readonlyStateFlow.$$delegate_0;
+                int width = getWidth();
+                float f = sizeChangeAmount.amount;
+                int i6 = sizeChangeAmount.type;
+                if (i6 == 1) {
+                    f *= width;
+                }
+                i3 = (int) f;
+                this.widthIncreaseSpringAnimation.animateToFinalPosition(Math.min(i2, i3));
+                if (z) {
+                    this.widthIncreaseSpringAnimation.skipToEnd();
+                }
+            }
+        }
     }
 
     @Override // android.widget.TextView, android.view.View

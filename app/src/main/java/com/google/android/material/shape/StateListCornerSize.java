@@ -6,7 +6,7 @@ import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
 import android.util.StateSet;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 /* loaded from: classes.dex */
 public final class StateListCornerSize {
@@ -105,7 +105,7 @@ public final class StateListCornerSize {
                     int i = 0;
                     for (int i2 = 0; i2 < attributeCount; i2++) {
                         int attributeNameResource = attributeSet.getAttributeNameResource(i2);
-                        if (attributeNameResource != R.attr.cornerSize) {
+                        if (attributeNameResource != C0130R.attr.cornerSize) {
                             int i3 = i + 1;
                             if (!attributeSet.getAttributeBooleanValue(i2, false)) {
                                 attributeNameResource = -attributeNameResource;

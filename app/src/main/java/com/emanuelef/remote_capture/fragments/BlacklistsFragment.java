@@ -20,10 +20,10 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import com.emanuelef.remote_capture.Blacklists;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.adapters.BlacklistsAdapter;
 import com.emanuelef.remote_capture.interfaces.BlacklistsStateListener;
@@ -65,21 +65,21 @@ public class BlacklistsFragment extends Fragment implements BlacklistsStateListe
 
     @Override // com.emanuelef.remote_capture.interfaces.BlacklistsStateListener
     public void onBlacklistsStateChanged() {
-        Log.d(TAG, "onBlacklistsStateChanged");
+        Log.m587d(TAG, "onBlacklistsStateChanged");
         this.mHandler.post(new ActivityCompat$$ExternalSyntheticLambda0(11, this));
     }
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.blacklists_menu, menu);
-        this.mUpdateItem = menu.findItem(R.id.update);
+        menuInflater.inflate(C0130R.C0134menu.blacklists_menu, menu);
+        this.mUpdateItem = menu.findItem(C0130R.C0132id.update);
         refreshStatus();
     }
 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.malware_detection_blacklists, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.malware_detection_blacklists, viewGroup, false);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -88,7 +88,7 @@ public class BlacklistsFragment extends Fragment implements BlacklistsStateListe
 
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() != R.id.update) {
+        if (menuItem.getItemId() != C0130R.C0132id.update) {
             return false;
         }
         CaptureService.requestBlacklistsUpdate();
@@ -115,7 +115,7 @@ public class BlacklistsFragment extends Fragment implements BlacklistsStateListe
     public void onViewCreated(View view, Bundle bundle) {
         this.mBlacklists = PCAPdroid.getInstance().getBlacklists();
         this.mAdapter = new BlacklistsAdapter(view.getContext(), PCAPdroid.getInstance().getBlacklists().iter());
-        ListView listView = (ListView) view.findViewById(R.id.listview);
+        ListView listView = (ListView) view.findViewById(C0130R.C0132id.listview);
         listView.setAdapter((ListAdapter) this.mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // from class: com.emanuelef.remote_capture.fragments.BlacklistsFragment$$ExternalSyntheticLambda1
             @Override // android.widget.AdapterView.OnItemClickListener

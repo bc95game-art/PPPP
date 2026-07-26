@@ -5,7 +5,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.search.SearchBar$ScrollingViewBehavior;

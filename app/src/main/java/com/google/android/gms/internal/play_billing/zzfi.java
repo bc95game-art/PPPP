@@ -1,10 +1,10 @@
 package com.google.android.gms.internal.play_billing;
 
 import androidx.lifecycle.ViewModelProvider;
-import j$.util.concurrent.ConcurrentHashMap;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import p004j$.util.concurrent.ConcurrentHashMap;
 /* loaded from: classes.dex */
 public abstract class zzfi extends zzds {
     private static final Map zzb = new ConcurrentHashMap();
@@ -116,7 +116,7 @@ public abstract class zzfi extends zzds {
             if (zza >= 0) {
                 return zza;
             }
-            throw new IllegalStateException(ViewModelProvider.Factory.CC.m(zza, "serialized size must be non-negative, was "));
+            throw new IllegalStateException(ViewModelProvider.Factory.CC.m604m(zza, "serialized size must be non-negative, was "));
         }
         int i = this.zzd & Integer.MAX_VALUE;
         if (i != Integer.MAX_VALUE) {
@@ -127,7 +127,7 @@ public abstract class zzfi extends zzds {
             this.zzd = (this.zzd & Integer.MIN_VALUE) | zza2;
             return zza2;
         }
-        throw new IllegalStateException(ViewModelProvider.Factory.CC.m(zza2, "serialized size must be non-negative, was "));
+        throw new IllegalStateException(ViewModelProvider.Factory.CC.m604m(zza2, "serialized size must be non-negative, was "));
     }
 
     public final int zzj() {
@@ -136,7 +136,7 @@ public abstract class zzfi extends zzds {
             if (zza >= 0) {
                 return zza;
             }
-            throw new IllegalStateException(ViewModelProvider.Factory.CC.m(zza, "serialized size must be non-negative, was "));
+            throw new IllegalStateException(ViewModelProvider.Factory.CC.m604m(zza, "serialized size must be non-negative, was "));
         }
         int i = this.zzd & Integer.MAX_VALUE;
         if (i != Integer.MAX_VALUE) {
@@ -147,7 +147,7 @@ public abstract class zzfi extends zzds {
             this.zzd = (this.zzd & Integer.MIN_VALUE) | zza2;
             return zza2;
         }
-        throw new IllegalStateException(ViewModelProvider.Factory.CC.m(zza2, "serialized size must be non-negative, was "));
+        throw new IllegalStateException(ViewModelProvider.Factory.CC.m604m(zza2, "serialized size must be non-negative, was "));
     }
 
     public final zzfe zzl() {

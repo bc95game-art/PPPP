@@ -1,9 +1,9 @@
 package com.google.gson.internal;
 
-import j$.util.Objects;
 import java.io.Serializable;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Type;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class GsonTypes$GenericArrayTypeImpl implements GenericArrayType, Serializable {
     public final Type componentType;

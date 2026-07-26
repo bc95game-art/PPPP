@@ -6,18 +6,18 @@ import com.google.firebase.encoders.ObjectEncoderContext;
 /* loaded from: classes.dex */
 public final class AutoBatchedLogRequestEncoder$AndroidClientInfoEncoder implements ObjectEncoder {
     public static final AutoBatchedLogRequestEncoder$AndroidClientInfoEncoder INSTANCE = new Object();
-    public static final FieldDescriptor SDKVERSION_DESCRIPTOR = FieldDescriptor.of("sdkVersion");
-    public static final FieldDescriptor MODEL_DESCRIPTOR = FieldDescriptor.of("model");
-    public static final FieldDescriptor HARDWARE_DESCRIPTOR = FieldDescriptor.of("hardware");
-    public static final FieldDescriptor DEVICE_DESCRIPTOR = FieldDescriptor.of("device");
-    public static final FieldDescriptor PRODUCT_DESCRIPTOR = FieldDescriptor.of("product");
-    public static final FieldDescriptor OSBUILD_DESCRIPTOR = FieldDescriptor.of("osBuild");
-    public static final FieldDescriptor MANUFACTURER_DESCRIPTOR = FieldDescriptor.of("manufacturer");
-    public static final FieldDescriptor FINGERPRINT_DESCRIPTOR = FieldDescriptor.of("fingerprint");
-    public static final FieldDescriptor LOCALE_DESCRIPTOR = FieldDescriptor.of("locale");
-    public static final FieldDescriptor COUNTRY_DESCRIPTOR = FieldDescriptor.of("country");
-    public static final FieldDescriptor MCCMNC_DESCRIPTOR = FieldDescriptor.of("mccMnc");
-    public static final FieldDescriptor APPLICATIONBUILD_DESCRIPTOR = FieldDescriptor.of("applicationBuild");
+    public static final FieldDescriptor SDKVERSION_DESCRIPTOR = FieldDescriptor.m566of("sdkVersion");
+    public static final FieldDescriptor MODEL_DESCRIPTOR = FieldDescriptor.m566of("model");
+    public static final FieldDescriptor HARDWARE_DESCRIPTOR = FieldDescriptor.m566of("hardware");
+    public static final FieldDescriptor DEVICE_DESCRIPTOR = FieldDescriptor.m566of("device");
+    public static final FieldDescriptor PRODUCT_DESCRIPTOR = FieldDescriptor.m566of("product");
+    public static final FieldDescriptor OSBUILD_DESCRIPTOR = FieldDescriptor.m566of("osBuild");
+    public static final FieldDescriptor MANUFACTURER_DESCRIPTOR = FieldDescriptor.m566of("manufacturer");
+    public static final FieldDescriptor FINGERPRINT_DESCRIPTOR = FieldDescriptor.m566of("fingerprint");
+    public static final FieldDescriptor LOCALE_DESCRIPTOR = FieldDescriptor.m566of("locale");
+    public static final FieldDescriptor COUNTRY_DESCRIPTOR = FieldDescriptor.m566of("country");
+    public static final FieldDescriptor MCCMNC_DESCRIPTOR = FieldDescriptor.m566of("mccMnc");
+    public static final FieldDescriptor APPLICATIONBUILD_DESCRIPTOR = FieldDescriptor.m566of("applicationBuild");
 
     @Override // com.google.firebase.encoders.Encoder
     public final void encode(Object obj, Object obj2) {

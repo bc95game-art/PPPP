@@ -30,7 +30,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertController;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.text.HtmlCompat$Api24Impl;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.ViewCompat;
@@ -38,6 +38,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import com.android.billingclient.api.zzbv;
 import com.emanuelef.remote_capture.Billing;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.CaptureService$$ExternalSyntheticLambda8;
 import com.emanuelef.remote_capture.Log;
@@ -46,7 +47,6 @@ import com.emanuelef.remote_capture.PCAPdroid;
 import com.emanuelef.remote_capture.PlayBilling;
 import com.emanuelef.remote_capture.PlayBilling$$ExternalSyntheticLambda23;
 import com.emanuelef.remote_capture.PlayBilling$$ExternalSyntheticLambda24;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.Blocklist$$ExternalSyntheticLambda0;
 import com.emanuelef.remote_capture.model.Prefs;
@@ -78,15 +78,15 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
         if (deviceName == null) {
             deviceName = Utils.getDeviceModel();
         }
-        Log.d(TAG, "QR activation URI: " + ("pcapdroid://get_license?installation_id=" + str + "&qr_request_id=" + str2 + "&device=" + Uri.encode(deviceName)));
+        Log.m587d(TAG, "QR activation URI: " + ("pcapdroid://get_license?installation_id=" + str + "&qr_request_id=" + str2 + "&device=" + Uri.encode(deviceName)));
         return null;
     }
 
     private void hideQrCode(View view, String str) {
-        View findViewById = view.findViewById(R.id.show_qr_code);
-        View findViewById2 = view.findViewById(R.id.qr_code_loading);
-        View findViewById3 = view.findViewById(R.id.qr_box);
-        View findViewById4 = view.findViewById(R.id.qr_info_text);
+        View findViewById = view.findViewById(C0130R.C0132id.show_qr_code);
+        View findViewById2 = view.findViewById(C0130R.C0132id.qr_code_loading);
+        View findViewById3 = view.findViewById(C0130R.C0132id.qr_box);
+        View findViewById4 = view.findViewById(C0130R.C0132id.qr_info_text);
         findViewById3.setVisibility(8);
         findViewById4.setVisibility(8);
         findViewById2.setVisibility(8);
@@ -115,7 +115,7 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
     }
 
     public /* synthetic */ void lambda$showLicenseDialog$4(String str, View view) {
-        Utils.shareText(this, getString(R.string.installation_id), str);
+        Utils.shareText(this, getString(C0130R.string.installation_id), str);
     }
 
     public /* synthetic */ void lambda$showLicenseDialog$5(String str, View view) {
@@ -126,7 +126,7 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
         boolean isPurchased = billing.isPurchased(Billing.SUPPORTER_SKU);
         billing.setLicense(editText.getText().toString());
         if (!isPurchased && billing.isPurchased(Billing.SUPPORTER_SKU)) {
-            Utils.showToastLong(this, R.string.paid_features_unlocked, new Object[0]);
+            Utils.showToastLong(this, C0130R.string.paid_features_unlocked, new Object[0]);
         }
     }
 
@@ -144,21 +144,21 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
         int i2;
         boolean isValidLicense = billing.isValidLicense(editText.getText().toString());
         if (isValidLicense) {
-            i = R.string.valid;
+            i = C0130R.string.valid;
         } else {
-            i = R.string.invalid;
+            i = C0130R.string.invalid;
         }
         textView.setText(i);
         if (isValidLicense) {
-            i2 = R.color.ok;
+            i2 = C0130R.color.ok;
         } else {
-            i2 = R.color.danger;
+            i2 = C0130R.color.danger;
         }
         textView.setTextColor(BundleKt.getColor(this, i2));
     }
 
     public /* synthetic */ void lambda$showQrCode$10(View view, int i) {
-        hideQrCode(view, ViewModelProvider.Factory.CC.m(i, "QR request failed with code "));
+        hideQrCode(view, ViewModelProvider.Factory.CC.m604m(i, "QR request failed with code "));
     }
 
     public /* synthetic */ void lambda$showQrCode$11(View view) {
@@ -166,14 +166,14 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
     }
 
     public /* synthetic */ void lambda$showQrCode$13(View view) {
-        hideQrCode(view, getString(R.string.qr_code_expired));
+        hideQrCode(view, getString(C0130R.string.qr_code_expired));
     }
 
     public /* synthetic */ void lambda$showQrCode$15(Exception exc, View view) {
         if (exc instanceof EOFException) {
-            hideQrCode(view, getString(R.string.qr_code_expired));
+            hideQrCode(view, getString(C0130R.string.qr_code_expired));
         } else {
-            hideQrCode(view, getString(R.string.connection_error, exc.getMessage()));
+            hideQrCode(view, getString(C0130R.string.connection_error, exc.getMessage()));
         }
     }
 
@@ -193,7 +193,7 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
                 bufferedOutputStream.write(("installation_id=" + str).getBytes());
                 bufferedOutputStream.close();
                 int responseCode = httpsURLConnection.getResponseCode();
-                Log.d(TAG, "QR HTTP response: " + responseCode);
+                Log.m587d(TAG, "QR HTTP response: " + responseCode);
                 if (responseCode != 200) {
                     handler.post(new CaptureService$$ExternalSyntheticLambda8(this, view, responseCode));
                 } else {
@@ -203,7 +203,7 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
                     if (!(parseSseLine2 == null || parseSseLine == null)) {
                         int parseInt = Integer.parseInt(parseSseLine) * 1000;
                         final long elapsedRealtime = SystemClock.elapsedRealtime() + parseInt;
-                        Log.d(TAG, "QR request_id=" + parseSseLine2 + ", timeout=" + parseInt + " ms");
+                        Log.m587d(TAG, "QR request_id=" + parseSseLine2 + ", timeout=" + parseInt + " ms");
                         final Bitmap genQrCode = genQrCode(str, parseSseLine2);
                         handler.post(new Runnable() { // from class: com.emanuelef.remote_capture.activities.AboutActivity$$ExternalSyntheticLambda5
                             @Override // java.lang.Runnable
@@ -235,14 +235,14 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
 
     /* renamed from: onQrLicenseReceived */
     public void lambda$showQrCode$14(View view, String str) {
-        EditText editText = (EditText) view.findViewById(R.id.license_code);
+        EditText editText = (EditText) view.findViewById(C0130R.C0132id.license_code);
         PlayBilling newInstance = Billing.newInstance(this);
         boolean isPurchased = newInstance.isPurchased(Billing.SUPPORTER_SKU);
         if (newInstance.setLicense(str)) {
             editText.setText(str);
-            Utils.showToast(this, R.string.license_activation_ok, new Object[0]);
+            Utils.showToast(this, C0130R.string.license_activation_ok, new Object[0]);
             if (!isPurchased) {
-                Utils.showToastLong(this, R.string.paid_features_unlocked, new Object[0]);
+                Utils.showToastLong(this, C0130R.string.paid_features_unlocked, new Object[0]);
             }
             hideQrCode(view, null);
             AlertDialog alertDialog = this.mLicenseDialog;
@@ -252,18 +252,18 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
             }
             return;
         }
-        hideQrCode(view, getString(R.string.invalid_license));
+        hideQrCode(view, getString(C0130R.string.invalid_license));
     }
 
     /* renamed from: onQrRequestReady */
     public void lambda$showQrCode$12(View view, Bitmap bitmap, long j) {
-        View findViewById = view.findViewById(R.id.qr_box);
-        View findViewById2 = view.findViewById(R.id.qr_code_loading);
-        View findViewById3 = view.findViewById(R.id.qr_info_text);
+        View findViewById = view.findViewById(C0130R.C0132id.qr_box);
+        View findViewById2 = view.findViewById(C0130R.C0132id.qr_code_loading);
+        View findViewById3 = view.findViewById(C0130R.C0132id.qr_info_text);
         this.mQrStartTime = SystemClock.elapsedRealtime();
         this.mQrDeadline = j;
         lambda$updateQrProgress$17(view);
-        ((ImageView) view.findViewById(R.id.qr_code)).setImageBitmap(bitmap);
+        ((ImageView) view.findViewById(C0130R.C0132id.qr_code)).setImageBitmap(bitmap);
         findViewById.setVisibility(0);
         findViewById3.setVisibility(0);
         findViewById2.setVisibility(8);
@@ -281,12 +281,12 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
 
     private void showLicenseDialog() {
         final PlayBilling newInstance = Billing.newInstance(this);
-        View inflate = getLayoutInflater().inflate(R.layout.license_dialog, (ViewGroup) null);
+        View inflate = getLayoutInflater().inflate(C0130R.layout.license_dialog, (ViewGroup) null);
         final String installationId = newInstance.getInstallationId();
-        TextView textView = (TextView) inflate.findViewById(R.id.installation_id);
+        TextView textView = (TextView) inflate.findViewById(C0130R.C0132id.installation_id);
         textView.setText(installationId);
         this.mDialogClosing = false;
-        inflate.findViewById(R.id.show_qr_code).setOnClickListener(new AboutActivity$$ExternalSyntheticLambda10(this, inflate, installationId, 0));
+        inflate.findViewById(C0130R.C0132id.show_qr_code).setOnClickListener(new AboutActivity$$ExternalSyntheticLambda10(this, inflate, installationId, 0));
         if (Utils.isTv(this) && !newInstance.isPurchased(Billing.SUPPORTER_SKU)) {
             textView.setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.AboutActivity$$ExternalSyntheticLambda11
                 public final /* synthetic */ AboutActivity f$0;
@@ -309,11 +309,11 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
             });
             showQrCode(inflate, installationId);
         }
-        final TextView textView2 = (TextView) inflate.findViewById(R.id.validation_rc);
-        final EditText editText = (EditText) inflate.findViewById(R.id.license_code);
+        final TextView textView2 = (TextView) inflate.findViewById(C0130R.C0132id.validation_rc);
+        final EditText editText = (EditText) inflate.findViewById(C0130R.C0132id.license_code);
         editText.setText(newInstance.getLicense());
-        Utils.setTextUrls((TextView) inflate.findViewById(R.id.paid_features_msg), R.string.access_paid_features_msg, MainActivity.PAID_FEATURES_URL);
-        inflate.findViewById(R.id.copy_id).setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.AboutActivity$$ExternalSyntheticLambda11
+        Utils.setTextUrls((TextView) inflate.findViewById(C0130R.C0132id.paid_features_msg), C0130R.string.access_paid_features_msg, MainActivity.PAID_FEATURES_URL);
+        inflate.findViewById(C0130R.C0132id.copy_id).setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.AboutActivity$$ExternalSyntheticLambda11
             public final /* synthetic */ AboutActivity f$0;
 
             {
@@ -335,9 +335,9 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
         zzbv zzbvVar = new zzbv(this);
         AlertController.AlertParams alertParams = (AlertController.AlertParams) zzbvVar.zza;
         alertParams.mView = inflate;
-        zzbvVar.setPositiveButton(R.string.ok, new PlayBilling$$ExternalSyntheticLambda24(this, newInstance, editText));
+        zzbvVar.setPositiveButton(C0130R.string.ok, new PlayBilling$$ExternalSyntheticLambda24(this, newInstance, editText));
         alertParams.mOnDismissListener = new AppSelectDialog$$ExternalSyntheticLambda3(1, this);
-        zzbvVar.setNeutralButton(R.string.validate, new Blocklist$$ExternalSyntheticLambda0(1));
+        zzbvVar.setNeutralButton(C0130R.string.validate, new Blocklist$$ExternalSyntheticLambda0(1));
         AlertDialog create = zzbvVar.create();
         this.mLicenseDialog = create;
         create.show();
@@ -351,10 +351,10 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
     }
 
     private void showQrCode(final View view, final String str) {
-        View findViewById = view.findViewById(R.id.qr_box);
-        View findViewById2 = view.findViewById(R.id.qr_code_loading);
-        View findViewById3 = view.findViewById(R.id.show_qr_code);
-        View findViewById4 = view.findViewById(R.id.qr_info_text);
+        View findViewById = view.findViewById(C0130R.C0132id.qr_box);
+        View findViewById2 = view.findViewById(C0130R.C0132id.qr_code_loading);
+        View findViewById3 = view.findViewById(C0130R.C0132id.show_qr_code);
+        View findViewById4 = view.findViewById(C0130R.C0132id.qr_info_text);
         findViewById3.setVisibility(8);
         findViewById2.setVisibility(0);
         findViewById.setVisibility(8);
@@ -385,7 +385,7 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
 
     /* renamed from: updateQrProgress */
     public void lambda$updateQrProgress$17(View view) {
-        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.qr_remaining_time);
+        ProgressBar progressBar = (ProgressBar) view.findViewById(C0130R.C0132id.qr_remaining_time);
         if (progressBar != null) {
             progressBar.setProgress(100 - Math.min((int) (((SystemClock.elapsedRealtime() - this.mQrStartTime) * 100) / (this.mQrDeadline - this.mQrStartTime)), 100));
             this.mHandler.postDelayed(new AboutActivity$$ExternalSyntheticLambda0(this, view, 0), 1000L);
@@ -397,18 +397,18 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
         int i;
         Spanned spanned;
         super.onCreate(bundle);
-        setTitle(R.string.about);
-        setContentView(R.layout.about_activity);
+        setTitle(C0130R.string.about);
+        setContentView(C0130R.layout.about_activity);
         addMenuProvider(this);
-        View findViewById = findViewById(R.id.scrollView);
+        View findViewById = findViewById(C0130R.C0132id.scrollView);
         BaseActivity$$ExternalSyntheticLambda0 baseActivity$$ExternalSyntheticLambda0 = new BaseActivity$$ExternalSyntheticLambda0(20);
         WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
         ViewCompat.Api21Impl.setOnApplyWindowInsetsListener(findViewById, baseActivity$$ExternalSyntheticLambda0);
         this.mHandler = new Handler(Looper.getMainLooper());
-        ((TextView) findViewById(R.id.app_version)).setText("PCAPdroid " + Utils.getAppVersion(this));
-        ((TextView) findViewById(R.id.app_license)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) findViewById(R.id.opensource_licenses)).setMovementMethod(LinkMovementMethod.getInstance());
-        TextView textView = (TextView) findViewById(R.id.wireshark_licenses);
+        ((TextView) findViewById(C0130R.C0132id.app_version)).setText("PCAPdroid " + Utils.getAppVersion(this));
+        ((TextView) findViewById(C0130R.C0132id.app_license)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(C0130R.C0132id.opensource_licenses)).setMovementMethod(LinkMovementMethod.getInstance());
+        TextView textView = (TextView) findViewById(C0130R.C0132id.wireshark_licenses);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         if (PCAPdroid.getInstance().isUsharkAvailable()) {
             i = 0;
@@ -416,8 +416,8 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
             i = 8;
         }
         textView.setVisibility(i);
-        TextView textView2 = (TextView) findViewById(R.id.app_source_link);
-        String m = ViewModelProvider.Factory.CC.m("<a href='https://github.com/emanuele-f/PCAPdroid'>", textView2.getText().toString(), "</a>");
+        TextView textView2 = (TextView) findViewById(C0130R.C0132id.app_source_link);
+        String m = ViewModelProvider.Factory.CC.m595m("<a href='https://github.com/emanuele-f/PCAPdroid'>", textView2.getText().toString(), "</a>");
         if (Build.VERSION.SDK_INT >= 24) {
             spanned = HtmlCompat$Api24Impl.fromHtml(m, 0);
         } else {
@@ -429,9 +429,9 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.about_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.about_menu, menu);
         if (Billing.newInstance(this).isPlayStore()) {
-            menu.findItem(R.id.paid_features).setVisible(false);
+            menu.findItem(C0130R.C0132id.paid_features).setVisible(false);
         }
     }
 
@@ -446,15 +446,15 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
         Network activeNetwork;
         LinkProperties linkProperties;
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.paid_features) {
+        if (itemId == C0130R.C0132id.paid_features) {
             showLicenseDialog();
             return true;
-        } else if (itemId == R.id.on_boarding) {
+        } else if (itemId == C0130R.C0132id.on_boarding) {
             Intent intent = new Intent(this, OnBoardingActivity.class);
             intent.putExtra(OnBoardingActivity.ENABLE_BACK_BUTTON, true);
             startActivity(intent);
             return true;
-        } else if (itemId != R.id.build_info) {
+        } else if (itemId != C0130R.C0132id.build_info) {
             return false;
         } else {
             String str2 = Utils.getBuildInfo(this) + "\n\n" + Prefs.asString(this);
@@ -479,13 +479,13 @@ public class AboutActivity extends BaseActivity implements MenuProvider {
                 sb.append(str);
                 str2 = sb.toString();
             }
-            View inflate = LayoutInflater.from(this).inflate(R.layout.scrollable_dialog, (ViewGroup) null);
-            ((TextView) inflate.findViewById(R.id.text)).setText(str2);
+            View inflate = LayoutInflater.from(this).inflate(C0130R.layout.scrollable_dialog, (ViewGroup) null);
+            ((TextView) inflate.findViewById(C0130R.C0132id.text)).setText(str2);
             zzbv zzbvVar = new zzbv(this);
-            zzbvVar.setTitle(R.string.build_info);
+            zzbvVar.setTitle(C0130R.string.build_info);
             ((AlertController.AlertParams) zzbvVar.zza).mView = inflate;
-            zzbvVar.setPositiveButton(R.string.ok, new Blocklist$$ExternalSyntheticLambda0(2));
-            zzbvVar.setNeutralButton(R.string.copy_to_clipboard, new AboutActivity$$ExternalSyntheticLambda2(this, 0, str2));
+            zzbvVar.setPositiveButton(C0130R.string.ok, new Blocklist$$ExternalSyntheticLambda0(2));
+            zzbvVar.setNeutralButton(C0130R.string.copy_to_clipboard, new AboutActivity$$ExternalSyntheticLambda2(this, 0, str2));
             zzbvVar.show();
             return true;
         }

@@ -26,7 +26,7 @@ public final /* synthetic */ class Utils$$ExternalSyntheticLambda3 implements Ru
                 Utils.lambda$setSearchQuery$1((SearchView) this.f$0, (String) this.f$1);
                 return;
             case 1:
-                Utils.AnonymousClass3.lambda$onPageSelected$0((ViewPager2) this.f$0, (AtomicReference) this.f$1);
+                Utils.C01383.lambda$onPageSelected$0((ViewPager2) this.f$0, (AtomicReference) this.f$1);
                 return;
             case 2:
                 ((CaptureService) this.f$0).lambda$notifyLowMemory$1((Notification) this.f$1);

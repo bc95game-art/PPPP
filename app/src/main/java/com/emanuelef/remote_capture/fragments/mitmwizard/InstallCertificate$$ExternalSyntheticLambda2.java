@@ -15,7 +15,7 @@ public final /* synthetic */ class InstallCertificate$$ExternalSyntheticLambda2 
     public final void onClick(DialogInterface dialogInterface, int i) {
         switch (this.$r8$classId) {
             case 0:
-                InstallCertificate.m220$r8$lambda$KMNV5BsRjsLEE4yr2iEy_pPgDc(this.f$0, dialogInterface, i);
+                InstallCertificate.m850$r8$lambda$KMNV5BsRjsLEE4yr2iEy_pPgDc(this.f$0, dialogInterface, i);
                 return;
             case 1:
                 InstallCertificate.$r8$lambda$VQZ6hmMLzNtnSIOZDY76nNsLxTQ(this.f$0, dialogInterface, i);

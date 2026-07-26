@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.recyclerview.widget.RecyclerView;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.HTTPReassembly;
 import com.emanuelef.remote_capture.HttpLog;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.Blocklist$$ExternalSyntheticLambda0;
 import com.emanuelef.remote_capture.model.ConnectionDescriptor;
@@ -25,7 +25,6 @@ import com.google.gson.FormattingStyle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import j$.util.Objects;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +32,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import kotlin.LazyKt__LazyJVMKt;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassembly.ReassemblyListener {
     static final /* synthetic */ boolean $assertionsDisabled = false;
@@ -100,13 +100,13 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
 
         public PayloadViewHolder(View view) {
             super(view);
-            this.headerLine = view.findViewById(R.id.header_line);
-            this.header = (TextView) view.findViewById(R.id.header);
-            this.dump = (TextView) view.findViewById(R.id.dump);
-            this.dumpBox = view.findViewById(R.id.dump_box);
-            this.expandButton = (MaterialButton) view.findViewById(R.id.expand_button);
-            this.copybutton = (MaterialButton) view.findViewById(R.id.copy_button);
-            this.exportbutton = (MaterialButton) view.findViewById(R.id.export_button);
+            this.headerLine = view.findViewById(C0130R.C0132id.header_line);
+            this.header = (TextView) view.findViewById(C0130R.C0132id.header);
+            this.dump = (TextView) view.findViewById(C0130R.C0132id.dump);
+            this.dumpBox = view.findViewById(C0130R.C0132id.dump_box);
+            this.expandButton = (MaterialButton) view.findViewById(C0130R.C0132id.expand_button);
+            this.copybutton = (MaterialButton) view.findViewById(C0130R.C0132id.copy_button);
+            this.exportbutton = (MaterialButton) view.findViewById(C0130R.C0132id.export_button);
         }
     }
 
@@ -204,13 +204,13 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
     private String getHeaderTag(PayloadChunk payloadChunk) {
         if (this.mMode == PayloadChunk.ChunkType.HTTP) {
             if (payloadChunk.is_sent) {
-                return this.mContext.getString(R.string.request);
+                return this.mContext.getString(C0130R.string.request);
             }
-            return this.mContext.getString(R.string.response);
+            return this.mContext.getString(C0130R.string.response);
         } else if (payloadChunk.is_sent) {
-            return this.mContext.getString(R.string.tx_direction);
+            return this.mContext.getString(C0130R.string.tx_direction);
         } else {
-            return this.mContext.getString(R.string.rx_direction);
+            return this.mContext.getString(C0130R.string.rx_direction);
         }
     }
 
@@ -223,14 +223,14 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
         if (!z || this.mExportHandler != null) {
             final int absoluteAdapterPosition = payloadViewHolder.getAbsoluteAdapterPosition();
             if (z) {
-                i = R.string.export_ellipsis;
+                i = C0130R.string.export_ellipsis;
             } else {
-                i = R.string.copy_action;
+                i = C0130R.string.copy_action;
             }
             if (z) {
-                i2 = R.string.export_action;
+                i2 = C0130R.string.export_action;
             } else {
-                i2 = R.string.copy_to_clipboard;
+                i2 = C0130R.string.copy_to_clipboard;
             }
             final AdapterChunk adapterChunk = getItem(absoluteAdapterPosition).adaptChunk;
             if (adapterChunk != null) {
@@ -243,7 +243,7 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
                         str = adapterChunk.mChunk.httpContentType;
                     }
                     final String str3 = str;
-                    Log.d(TAG, "Export body content type: " + str3);
+                    Log.m587d(TAG, "Export body content type: " + str3);
                     final String str4 = "";
                     if (!adapterChunk.mChunk.is_sent || adapterChunk.mChunk.httpPath == null) {
                         if (absoluteAdapterPosition > 0) {
@@ -260,15 +260,15 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
                         str2 = str2.substring(lastIndexOf + 1);
                     }
                     if (str2.contains(".")) {
-                        Log.d(TAG, "File name: ".concat(str2));
+                        Log.m587d(TAG, "File name: ".concat(str2));
                         str4 = str2;
                     }
                     if (indexOf > 0 && indexOf < expandedText.length() - 4) {
-                        String[] strArr = {this.mContext.getString(R.string.headers), this.mContext.getString(R.string.body), this.mContext.getString(R.string.both)};
+                        String[] strArr = {this.mContext.getString(C0130R.string.headers), this.mContext.getString(C0130R.string.body), this.mContext.getString(C0130R.string.both)};
                         AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
                         builder.setTitle(i);
                         builder.setSingleChoiceItems(strArr, 1, new Blocklist$$ExternalSyntheticLambda0(10));
-                        builder.setNeutralButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(11));
+                        builder.setNeutralButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(11));
                         builder.setPositiveButton(i2, new DialogInterface.OnClickListener() { // from class: com.emanuelef.remote_capture.adapters.PayloadAdapter$$ExternalSyntheticLambda2
                             @Override // android.content.DialogInterface.OnClickListener
                             public final void onClick(DialogInterface dialogInterface, int i3) {
@@ -285,14 +285,14 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
                         Utils.copyToClipboard(this.mContext, expandedText);
                     }
                 } else {
-                    ArrayList arrayList = new ArrayList(Arrays.asList(this.mContext.getString(R.string.text), this.mContext.getString(R.string.hexdump)));
+                    ArrayList arrayList = new ArrayList(Arrays.asList(this.mContext.getString(C0130R.string.text), this.mContext.getString(C0130R.string.hexdump)));
                     if (z) {
-                        arrayList.add(this.mContext.getString(R.string.raw_bytes));
+                        arrayList.add(this.mContext.getString(C0130R.string.raw_bytes));
                     }
                     AlertDialog.Builder builder2 = new AlertDialog.Builder(this.mContext);
                     builder2.setTitle(i);
                     builder2.setSingleChoiceItems((CharSequence[]) arrayList.toArray(new String[0]), 1 ^ (this.mShowAsPrintable ? 1 : 0), new Blocklist$$ExternalSyntheticLambda0(12));
-                    builder2.setNeutralButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(13));
+                    builder2.setNeutralButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(13));
                     builder2.setPositiveButton(i2, new DialogInterface.OnClickListener() { // from class: com.emanuelef.remote_capture.adapters.PayloadAdapter$$ExternalSyntheticLambda5
                         @Override // android.content.DialogInterface.OnClickListener
                         public final void onClick(DialogInterface dialogInterface, int i3) {
@@ -481,9 +481,9 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
                     if (!isHttp2Rst) {
                         size = indexOf + 1;
                         itemCount = getAdapterPosition(findMatchingRequest) + findMatchingRequest.getNumPages();
-                        Log.d(TAG, String.format("chunk #%d reply of #%d at %d", Integer.valueOf(adapterChunk.incrId), Integer.valueOf(findMatchingRequest.incrId), Integer.valueOf(size)));
+                        Log.m587d(TAG, String.format("chunk #%d reply of #%d at %d", Integer.valueOf(adapterChunk.incrId), Integer.valueOf(findMatchingRequest.incrId), Integer.valueOf(size)));
                     } else {
-                        Log.d(TAG, String.format("chunk #%d reset of #%d", Integer.valueOf(adapterChunk.incrId), Integer.valueOf(findMatchingRequest.incrId)));
+                        Log.m587d(TAG, String.format("chunk #%d reset of #%d", Integer.valueOf(adapterChunk.incrId), Integer.valueOf(findMatchingRequest.incrId)));
                     }
                     this.mUnrepliedHttpReqs.remove(findMatchingRequest);
                 }
@@ -547,18 +547,18 @@ public class PayloadAdapter extends RecyclerView.Adapter implements HTTPReassemb
         }
         payloadViewHolder.dump.setText(item.getText());
         if (payloadChunk.is_sent) {
-            payloadViewHolder.dumpBox.setBackgroundResource(R.color.sentPayloadBg);
-            payloadViewHolder.dump.setTextColor(BundleKt.getColor(this.mContext, R.color.sentPayloadFg));
+            payloadViewHolder.dumpBox.setBackgroundResource(C0130R.color.sentPayloadBg);
+            payloadViewHolder.dump.setTextColor(BundleKt.getColor(this.mContext, C0130R.color.sentPayloadFg));
             return;
         }
-        payloadViewHolder.dumpBox.setBackgroundResource(R.color.rcvdPayloadBg);
-        payloadViewHolder.dump.setTextColor(BundleKt.getColor(this.mContext, R.color.rcvdPayloadFg));
+        payloadViewHolder.dumpBox.setBackgroundResource(C0130R.color.rcvdPayloadBg);
+        payloadViewHolder.dump.setTextColor(BundleKt.getColor(this.mContext, C0130R.color.rcvdPayloadFg));
     }
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public PayloadViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         int i2 = 0;
-        final PayloadViewHolder payloadViewHolder = new PayloadViewHolder(this.mLayoutInflater.inflate(R.layout.payload_item, viewGroup, false));
+        final PayloadViewHolder payloadViewHolder = new PayloadViewHolder(this.mLayoutInflater.inflate(C0130R.layout.payload_item, viewGroup, false));
         payloadViewHolder.expandButton.setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.adapters.PayloadAdapter$$ExternalSyntheticLambda6
             public final /* synthetic */ PayloadAdapter f$0;
 

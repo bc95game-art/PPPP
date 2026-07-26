@@ -108,7 +108,7 @@ public class ConnectionsRegister {
     public synchronized void addListener(ConnectionsListener connectionsListener) {
         this.mListeners.add(connectionsListener);
         connectionsListener.connectionsChanges(this.mCurItems);
-        Log.d(TAG, "(add) new connections listeners size: " + this.mListeners.size());
+        Log.m587d(TAG, "(add) new connections listeners size: " + this.mListeners.size());
     }
 
     public synchronized void connectionsUpdates(ConnectionUpdate[] connectionUpdateArr) {
@@ -122,7 +122,7 @@ public class ConnectionsRegister {
             int i4 = connectionDescriptorArr[firstPos].incr_id;
             int i5 = connectionDescriptorArr[lastPos].incr_id;
             int[] iArr = new int[connectionUpdateArr.length];
-            Log.d(TAG, "connectionsUpdates: items=" + this.mCurItems + ", first_id=" + i4 + ", last_id=" + i5);
+            Log.m587d(TAG, "connectionsUpdates: items=" + this.mCurItems + ", first_id=" + i4 + ", last_id=" + i5);
             int length = connectionUpdateArr.length;
             int i6 = 0;
             int i7 = 0;
@@ -386,7 +386,7 @@ public class ConnectionsRegister {
     }
 
     public synchronized void releasePayloadMemory() {
-        Log.i(TAG, "releaseFullPayloadMemory called");
+        Log.m583i(TAG, "releaseFullPayloadMemory called");
         for (int i = 0; i < this.mCurItems; i++) {
             this.mItemsRing[i].dropPayload();
         }
@@ -394,7 +394,7 @@ public class ConnectionsRegister {
 
     public synchronized void removeListener(ConnectionsListener connectionsListener) {
         this.mListeners.remove(connectionsListener);
-        Log.d(TAG, "(remove) new connections listeners size: " + this.mListeners.size());
+        Log.m587d(TAG, "(remove) new connections listeners size: " + this.mListeners.size());
     }
 
     public synchronized void reset() {

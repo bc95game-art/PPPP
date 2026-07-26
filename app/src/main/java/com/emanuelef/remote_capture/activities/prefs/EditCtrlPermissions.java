@@ -17,8 +17,8 @@ import androidx.appcompat.app.AlertController;
 import androidx.core.view.MenuProvider;
 import androidx.preference.PreferenceManager;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.activities.BaseActivity;
 import com.emanuelef.remote_capture.activities.MainActivity;
@@ -57,10 +57,10 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
             return;
         }
         zzbv zzbvVar = new zzbv(this);
-        zzbvVar.setTitle(R.string.warning);
-        zzbvVar.setMessage(R.string.api_key_discard_confirm);
-        zzbvVar.setPositiveButton(R.string.ok, new AppsFragment$$ExternalSyntheticLambda0(2, this));
-        zzbvVar.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(9));
+        zzbvVar.setTitle(C0130R.string.warning);
+        zzbvVar.setMessage(C0130R.string.api_key_discard_confirm);
+        zzbvVar.setPositiveButton(C0130R.string.ok, new AppsFragment$$ExternalSyntheticLambda0(2, this));
+        zzbvVar.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(9));
         zzbvVar.show();
     }
 
@@ -93,10 +93,10 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
         String apiKey = Prefs.getApiKey(getSharedPreferences(PreferenceManager.getDefaultSharedPreferencesName(this), 0));
         if (!apiKey.isEmpty()) {
             zzbv zzbvVar = new zzbv(this);
-            zzbvVar.setTitle(R.string.api_key);
+            zzbvVar.setTitle(C0130R.string.api_key);
             ((AlertController.AlertParams) zzbvVar.zza).mMessage = apiKey;
-            zzbvVar.setPositiveButton(R.string.ok, new Blocklist$$ExternalSyntheticLambda0(8));
-            zzbvVar.setNeutralButton(R.string.copy_to_clipboard, new FirewallStatus$$ExternalSyntheticLambda2(this, 1, apiKey));
+            zzbvVar.setPositiveButton(C0130R.string.ok, new Blocklist$$ExternalSyntheticLambda0(8));
+            zzbvVar.setNeutralButton(C0130R.string.copy_to_clipboard, new FirewallStatus$$ExternalSyntheticLambda2(this, 1, apiKey));
             zzbvVar.show();
         }
     }
@@ -104,14 +104,14 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.control_permissions);
-        setContentView(R.layout.simple_list_activity);
+        setTitle(C0130R.string.control_permissions);
+        setContentView(C0130R.layout.simple_list_activity);
         addMenuProvider(this);
-        findViewById(R.id.simple_list).setFitsSystemWindows(true);
-        TextView textView = (TextView) findViewById(R.id.list_empty);
+        findViewById(C0130R.C0132id.simple_list).setFitsSystemWindows(true);
+        TextView textView = (TextView) findViewById(C0130R.C0132id.list_empty);
         this.mEmptyText = textView;
-        textView.setText(R.string.no_permissions_set_info);
-        this.mListView = (ListView) findViewById(R.id.listview);
+        textView.setText(C0130R.string.no_permissions_set_info);
+        this.mListView = (ListView) findViewById(C0130R.C0132id.listview);
         this.mPermissions = PCAPdroid.getInstance().getCtrlPermissions();
         CtrlPermissionsAdapter ctrlPermissionsAdapter = new CtrlPermissionsAdapter(this, this.mPermissions);
         this.mAdapter = ctrlPermissionsAdapter;
@@ -126,7 +126,7 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
                 int i = 0;
-                if (itemId == R.id.delete_entry) {
+                if (itemId == C0130R.C0132id.delete_entry) {
                     if (EditCtrlPermissions.this.mSelected.size() >= EditCtrlPermissions.this.mAdapter.getCount()) {
                         EditCtrlPermissions.this.mAdapter.clear();
                         EditCtrlPermissions.this.mPermissions.removeAll();
@@ -145,7 +145,7 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
                     EditCtrlPermissions.this.recheckListSize();
                     return true;
                 }
-                if (itemId == R.id.select_all) {
+                if (itemId == C0130R.C0132id.select_all) {
                     if (EditCtrlPermissions.this.mSelected.size() >= EditCtrlPermissions.this.mAdapter.getCount()) {
                         actionMode.finish();
                         return false;
@@ -161,7 +161,7 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
 
             @Override // android.view.ActionMode.Callback
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                EditCtrlPermissions.this.getMenuInflater().inflate(R.menu.list_edit_cab, menu);
+                EditCtrlPermissions.this.getMenuInflater().inflate(C0130R.C0134menu.list_edit_cab, menu);
                 return true;
             }
 
@@ -179,7 +179,7 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
                     EditCtrlPermissions.this.mSelected.remove(rule);
                 }
                 EditCtrlPermissions editCtrlPermissions = EditCtrlPermissions.this;
-                actionMode.setTitle(editCtrlPermissions.getString(R.string.n_selected, Integer.valueOf(editCtrlPermissions.mSelected.size())));
+                actionMode.setTitle(editCtrlPermissions.getString(C0130R.string.n_selected, Integer.valueOf(editCtrlPermissions.mSelected.size())));
             }
 
             @Override // android.view.ActionMode.Callback
@@ -193,9 +193,9 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.ctrl_permissions_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.ctrl_permissions_menu, menu);
         SharedPreferences sharedPreferences = getSharedPreferences(PreferenceManager.getDefaultSharedPreferencesName(this), 0);
-        this.mShowApiKey = menu.findItem(R.id.show_api_key);
+        this.mShowApiKey = menu.findItem(C0130R.C0132id.show_api_key);
         if (Prefs.getApiKey(sharedPreferences).isEmpty()) {
             this.mShowApiKey.setVisible(false);
         }
@@ -208,13 +208,13 @@ public class EditCtrlPermissions extends BaseActivity implements MenuProvider {
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.user_guide) {
+        if (itemId == C0130R.C0132id.user_guide) {
             Utils.startActivity(this, new Intent("android.intent.action.VIEW", Uri.parse(MainActivity.API_DOCS_URL)));
             return true;
-        } else if (itemId == R.id.generate_api_key) {
+        } else if (itemId == C0130R.C0132id.generate_api_key) {
             generateApiKey(false);
             return true;
-        } else if (itemId != R.id.show_api_key) {
+        } else if (itemId != C0130R.C0132id.show_api_key) {
             return false;
         } else {
             showApiKey();

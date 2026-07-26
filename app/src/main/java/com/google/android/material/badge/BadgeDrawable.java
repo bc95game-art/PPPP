@@ -12,7 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
+import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.badge.BadgeState;
 import com.google.android.material.internal.TextDrawableHelper;
 import com.google.android.material.internal.ViewUtils;
@@ -203,7 +204,7 @@ public final class BadgeDrawable extends Drawable implements TextDrawableHelper.
             if (context == null) {
                 return "";
             }
-            return String.format(context.getString(R.string.m3_exceed_max_badge_text_suffix), str.substring(0, i - 1), "…");
+            return String.format(context.getString(C0130R.string.m3_exceed_max_badge_text_suffix), str.substring(0, i - 1), "…");
         } else if (!hasNumber()) {
             return null;
         } else {
@@ -215,7 +216,7 @@ public final class BadgeDrawable extends Drawable implements TextDrawableHelper.
             if (context2 == null) {
                 return "";
             }
-            return String.format(state2.numberLocale, context2.getString(R.string.mtrl_exceed_max_badge_number_suffix), Integer.valueOf(i2), "+");
+            return String.format(state2.numberLocale, context2.getString(C0130R.string.mtrl_exceed_max_badge_number_suffix), Integer.valueOf(i2), "+");
         }
     }
 
@@ -338,13 +339,230 @@ public final class BadgeDrawable extends Drawable implements TextDrawableHelper.
     /* JADX WARN: Removed duplicated region for block: B:99:0x0220  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public final void updateCenterAndBounds() {
-        /*
-            Method dump skipped, instructions count: 604
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.badge.BadgeDrawable.updateCenterAndBounds():void");
+        View view;
+        ViewGroup viewGroup;
+        float f;
+        float f2;
+        float f3;
+        int intValue;
+        int intValue2;
+        int i;
+        int intValue3;
+        float f4;
+        float f5;
+        float f6;
+        float f7;
+        float f8;
+        float f9;
+        float f10;
+        int i2;
+        float f11;
+        float f12;
+        float f13;
+        WeakReference weakReference = this.contextRef;
+        Context context = (Context) weakReference.get();
+        WeakReference weakReference2 = this.anchorViewRef;
+        if (weakReference2 != null) {
+            view = (View) weakReference2.get();
+        } else {
+            view = null;
+        }
+        if (context != null && view != null) {
+            Rect rect = new Rect();
+            Rect rect2 = this.badgeBounds;
+            rect.set(rect2);
+            Rect rect3 = new Rect();
+            view.getDrawingRect(rect3);
+            WeakReference weakReference3 = this.customBadgeParentRef;
+            if (weakReference3 != null) {
+                viewGroup = (ViewGroup) weakReference3.get();
+            } else {
+                viewGroup = null;
+            }
+            if (viewGroup != null) {
+                viewGroup.offsetDescendantRectToMyCoords(view, rect3);
+            }
+            boolean hasBadgeContent = hasBadgeContent();
+            BadgeState badgeState = this.state;
+            if (hasBadgeContent) {
+                f = badgeState.badgeWithTextRadius;
+            } else {
+                f = badgeState.badgeRadius;
+            }
+            this.cornerRadius = f;
+            if (f != -1.0f) {
+                this.halfBadgeWidth = f;
+                this.halfBadgeHeight = f;
+            } else {
+                if (hasBadgeContent()) {
+                    f12 = badgeState.badgeWithTextWidth;
+                } else {
+                    f12 = badgeState.badgeWidth;
+                }
+                this.halfBadgeWidth = Math.round(f12 / 2.0f);
+                if (hasBadgeContent()) {
+                    f13 = badgeState.badgeWithTextHeight;
+                } else {
+                    f13 = badgeState.badgeHeight;
+                }
+                this.halfBadgeHeight = Math.round(f13 / 2.0f);
+            }
+            if (hasBadgeContent()) {
+                String badgeContent = getBadgeContent();
+                float f14 = this.halfBadgeWidth;
+                TextDrawableHelper textDrawableHelper = this.textDrawableHelper;
+                this.halfBadgeWidth = Math.max(f14, (textDrawableHelper.getTextWidth(badgeContent) / 2.0f) + badgeState.currentState.badgeHorizontalPadding.intValue());
+                float f15 = this.halfBadgeHeight;
+                if (!textDrawableHelper.textSizeDirty) {
+                    f11 = textDrawableHelper.textHeight;
+                } else {
+                    textDrawableHelper.refreshTextDimens(badgeContent);
+                    f11 = textDrawableHelper.textHeight;
+                }
+                float max = Math.max(f15, (f11 / 2.0f) + badgeState.currentState.badgeVerticalPadding.intValue());
+                this.halfBadgeHeight = max;
+                this.halfBadgeWidth = Math.max(this.halfBadgeWidth, max);
+            }
+            BadgeState.State state = badgeState.currentState;
+            BadgeState.State state2 = badgeState.currentState;
+            int i3 = badgeState.badgeFixedEdge;
+            int i4 = badgeState.offsetAlignmentMode;
+            int intValue4 = state.verticalOffsetWithoutText.intValue();
+            if (hasBadgeContent()) {
+                intValue4 = state.verticalOffsetWithText.intValue();
+                Context context2 = (Context) weakReference.get();
+                if (context2 != null) {
+                    f3 = -1.0f;
+                    f2 = 2.0f;
+                    intValue4 = AnimationUtils.lerp(intValue4, AnimationUtils.lerp(0.0f, 1.0f, 0.3f, 1.0f, context2.getResources().getConfiguration().fontScale - 1.0f), intValue4 - state.largeFontVerticalOffsetAdjustment.intValue());
+                    if (i4 == 0) {
+                        intValue4 -= Math.round(this.halfBadgeHeight);
+                    }
+                    intValue = state.additionalVerticalOffset.intValue() + intValue4;
+                    intValue2 = state2.badgeGravity.intValue();
+                    if (intValue2 != 8388691 || intValue2 == 8388693) {
+                        this.badgeCenterY = rect3.bottom - intValue;
+                    } else {
+                        this.badgeCenterY = rect3.top + intValue;
+                    }
+                    if (!hasBadgeContent()) {
+                        i = state.horizontalOffsetWithText.intValue();
+                    } else {
+                        i = state.horizontalOffsetWithoutText.intValue();
+                    }
+                    if (i4 == 1) {
+                        if (hasBadgeContent()) {
+                            i2 = badgeState.horizontalInsetWithText;
+                        } else {
+                            i2 = badgeState.horizontalInset;
+                        }
+                        i += i2;
+                    }
+                    int intValue5 = state.additionalHorizontalOffset.intValue() + i;
+                    intValue3 = state2.badgeGravity.intValue();
+                    if (intValue3 != 8388659 || intValue3 == 8388691) {
+                        if (i3 != 0) {
+                            if (view.getLayoutDirection() == 0) {
+                                f6 = rect3.left + this.halfBadgeWidth;
+                                f7 = (this.halfBadgeHeight * f2) - intValue5;
+                                f5 = f6 - f7;
+                                this.badgeCenterX = f5;
+                            } else {
+                                f5 = (rect3.right - this.halfBadgeWidth) + ((this.halfBadgeHeight * f2) - intValue5);
+                                this.badgeCenterX = f5;
+                            }
+                        } else if (view.getLayoutDirection() == 0) {
+                            f5 = (rect3.left - this.halfBadgeWidth) + intValue5;
+                            this.badgeCenterX = f5;
+                        } else {
+                            f6 = rect3.right + this.halfBadgeWidth;
+                            f7 = intValue5;
+                            f5 = f6 - f7;
+                            this.badgeCenterX = f5;
+                        }
+                    } else if (i3 == 0) {
+                        if (view.getLayoutDirection() == 0) {
+                            f9 = rect3.right + this.halfBadgeWidth;
+                            f10 = intValue5;
+                            f8 = f9 - f10;
+                            this.badgeCenterX = f8;
+                        } else {
+                            f8 = (rect3.left - this.halfBadgeWidth) + intValue5;
+                            this.badgeCenterX = f8;
+                        }
+                    } else if (view.getLayoutDirection() == 0) {
+                        f8 = (rect3.right - this.halfBadgeWidth) + ((this.halfBadgeHeight * f2) - intValue5);
+                        this.badgeCenterX = f8;
+                    } else {
+                        f9 = rect3.left + this.halfBadgeWidth;
+                        f10 = (this.halfBadgeHeight * f2) - intValue5;
+                        f8 = f9 - f10;
+                        this.badgeCenterX = f8;
+                    }
+                    if (!state.autoAdjustToWithinGrandparentBounds.booleanValue()) {
+                        ViewParent customBadgeParent = getCustomBadgeParent();
+                        if (customBadgeParent == null) {
+                            customBadgeParent = view.getParent();
+                        }
+                        if ((customBadgeParent instanceof View) && (customBadgeParent.getParent() instanceof View)) {
+                            autoAdjustWithinViewBounds(view, (View) customBadgeParent.getParent());
+                        }
+                    } else {
+                        autoAdjustWithinViewBounds(view, null);
+                    }
+                    float f16 = this.badgeCenterX;
+                    float f17 = this.badgeCenterY;
+                    float f18 = this.halfBadgeWidth;
+                    float f19 = this.halfBadgeHeight;
+                    rect2.set((int) (f16 - f18), (int) (f17 - f19), (int) (f16 + f18), (int) (f17 + f19));
+                    f4 = this.cornerRadius;
+                    MaterialShapeDrawable materialShapeDrawable = this.shapeDrawable;
+                    if (f4 != f3) {
+                        ShapeAppearanceModel.Builder builder = materialShapeDrawable.drawableState.shapeAppearanceModel.toBuilder();
+                        builder.setAllCornerSizes(f4);
+                        materialShapeDrawable.setShapeAppearanceModel(builder.build());
+                    }
+                    if (rect.equals(rect2)) {
+                        materialShapeDrawable.setBounds(rect2);
+                        return;
+                    }
+                    return;
+                }
+            }
+            f3 = -1.0f;
+            f2 = 2.0f;
+            if (i4 == 0) {
+            }
+            intValue = state.additionalVerticalOffset.intValue() + intValue4;
+            intValue2 = state2.badgeGravity.intValue();
+            if (intValue2 != 8388691) {
+            }
+            this.badgeCenterY = rect3.bottom - intValue;
+            if (!hasBadgeContent()) {
+            }
+            if (i4 == 1) {
+            }
+            int intValue52 = state.additionalHorizontalOffset.intValue() + i;
+            intValue3 = state2.badgeGravity.intValue();
+            if (intValue3 != 8388659) {
+            }
+            if (i3 != 0) {
+            }
+            if (!state.autoAdjustToWithinGrandparentBounds.booleanValue()) {
+            }
+            float f162 = this.badgeCenterX;
+            float f172 = this.badgeCenterY;
+            float f182 = this.halfBadgeWidth;
+            float f192 = this.halfBadgeHeight;
+            rect2.set((int) (f162 - f182), (int) (f172 - f192), (int) (f162 + f182), (int) (f172 + f192));
+            f4 = this.cornerRadius;
+            MaterialShapeDrawable materialShapeDrawable2 = this.shapeDrawable;
+            if (f4 != f3) {
+            }
+            if (rect.equals(rect2)) {
+            }
+        }
     }
 }

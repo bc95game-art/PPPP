@@ -6,8 +6,8 @@ import com.google.firebase.encoders.ObjectEncoderContext;
 /* loaded from: classes.dex */
 public final class AutoBatchedLogRequestEncoder$NetworkConnectionInfoEncoder implements ObjectEncoder {
     public static final AutoBatchedLogRequestEncoder$NetworkConnectionInfoEncoder INSTANCE = new Object();
-    public static final FieldDescriptor NETWORKTYPE_DESCRIPTOR = FieldDescriptor.of("networkType");
-    public static final FieldDescriptor MOBILESUBTYPE_DESCRIPTOR = FieldDescriptor.of("mobileSubtype");
+    public static final FieldDescriptor NETWORKTYPE_DESCRIPTOR = FieldDescriptor.m566of("networkType");
+    public static final FieldDescriptor MOBILESUBTYPE_DESCRIPTOR = FieldDescriptor.m566of("mobileSubtype");
 
     @Override // com.google.firebase.encoders.Encoder
     public final void encode(Object obj, Object obj2) {

@@ -2,15 +2,18 @@ package com.google.android.gms.internal.play_billing;
 
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.gms.internal.play_billing.zzck;
-import j$.util.Objects;
+import java.util.Locale;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.LockSupport;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import kotlin.LazyKt__LazyJVMKt;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class zzde extends zzck implements zzcj$zze {
     public zzcz zzd;
@@ -201,80 +204,62 @@ public final class zzde extends zzck implements zzcj$zze {
     @Override // java.util.concurrent.Future
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final boolean cancel(boolean r8) {
-        /*
-            r7 = this;
-            java.lang.Object r0 = r7.valueField
-            boolean r1 = r0 instanceof com.google.android.gms.internal.play_billing.zzcj$zzb
-            r2 = 0
-            r3 = 1
-            if (r0 != 0) goto La
-            r4 = 1
-            goto Lb
-        La:
-            r4 = 0
-        Lb:
-            r1 = r1 | r4
-            if (r1 == 0) goto L60
-            boolean r1 = com.google.android.gms.internal.play_billing.zzck.zzc
-            if (r1 == 0) goto L1f
-            com.google.android.gms.internal.play_billing.zzcj$zza r1 = new com.google.android.gms.internal.play_billing.zzcj$zza
-            java.util.concurrent.CancellationException r4 = new java.util.concurrent.CancellationException
-            java.lang.String r5 = "Future.cancel() was called."
-            r4.<init>(r5)
-            r1.<init>(r8, r4)
-            goto L29
-        L1f:
-            if (r8 == 0) goto L24
-            com.google.android.gms.internal.play_billing.zzcj$zza r1 = com.google.android.gms.internal.play_billing.zzcj$zza.zza
-            goto L26
-        L24:
-            com.google.android.gms.internal.play_billing.zzcj$zza r1 = com.google.android.gms.internal.play_billing.zzcj$zza.zzb
-        L26:
-            j$.util.Objects.requireNonNull(r1)
-        L29:
-            r5 = 0
-            r4 = r7
-        L2b:
-            kotlin.LazyKt__LazyJVMKt r6 = com.google.android.gms.internal.play_billing.zzck.zzd
-            boolean r6 = r6.zzf(r4, r0, r1)
-            if (r6 == 0) goto L57
-            zzu(r4)
-            boolean r4 = r0 instanceof com.google.android.gms.internal.play_billing.zzcj$zzb
-            if (r4 == 0) goto L56
-            com.google.android.gms.internal.play_billing.zzcj$zzb r0 = (com.google.android.gms.internal.play_billing.zzcj$zzb) r0
-            com.google.android.gms.internal.play_billing.zzcz r0 = r0.zzb
-            boolean r4 = r0 instanceof com.google.android.gms.internal.play_billing.zzcj$zze
-            if (r4 == 0) goto L53
-            r4 = r0
-            com.google.android.gms.internal.play_billing.zzde r4 = (com.google.android.gms.internal.play_billing.zzde) r4
-            java.lang.Object r0 = r4.valueField
-            if (r0 != 0) goto L4b
-            r5 = 1
-            goto L4c
-        L4b:
-            r5 = 0
-        L4c:
-            boolean r6 = r0 instanceof com.google.android.gms.internal.play_billing.zzcj$zzb
-            r5 = r5 | r6
-            if (r5 == 0) goto L56
-            r5 = 1
-            goto L2b
-        L53:
-            r0.cancel(r8)
-        L56:
-            return r3
-        L57:
-            java.lang.Object r0 = r4.valueField
-            boolean r6 = zzh(r0)
-            if (r6 == 0) goto L2b
-            return r5
-        L60:
-            return r2
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzde.cancel(boolean):boolean");
+    public final boolean cancel(boolean z) {
+        boolean z2;
+        zzcj$zza zzcj_zza;
+        boolean z3;
+        Object obj = this.valueField;
+        boolean z4 = obj instanceof zzcj$zzb;
+        if (obj == null) {
+            z2 = true;
+        } else {
+            z2 = false;
+        }
+        if (!z4 && !z2) {
+            return false;
+        }
+        if (zzck.zzc) {
+            zzcj_zza = new zzcj$zza(z, new CancellationException("Future.cancel() was called."));
+        } else {
+            if (z) {
+                zzcj_zza = zzcj$zza.zza;
+            } else {
+                zzcj_zza = zzcj$zza.zzb;
+            }
+            Objects.requireNonNull(zzcj_zza);
+        }
+        boolean z5 = false;
+        zzde zzdeVar = this;
+        while (true) {
+            if (zzck.zzd.zzf(zzdeVar, obj, zzcj_zza)) {
+                zzu(zzdeVar);
+                if (!(obj instanceof zzcj$zzb)) {
+                    break;
+                }
+                zzcz zzczVar = ((zzcj$zzb) obj).zzb;
+                if (!(zzczVar instanceof zzcj$zze)) {
+                    zzczVar.cancel(z);
+                    break;
+                }
+                zzdeVar = (zzde) zzczVar;
+                obj = zzdeVar.valueField;
+                if (obj == null) {
+                    z3 = true;
+                } else {
+                    z3 = false;
+                }
+                if (!z3 && !(obj instanceof zzcj$zzb)) {
+                    break;
+                }
+                z5 = true;
+            } else {
+                obj = zzdeVar.valueField;
+                if (zzh(obj)) {
+                    return z5;
+                }
+            }
+        }
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:17:0x0031, code lost:
@@ -310,73 +295,34 @@ public final class zzde extends zzck implements zzcj$zze {
     @Override // java.util.concurrent.Future
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.Object get() {
-        /*
-            r6 = this;
-            com.google.android.gms.internal.play_billing.zzck$zze r0 = com.google.android.gms.internal.play_billing.zzck.zze.zza
-            boolean r1 = java.lang.Thread.interrupted()
-            if (r1 != 0) goto L64
-            java.lang.Object r1 = r6.valueField
-            r2 = 0
-            r3 = 1
-            if (r1 == 0) goto L10
-            r4 = 1
-            goto L11
-        L10:
-            r4 = 0
-        L11:
-            boolean r5 = zzh(r1)
-            r4 = r4 & r5
-            if (r4 == 0) goto L1d
-            java.lang.Object r0 = zzc(r1)
-            return r0
-        L1d:
-            com.google.android.gms.internal.play_billing.zzck$zze r1 = r6.waitersField
-            if (r1 == r0) goto L5a
-            com.google.android.gms.internal.play_billing.zzck$zze r4 = new com.google.android.gms.internal.play_billing.zzck$zze
-            r4.<init>()
-        L26:
-            kotlin.LazyKt__LazyJVMKt r5 = com.google.android.gms.internal.play_billing.zzck.zzd
-            r5.zzc(r4, r1)
-            boolean r1 = r5.zzg(r6, r1, r4)
-            if (r1 == 0) goto L56
-        L31:
-            java.util.concurrent.locks.LockSupport.park(r6)
-            boolean r0 = java.lang.Thread.interrupted()
-            if (r0 != 0) goto L4d
-            java.lang.Object r0 = r6.valueField
-            if (r0 == 0) goto L40
-            r1 = 1
-            goto L41
-        L40:
-            r1 = 0
-        L41:
-            boolean r5 = zzh(r0)
-            r1 = r1 & r5
-            if (r1 == 0) goto L31
-            java.lang.Object r0 = zzc(r0)
-            return r0
-        L4d:
-            r6.zza(r4)
-            java.lang.InterruptedException r0 = new java.lang.InterruptedException
-            r0.<init>()
-            throw r0
-        L56:
-            com.google.android.gms.internal.play_billing.zzck$zze r1 = r6.waitersField
-            if (r1 != r0) goto L26
-        L5a:
-            java.lang.Object r0 = r6.valueField
-            j$.util.Objects.requireNonNull(r0)
-            java.lang.Object r0 = zzc(r0)
-            return r0
-        L64:
-            java.lang.InterruptedException r0 = new java.lang.InterruptedException
-            r0.<init>()
-            throw r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzde.get():java.lang.Object");
+    public final Object get() {
+        zzck.zze zzeVar = zzck.zze.zza;
+        if (!Thread.interrupted()) {
+            Object obj = this.valueField;
+            if ((obj != null) && zzh(obj)) {
+                return zzc(obj);
+            }
+            zzck.zze zzeVar2 = this.waitersField;
+            if (zzeVar2 != zzeVar) {
+                zzck.zze zzeVar3 = new zzck.zze();
+                do {
+                    LazyKt__LazyJVMKt lazyKt__LazyJVMKt = zzck.zzd;
+                    lazyKt__LazyJVMKt.zzc(zzeVar3, zzeVar2);
+                    if (lazyKt__LazyJVMKt.zzg(this, zzeVar2, zzeVar3)) {
+                        break;
+                    }
+                    zzeVar2 = this.waitersField;
+                } while (zzeVar2 != zzeVar);
+                Object obj2 = this.valueField;
+                Objects.requireNonNull(obj2);
+                return zzc(obj2);
+            }
+            Object obj22 = this.valueField;
+            Objects.requireNonNull(obj22);
+            return zzc(obj22);
+        }
+        throw new InterruptedException();
     }
 
     @Override // java.util.concurrent.Future
@@ -402,125 +348,70 @@ public final class zzde extends zzck implements zzcj$zze {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.String toString() {
-        /*
-            r6 = this;
-            java.lang.StringBuilder r0 = new java.lang.StringBuilder
-            r0.<init>()
-            java.lang.Class r1 = r6.getClass()
-            java.lang.String r1 = r1.getName()
-            java.lang.String r2 = "com.google.common.util.concurrent."
-            boolean r1 = r1.startsWith(r2)
-            if (r1 == 0) goto L21
-            java.lang.Class r1 = r6.getClass()
-            java.lang.String r1 = r1.getSimpleName()
-            r0.append(r1)
-            goto L2c
-        L21:
-            java.lang.Class r1 = r6.getClass()
-            java.lang.String r1 = r1.getName()
-            r0.append(r1)
-        L2c:
-            r1 = 64
-            r0.append(r1)
-            int r1 = java.lang.System.identityHashCode(r6)
-            java.lang.String r1 = java.lang.Integer.toHexString(r1)
-            r0.append(r1)
-            java.lang.String r1 = "[status="
-            r0.append(r1)
-            java.lang.Object r1 = r6.valueField
-            boolean r1 = r1 instanceof com.google.android.gms.internal.play_billing.zzcj$zza
-            java.lang.String r2 = "]"
-            if (r1 == 0) goto L50
-            java.lang.String r1 = "CANCELLED"
-            r0.append(r1)
-            goto Le2
-        L50:
-            boolean r1 = r6.isDone()
-            if (r1 == 0) goto L5b
-            r6.zzt(r0)
-            goto Le2
-        L5b:
-            int r1 = r0.length()
-            java.lang.String r3 = "PENDING"
-            r0.append(r3)
-            java.lang.Object r3 = r6.valueField
-            boolean r4 = r3 instanceof com.google.android.gms.internal.play_billing.zzcj$zzb
-            java.lang.String r5 = "Exception thrown from implementation: "
-            if (r4 == 0) goto L9d
-            java.lang.String r4 = ", setFuture=["
-            r0.append(r4)
-            com.google.android.gms.internal.play_billing.zzcj$zzb r3 = (com.google.android.gms.internal.play_billing.zzcj$zzb) r3
-            com.google.android.gms.internal.play_billing.zzcz r3 = r3.zzb
-            if (r3 != r6) goto L7f
-            java.lang.String r3 = "this future"
-            r0.append(r3)     // Catch: java.lang.Throwable -> L7d
-            goto L99
-        L7d:
-            r3 = move-exception
-            goto L83
-        L7f:
-            r0.append(r3)     // Catch: java.lang.Throwable -> L7d
-            goto L99
-        L83:
-            boolean r4 = r3 instanceof java.lang.Error
-            if (r4 == 0) goto L8f
-            boolean r4 = r3 instanceof java.lang.StackOverflowError
-            if (r4 == 0) goto L8c
-            goto L8f
-        L8c:
-            java.lang.Error r3 = (java.lang.Error) r3
-            throw r3
-        L8f:
-            r0.append(r5)
-            java.lang.Class r3 = r3.getClass()
-            r0.append(r3)
-        L99:
-            r0.append(r2)
-            goto Ld2
-        L9d:
-            java.lang.String r3 = r6.zzd()     // Catch: java.lang.Throwable -> Lac
-            r4 = 0
-            if (r3 == 0) goto Laa
-            boolean r5 = r3.isEmpty()     // Catch: java.lang.Throwable -> Lac
-            if (r5 == 0) goto Lc5
-        Laa:
-            r3 = r4
-            goto Lc5
-        Lac:
-            r3 = move-exception
-            boolean r4 = r3 instanceof java.lang.Error
-            if (r4 == 0) goto Lb9
-            boolean r4 = r3 instanceof java.lang.StackOverflowError
-            if (r4 == 0) goto Lb6
-            goto Lb9
-        Lb6:
-            java.lang.Error r3 = (java.lang.Error) r3
-            throw r3
-        Lb9:
-            java.lang.Class r3 = r3.getClass()
-            java.lang.String r3 = java.lang.String.valueOf(r3)
-            java.lang.String r3 = r5.concat(r3)
-        Lc5:
-            if (r3 == 0) goto Ld2
-            java.lang.String r4 = ", info=["
-            r0.append(r4)
-            r0.append(r3)
-            r0.append(r2)
-        Ld2:
-            boolean r3 = r6.isDone()
-            if (r3 == 0) goto Le2
-            int r3 = r0.length()
-            r0.delete(r1, r3)
-            r6.zzt(r0)
-        Le2:
-            r0.append(r2)
-            java.lang.String r0 = r0.toString()
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzde.toString():java.lang.String");
+    public final String toString() {
+        String str;
+        StringBuilder sb = new StringBuilder();
+        if (getClass().getName().startsWith("com.google.common.util.concurrent.")) {
+            sb.append(getClass().getSimpleName());
+        } else {
+            sb.append(getClass().getName());
+        }
+        sb.append('@');
+        sb.append(Integer.toHexString(System.identityHashCode(this)));
+        sb.append("[status=");
+        if (this.valueField instanceof zzcj$zza) {
+            sb.append("CANCELLED");
+        } else if (isDone()) {
+            zzt(sb);
+        } else {
+            int length = sb.length();
+            sb.append("PENDING");
+            Object obj = this.valueField;
+            if (obj instanceof zzcj$zzb) {
+                sb.append(", setFuture=[");
+                zzcz zzczVar = ((zzcj$zzb) obj).zzb;
+                try {
+                    if (zzczVar == this) {
+                        sb.append("this future");
+                    } else {
+                        sb.append(zzczVar);
+                    }
+                } catch (Throwable th) {
+                    if (!(th instanceof Error) || (th instanceof StackOverflowError)) {
+                        sb.append("Exception thrown from implementation: ");
+                        sb.append(th.getClass());
+                    } else {
+                        throw th;
+                    }
+                }
+                sb.append("]");
+            } else {
+                try {
+                    str = zzd();
+                    if (str != null) {
+                    }
+                    str = null;
+                } catch (Throwable th2) {
+                    if (!(th2 instanceof Error) || (th2 instanceof StackOverflowError)) {
+                        str = "Exception thrown from implementation: ".concat(String.valueOf(th2.getClass()));
+                    } else {
+                        throw th2;
+                    }
+                }
+                if (str != null) {
+                    sb.append(", info=[");
+                    sb.append(str);
+                    sb.append("]");
+                }
+            }
+            if (isDone()) {
+                sb.delete(length, sb.length());
+                zzt(sb);
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     @Override // com.google.android.gms.internal.play_billing.zzcz
@@ -551,7 +442,7 @@ public final class zzde extends zzck implements zzcj$zze {
         if (zzczVar == null) {
             return null;
         }
-        String m = ViewModelProvider.Factory.CC.m("inputFuture=[", zzczVar.toString(), "]");
+        String m = ViewModelProvider.Factory.CC.m595m("inputFuture=[", zzczVar.toString(), "]");
         if (scheduledFuture == null) {
             return m;
         }
@@ -627,13 +518,107 @@ public final class zzde extends zzck implements zzcj$zze {
     @Override // java.util.concurrent.Future
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.Object get(long r20, java.util.concurrent.TimeUnit r22) {
-        /*
-            Method dump skipped, instructions count: 399
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzde.get(long, java.util.concurrent.TimeUnit):java.lang.Object");
+    public final Object get(long j, TimeUnit timeUnit) {
+        long j2;
+        long nanoTime;
+        zzck.zze zzeVar = zzck.zze.zza;
+        long nanos = timeUnit.toNanos(j);
+        if (!Thread.interrupted()) {
+            Object obj = this.valueField;
+            if ((obj != null) && zzh(obj)) {
+                return zzc(obj);
+            }
+            long j3 = 0;
+            long nanoTime2 = nanos > 0 ? System.nanoTime() + nanos : 0L;
+            if (nanos >= 1000) {
+                zzck.zze zzeVar2 = this.waitersField;
+                if (zzeVar2 != zzeVar) {
+                    zzck.zze zzeVar3 = new zzck.zze();
+                    while (true) {
+                        LazyKt__LazyJVMKt lazyKt__LazyJVMKt = zzck.zzd;
+                        lazyKt__LazyJVMKt.zzc(zzeVar3, zzeVar2);
+                        if (lazyKt__LazyJVMKt.zzg(this, zzeVar2, zzeVar3)) {
+                            j2 = j3;
+                            while (true) {
+                                LockSupport.parkNanos(this, Math.min(nanos, 2147483647999999999L));
+                                if (!Thread.interrupted()) {
+                                    Object obj2 = this.valueField;
+                                    if ((obj2 != null) && zzh(obj2)) {
+                                        return zzc(obj2);
+                                    }
+                                    nanoTime = nanoTime2 - System.nanoTime();
+                                    if (nanoTime < 1000) {
+                                        zza(zzeVar3);
+                                        break;
+                                    }
+                                    nanos = nanoTime;
+                                } else {
+                                    zza(zzeVar3);
+                                    throw new InterruptedException();
+                                }
+                            }
+                        } else {
+                            j3 = j3;
+                            zzeVar2 = this.waitersField;
+                            if (zzeVar2 == zzeVar) {
+                                break;
+                            }
+                        }
+                    }
+                    nanos = nanoTime;
+                    if (nanos <= j2) {
+                        String zzdeVar = toString();
+                        String obj3 = timeUnit.toString();
+                        Locale locale = Locale.ROOT;
+                        String lowerCase = obj3.toLowerCase(locale);
+                        String str = "Waited " + j + " " + timeUnit.toString().toLowerCase(locale);
+                        if (nanos + 1000 < j2) {
+                            String concat = str.concat(" (plus ");
+                            long j4 = -nanos;
+                            long convert = timeUnit.convert(j4, TimeUnit.NANOSECONDS);
+                            long nanos2 = j4 - timeUnit.toNanos(convert);
+                            int i = (convert > j2 ? 1 : (convert == j2 ? 0 : -1));
+                            boolean z = i == 0 || nanos2 > 1000;
+                            if (i > 0) {
+                                String str2 = concat + convert + " " + lowerCase;
+                                if (z) {
+                                    str2 = str2.concat(",");
+                                }
+                                concat = str2.concat(" ");
+                            }
+                            if (z) {
+                                concat = concat + nanos2 + " nanoseconds ";
+                            }
+                            str = concat.concat("delay)");
+                        }
+                        if (isDone()) {
+                            throw new TimeoutException(str.concat(" but future completed as timeout expired"));
+                        }
+                        throw new TimeoutException(str + " for " + zzdeVar);
+                    }
+                    Object obj4 = this.valueField;
+                    if ((obj4 != null) && zzh(obj4)) {
+                        return zzc(obj4);
+                    }
+                    if (!Thread.interrupted()) {
+                        nanoTime = nanoTime2 - System.nanoTime();
+                        nanos = nanoTime;
+                        if (nanos <= j2) {
+                        }
+                    } else {
+                        throw new InterruptedException();
+                    }
+                }
+                Object obj5 = this.valueField;
+                Objects.requireNonNull(obj5);
+                return zzc(obj5);
+            }
+            j2 = 0;
+            if (nanos <= j2) {
+            }
+        } else {
+            throw new InterruptedException();
+        }
     }
 }

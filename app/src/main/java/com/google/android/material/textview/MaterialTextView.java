@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
 import androidx.appcompat.widget.AppCompatTextView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import kotlin.LazyKt__LazyJVMKt;
 /* loaded from: classes.dex */
@@ -29,7 +29,7 @@ public final class MaterialTextView extends AppCompatTextView {
     @Override // androidx.appcompat.widget.AppCompatTextView, android.widget.TextView
     public final void setTextAppearance(Context context, int i) {
         super.setTextAppearance(context, i);
-        if (LazyKt__LazyJVMKt.resolveBoolean(context, R.attr.textAppearanceLineHeightEnabled, true)) {
+        if (LazyKt__LazyJVMKt.resolveBoolean(context, C0130R.attr.textAppearanceLineHeightEnabled, true)) {
             TypedArray obtainStyledAttributes = context.getTheme().obtainStyledAttributes(i, R$styleable.MaterialTextAppearance);
             int readFirstAvailableDimension = readFirstAvailableDimension(getContext(), obtainStyledAttributes, 2, 4);
             obtainStyledAttributes.recycle();

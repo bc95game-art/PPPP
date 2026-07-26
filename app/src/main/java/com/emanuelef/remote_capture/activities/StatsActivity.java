@@ -8,8 +8,8 @@ import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import androidx.core.view.MenuProvider;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.AppsFragment$$ExternalSyntheticLambda3;
 import com.emanuelef.remote_capture.model.CaptureStats;
@@ -56,9 +56,9 @@ public class StatsActivity extends BaseActivity implements MenuProvider {
         textView.setText(String.format(primaryLocale, "%s / %s (%d%%)", formatBytes, formatBytes2, Long.valueOf(((j2 - memoryInfo.availMem) * 100) / j2)));
         TextView textView2 = this.mLowMem;
         if (CaptureService.isLowMemory()) {
-            i = R.string.yes;
+            i = C0130R.string.yes;
         } else {
-            i = R.string.no;
+            i = C0130R.string.no;
         }
         textView2.setText(getString(i));
     }
@@ -84,12 +84,12 @@ public class StatsActivity extends BaseActivity implements MenuProvider {
         this.mDnsQueries.setText(Utils.formatNumber(this, captureStats.num_dns_queries));
         updateMemoryStats();
         if (!CaptureService.isDNSEncrypted()) {
-            findViewById(R.id.dns_server_row).setVisibility(0);
-            findViewById(R.id.dns_queries_row).setVisibility(0);
+            findViewById(C0130R.C0132id.dns_server_row).setVisibility(0);
+            findViewById(C0130R.C0132id.dns_queries_row).setVisibility(0);
             this.mDnsServer.setText(CaptureService.getDNSServer());
         } else {
-            findViewById(R.id.dns_server_row).setVisibility(8);
-            findViewById(R.id.dns_queries_row).setVisibility(8);
+            findViewById(C0130R.C0132id.dns_server_row).setVisibility(8);
+            findViewById(C0130R.C0132id.dns_queries_row).setVisibility(8);
         }
         if (captureStats.num_dropped_conns > 0) {
             this.mDroppedConns.setTextColor(-65536);
@@ -103,39 +103,39 @@ public class StatsActivity extends BaseActivity implements MenuProvider {
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.stats);
+        setTitle(C0130R.string.stats);
         displayBackAction();
-        setContentView(R.layout.activity_stats);
+        setContentView(C0130R.layout.activity_stats);
         addMenuProvider(this);
-        this.mTable = (TableLayout) findViewById(R.id.table);
-        this.mBytesSent = (TextView) findViewById(R.id.bytes_sent);
-        this.mBytesRcvd = (TextView) findViewById(R.id.bytes_rcvd);
-        this.mIPv6BytesSent = (TextView) findViewById(R.id.ipv6_bytes_sent);
-        this.mIPv6BytesRcvd = (TextView) findViewById(R.id.ipv6_bytes_rcvd);
-        this.mIPv6BytesPercentage = (TextView) findViewById(R.id.ipv6_bytes_percentage);
-        this.mPacketsSent = (TextView) findViewById(R.id.packets_sent);
-        this.mPacketsRcvd = (TextView) findViewById(R.id.packets_rcvd);
-        this.mActiveConns = (TextView) findViewById(R.id.active_connections);
-        this.mDroppedConns = (TextView) findViewById(R.id.dropped_connections);
-        this.mDroppedPkts = (TextView) findViewById(R.id.pkts_dropped);
-        this.mTotConns = (TextView) findViewById(R.id.tot_connections);
-        this.mHeapUsage = (TextView) findViewById(R.id.heap_usage);
-        this.mMemUsage = (TextView) findViewById(R.id.mem_usage);
-        this.mLowMem = (TextView) findViewById(R.id.low_mem_detected);
-        this.mOpenSocks = (TextView) findViewById(R.id.open_sockets);
-        this.mDnsQueries = (TextView) findViewById(R.id.dns_queries);
-        this.mDnsServer = (TextView) findViewById(R.id.dns_server);
-        this.mAllocStats = (TextView) findViewById(R.id.alloc_stats);
+        this.mTable = (TableLayout) findViewById(C0130R.C0132id.table);
+        this.mBytesSent = (TextView) findViewById(C0130R.C0132id.bytes_sent);
+        this.mBytesRcvd = (TextView) findViewById(C0130R.C0132id.bytes_rcvd);
+        this.mIPv6BytesSent = (TextView) findViewById(C0130R.C0132id.ipv6_bytes_sent);
+        this.mIPv6BytesRcvd = (TextView) findViewById(C0130R.C0132id.ipv6_bytes_rcvd);
+        this.mIPv6BytesPercentage = (TextView) findViewById(C0130R.C0132id.ipv6_bytes_percentage);
+        this.mPacketsSent = (TextView) findViewById(C0130R.C0132id.packets_sent);
+        this.mPacketsRcvd = (TextView) findViewById(C0130R.C0132id.packets_rcvd);
+        this.mActiveConns = (TextView) findViewById(C0130R.C0132id.active_connections);
+        this.mDroppedConns = (TextView) findViewById(C0130R.C0132id.dropped_connections);
+        this.mDroppedPkts = (TextView) findViewById(C0130R.C0132id.pkts_dropped);
+        this.mTotConns = (TextView) findViewById(C0130R.C0132id.tot_connections);
+        this.mHeapUsage = (TextView) findViewById(C0130R.C0132id.heap_usage);
+        this.mMemUsage = (TextView) findViewById(C0130R.C0132id.mem_usage);
+        this.mLowMem = (TextView) findViewById(C0130R.C0132id.low_mem_detected);
+        this.mOpenSocks = (TextView) findViewById(C0130R.C0132id.open_sockets);
+        this.mDnsQueries = (TextView) findViewById(C0130R.C0132id.dns_queries);
+        this.mDnsServer = (TextView) findViewById(C0130R.C0132id.dns_server);
+        this.mAllocStats = (TextView) findViewById(C0130R.C0132id.alloc_stats);
         if (CaptureService.isCapturingAsRoot()) {
-            findViewById(R.id.open_sockets_row).setVisibility(8);
-            findViewById(R.id.row_dropped_connections).setVisibility(8);
+            findViewById(C0130R.C0132id.open_sockets_row).setVisibility(8);
+            findViewById(C0130R.C0132id.row_dropped_connections).setVisibility(8);
         } else {
             if (!CaptureService.isReadingFromPcapFile() && !CaptureService.isIPv6Enabled()) {
-                findViewById(R.id.ipv6_bytes_sent_row).setVisibility(8);
-                findViewById(R.id.ipv6_bytes_rcvd_row).setVisibility(8);
-                findViewById(R.id.ipv6_bytes_percentage_row).setVisibility(8);
+                findViewById(C0130R.C0132id.ipv6_bytes_sent_row).setVisibility(8);
+                findViewById(C0130R.C0132id.ipv6_bytes_rcvd_row).setVisibility(8);
+                findViewById(C0130R.C0132id.ipv6_bytes_percentage_row).setVisibility(8);
             }
-            findViewById(R.id.row_pkts_dropped).setVisibility(8);
+            findViewById(C0130R.C0132id.row_pkts_dropped).setVisibility(8);
         }
         CaptureService.observeStats(this, new AppsFragment$$ExternalSyntheticLambda3(2, this));
         CaptureService.askStatsDump();
@@ -143,7 +143,7 @@ public class StatsActivity extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.copy_share_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.copy_share_menu, menu);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -153,13 +153,13 @@ public class StatsActivity extends BaseActivity implements MenuProvider {
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.copy_to_clipboard) {
+        if (itemId == C0130R.C0132id.copy_to_clipboard) {
             Utils.copyToClipboard(this, getContents());
             return true;
-        } else if (itemId != R.id.share) {
+        } else if (itemId != C0130R.C0132id.share) {
             return false;
         } else {
-            Utils.shareText(this, getString(R.string.stats), getContents());
+            Utils.shareText(this, getString(C0130R.string.stats), getContents());
             return true;
         }
     }

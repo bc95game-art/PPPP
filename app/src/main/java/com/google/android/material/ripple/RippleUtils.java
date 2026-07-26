@@ -11,8 +11,8 @@ import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.os.BundleKt;
-import com.emanuelef.remote_capture.R;
+import androidx.core.p002os.BundleKt;
+import com.emanuelef.remote_capture.C0130R;
 import kotlin.LazyKt__LazyJVMKt;
 /* loaded from: classes.dex */
 public abstract class RippleUtils {
@@ -31,7 +31,7 @@ public abstract class RippleUtils {
             gradientDrawable.setShape(1);
             InsetDrawable insetDrawable = new InsetDrawable((Drawable) gradientDrawable, i, i, i, i);
             ColorStateList valueOf = ColorStateList.valueOf(0);
-            TypedValue resolve = LazyKt__LazyJVMKt.resolve(context, R.attr.colorControlHighlight);
+            TypedValue resolve = LazyKt__LazyJVMKt.resolve(context, C0130R.attr.colorControlHighlight);
             if (resolve != null) {
                 int i2 = resolve.resourceId;
                 if (i2 != 0) {

@@ -1,10 +1,12 @@
 package com.google.android.gms.internal.play_billing;
 
+import java.util.Locale;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 import java.util.concurrent.locks.LockSupport;
 import java.util.logging.Level;
@@ -152,54 +154,30 @@ public class zzo implements zzcz {
     @Override // java.util.concurrent.Future
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.Object get() {
-        /*
-            r4 = this;
-            boolean r0 = java.lang.Thread.interrupted()
-            if (r0 != 0) goto L4b
-            java.lang.Object r0 = r4.zzc
-            if (r0 == 0) goto Lf
-            java.lang.Object r0 = zzh(r0)
-            return r0
-        Lf:
-            com.google.android.gms.internal.play_billing.zzm r0 = r4.zze
-            com.google.android.gms.internal.play_billing.zzm r1 = com.google.android.gms.internal.play_billing.zzm.zza
-            if (r0 == r1) goto L44
-            com.google.android.gms.internal.play_billing.zzm r2 = new com.google.android.gms.internal.play_billing.zzm
-            r2.<init>()
-        L1a:
-            kotlin.LazyKt__LazyJVMKt r3 = com.google.android.gms.internal.play_billing.zzo.zzb
-            r3.zza(r2, r0)
-            boolean r0 = r3.zze(r4, r0, r2)
-            if (r0 == 0) goto L40
-        L25:
-            java.util.concurrent.locks.LockSupport.park(r4)
-            boolean r0 = java.lang.Thread.interrupted()
-            if (r0 != 0) goto L37
-            java.lang.Object r0 = r4.zzc
-            if (r0 == 0) goto L25
-            java.lang.Object r0 = zzh(r0)
-            return r0
-        L37:
-            r4.zzg(r2)
-            java.lang.InterruptedException r0 = new java.lang.InterruptedException
-            r0.<init>()
-            throw r0
-        L40:
-            com.google.android.gms.internal.play_billing.zzm r0 = r4.zze
-            if (r0 != r1) goto L1a
-        L44:
-            java.lang.Object r0 = r4.zzc
-            java.lang.Object r0 = zzh(r0)
-            return r0
-        L4b:
-            java.lang.InterruptedException r0 = new java.lang.InterruptedException
-            r0.<init>()
-            throw r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzo.get():java.lang.Object");
+    public final Object get() {
+        if (!Thread.interrupted()) {
+            Object obj = this.zzc;
+            if (obj != null) {
+                return zzh(obj);
+            }
+            zzm zzmVar = this.zze;
+            zzm zzmVar2 = zzm.zza;
+            if (zzmVar == zzmVar2) {
+                return zzh(this.zzc);
+            }
+            zzm zzmVar3 = new zzm();
+            do {
+                LazyKt__LazyJVMKt lazyKt__LazyJVMKt = zzb;
+                lazyKt__LazyJVMKt.zza(zzmVar3, zzmVar);
+                if (lazyKt__LazyJVMKt.zze(this, zzmVar, zzmVar3)) {
+                    break;
+                }
+                zzmVar = this.zze;
+            } while (zzmVar != zzmVar2);
+            return zzh(this.zzc);
+        }
+        throw new InterruptedException();
     }
 
     @Override // java.util.concurrent.Future
@@ -373,13 +351,75 @@ public class zzo implements zzcz {
     @Override // java.util.concurrent.Future
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.Object get(long r13, java.util.concurrent.TimeUnit r15) {
-        /*
-            Method dump skipped, instructions count: 336
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzo.get(long, java.util.concurrent.TimeUnit):java.lang.Object");
+    public final Object get(long j, TimeUnit timeUnit) {
+        long nanos = timeUnit.toNanos(j);
+        if (!Thread.interrupted()) {
+            Object obj = this.zzc;
+            if (obj != null) {
+                return zzh(obj);
+            }
+            long nanoTime = nanos > 0 ? System.nanoTime() + nanos : 0L;
+            if (nanos >= 1000) {
+                zzm zzmVar = this.zze;
+                zzm zzmVar2 = zzm.zza;
+                if (zzmVar == zzmVar2) {
+                    return zzh(this.zzc);
+                }
+                zzm zzmVar3 = new zzm();
+                do {
+                    LazyKt__LazyJVMKt lazyKt__LazyJVMKt = zzb;
+                    lazyKt__LazyJVMKt.zza(zzmVar3, zzmVar);
+                    if (lazyKt__LazyJVMKt.zze(this, zzmVar, zzmVar3)) {
+                        break;
+                    }
+                    zzmVar = this.zze;
+                } while (zzmVar != zzmVar2);
+                return zzh(this.zzc);
+            }
+            while (nanos > 0) {
+                Object obj2 = this.zzc;
+                if (obj2 != null) {
+                    return zzh(obj2);
+                }
+                if (!Thread.interrupted()) {
+                    nanos = nanoTime - System.nanoTime();
+                } else {
+                    throw new InterruptedException();
+                }
+            }
+            String zzoVar = toString();
+            String obj3 = timeUnit.toString();
+            Locale locale = Locale.ROOT;
+            String lowerCase = obj3.toLowerCase(locale);
+            String str = "Waited " + j + " " + timeUnit.toString().toLowerCase(locale);
+            if (nanos + 1000 < 0) {
+                String concat = str.concat(" (plus ");
+                long j2 = -nanos;
+                long convert = timeUnit.convert(j2, TimeUnit.NANOSECONDS);
+                long nanos2 = j2 - timeUnit.toNanos(convert);
+                boolean z = true;
+                int i = (convert > 0L ? 1 : (convert == 0L ? 0 : -1));
+                if (i != 0 && nanos2 <= 1000) {
+                    z = false;
+                }
+                if (i > 0) {
+                    String str2 = concat + convert + " " + lowerCase;
+                    if (z) {
+                        str2 = str2.concat(",");
+                    }
+                    concat = str2.concat(" ");
+                }
+                if (z) {
+                    concat = concat + nanos2 + " nanoseconds ";
+                }
+                str = concat.concat("delay)");
+            }
+            if (isDone()) {
+                throw new TimeoutException(str.concat(" but future completed as timeout expired"));
+            }
+            throw new TimeoutException(str + " for " + zzoVar);
+        }
+        throw new InterruptedException();
     }
 }

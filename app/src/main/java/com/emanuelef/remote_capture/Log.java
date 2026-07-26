@@ -10,16 +10,19 @@ public class Log {
     public static final String MITM_LOGGER_PATH = "mitmaddon.log";
     public static final String ROOT_LOGGER_PATH = "pcapd.log";
 
-    public static void d(String str, String str2) {
+    /* renamed from: d */
+    public static void m587d(String str, String str2) {
         android.util.Log.d(str, str2);
     }
 
-    public static void e(String str, String str2) {
+    /* renamed from: e */
+    public static void m585e(String str, String str2) {
         android.util.Log.e(str, str2);
         writeLog(DEFAULT_LOGGER, 6, str, str2);
     }
 
-    public static void i(String str, String str2) {
+    /* renamed from: i */
+    public static void m583i(String str, String str2) {
         android.util.Log.i(str, str2);
         writeLog(DEFAULT_LOGGER, 4, str, str2);
     }
@@ -31,15 +34,16 @@ public class Log {
 
     public static void level(int i, int i2, String str) {
         if (i2 == 4) {
-            i(i, str);
+            m584i(i, str);
         } else if (i2 == 5) {
-            w(i, str);
+            m582w(i, str);
         } else if (i2 == 6) {
-            e(i, str);
+            m586e(i, str);
         }
     }
 
-    public static void w(String str, String str2) {
+    /* renamed from: w */
+    public static void m581w(String str, String str2) {
         android.util.Log.w(str, str2);
         writeLog(DEFAULT_LOGGER, 5, str, str2);
     }
@@ -49,7 +53,7 @@ public class Log {
         if (!PCAPdroid.isUnderTest()) {
             StringBuilder sb = new StringBuilder();
             if (str != null) {
-                str3 = ViewModelProvider.Factory.CC.m("[", str, "] ");
+                str3 = ViewModelProvider.Factory.CC.m595m("[", str, "] ");
             } else {
                 str3 = "";
             }
@@ -64,15 +68,18 @@ public class Log {
         writeLog(DEFAULT_LOGGER, 7, str, str2);
     }
 
-    public static void e(int i, String str) {
+    /* renamed from: e */
+    public static void m586e(int i, String str) {
         writeLog(i, 6, null, str);
     }
 
-    public static void i(int i, String str) {
+    /* renamed from: i */
+    public static void m584i(int i, String str) {
         writeLog(i, 4, null, str);
     }
 
-    public static void w(int i, String str) {
+    /* renamed from: w */
+    public static void m582w(int i, String str) {
         writeLog(i, 5, null, str);
     }
 }

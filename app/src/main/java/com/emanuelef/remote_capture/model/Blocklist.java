@@ -5,10 +5,10 @@ import android.content.DialogInterface;
 import android.os.SystemClock;
 import android.util.ArrayMap;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.Geolocation;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.model.MatchList;
 import java.util.Iterator;
 import java.util.Map;
@@ -39,7 +39,7 @@ public class Blocklist extends MatchList {
         while (it.hasNext()) {
             Map.Entry<Integer, Long> next = it.next();
             if (elapsedRealtime >= next.getValue().longValue()) {
-                Log.i(TAG, "Grace period ended for app: " + next.getKey());
+                Log.m583i(TAG, "Grace period ended for app: " + next.getKey());
                 it.remove();
                 z = true;
             }
@@ -90,9 +90,9 @@ public class Blocklist extends MatchList {
     public void showNoticeIfGeoMissing(Context context) {
         if (!this.mGeoWarningShown && !Geolocation.isAvailable(context)) {
             zzbv zzbvVar = new zzbv(context);
-            zzbvVar.setTitle(R.string.geo_db_missing);
-            zzbvVar.setMessage(R.string.country_rules_warning);
-            zzbvVar.setNeutralButton(R.string.ok, new Blocklist$$ExternalSyntheticLambda0(0));
+            zzbvVar.setTitle(C0130R.string.geo_db_missing);
+            zzbvVar.setMessage(C0130R.string.country_rules_warning);
+            zzbvVar.setNeutralButton(C0130R.string.ok, new Blocklist$$ExternalSyntheticLambda0(0));
             zzbvVar.show();
             this.mGeoWarningShown = true;
         }
@@ -101,7 +101,7 @@ public class Blocklist extends MatchList {
     public synchronized boolean unblockAppForMinutes(int i, int i2) {
         boolean z;
         Long put = this.mUidToGrace.put(Integer.valueOf(i), Long.valueOf((i2 * 60000) + SystemClock.elapsedRealtime()));
-        Log.i(TAG, "Grace app: " + i + " for " + i2 + " minutes (old: " + put + ")");
+        Log.m583i(TAG, "Grace app: " + i + " for " + i2 + " minutes (old: " + put + ")");
         if (put == null) {
             z = true;
         } else {

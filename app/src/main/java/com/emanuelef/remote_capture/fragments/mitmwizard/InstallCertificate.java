@@ -15,13 +15,15 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.FragmentManager;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.MitmAddon;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.interfaces.MitmListener;
 import com.emanuelef.remote_capture.model.Blocklist$$ExternalSyntheticLambda0;
 import com.pcapdroid.mitm.MitmAPI;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 /* loaded from: classes.dex */
@@ -81,60 +83,39 @@ public class InstallCertificate extends StepFragment implements MitmListener {
     /* JADX WARN: Removed duplicated region for block: B:23:? A[RETURN, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public void certExportResult(androidx.activity.result.ActivityResult r6) {
-        /*
-            r5 = this;
-            int r0 = r6.mResultCode
-            android.content.Intent r6 = r6.mData
-            r1 = -1
-            if (r0 != r1) goto L46
-            if (r6 == 0) goto L46
-            android.content.Context r0 = r5.requireContext()
-            android.net.Uri r6 = r6.getData()
-            r1 = 0
-            java.io.PrintWriter r2 = new java.io.PrintWriter     // Catch: java.io.IOException -> L37
-            android.content.ContentResolver r3 = r0.getContentResolver()     // Catch: java.io.IOException -> L37
-            java.lang.String r4 = "rwt"
-            java.io.OutputStream r6 = r3.openOutputStream(r6, r4)     // Catch: java.io.IOException -> L37
-            r2.<init>(r6)     // Catch: java.io.IOException -> L37
-            java.lang.String r6 = r5.mCaPem     // Catch: java.lang.Throwable -> L2d
-            r2.print(r6)     // Catch: java.lang.Throwable -> L2d
-            r6 = 1
-            r2.close()     // Catch: java.io.IOException -> L2b
-            goto L3c
-        L2b:
-            r2 = move-exception
-            goto L39
-        L2d:
-            r6 = move-exception
-            r2.close()     // Catch: java.lang.Throwable -> L32
-            goto L36
-        L32:
-            r2 = move-exception
-            r6.addSuppressed(r2)     // Catch: java.io.IOException -> L37
-        L36:
-            throw r6     // Catch: java.io.IOException -> L37
-        L37:
-            r2 = move-exception
-            r6 = 0
-        L39:
-            r2.printStackTrace()
-        L3c:
-            if (r6 == 0) goto L46
-            r6 = 2132017271(0x7f140077, float:1.9672816E38)
-            java.lang.Object[] r1 = new java.lang.Object[r1]
-            com.emanuelef.remote_capture.Utils.showToastLong(r0, r6, r1)
-        L46:
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.fragments.mitmwizard.InstallCertificate.certExportResult(androidx.activity.result.ActivityResult):void");
+    public void certExportResult(ActivityResult activityResult) {
+        boolean z;
+        IOException e;
+        int i = activityResult.mResultCode;
+        Intent intent = activityResult.mData;
+        if (i == -1 && intent != null) {
+            Context requireContext = requireContext();
+            try {
+                PrintWriter printWriter = new PrintWriter(requireContext.getContentResolver().openOutputStream(intent.getData(), "rwt"));
+                printWriter.print(this.mCaPem);
+                z = true;
+                try {
+                    printWriter.close();
+                } catch (IOException e2) {
+                    e = e2;
+                    e.printStackTrace();
+                    if (!z) {
+                    }
+                }
+            } catch (IOException e3) {
+                e = e3;
+                z = false;
+            }
+            if (!z) {
+                Utils.showToastLong(requireContext, C0130R.string.cert_exported_now_installed, new Object[0]);
+            }
+        }
     }
 
     private void certFail() {
-        this.mStepLabel.setText(R.string.ca_cert_export_failed);
-        Utils.setTextUrls(this.mStepLabel, R.string.ca_cert_export_failed, "https://dontkillmyapp.com/xiaomi#app-battery-saver");
+        this.mStepLabel.setText(C0130R.string.ca_cert_export_failed);
+        Utils.setTextUrls(this.mStepLabel, C0130R.string.ca_cert_export_failed, "https://dontkillmyapp.com/xiaomi#app-battery-saver");
         this.mStepIcon.setColorFilter(this.mDangerColor);
         MitmAddon.setDecryptionSetupDone(requireContext(), false);
     }
@@ -148,9 +129,9 @@ public class InstallCertificate extends StepFragment implements MitmListener {
     }
 
     private void certOk() {
-        this.mStepLabel.setText(R.string.cert_installed_correctly);
+        this.mStepLabel.setText(C0130R.string.cert_installed_correctly);
         MitmAddon.setCAInstallationSkipped(requireContext(), false);
-        nextStep(R.id.navto_done);
+        nextStep(C0130R.C0132id.navto_done);
     }
 
     private void exportCaCertificate() {
@@ -175,7 +156,7 @@ public class InstallCertificate extends StepFragment implements MitmListener {
         try {
             this.certInstallLauncher.launch(createInstallIntent);
         } catch (ActivityNotFoundException unused) {
-            Utils.showToastLong(requireContext(), R.string.no_intent_handler_found, new Object[0]);
+            Utils.showToastLong(requireContext(), C0130R.string.no_intent_handler_found, new Object[0]);
             fallbackToCertExport();
         }
     }
@@ -209,15 +190,15 @@ public class InstallCertificate extends StepFragment implements MitmListener {
 
     public /* synthetic */ void lambda$onViewCreated$1(DialogInterface dialogInterface, int i) {
         MitmAddon.setCAInstallationSkipped(requireContext(), true);
-        gotoStep(R.id.navto_done);
+        gotoStep(C0130R.C0132id.navto_done);
     }
 
     public /* synthetic */ void lambda$onViewCreated$2(View view) {
         zzbv zzbvVar = new zzbv(view.getContext());
-        zzbvVar.setTitle(R.string.warning);
-        zzbvVar.setMessage(R.string.mitm_skip_notice);
-        zzbvVar.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(20));
-        zzbvVar.setPositiveButton(R.string.app_intro_skip_button, new InstallCertificate$$ExternalSyntheticLambda2(this, 2));
+        zzbvVar.setTitle(C0130R.string.warning);
+        zzbvVar.setMessage(C0130R.string.mitm_skip_notice);
+        zzbvVar.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(20));
+        zzbvVar.setPositiveButton(C0130R.string.app_intro_skip_button, new InstallCertificate$$ExternalSyntheticLambda2(this, 2));
         zzbvVar.show();
     }
 
@@ -233,19 +214,19 @@ public class InstallCertificate extends StepFragment implements MitmListener {
         this.mAddon.disconnect();
         Context context = getContext();
         if (context == null) {
-            Log.d(TAG, "null context");
+            Log.m587d(TAG, "null context");
             return;
         }
         this.mCaPem = str;
         Button button = this.mStepButton;
         if (canInstallCertViaIntent()) {
-            i = R.string.install_action;
+            i = C0130R.string.install_action;
         } else {
-            i = R.string.export_action;
+            i = C0130R.string.export_action;
         }
         button.setText(i);
         if (this.mCaPem != null) {
-            Log.d(TAG, "Got certificate");
+            Log.m587d(TAG, "Got certificate");
             X509Certificate x509FromPem = Utils.x509FromPem(this.mCaPem);
             this.mCaCert = x509FromPem;
             if (x509FromPem == null) {
@@ -258,9 +239,9 @@ public class InstallCertificate extends StepFragment implements MitmListener {
                 this.mStepIcon.setColorFilter(this.mWarnColor);
                 this.mStepButton.setEnabled(true);
                 if (canInstallCertViaIntent()) {
-                    this.mStepLabel.setText(R.string.install_ca_certificate);
+                    this.mStepLabel.setText(C0130R.string.install_ca_certificate);
                 } else {
-                    this.mStepLabel.setText(R.string.export_ca_certificate);
+                    this.mStepLabel.setText(C0130R.string.export_ca_certificate);
                 }
                 this.mStepButton.setOnClickListener(new InstallCertificate$$ExternalSyntheticLambda6(this, 0));
             }
@@ -291,10 +272,10 @@ public class InstallCertificate extends StepFragment implements MitmListener {
             certOk();
         } else if (!this.mAddon.isConnected() && !this.mAddon.connect(0)) {
             zzbv zzbvVar = new zzbv(requireContext());
-            zzbvVar.setTitle(R.string.error);
-            zzbvVar.setMessage(R.string.mitm_addon_autostart_workaround);
-            zzbvVar.setNegativeButton(R.string.no, new InstallCertificate$$ExternalSyntheticLambda2(this, 0));
-            zzbvVar.setPositiveButton(R.string.yes, new InstallCertificate$$ExternalSyntheticLambda2(this, 1));
+            zzbvVar.setTitle(C0130R.string.error);
+            zzbvVar.setMessage(C0130R.string.mitm_addon_autostart_workaround);
+            zzbvVar.setNegativeButton(C0130R.string.no, new InstallCertificate$$ExternalSyntheticLambda2(this, 0));
+            zzbvVar.setPositiveButton(C0130R.string.yes, new InstallCertificate$$ExternalSyntheticLambda2(this, 1));
             zzbvVar.show();
         }
         super.onResume();
@@ -304,12 +285,12 @@ public class InstallCertificate extends StepFragment implements MitmListener {
     public void onViewCreated(View view, Bundle bundle) {
         int i;
         super.onViewCreated(view, bundle);
-        this.mStepLabel.setText(R.string.checking_the_certificate);
+        this.mStepLabel.setText(C0130R.string.checking_the_certificate);
         Button button = this.mStepButton;
         if (canInstallCertViaIntent()) {
-            i = R.string.install_action;
+            i = C0130R.string.install_action;
         } else {
-            i = R.string.export_action;
+            i = C0130R.string.export_action;
         }
         button.setText(i);
         this.mStepButton.setEnabled(false);

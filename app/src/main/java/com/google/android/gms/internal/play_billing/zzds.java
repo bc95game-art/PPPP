@@ -23,7 +23,7 @@ public abstract class zzds {
             }
             throw new IllegalStateException("Did not write as much data as expected.");
         } catch (IOException e) {
-            throw new RuntimeException(ViewModelProvider.Factory.CC.m("Serializing ", getClass().getName(), " to a byte array threw an IOException (should never happen)."), e);
+            throw new RuntimeException(ViewModelProvider.Factory.CC.m595m("Serializing ", getClass().getName(), " to a byte array threw an IOException (should never happen)."), e);
         }
     }
 

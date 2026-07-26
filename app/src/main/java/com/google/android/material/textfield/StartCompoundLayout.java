@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.widget.TextViewCompat;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.internal.CheckableImageButton;
 import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.ripple.RippleUtils;
@@ -42,7 +42,7 @@ public final class StartCompoundLayout extends LinearLayout {
         setVisibility(8);
         setOrientation(0);
         setLayoutParams(new FrameLayout.LayoutParams(-2, -1, 8388611));
-        CheckableImageButton checkableImageButton = (CheckableImageButton) LayoutInflater.from(getContext()).inflate(R.layout.design_text_input_start_icon, (ViewGroup) this, false);
+        CheckableImageButton checkableImageButton = (CheckableImageButton) LayoutInflater.from(getContext()).inflate(C0130R.layout.design_text_input_start_icon, (ViewGroup) this, false);
         this.startIconView = checkableImageButton;
         if (Build.VERSION.SDK_INT < 23) {
             createOvalRipple = RippleUtils.RippleUtilsLollipop.createOvalRipple(checkableImageButton.getContext(), (int) ViewUtils.dpToPx(checkableImageButton.getContext(), 4));
@@ -74,7 +74,7 @@ public final class StartCompoundLayout extends LinearLayout {
             }
             checkableImageButton.setCheckable(typedArray.getBoolean(65, true));
         }
-        int dimensionPixelSize = typedArray.getDimensionPixelSize(68, getResources().getDimensionPixelSize(R.dimen.mtrl_min_touch_target_size));
+        int dimensionPixelSize = typedArray.getDimensionPixelSize(68, getResources().getDimensionPixelSize(C0130R.dimen.mtrl_min_touch_target_size));
         if (dimensionPixelSize >= 0) {
             if (dimensionPixelSize != this.startIconMinSize) {
                 this.startIconMinSize = dimensionPixelSize;
@@ -87,7 +87,7 @@ public final class StartCompoundLayout extends LinearLayout {
                 checkableImageButton.setScaleType(convertScaleType);
             }
             appCompatTextView.setVisibility(8);
-            appCompatTextView.setId(R.id.textinput_prefix_text);
+            appCompatTextView.setId(C0130R.C0132id.textinput_prefix_text);
             appCompatTextView.setLayoutParams(new LinearLayout.LayoutParams(-2, -2));
             appCompatTextView.setAccessibilityLiveRegion(1);
             TextViewCompat.setTextAppearance(appCompatTextView, typedArray.getResourceId(61, 0));
@@ -174,7 +174,7 @@ public final class StartCompoundLayout extends LinearLayout {
             } else {
                 i = editText.getPaddingStart();
             }
-            this.prefixTextView.setPaddingRelative(i, editText.getCompoundPaddingTop(), getContext().getResources().getDimensionPixelSize(R.dimen.material_input_text_to_prefix_suffix_padding), editText.getCompoundPaddingBottom());
+            this.prefixTextView.setPaddingRelative(i, editText.getCompoundPaddingTop(), getContext().getResources().getDimensionPixelSize(C0130R.dimen.material_input_text_to_prefix_suffix_padding), editText.getCompoundPaddingBottom());
         }
     }
 

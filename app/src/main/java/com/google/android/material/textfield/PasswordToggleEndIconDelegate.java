@@ -3,7 +3,7 @@ package com.google.android.material.textfield;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.fragments.AppsFragment$$ExternalSyntheticLambda2;
 /* loaded from: classes.dex */
 public final class PasswordToggleEndIconDelegate extends EndIconDelegate {
@@ -13,7 +13,7 @@ public final class PasswordToggleEndIconDelegate extends EndIconDelegate {
 
     public PasswordToggleEndIconDelegate(EndCompoundLayout endCompoundLayout, int i) {
         super(endCompoundLayout);
-        this.iconResId = R.drawable.design_password_eye;
+        this.iconResId = C0130R.C0131drawable.design_password_eye;
         if (i != 0) {
             this.iconResId = i;
         }
@@ -26,7 +26,7 @@ public final class PasswordToggleEndIconDelegate extends EndIconDelegate {
 
     @Override // com.google.android.material.textfield.EndIconDelegate
     public final int getIconContentDescriptionResId() {
-        return R.string.password_toggle_content_description;
+        return C0130R.string.password_toggle_content_description;
     }
 
     @Override // com.google.android.material.textfield.EndIconDelegate

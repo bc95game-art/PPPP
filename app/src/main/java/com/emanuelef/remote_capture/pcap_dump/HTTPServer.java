@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
 /* loaded from: classes.dex */
 public class HTTPServer implements PcapDumper, Runnable {
     public static final int MAX_CLIENTS = 8;
@@ -79,7 +83,7 @@ public class HTTPServer implements PcapDumper, Runnable {
         public void close(String str) {
             if (!isClosed()) {
                 if (str != null) {
-                    Log.i(HTTPServer.TAG, "Client error: ".concat(str));
+                    Log.m583i(HTTPServer.TAG, "Client error: ".concat(str));
                     this.mHasError = true;
                 } else if (this.mReadyForData) {
                     try {
@@ -96,7 +100,7 @@ public class HTTPServer implements PcapDumper, Runnable {
         }
 
         private void redirectToPcap() {
-            Log.d(HTTPServer.TAG, "Redirecting to PCAP: " + this.mFname);
+            Log.m587d(HTTPServer.TAG, "Redirecting to PCAP: " + this.mFname);
             OutputStream outputStream = this.mOutputStream;
             outputStream.write(("HTTP/1.1 302 Found\r\nLocation: /" + this.mFname + "\r\n\r\n").getBytes());
         }
@@ -129,7 +133,7 @@ public class HTTPServer implements PcapDumper, Runnable {
                     return;
                 }
             }
-            Log.d(HTTPServer.TAG, "Request headers end at " + i);
+            Log.m587d(HTTPServer.TAG, "Request headers end at " + i);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bArr, 0, i)));
             String readLine = bufferedReader.readLine();
             if (readLine == null) {
@@ -144,11 +148,11 @@ public class HTTPServer implements PcapDumper, Runnable {
                     redirectToPcap();
                     close(null);
                 } else {
-                    Log.d(HTTPServer.TAG, "URL: " + nextToken2);
+                    Log.m587d(HTTPServer.TAG, "URL: " + nextToken2);
                     OutputStream outputStream = this.mOutputStream;
                     outputStream.write(("HTTP/1.1 200 OK\r\nContent-Type: " + this.mMimeType + "\r\nConnection: close\r\nTransfer-Encoding: chunked\r\n\r\n").getBytes());
                     this.mOutputStream.flush();
-                    Log.d(HTTPServer.TAG, "Ready for data");
+                    Log.m587d(HTTPServer.TAG, "Ready for data");
                     this.mChunkedOutputStream = new ChunkedOutputStream(this.mOutputStream);
                     this.mReadyForData = true;
                 }
@@ -198,7 +202,7 @@ public class HTTPServer implements PcapDumper, Runnable {
                     }
                     if (next.isClosed()) {
                         it.remove();
-                        Log.d(TAG, "Client closed, active clients: " + this.mClients.size());
+                        Log.m587d(TAG, "Client closed, active clients: " + this.mClients.size());
                     }
                 }
             } catch (Throwable th) {
@@ -217,14 +221,81 @@ public class HTTPServer implements PcapDumper, Runnable {
     @Override // java.lang.Runnable
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public void run() {
-        /*
-            Method dump skipped, instructions count: 246
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.pcap_dump.HTTPServer.run():void");
+        int i;
+        ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(8);
+        while (this.mRunning) {
+            try {
+                Socket accept = this.mSocket.accept();
+                synchronized (this) {
+                    if (this.mClients.size() >= 8) {
+                        Log.m581w(TAG, "Clients limit reached");
+                        Utils.safeClose(accept);
+                    } else {
+                        Log.m583i(TAG, "New client: " + accept.getInetAddress().getHostAddress() + ":" + accept.getPort());
+                        ClientHandler clientHandler = new ClientHandler(accept, this.mMimeType, Utils.getUniquePcapFileName(this.mContext, this.mPcapngFormat));
+                        try {
+                            newFixedThreadPool.submit(clientHandler);
+                            synchronized (this) {
+                                this.mClients.add(clientHandler);
+                            }
+                        } catch (RejectedExecutionException e) {
+                            Log.m581w(TAG, e.getLocalizedMessage());
+                            Utils.safeClose(accept);
+                        }
+                        while (!newFixedThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) {
+                        }
+                        synchronized (this) {
+                            try {
+                                ArrayList<ClientHandler> arrayList = this.mClients;
+                                int size = arrayList.size();
+                                while (i < size) {
+                                    ClientHandler clientHandler2 = arrayList.get(i);
+                                    i++;
+                                    ClientHandler clientHandler3 = clientHandler2;
+                                    if (!clientHandler3.isClosed()) {
+                                        clientHandler3.close(null);
+                                    }
+                                }
+                                this.mClients.clear();
+                            } finally {
+                            }
+                        }
+                        return;
+                    }
+                }
+            } catch (IOException e2) {
+                if (!this.mRunning) {
+                    Log.m587d(TAG, "Got termination request");
+                } else {
+                    Log.m587d(TAG, e2.getLocalizedMessage());
+                }
+            }
+        }
+        Utils.safeClose(this.mSocket);
+        newFixedThreadPool.shutdown();
+        synchronized (this) {
+            try {
+                ArrayList<ClientHandler> arrayList2 = this.mClients;
+                int size2 = arrayList2.size();
+                i = 0;
+                int i2 = 0;
+                while (i2 < size2) {
+                    ClientHandler clientHandler4 = arrayList2.get(i2);
+                    i2++;
+                    ClientHandler clientHandler5 = clientHandler4;
+                    if (!clientHandler5.isReadyForData()) {
+                        clientHandler5.stop();
+                    }
+                }
+                while (!newFixedThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) {
+                }
+                synchronized (this) {
+                }
+            } finally {
+            }
+        }
     }
 
     @Override // com.emanuelef.remote_capture.interfaces.PcapDumper
@@ -247,7 +318,7 @@ public class HTTPServer implements PcapDumper, Runnable {
             Thread thread = this.mThread;
             if (thread != null && thread.isAlive()) {
                 try {
-                    Log.d(TAG, "Joining HTTP thread...");
+                    Log.m587d(TAG, "Joining HTTP thread...");
                     this.mThread.join();
                 } catch (InterruptedException unused) {
                 }

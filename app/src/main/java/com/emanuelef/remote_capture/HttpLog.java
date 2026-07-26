@@ -2,9 +2,9 @@ package com.emanuelef.remote_capture;
 
 import androidx.lifecycle.ViewModelProvider;
 import com.emanuelef.remote_capture.model.ConnectionDescriptor;
-import j$.util.Objects;
 import java.util.ArrayList;
 import java.util.Collections;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class HttpLog {
     static final /* synthetic */ boolean $assertionsDisabled = false;
@@ -74,7 +74,7 @@ public class HttpLog {
                     str2 = "https://";
                 }
             }
-            return ViewModelProvider.Factory.CC.m(str2, str);
+            return ViewModelProvider.Factory.CC.m596m(str2, str);
         }
 
         public String getUrl() {
@@ -175,13 +175,13 @@ public class HttpLog {
     }
 
     public synchronized void startConnectionsUpdates() {
-        Log.d(TAG, "startConnectionsUpdates");
+        Log.m587d(TAG, "startConnectionsUpdates");
         this.mConnUpdateInProgress = true;
     }
 
     public synchronized void stopConnectionsUpdates() {
         try {
-            Log.d(TAG, "stopConnectionsUpdates");
+            Log.m587d(TAG, "stopConnectionsUpdates");
             int i = 0;
             this.mConnUpdateInProgress = false;
             Collections.sort(this.mPendingHttpRequests);

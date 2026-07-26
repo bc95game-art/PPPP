@@ -18,9 +18,9 @@ public final class zzec extends zzeg {
             return this.zza[i];
         }
         if (i < 0) {
-            throw new ArrayIndexOutOfBoundsException(ViewModelProvider.Factory.CC.m(i, "Index < 0: "));
+            throw new ArrayIndexOutOfBoundsException(ViewModelProvider.Factory.CC.m604m(i, "Index < 0: "));
         }
-        throw new ArrayIndexOutOfBoundsException(ViewModelProvider.Factory.CC.m(i, i2, "Index > length: ", ", "));
+        throw new ArrayIndexOutOfBoundsException(ViewModelProvider.Factory.CC.m605m(i, i2, "Index > length: ", ", "));
     }
 
     @Override // com.google.android.gms.internal.play_billing.zzeg

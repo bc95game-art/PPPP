@@ -40,7 +40,7 @@ public final class ShapeAppearancePathProvider {
         }
     }
 
-    public final void calculatePath(ShapeAppearanceModel shapeAppearanceModel, float[] fArr, float f, RectF rectF, MaterialShapeDrawable.AnonymousClass1 r27, Path path) {
+    public final void calculatePath(ShapeAppearanceModel shapeAppearanceModel, float[] fArr, float f, RectF rectF, MaterialShapeDrawable.C01961 r27, Path path) {
         Matrix[] matrixArr;
         float[] fArr2;
         int i;

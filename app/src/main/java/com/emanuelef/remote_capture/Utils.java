@@ -75,7 +75,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat$Api21Impl;
 import androidx.core.graphics.Insets;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.text.HtmlCompat$Api24Impl;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -91,7 +91,7 @@ import com.emanuelef.remote_capture.model.AppDescriptor;
 import com.emanuelef.remote_capture.model.ConnectionDescriptor;
 import com.emanuelef.remote_capture.model.Prefs;
 import com.google.android.material.tabs.TabLayout;
-import j$.util.DesugarTimeZone;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -109,6 +109,8 @@ import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -135,7 +137,9 @@ import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
+import javax.net.ssl.HttpsURLConnection;
 import kotlin.jvm.internal.Intrinsics;
+import p004j$.util.DesugarTimeZone;
 /* loaded from: classes.dex */
 public class Utils {
     public static final String INTERACT_ACROSS_USERS = "android.permission.INTERACT_ACROSS_USERS";
@@ -153,11 +157,11 @@ public class Utils {
 
     /* renamed from: com.emanuelef.remote_capture.Utils$3 */
     /* loaded from: classes.dex */
-    public class AnonymousClass3 extends ViewPager2.OnPageChangeCallback {
+    public class C01383 extends ViewPager2.OnPageChangeCallback {
         final /* synthetic */ AtomicReference val$lastInsets;
         final /* synthetic */ ViewPager2 val$pager;
 
-        public AnonymousClass3(ViewPager2 viewPager2, AtomicReference atomicReference) {
+        public C01383(ViewPager2 viewPager2, AtomicReference atomicReference) {
             this.val$pager = viewPager2;
             this.val$lastInsets = atomicReference;
         }
@@ -178,22 +182,24 @@ public class Utils {
 
     /* renamed from: com.emanuelef.remote_capture.Utils$4 */
     /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass4 {
-        static final /* synthetic */ int[] $SwitchMap$com$emanuelef$remote_capture$model$ConnectionDescriptor$DecryptionStatus;
+    public static /* synthetic */ class C01394 {
+
+        /* renamed from: $SwitchMap$com$emanuelef$remote_capture$model$ConnectionDescriptor$DecryptionStatus */
+        static final /* synthetic */ int[] f28x1b328d71;
 
         static {
             int[] iArr = new int[ConnectionDescriptor.DecryptionStatus.values().length];
-            $SwitchMap$com$emanuelef$remote_capture$model$ConnectionDescriptor$DecryptionStatus = iArr;
+            f28x1b328d71 = iArr;
             try {
                 iArr[ConnectionDescriptor.DecryptionStatus.DECRYPTED.ordinal()] = 1;
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$com$emanuelef$remote_capture$model$ConnectionDescriptor$DecryptionStatus[ConnectionDescriptor.DecryptionStatus.NOT_DECRYPTABLE.ordinal()] = 2;
+                f28x1b328d71[ConnectionDescriptor.DecryptionStatus.NOT_DECRYPTABLE.ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
             try {
-                $SwitchMap$com$emanuelef$remote_capture$model$ConnectionDescriptor$DecryptionStatus[ConnectionDescriptor.DecryptionStatus.ERROR.ordinal()] = 3;
+                f28x1b328d71[ConnectionDescriptor.DecryptionStatus.ERROR.ordinal()] = 3;
             } catch (NoSuchFieldError unused3) {
             }
         }
@@ -320,13 +326,13 @@ public class Utils {
 
     public static void copyToClipboard(Context context, String str) {
         try {
-            ((ClipboardManager) context.getSystemService("clipboard")).setPrimaryClip(ClipData.newPlainText(context.getString(R.string.stats), str));
+            ((ClipboardManager) context.getSystemService("clipboard")).setPrimaryClip(ClipData.newPlainText(context.getString(C0130R.string.stats), str));
             if (Build.VERSION.SDK_INT <= 32) {
-                showToast(context, R.string.copied, new Object[0]);
+                showToast(context, C0130R.string.copied, new Object[0]);
             }
         } catch (Exception e) {
-            Log.e(TAG, "copyToClipboard failed: " + e.getMessage());
-            showToastLong(context, R.string.error, new Object[0]);
+            Log.m585e(TAG, "copyToClipboard failed: " + e.getMessage());
+            showToastLong(context, C0130R.string.error, new Object[0]);
         }
     }
 
@@ -334,14 +340,129 @@ public class Utils {
     /* JADX WARN: Removed duplicated region for block: B:57:0x00b3 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static boolean downloadFile(java.lang.String r10, java.lang.String r11) {
-        /*
-            Method dump skipped, instructions count: 222
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.Utils.downloadFile(java.lang.String, java.lang.String):boolean");
+    public static boolean downloadFile(String str, String str2) {
+        boolean z;
+        IOException e;
+        FileOutputStream fileOutputStream;
+        Throwable th;
+        Throwable th2;
+        Throwable th3;
+        BufferedInputStream bufferedInputStream;
+        Throwable th4;
+        boolean z2;
+        try {
+            try {
+                fileOutputStream = new FileOutputStream(str2 + ".tmp");
+            } catch (IOException e2) {
+                e = e2;
+                e.printStackTrace();
+                if (!z) {
+                }
+            }
+        } catch (IOException e3) {
+            e = e3;
+            z = false;
+            e.printStackTrace();
+            if (!z) {
+            }
+        }
+        try {
+            try {
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                try {
+                    try {
+                        HttpsURLConnection httpsURLConnection = (HttpsURLConnection) new URL(str).openConnection();
+                        try {
+                            try {
+                                httpsURLConnection.setRequestProperty("Connection", "Close");
+                                httpsURLConnection.setConnectTimeout(5000);
+                                httpsURLConnection.setReadTimeout(5000);
+                                try {
+                                    bufferedInputStream = new BufferedInputStream(httpsURLConnection.getInputStream());
+                                } catch (SocketTimeoutException unused) {
+                                    z = false;
+                                }
+                                try {
+                                    try {
+                                        byte[] bArr = new byte[4096];
+                                        z = false;
+                                        while (true) {
+                                            try {
+                                                int read = bufferedInputStream.read(bArr);
+                                                if (read == -1) {
+                                                    break;
+                                                }
+                                                bufferedOutputStream.write(bArr, 0, read);
+                                                if (read > 0) {
+                                                    z2 = true;
+                                                } else {
+                                                    z2 = false;
+                                                }
+                                                z |= z2;
+                                            } catch (Throwable th5) {
+                                                th4 = th5;
+                                                try {
+                                                    bufferedInputStream.close();
+                                                } catch (Throwable th6) {
+                                                    th4.addSuppressed(th6);
+                                                }
+                                                throw th4;
+                                            }
+                                        }
+                                        bufferedInputStream.close();
+                                    } catch (SocketTimeoutException unused2) {
+                                        Log.m581w(TAG, "Timeout while fetching " + str);
+                                        httpsURLConnection.disconnect();
+                                        bufferedOutputStream.close();
+                                        fileOutputStream.close();
+                                        if (!z) {
+                                        }
+                                    }
+                                    httpsURLConnection.disconnect();
+                                    bufferedOutputStream.close();
+                                    fileOutputStream.close();
+                                    if (!z) {
+                                        return new File(ViewModelProvider.Factory.CC.m596m(str2, ".tmp")).renameTo(new File(str2));
+                                    }
+                                    try {
+                                        new File(str2 + ".tmp").delete();
+                                    } catch (Exception unused3) {
+                                    }
+                                    return false;
+                                } catch (Throwable th7) {
+                                    th4 = th7;
+                                }
+                            } catch (Throwable th8) {
+                                th3 = th8;
+                                httpsURLConnection.disconnect();
+                                throw th3;
+                            }
+                        } catch (Throwable th9) {
+                            th3 = th9;
+                            httpsURLConnection.disconnect();
+                            throw th3;
+                        }
+                    } catch (Throwable th10) {
+                        th2 = th10;
+                        bufferedOutputStream.close();
+                        throw th2;
+                    }
+                } catch (Throwable th11) {
+                    th2 = th11;
+                    bufferedOutputStream.close();
+                    throw th2;
+                }
+            } catch (Throwable th12) {
+                th = th12;
+                fileOutputStream.close();
+                throw th;
+            }
+        } catch (Throwable th13) {
+            th = th13;
+            fileOutputStream.close();
+            throw th;
+        }
     }
 
     private static String downloadsUriToPath(Context context, Uri uri) {
@@ -403,7 +524,7 @@ public class Utils {
         Intrinsics.checkNotNullExpressionValue(window, "window");
         edgeToEdgeApi212.setUp(systemBarStyle, systemBarStyle2, window, decorView, booleanValue, booleanValue2);
         Window window2 = componentActivity.getWindow();
-        Transition.AnonymousClass1 r2 = new Transition.AnonymousClass1(window2.getDecorView());
+        Transition.C01101 r2 = new Transition.C01101(window2.getDecorView());
         int i3 = Build.VERSION.SDK_INT;
         if (i3 >= 30) {
             bundleKt = new WindowInsetsControllerCompat$Impl30(window2, r2);
@@ -435,7 +556,7 @@ public class Utils {
         PlayBilling$$ExternalSyntheticLambda4 playBilling$$ExternalSyntheticLambda4 = new PlayBilling$$ExternalSyntheticLambda4(5, atomicReference);
         WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
         ViewCompat.Api21Impl.setOnApplyWindowInsetsListener(viewPager2, playBilling$$ExternalSyntheticLambda4);
-        ((ArrayList) viewPager2.mExternalPageChangeCallbacks.mCallbacks).add(new AnonymousClass3(viewPager2, atomicReference));
+        ((ArrayList) viewPager2.mExternalPageChangeCallbacks.mCallbacks).add(new C01383(viewPager2, atomicReference));
     }
 
     public static String formatBytes(long j) {
@@ -598,7 +719,7 @@ public class Utils {
             }
             return str;
         } catch (PackageManager.NameNotFoundException unused) {
-            Log.e(TAG, "Could not retrieve package version");
+            Log.m585e(TAG, "Could not retrieve package version");
             return "";
         }
     }
@@ -659,7 +780,7 @@ public class Utils {
             }
             return Settings.Global.getString(context.getContentResolver(), "device_name");
         } catch (Exception e) {
-            Log.d(TAG, "getDeviceName failed: " + e);
+            Log.m587d(TAG, "getDeviceName failed: " + e);
             return null;
         }
     }
@@ -684,7 +805,7 @@ public class Utils {
         contentValues.put("_display_name", str);
         int i = Build.VERSION.SDK_INT;
         if (i >= 29) {
-            String m = ViewModelProvider.Factory.CC.m(new StringBuilder(), Environment.DIRECTORY_DOWNLOADS, "/PCAPdroid/");
+            String m = ViewModelProvider.Factory.CC.m593m(new StringBuilder(), Environment.DIRECTORY_DOWNLOADS, "/PCAPdroid/");
             contentValues.put("relative_path", m);
             str2 = "relative_path='" + m + "' AND _display_name='" + str + "'";
         } else if (i < 23 || context.checkSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE") == 0) {
@@ -698,11 +819,11 @@ public class Utils {
                 externalStoragePublicDirectory = file;
             }
             String str3 = externalStoragePublicDirectory + "/" + str;
-            Log.d(TAG, "getDownloadsUri: path=" + str3);
+            Log.m587d(TAG, "getDownloadsUri: path=" + str3);
             contentValues.put("_data", str3);
             str2 = "_data='" + str3 + "'";
         } else {
-            showToastLong(context, R.string.external_storage_perm_required, new Object[0]);
+            showToastLong(context, C0130R.string.external_storage_perm_required, new Object[0]);
             return null;
         }
         Uri contentUri = MediaStore.Files.getContentUri("external");
@@ -716,16 +837,16 @@ public class Utils {
             }
             try {
                 Uri insert = context.getContentResolver().insert(contentUri, contentValues);
-                Log.d(TAG, "getDownloadsUri: new file " + insert);
+                Log.m587d(TAG, "getDownloadsUri: new file " + insert);
                 return insert;
             } catch (Exception e) {
-                Log.e(TAG, "getDownloadsUri failed:" + e.getMessage());
-                showToastLong(context, R.string.write_ext_storage_failed, new Object[0]);
+                Log.m585e(TAG, "getDownloadsUri failed:" + e.getMessage());
+                showToastLong(context, C0130R.string.write_ext_storage_failed, new Object[0]);
                 return null;
             }
         } else {
             Uri withAppendedId = ContentUris.withAppendedId(contentUri, query.getLong(query.getColumnIndexOrThrow("_id")));
-            Log.d(TAG, "getDownloadsUri: overwriting file " + withAppendedId);
+            Log.m587d(TAG, "getDownloadsUri: overwriting file " + withAppendedId);
             query.close();
             return withAppendedId;
         }
@@ -795,7 +916,7 @@ public class Utils {
                                 i2++;
                                 InetAddress inetAddress = (InetAddress) obj2;
                                 if (!inetAddress.isLoopbackAddress() && inetAddress.isSiteLocalAddress() && !inetAddress.equals(byName) && (hostAddress = inetAddress.getHostAddress()) != null && (inetAddress instanceof Inet4Address) && !hostAddress.equals("0.0.0.0")) {
-                                    Log.d("getLocalIPAddress", "Using interface '" + networkInterface.getName() + "' IP: " + hostAddress);
+                                    Log.m587d("getLocalIPAddress", "Using interface '" + networkInterface.getName() + "' IP: " + hostAddress);
                                     return hostAddress;
                                 }
                             }
@@ -804,10 +925,10 @@ public class Utils {
                     }
                 } catch (Exception unused) {
                 }
-                Log.d("getLocalIPAddress", "Using fallback IP");
+                Log.m587d("getLocalIPAddress", "Using fallback IP");
                 return "127.0.0.1";
             }
-            Log.d("getLocalIPAddress", "Using WiFi IP: ".concat(localWifiIpAddress));
+            Log.m587d("getLocalIPAddress", "Using WiFi IP: ".concat(localWifiIpAddress));
             return localWifiIpAddress;
         } catch (UnknownHostException unused2) {
             return "";
@@ -948,7 +1069,7 @@ public class Utils {
             for (Network network : connectivityManager.getAllNetworks()) {
                 NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(network);
                 if (networkCapabilities != null && networkCapabilities.hasTransport(4)) {
-                    Log.d("hasVPNRunning", "detected VPN connection: " + network.toString());
+                    Log.m587d("hasVPNRunning", "detected VPN connection: " + network.toString());
                     return network;
                 }
             }
@@ -1006,7 +1127,7 @@ public class Utils {
         String attributeValue;
         ArrayList arrayList = new ArrayList();
         try {
-            XmlResourceParser xml = context.getResources().getXml(R.xml.locales_config);
+            XmlResourceParser xml = context.getResources().getXml(C0130R.xml.locales_config);
             while (true) {
                 int next = xml.next();
                 if (next == 1) {
@@ -1017,7 +1138,7 @@ public class Utils {
             }
             xml.close();
         } catch (Exception e) {
-            Log.e(TAG, "getSupportedLocales: " + e.getMessage());
+            Log.m585e(TAG, "getSupportedLocales: " + e.getMessage());
         }
         return (String[]) arrayList.toArray(new String[0]);
     }
@@ -1062,100 +1183,51 @@ public class Utils {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static com.emanuelef.remote_capture.Utils.UriStat getUriStat(android.content.Context r9, android.net.Uri r10) {
-        /*
-            java.lang.String r0 = r10.toString()
-            java.lang.String r1 = uriToFilePath(r9, r10)
-            r2 = 0
-            if (r1 == 0) goto L1c
-            java.lang.String r0 = "getUriStat: resolved to file "
-            java.lang.String r0 = r0.concat(r1)
-            java.lang.String r3 = "Utils"
-            com.emanuelef.remote_capture.Log.d(r3, r0)
-            java.io.File r0 = new java.io.File
-            r0.<init>(r1)
-            goto L31
-        L1c:
-            java.lang.String r1 = "file://"
-            boolean r1 = r0.startsWith(r1)
-            if (r1 == 0) goto L30
-            java.io.File r1 = new java.io.File
-            r3 = 7
-            java.lang.String r0 = r0.substring(r3)
-            r1.<init>(r0)
-            r0 = r1
-            goto L31
-        L30:
-            r0 = r2
-        L31:
-            if (r0 == 0) goto L4b
-            boolean r1 = r0.exists()
-            if (r1 == 0) goto L4b
-            com.emanuelef.remote_capture.Utils$UriStat r9 = new com.emanuelef.remote_capture.Utils$UriStat
-            r9.<init>()
-            java.lang.String r10 = r0.getName()
-            r9.name = r10
-            long r0 = r0.length()
-            r9.size = r0
-            return r9
-        L4b:
-            android.content.ContentResolver r3 = r9.getContentResolver()     // Catch: java.lang.Exception -> La2
-            r7 = 0
-            r8 = 0
-            r5 = 0
-            r6 = 0
-            r4 = r10
-            android.database.Cursor r9 = r3.query(r4, r5, r6, r7, r8)     // Catch: java.lang.Exception -> La2
-            if (r9 == 0) goto L9d
-            boolean r10 = r9.moveToFirst()     // Catch: java.lang.Throwable -> L79
-            if (r10 != 0) goto L61
-            goto L9d
-        L61:
-            com.emanuelef.remote_capture.Utils$UriStat r10 = new com.emanuelef.remote_capture.Utils$UriStat     // Catch: java.lang.Throwable -> L79
-            r10.<init>()     // Catch: java.lang.Throwable -> L79
-            java.lang.String r0 = "_size"
-            int r0 = r9.getColumnIndexOrThrow(r0)     // Catch: java.lang.Throwable -> L79
-            java.lang.String r1 = "_display_name"
-            int r1 = r9.getColumnIndexOrThrow(r1)     // Catch: java.lang.Throwable -> L79
-            if (r1 < 0) goto L7c
-            java.lang.String r1 = r9.getString(r1)     // Catch: java.lang.Throwable -> L79
-            goto L7e
-        L79:
-            r0 = move-exception
-            r10 = r0
-            goto L93
-        L7c:
-            java.lang.String r1 = "*unknown*"
-        L7e:
-            r10.name = r1     // Catch: java.lang.Throwable -> L79
-            boolean r1 = r9.isNull(r0)     // Catch: java.lang.Throwable -> L79
-            if (r1 != 0) goto L8b
-            long r0 = r9.getLong(r0)     // Catch: java.lang.Throwable -> L79
-            goto L8d
-        L8b:
-            r0 = -1
-        L8d:
-            r10.size = r0     // Catch: java.lang.Throwable -> L79
-            r9.close()     // Catch: java.lang.Exception -> La2
-            return r10
-        L93:
-            r9.close()     // Catch: java.lang.Throwable -> L97
-            goto L9c
-        L97:
-            r0 = move-exception
-            r9 = r0
-            r10.addSuppressed(r9)     // Catch: java.lang.Exception -> La2
-        L9c:
-            throw r10     // Catch: java.lang.Exception -> La2
-        L9d:
-            if (r9 == 0) goto La2
-            r9.close()     // Catch: java.lang.Exception -> La2
-        La2:
-            return r2
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.Utils.getUriStat(android.content.Context, android.net.Uri):com.emanuelef.remote_capture.Utils$UriStat");
+    public static UriStat getUriStat(Context context, Uri uri) {
+        File file;
+        String str;
+        long j;
+        String uri2 = uri.toString();
+        String uriToFilePath = uriToFilePath(context, uri);
+        if (uriToFilePath != null) {
+            Log.m587d(TAG, "getUriStat: resolved to file ".concat(uriToFilePath));
+            file = new File(uriToFilePath);
+        } else if (uri2.startsWith("file://")) {
+            file = new File(uri2.substring(7));
+        } else {
+            file = null;
+        }
+        if (file == null || !file.exists()) {
+            try {
+                Cursor query = context.getContentResolver().query(uri, null, null, null, null);
+                if (query != null && query.moveToFirst()) {
+                    UriStat uriStat = new UriStat();
+                    int columnIndexOrThrow = query.getColumnIndexOrThrow("_size");
+                    int columnIndexOrThrow2 = query.getColumnIndexOrThrow("_display_name");
+                    if (columnIndexOrThrow2 >= 0) {
+                        str = query.getString(columnIndexOrThrow2);
+                    } else {
+                        str = "*unknown*";
+                    }
+                    uriStat.name = str;
+                    if (!query.isNull(columnIndexOrThrow)) {
+                        j = query.getLong(columnIndexOrThrow);
+                    } else {
+                        j = -1;
+                    }
+                    uriStat.size = j;
+                    query.close();
+                    return uriStat;
+                }
+            } catch (Exception unused) {
+            }
+            return null;
+        }
+        UriStat uriStat2 = new UriStat();
+        uriStat2.name = file.getName();
+        uriStat2.size = file.length();
+        return uriStat2;
     }
 
     public static int getUserId(int i) {
@@ -1172,7 +1244,7 @@ public class Utils {
                 signatureArr = getPackageInfo(context.getPackageManager(), str, 64).signatures;
             }
         } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException unused) {
-            Log.e(TAG, "Could not determine the build type");
+            Log.m585e(TAG, "Could not determine the build type");
         }
         if (signatureArr != null && signatureArr.length >= 1) {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA");
@@ -1395,7 +1467,7 @@ public class Utils {
             openInputStream.close();
             return z;
         } catch (IOException | RuntimeException e) {
-            Log.w(TAG, "Reading " + uri + " failed: " + e);
+            Log.m581w(TAG, "Reading " + uri + " failed: " + e);
             return false;
         }
     }
@@ -1434,7 +1506,7 @@ public class Utils {
             String str = System.getenv("PATH");
             rootAvailable = Boolean.FALSE;
             if (str != null) {
-                Log.d("isRootAvailable", "PATH = ".concat(str));
+                Log.m587d("isRootAvailable", "PATH = ".concat(str));
                 String[] split = str.split(":");
                 int length = split.length;
                 int i = 0;
@@ -1442,9 +1514,9 @@ public class Utils {
                     if (i >= length) {
                         break;
                     }
-                    File file = new File(ViewModelProvider.Factory.CC.m(split[i], "/su"));
+                    File file = new File(ViewModelProvider.Factory.CC.m596m(split[i], "/su"));
                     if (file.exists()) {
-                        Log.d("isRootAvailable", "'su' binary found at " + file.getAbsolutePath());
+                        Log.m587d("isRootAvailable", "'su' binary found at " + file.getAbsolutePath());
                         rootAvailable = Boolean.TRUE;
                         break;
                     }
@@ -1601,7 +1673,7 @@ public class Utils {
             } catch (ActivityNotFoundException | IllegalStateException unused) {
             }
         }
-        showToastLong(context, R.string.no_activity_file_selection, new Object[0]);
+        showToastLong(context, C0130R.string.no_activity_file_selection, new Object[0]);
         return false;
     }
 
@@ -1663,7 +1735,7 @@ public class Utils {
             try {
                 closeable.close();
             } catch (IOException e) {
-                Log.w(TAG, e.getLocalizedMessage());
+                Log.m581w(TAG, e.getLocalizedMessage());
             }
         }
     }
@@ -1677,7 +1749,7 @@ public class Utils {
                 drawable.draw(canvas);
                 return new BitmapDrawable(resources, createBitmap);
             } catch (Exception e) {
-                Log.w(TAG, "scaleDrawable(" + i + ", " + i2 + ") failed: " + e.getMessage());
+                Log.m581w(TAG, "scaleDrawable(" + i + ", " + i2 + ") failed: " + e.getMessage());
             }
         }
         return null;
@@ -1687,7 +1759,7 @@ public class Utils {
         NotificationManagerCompat notificationManagerCompat = new NotificationManagerCompat(context);
         if (!notificationManagerCompat.areNotificationsEnabled()) {
             String str = notification.extras.getString("android.title") + " - " + notification.extras.getString("android.text");
-            Log.w(TAG, "Important notification not sent because notifications are disabled: " + str);
+            Log.m581w(TAG, "Important notification not sent because notifications are disabled: " + str);
             Toast.makeText(context, str, 0).show();
             return;
         }
@@ -1697,21 +1769,21 @@ public class Utils {
     public static void setDecryptionIcon(ImageView imageView, ConnectionDescriptor connectionDescriptor) {
         int i;
         int i2;
-        int i3 = AnonymousClass4.$SwitchMap$com$emanuelef$remote_capture$model$ConnectionDescriptor$DecryptionStatus[connectionDescriptor.getDecryptionStatus().ordinal()];
+        int i3 = C01394.f28x1b328d71[connectionDescriptor.getDecryptionStatus().ordinal()];
         if (i3 == 1) {
-            i = R.color.ok;
+            i = C0130R.color.ok;
         } else if (i3 == 2) {
-            i = R.color.warning;
+            i = C0130R.color.warning;
         } else if (i3 != 3) {
-            i = R.color.lightGray;
+            i = C0130R.color.lightGray;
         } else {
-            i = R.color.danger;
+            i = C0130R.color.danger;
         }
         Context context = imageView.getContext();
         if (connectionDescriptor.isCleartext() || connectionDescriptor.isDecrypted()) {
-            i2 = R.drawable.ic_lock_open;
+            i2 = C0130R.C0131drawable.ic_lock_open;
         } else {
-            i2 = R.drawable.ic_lock;
+            i2 = C0130R.C0131drawable.ic_lock;
         }
         imageView.setColorFilter(BundleKt.getColor(context, i));
         imageView.setImageDrawable(ContextCompat$Api21Impl.getDrawable(context, i2));
@@ -1735,7 +1807,7 @@ public class Utils {
         intent.setType("text/plain");
         intent.putExtra("android.intent.extra.SUBJECT", str);
         intent.putExtra("android.intent.extra.TEXT", str2);
-        startActivity(context, Intent.createChooser(intent, context.getResources().getString(R.string.share)));
+        startActivity(context, Intent.createChooser(intent, context.getResources().getString(C0130R.string.share)));
     }
 
     public static String shorten(String str, int i) {
@@ -1761,7 +1833,7 @@ public class Utils {
         try {
             context.startActivity(intent);
         } catch (ActivityNotFoundException | SecurityException unused) {
-            showToastLong(context, R.string.no_intent_handler_found, new Object[0]);
+            showToastLong(context, C0130R.string.no_intent_handler_found, new Object[0]);
         }
     }
 
@@ -1993,11 +2065,11 @@ public class Utils {
 
     public static void showHelpDialog(Context context, CharSequence charSequence) {
         zzbv zzbvVar = new zzbv(context);
-        zzbvVar.setTitle(R.string.hint);
+        zzbvVar.setTitle(C0130R.string.hint);
         AlertController.AlertParams alertParams = (AlertController.AlertParams) zzbvVar.zza;
         alertParams.mMessage = charSequence;
         alertParams.mCancelable = true;
-        zzbvVar.setNeutralButton(R.string.ok, new Utils$$ExternalSyntheticLambda1(0));
+        zzbvVar.setNeutralButton(C0130R.string.ok, new Utils$$ExternalSyntheticLambda1(0));
         AlertDialog create = zzbvVar.create();
         create.show();
         TextView textView = (TextView) create.findViewById(16908299);

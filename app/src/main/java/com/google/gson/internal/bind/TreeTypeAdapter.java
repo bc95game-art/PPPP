@@ -11,7 +11,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 /* loaded from: classes.dex */
 public final class TreeTypeAdapter extends SerializationDelegatingTypeAdapter {
-    public final Transition.AnonymousClass1 context = new Transition.AnonymousClass1(19);
+    public final Transition.C01101 context = new Transition.C01101(19);
     public volatile TypeAdapter delegate;
     public final Gson gson;
     public final boolean nullSafe;

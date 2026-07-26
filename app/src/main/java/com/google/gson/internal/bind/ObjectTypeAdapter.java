@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 /* loaded from: classes.dex */
 public final class ObjectTypeAdapter extends TypeAdapter {
-    public static final TypeAdapters.AnonymousClass31 DOUBLE_FACTORY = new TypeAdapters.AnonymousClass31(2, ToNumberPolicy.DOUBLE);
+    public static final TypeAdapters.C026731 DOUBLE_FACTORY = new TypeAdapters.C026731(2, ToNumberPolicy.DOUBLE);
     public final Gson gson;
     public final ToNumberPolicy toNumberStrategy;
 

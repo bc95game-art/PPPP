@@ -3,8 +3,8 @@ package com.emanuelef.remote_capture.activities;
 import android.os.Bundle;
 import androidx.fragment.app.BackStackRecord;
 import androidx.fragment.app.FragmentManager;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.ListInfo;
 import com.emanuelef.remote_capture.model.MatchList;
@@ -23,24 +23,24 @@ public class EditListActivity extends BaseActivity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         if (getIntent() == null) {
-            Log.e(TAG, "null intent");
+            Log.m585e(TAG, "null intent");
             finish();
             return;
         }
         ListInfo.Type type = (ListInfo.Type) Utils.getSerializableExtra(getIntent(), LIST_TYPE_EXTRA, ListInfo.Type.class);
         if (type == null) {
-            Log.e(TAG, "null list info");
+            Log.m585e(TAG, "null list info");
             finish();
             return;
         }
         ListInfo listInfo = new ListInfo(type);
         this.mListInfo = listInfo;
         setTitle(listInfo.getTitle());
-        setContentView(R.layout.fragment_activity);
+        setContentView(C0130R.layout.fragment_activity);
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.getClass();
         BackStackRecord backStackRecord = new BackStackRecord(supportFragmentManager);
-        backStackRecord.replace(R.id.fragment, this.mListInfo.newFragment(), null);
+        backStackRecord.replace(C0130R.C0132id.fragment, this.mListInfo.newFragment(), null);
         backStackRecord.commit();
     }
 }

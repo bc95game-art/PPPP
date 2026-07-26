@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.viewpager2.widget.FakeDrag;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.adapters.AppsStatsAdapter$$ExternalSyntheticLambda0;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
@@ -43,7 +43,7 @@ public abstract class MaterialButtonGroup extends LinearLayout {
 
     /* JADX WARN: Type inference failed for: r0v22, types: [java.lang.Object, com.google.android.material.shape.StateListSizeChange] */
     public MaterialButtonGroup(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.materialButtonToggleGroupStyle, R.style.Widget_Material3_MaterialButtonGroup), attributeSet, R.attr.materialButtonToggleGroupStyle);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.materialButtonToggleGroupStyle, C0130R.style.Widget_Material3_MaterialButtonGroup), attributeSet, C0130R.attr.materialButtonToggleGroupStyle);
         StateListCornerSize stateListCornerSize;
         int next;
         StateListSizeChange stateListSizeChange;
@@ -55,7 +55,7 @@ public abstract class MaterialButtonGroup extends LinearLayout {
         this.pressedStateTracker = new FakeDrag(28, materialButtonToggleGroup);
         this.childOrderComparator = new AppsStatsAdapter$$ExternalSyntheticLambda0(2, materialButtonToggleGroup);
         Context context2 = getContext();
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialButtonGroup, R.attr.materialButtonToggleGroupStyle, R.style.Widget_Material3_MaterialButtonGroup, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialButtonGroup, C0130R.attr.materialButtonToggleGroupStyle, C0130R.style.Widget_Material3_MaterialButtonGroup, new int[0]);
         StateListShapeAppearanceModel stateListShapeAppearanceModel = null;
         if (obtainStyledAttributes.hasValue(2)) {
             int resourceId = obtainStyledAttributes.getResourceId(2, 0);

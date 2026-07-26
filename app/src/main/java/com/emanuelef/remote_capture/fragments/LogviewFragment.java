@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.ReversedLinesFileReader;
 import com.emanuelef.remote_capture.Utils;
 import com.google.android.datatransport.runtime.TransportImpl$$ExternalSyntheticLambda0;
@@ -45,13 +45,13 @@ public class LogviewFragment extends Fragment {
 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        return layoutInflater.inflate(R.layout.logview_fragment, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.logview_fragment, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(View view, Bundle bundle) {
         this.mLogPath = getArguments().getString("path");
-        ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        ScrollView scrollView = (ScrollView) view.findViewById(C0130R.C0132id.scrollView);
         TransportImpl$$ExternalSyntheticLambda0 transportImpl$$ExternalSyntheticLambda0 = new TransportImpl$$ExternalSyntheticLambda0(11);
         WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
         ViewCompat.Api21Impl.setOnApplyWindowInsetsListener(scrollView, transportImpl$$ExternalSyntheticLambda0);
@@ -59,7 +59,7 @@ public class LogviewFragment extends Fragment {
         if (Utils.isTv(view.getContext())) {
             scrollView.setDescendantFocusability(393216);
         }
-        this.mLogView = (TextView) view.findViewById(R.id.log);
+        this.mLogView = (TextView) view.findViewById(C0130R.C0132id.log);
         reloadLog();
     }
 
@@ -87,7 +87,7 @@ public class LogviewFragment extends Fragment {
         if (!this.mLogText.isEmpty()) {
             str = this.mLogText;
         } else {
-            str = getString(R.string.no_data);
+            str = getString(C0130R.string.no_data);
         }
         textView.setText(str);
     }

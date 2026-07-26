@@ -14,8 +14,8 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.emanuelef.remote_capture.AppsResolver;
 import com.emanuelef.remote_capture.Billing;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.AppDescriptor;
 import com.emanuelef.remote_capture.model.AppStats;
@@ -63,13 +63,13 @@ public class AppsStatsAdapter extends RecyclerView.Adapter {
         public ViewHolder(View view) {
             super(view);
             AppsStatsAdapter.this = r1;
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.blockedFlag = (ImageView) view.findViewById(R.id.blocked);
-            this.whitelistedFlag = (ImageView) view.findViewById(R.id.whitelisted);
-            this.tempUnblocked = (ImageView) view.findViewById(R.id.temp_unblocked);
-            this.info = (TextView) view.findViewById(R.id.app_info);
-            this.sent_rcvd = (TextView) view.findViewById(R.id.sent_rcvd);
-            this.traffic = (TextView) view.findViewById(R.id.traffic);
+            this.icon = (ImageView) view.findViewById(C0130R.C0132id.icon);
+            this.blockedFlag = (ImageView) view.findViewById(C0130R.C0132id.blocked);
+            this.whitelistedFlag = (ImageView) view.findViewById(C0130R.C0132id.whitelisted);
+            this.tempUnblocked = (ImageView) view.findViewById(C0130R.C0132id.temp_unblocked);
+            this.info = (TextView) view.findViewById(C0130R.C0132id.app_info);
+            this.sent_rcvd = (TextView) view.findViewById(C0130R.C0132id.sent_rcvd);
+            this.traffic = (TextView) view.findViewById(C0130R.C0132id.traffic);
         }
 
         public void bindAppStats(AppStats appStats) {
@@ -108,7 +108,7 @@ public class AppsStatsAdapter extends RecyclerView.Adapter {
             } else {
                 z = true;
             }
-            this.sent_rcvd.setText(AppsStatsAdapter.this.mContext.getString(R.string.rcvd_and_sent, Utils.formatBytes(appStats.rcvdBytes), Utils.formatBytes(appStats.sentBytes)));
+            this.sent_rcvd.setText(AppsStatsAdapter.this.mContext.getString(C0130R.string.rcvd_and_sent, Utils.formatBytes(appStats.rcvdBytes), Utils.formatBytes(appStats.sentBytes)));
             this.traffic.setText(Utils.formatBytes(appStats.sentBytes + appStats.rcvdBytes));
             ImageView imageView = this.blockedFlag;
             if (matchesApp) {
@@ -136,7 +136,7 @@ public class AppsStatsAdapter extends RecyclerView.Adapter {
         this.mContext = context;
         this.mApps = new AppsResolver(context);
         this.mLayoutInflater = (LayoutInflater) context.getSystemService("layout_inflater");
-        this.mUnknownIcon = ContextCompat$Api21Impl.getDrawable(context, R.drawable.ic_image);
+        this.mUnknownIcon = ContextCompat$Api21Impl.getDrawable(context, C0130R.C0131drawable.ic_image);
         this.mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mFirewallAvailable = Billing.newInstance(context).isFirewallVisible();
         setHasStableIds(true);
@@ -244,7 +244,7 @@ public class AppsStatsAdapter extends RecyclerView.Adapter {
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View inflate = this.mLayoutInflater.inflate(R.layout.app_item, viewGroup, false);
+        View inflate = this.mLayoutInflater.inflate(C0130R.layout.app_item, viewGroup, false);
         View.OnClickListener onClickListener = this.mListener;
         if (onClickListener != null) {
             inflate.setOnClickListener(onClickListener);

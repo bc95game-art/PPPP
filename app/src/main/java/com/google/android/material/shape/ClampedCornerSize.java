@@ -1,7 +1,7 @@
 package com.google.android.material.shape;
 
 import android.graphics.RectF;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import java.util.Arrays;
 /* loaded from: classes.dex */
 public final class ClampedCornerSize implements CornerSize {

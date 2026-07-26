@@ -1,9 +1,9 @@
 package com.emanuelef.remote_capture.model;
 
 import androidx.collection.ArraySet;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.fragments.EditListFragment;
 import com.emanuelef.remote_capture.model.MatchList;
 import java.util.Arrays;
@@ -30,21 +30,21 @@ public class ListInfo {
     public int getHelpString() {
         int ordinal = this.mType.ordinal();
         if (ordinal == 0) {
-            return R.string.hidden_connections_help;
+            return C0130R.string.hidden_connections_help;
         }
         if (ordinal == 1) {
-            return R.string.malware_whitelist_help;
+            return C0130R.string.malware_whitelist_help;
         }
         if (ordinal == 2) {
             return 0;
         }
         if (ordinal == 3) {
-            return R.string.firewall_whitelist_help;
+            return C0130R.string.firewall_whitelist_help;
         }
         if (ordinal != 4) {
             return 0;
         }
-        return R.string.decryption_rules_help;
+        return C0130R.string.decryption_rules_help;
     }
 
     public MatchList getList() {
@@ -86,21 +86,21 @@ public class ListInfo {
     public int getTitle() {
         int ordinal = this.mType.ordinal();
         if (ordinal == 0) {
-            return R.string.hidden_connections_rules;
+            return C0130R.string.hidden_connections_rules;
         }
         if (ordinal == 1) {
-            return R.string.malware_whitelist_rules;
+            return C0130R.string.malware_whitelist_rules;
         }
         if (ordinal == 2) {
-            return R.string.firewall_rules;
+            return C0130R.string.firewall_rules;
         }
         if (ordinal == 3) {
-            return R.string.whitelist;
+            return C0130R.string.whitelist;
         }
         if (ordinal != 4) {
             return 0;
         }
-        return R.string.decryption_rules;
+        return C0130R.string.decryption_rules;
     }
 
     public Type getType() {

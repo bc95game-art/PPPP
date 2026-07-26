@@ -1,9 +1,9 @@
 package com.google.gson.internal;
 
-import j$.util.Objects;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class GsonTypes$WildcardTypeImpl implements WildcardType, Serializable {
     public final Type lowerBound;

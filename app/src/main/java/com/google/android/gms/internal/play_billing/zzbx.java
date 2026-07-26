@@ -2,7 +2,7 @@ package com.google.android.gms.internal.play_billing;
 
 import java.util.Set;
 /* loaded from: classes.dex */
-public abstract class zzbx extends zzbq implements Set, j$.util.Set {
+public abstract class zzbx extends zzbq implements Set, p004j$.util.Set {
     public transient zzbt zza;
 
     @Override // java.util.Collection, java.util.Set

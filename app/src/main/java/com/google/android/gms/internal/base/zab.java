@@ -48,7 +48,7 @@ public abstract class zab extends Binder implements IInterface {
                     zzcbVar.zza.zzb(Integer.valueOf(readInt));
                     return true;
                 }
-                throw new BadParcelableException(ViewModelProvider.Factory.CC.m(dataAvail, "Parcel data not fully consumed, unread size: "));
+                throw new BadParcelableException(ViewModelProvider.Factory.CC.m604m(dataAvail, "Parcel data not fully consumed, unread size: "));
             default:
                 return super.onTransact(i, parcel, parcel2, i2);
         }

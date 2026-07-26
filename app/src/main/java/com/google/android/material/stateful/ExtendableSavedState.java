@@ -7,7 +7,7 @@ import androidx.collection.SimpleArrayMap;
 import androidx.customview.view.AbsSavedState;
 /* loaded from: classes.dex */
 public final class ExtendableSavedState extends AbsSavedState {
-    public static final Parcelable.Creator<ExtendableSavedState> CREATOR = new AbsSavedState.AnonymousClass2(15);
+    public static final Parcelable.Creator<ExtendableSavedState> CREATOR = new AbsSavedState.C00522(15);
     public final SimpleArrayMap extendableStates;
 
     public ExtendableSavedState(Parcelable parcelable) {

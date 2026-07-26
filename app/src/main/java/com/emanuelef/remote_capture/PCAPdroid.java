@@ -89,7 +89,7 @@ public class PCAPdroid extends Application {
             try {
                 Utils.getPackageInfo(packageManager, str, 0);
             } catch (PackageManager.NameNotFoundException unused) {
-                Log.i("PCAPdroid", "Package " + str + " uninstalled, removing from app filter");
+                Log.m583i("PCAPdroid", "Package " + str + " uninstalled, removing from app filter");
                 arrayList.add(str);
             }
         }
@@ -172,7 +172,7 @@ public class PCAPdroid extends Application {
             Log.init(getCacheDir().getAbsolutePath());
         }
         Utils.BuildType verifiedBuild = Utils.getVerifiedBuild(this);
-        Log.i("PCAPdroid", "Build type: " + verifiedBuild);
+        Log.m583i("PCAPdroid", "Build type: " + verifiedBuild);
         CaocConfig caocConfig = CustomActivityOnCrash.config;
         CaocConfig caocConfig2 = new CaocConfig();
         caocConfig2.enabled = caocConfig.enabled;
@@ -182,7 +182,7 @@ public class PCAPdroid extends Application {
         if (verifiedBuild == Utils.BuildType.PLAYSTORE || verifiedBuild == Utils.BuildType.UNKNOWN) {
             caocConfig2.enabled = false;
         } else {
-            caocConfig2.errorDrawable = Integer.valueOf((int) R.drawable.ic_app_crash);
+            caocConfig2.errorDrawable = Integer.valueOf((int) C0130R.C0131drawable.ic_app_crash);
             caocConfig2.errorActivityClass = ErrorActivity.class;
         }
         CustomActivityOnCrash.config = caocConfig2;
@@ -203,14 +203,14 @@ public class PCAPdroid extends Application {
                     sb.append(!booleanExtra);
                     sb.append("]: ");
                     sb.append(schemeSpecificPart);
-                    Log.d("PCAPdroid", sb.toString());
+                    Log.m587d("PCAPdroid", sb.toString());
                     if (!booleanExtra) {
                         PCAPdroid.this.checkUidMapping(schemeSpecificPart);
                     }
                 } else if ("android.intent.action.PACKAGE_REMOVED".equals(intent.getAction())) {
                     boolean booleanExtra2 = intent.getBooleanExtra("android.intent.extra.REPLACING", false);
                     String schemeSpecificPart2 = intent.getData().getSchemeSpecificPart();
-                    Log.d("PCAPdroid", "ACTION_PACKAGE_REMOVED [update=" + booleanExtra2 + "]: " + schemeSpecificPart2);
+                    Log.m587d("PCAPdroid", "ACTION_PACKAGE_REMOVED [update=" + booleanExtra2 + "]: " + schemeSpecificPart2);
                     if (!booleanExtra2) {
                         PCAPdroid.this.checkUidMapping(schemeSpecificPart2);
                         PCAPdroid.this.removeUninstalledAppsFromAppFilter();

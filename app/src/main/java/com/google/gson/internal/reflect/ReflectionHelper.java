@@ -169,7 +169,7 @@ public abstract class ReflectionHelper {
         try {
             accessibleObject.setAccessible(true);
         } catch (Exception e) {
-            StringBuilder m = ViewModelProvider.Factory.CC.m15m("Failed making ", getAccessibleObjectDescription(accessibleObject, false), " accessible; either increase its visibility or write a custom TypeAdapter for its declaring type.");
+            StringBuilder m = ViewModelProvider.Factory.CC.m594m("Failed making ", getAccessibleObjectDescription(accessibleObject, false), " accessible; either increase its visibility or write a custom TypeAdapter for its declaring type.");
             m.append(getInaccessibleTroubleshootingSuffix(e));
             throw new RuntimeException(m.toString(), e);
         }

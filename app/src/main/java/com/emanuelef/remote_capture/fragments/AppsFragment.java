@@ -20,11 +20,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.preference.PreferenceManager;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.activities.AppDetailsActivity;
 import com.emanuelef.remote_capture.adapters.AppsStatsAdapter;
 import com.emanuelef.remote_capture.interfaces.ConnectionsListener;
@@ -89,11 +89,11 @@ public class AppsFragment extends Fragment implements ConnectionsListener, MenuP
         AppsStatsAdapter appsStatsAdapter;
         if (this.mMenu != null && (appsStatsAdapter = this.mAdapter) != null) {
             AppsStatsAdapter.SortField sortField = appsStatsAdapter.getSortField();
-            Log.d(TAG, "Sort field:" + sortField);
-            MenuItem findItem = this.mMenu.findItem(R.id.sort_by_name);
-            MenuItem findItem2 = this.mMenu.findItem(R.id.sort_by_total_bytes);
-            MenuItem findItem3 = this.mMenu.findItem(R.id.sort_by_bytes_sent);
-            MenuItem findItem4 = this.mMenu.findItem(R.id.sort_by_bytes_rcvd);
+            Log.m587d(TAG, "Sort field:" + sortField);
+            MenuItem findItem = this.mMenu.findItem(C0130R.C0132id.sort_by_name);
+            MenuItem findItem2 = this.mMenu.findItem(C0130R.C0132id.sort_by_total_bytes);
+            MenuItem findItem3 = this.mMenu.findItem(C0130R.C0132id.sort_by_bytes_sent);
+            MenuItem findItem4 = this.mMenu.findItem(C0130R.C0132id.sort_by_bytes_rcvd);
             findItem.setChecked(false);
             findItem2.setChecked(false);
             findItem3.setChecked(false);
@@ -157,20 +157,20 @@ public class AppsFragment extends Fragment implements ConnectionsListener, MenuP
         if (selectedItem == null) {
             return super.onContextItemSelected(menuItem);
         }
-        if (itemId == R.id.block_app) {
+        if (itemId == C0130R.C0132id.block_app) {
             blocklist.addApp(selectedItem.getUid());
-        } else if (itemId == R.id.unblock_app_permanently) {
+        } else if (itemId == C0130R.C0132id.unblock_app_permanently) {
             blocklist.removeApp(selectedItem.getUid());
-        } else if (itemId == R.id.unblock_app_10m) {
+        } else if (itemId == C0130R.C0132id.unblock_app_10m) {
             blocklist.unblockAppForMinutes(selectedItem.getUid(), 10);
-        } else if (itemId == R.id.unblock_app_1h) {
+        } else if (itemId == C0130R.C0132id.unblock_app_1h) {
             blocklist.unblockAppForMinutes(selectedItem.getUid(), 60);
-        } else if (itemId == R.id.unblock_app_8h) {
+        } else if (itemId == C0130R.C0132id.unblock_app_8h) {
             blocklist.unblockAppForMinutes(selectedItem.getUid(), 480);
         } else {
-            if (itemId == R.id.add_to_fw_whitelist) {
+            if (itemId == C0130R.C0132id.add_to_fw_whitelist) {
                 firewallWhitelist.addApp(selectedItem.getUid());
-            } else if (itemId != R.id.remove_from_fw_whitelist) {
+            } else if (itemId != C0130R.C0132id.remove_from_fw_whitelist) {
                 return super.onContextItemSelected(menuItem);
             } else {
                 firewallWhitelist.removeApp(selectedItem.getUid());
@@ -190,28 +190,28 @@ public class AppsFragment extends Fragment implements ConnectionsListener, MenuP
     @Override // androidx.fragment.app.Fragment, android.view.View.OnCreateContextMenuListener
     public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
         super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
-        Log.d(TAG, "onCreateContextMenu");
-        requireActivity().getMenuInflater().inflate(R.menu.app_context_menu, contextMenu);
+        Log.m587d(TAG, "onCreateContextMenu");
+        requireActivity().getMenuInflater().inflate(C0130R.C0134menu.app_context_menu, contextMenu);
         AppStats selectedItem = this.mAdapter.getSelectedItem();
         if (selectedItem != null) {
             SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
             boolean matchesApp = PCAPdroid.getInstance().getBlocklist().matchesApp(selectedItem.getUid());
-            contextMenu.findItem(R.id.block_app).setVisible(!matchesApp);
+            contextMenu.findItem(C0130R.C0132id.block_app).setVisible(!matchesApp);
             if (Prefs.isFirewallWhitelistMode(defaultSharedPreferences)) {
                 boolean matchesApp2 = PCAPdroid.getInstance().getFirewallWhitelist().matchesApp(selectedItem.getUid());
-                contextMenu.findItem(R.id.add_to_fw_whitelist).setVisible(!matchesApp2);
-                contextMenu.findItem(R.id.remove_from_fw_whitelist).setVisible(matchesApp2);
+                contextMenu.findItem(C0130R.C0132id.add_to_fw_whitelist).setVisible(!matchesApp2);
+                contextMenu.findItem(C0130R.C0132id.remove_from_fw_whitelist).setVisible(matchesApp2);
             }
-            contextMenu.findItem(R.id.unblock_app_permanently).setVisible(matchesApp);
-            contextMenu.findItem(R.id.unblock_app_10m).setVisible(matchesApp).setTitle(getString(R.string.unblock_for_n_minutes, 10));
-            contextMenu.findItem(R.id.unblock_app_1h).setVisible(matchesApp).setTitle(getString(R.string.unblock_for_n_hours, 1));
-            contextMenu.findItem(R.id.unblock_app_8h).setVisible(matchesApp).setTitle(getString(R.string.unblock_for_n_hours, 8));
+            contextMenu.findItem(C0130R.C0132id.unblock_app_permanently).setVisible(matchesApp);
+            contextMenu.findItem(C0130R.C0132id.unblock_app_10m).setVisible(matchesApp).setTitle(getString(C0130R.string.unblock_for_n_minutes, 10));
+            contextMenu.findItem(C0130R.C0132id.unblock_app_1h).setVisible(matchesApp).setTitle(getString(C0130R.string.unblock_for_n_hours, 1));
+            contextMenu.findItem(C0130R.C0132id.unblock_app_8h).setVisible(matchesApp).setTitle(getString(C0130R.string.unblock_for_n_hours, 8));
         }
     }
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.apps_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.apps_menu, menu);
         this.mMenu = menu;
         refreshSortField();
     }
@@ -219,7 +219,7 @@ public class AppsFragment extends Fragment implements ConnectionsListener, MenuP
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.apps_stats, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.apps_stats, viewGroup, false);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -229,26 +229,26 @@ public class AppsFragment extends Fragment implements ConnectionsListener, MenuP
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.reset) {
+        if (itemId == C0130R.C0132id.reset) {
             zzbv zzbvVar = new zzbv(requireContext());
-            zzbvVar.setMessage(R.string.reset_stats_confirm);
-            zzbvVar.setPositiveButton(R.string.yes, new AppsFragment$$ExternalSyntheticLambda0(0, this));
-            zzbvVar.setNegativeButton(R.string.no, new Blocklist$$ExternalSyntheticLambda0(14));
+            zzbvVar.setMessage(C0130R.string.reset_stats_confirm);
+            zzbvVar.setPositiveButton(C0130R.string.yes, new AppsFragment$$ExternalSyntheticLambda0(0, this));
+            zzbvVar.setNegativeButton(C0130R.string.no, new Blocklist$$ExternalSyntheticLambda0(14));
             zzbvVar.show();
             return true;
-        } else if (itemId == R.id.sort_by_name) {
+        } else if (itemId == C0130R.C0132id.sort_by_name) {
             this.mAdapter.setSortField(AppsStatsAdapter.SortField.NAME);
             refreshSortField();
             return true;
-        } else if (itemId == R.id.sort_by_total_bytes) {
+        } else if (itemId == C0130R.C0132id.sort_by_total_bytes) {
             this.mAdapter.setSortField(AppsStatsAdapter.SortField.TOTAL_BYTES);
             refreshSortField();
             return true;
-        } else if (itemId == R.id.sort_by_bytes_sent) {
+        } else if (itemId == C0130R.C0132id.sort_by_bytes_sent) {
             this.mAdapter.setSortField(AppsStatsAdapter.SortField.BYTES_SENT);
             refreshSortField();
             return true;
-        } else if (itemId != R.id.sort_by_bytes_rcvd) {
+        } else if (itemId != C0130R.C0132id.sort_by_bytes_rcvd) {
             return false;
         } else {
             this.mAdapter.setSortField(AppsStatsAdapter.SortField.BYTES_RCVD);
@@ -275,14 +275,14 @@ public class AppsFragment extends Fragment implements ConnectionsListener, MenuP
 
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(View view, Bundle bundle) {
-        EmptyRecyclerView emptyRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.recycler_view);
+        EmptyRecyclerView emptyRecyclerView = (EmptyRecyclerView) view.findViewById(C0130R.C0132id.recycler_view);
         this.mRecyclerView = emptyRecyclerView;
         emptyRecyclerView.setLayoutManager(new EmptyRecyclerView.MyLinearLayoutManager(getContext()));
         registerForContextMenu(this.mRecyclerView);
         this.mAdapter = new AppsStatsAdapter(getContext());
         doRefreshApps();
         this.mRecyclerView.setAdapter(this.mAdapter);
-        this.mRecyclerView.setEmptyView((TextView) view.findViewById(R.id.no_apps));
+        this.mRecyclerView.setEmptyView((TextView) view.findViewById(C0130R.C0132id.no_apps));
         this.mHandler = new Handler(Looper.getMainLooper());
         this.mRefreshApps = false;
         this.mAdapter.setClickListener(new AppsFragment$$ExternalSyntheticLambda2(0, this));

@@ -25,11 +25,11 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.preference.PreferenceManager;
 import com.emanuelef.remote_capture.AppsResolver;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.MitmReceiver;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.activities.AppFilterActivity;
 import com.emanuelef.remote_capture.activities.MainActivity;
@@ -65,9 +65,9 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
     private MenuItem mStartBtn;
     private MenuItem mStopBtn;
 
-    /* renamed from: com.emanuelef.remote_capture.fragments.StatusFragment$1  reason: invalid class name */
+    /* renamed from: com.emanuelef.remote_capture.fragments.StatusFragment$1 */
     /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    public static /* synthetic */ class C01571 {
         static final /* synthetic */ int[] $SwitchMap$com$emanuelef$remote_capture$model$AppState;
         static final /* synthetic */ int[] $SwitchMap$com$emanuelef$remote_capture$model$Prefs$DumpMode;
 
@@ -127,7 +127,7 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
                     str = resolveInstalledApp.getName() + " (" + resolveInstalledApp.getPackageName() + ")";
                 }
             } else {
-                drawable = ContextCompat$Api21Impl.getDrawable(context, R.drawable.ic_image);
+                drawable = ContextCompat$Api21Impl.getDrawable(context, C0130R.C0131drawable.ic_image);
                 ArrayList arrayList = new ArrayList();
                 for (String str2 : this.mAppFilter) {
                     AppDescriptor resolveInstalledApp2 = AppsResolver.resolveInstalledApp(requireContext().getPackageManager(), str2, 0);
@@ -174,7 +174,7 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
 
     /* JADX INFO: Access modifiers changed from: private */
     public void onStatsUpdate(CaptureStats captureStats) {
-        Log.d("MainReceiver", "Got StatsUpdate: bytes_sent=" + captureStats.pkts_sent + ", bytes_rcvd=" + captureStats.bytes_rcvd + ", pkts_sent=" + captureStats.pkts_sent + ", pkts_rcvd=" + captureStats.pkts_rcvd);
+        Log.m587d("MainReceiver", "Got StatsUpdate: bytes_sent=" + captureStats.pkts_sent + ", bytes_rcvd=" + captureStats.bytes_rcvd + ", pkts_sent=" + captureStats.pkts_sent + ", pkts_rcvd=" + captureStats.pkts_rcvd);
         this.mCaptureStatus.setText(Utils.formatBytes(captureStats.bytes_sent + captureStats.bytes_rcvd));
     }
 
@@ -203,13 +203,13 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
         MitmReceiver.Status mitmProxyStatus = CaptureService.getMitmProxyStatus();
         Context context = getContext();
         if (mitmProxyStatus == MitmReceiver.Status.START_ERROR && context != null) {
-            Utils.showToastLong(context, R.string.mitm_addon_error, new Object[0]);
+            Utils.showToastLong(context, C0130R.string.mitm_addon_error, new Object[0]);
         }
         TextView textView = this.mInterfaceInfo;
         if (mitmProxyStatus == MitmReceiver.Status.RUNNING) {
-            i = R.string.mitm_addon_running;
+            i = C0130R.string.mitm_addon_running;
         } else {
-            i = R.string.mitm_addon_starting;
+            i = C0130R.string.mitm_addon_starting;
         }
         textView.setText(i);
     }
@@ -219,7 +219,7 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
         if (context != null) {
             Set<String> set = this.mAppFilter;
             if (set == null || set.isEmpty()) {
-                this.mFilterDescription.setText(R.string.capture_all_apps);
+                this.mFilterDescription.setText(C0130R.string.capture_all_apps);
                 this.mFilterIcon.setVisibility(8);
                 this.mAppFilterSwitch.setChecked(false);
                 return;
@@ -238,23 +238,23 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
     private void refreshPcapDumpInfo(Context context) {
         String str;
         Drawable drawable;
-        int i = AnonymousClass1.$SwitchMap$com$emanuelef$remote_capture$model$Prefs$DumpMode[CaptureService.getDumpMode().ordinal()];
+        int i = C01571.$SwitchMap$com$emanuelef$remote_capture$model$Prefs$DumpMode[CaptureService.getDumpMode().ordinal()];
         if (i == 1) {
-            str = getString(R.string.no_dump_info);
+            str = getString(C0130R.string.no_dump_info);
         } else if (i == 2) {
-            str = String.format(getResources().getString(R.string.http_server_status), Utils.getLocalIPAddress(this.mActivity), Integer.valueOf(CaptureService.getHTTPServerPort()));
+            str = String.format(getResources().getString(C0130R.string.http_server_status), Utils.getLocalIPAddress(this.mActivity), Integer.valueOf(CaptureService.getHTTPServerPort()));
         } else if (i == 3) {
-            str = getString(R.string.pcap_file_info);
+            str = getString(C0130R.string.pcap_file_info);
             String pcapFname = CaptureService.getPcapFname();
             if (pcapFname != null) {
                 str = pcapFname;
             }
         } else if (i == 4) {
-            str = String.format(getResources().getString(R.string.collector_info), CaptureService.getCollectorAddress(), Integer.valueOf(CaptureService.getCollectorPort()));
+            str = String.format(getResources().getString(C0130R.string.collector_info), CaptureService.getCollectorAddress(), Integer.valueOf(CaptureService.getCollectorPort()));
         } else if (i != 5) {
             str = "";
         } else {
-            str = String.format(getResources().getString(R.string.tcp_collector_info), CaptureService.getCollectorAddress(), Integer.valueOf(CaptureService.getCollectorPort()));
+            str = String.format(getResources().getString(C0130R.string.tcp_collector_info), CaptureService.getCollectorAddress(), Integer.valueOf(CaptureService.getCollectorPort()));
         }
         this.mCollectorInfoText.setText(str);
         Set<String> set = this.mAppFilter;
@@ -300,9 +300,9 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
                     this.mDecryptPcap.setEnabled(true);
                 }
             }
-            int i = AnonymousClass1.$SwitchMap$com$emanuelef$remote_capture$model$AppState[appState.ordinal()];
+            int i = C01571.$SwitchMap$com$emanuelef$remote_capture$model$AppState[appState.ordinal()];
             if (i == 1) {
-                this.mCaptureStatus.setText(R.string.ready);
+                this.mCaptureStatus.setText(C0130R.string.ready);
                 this.mCollectorInfoLayout.setVisibility(8);
                 this.mInterfaceInfo.setVisibility(8);
                 this.mQuickSettings.setVisibility(0);
@@ -321,14 +321,14 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
                         } else if (CaptureService.isCapturingAsRoot()) {
                             String captureInterface = requireInstance.getCaptureInterface();
                             if (captureInterface.equals("@inet")) {
-                                captureInterface = getString(R.string.internet);
+                                captureInterface = getString(C0130R.string.internet);
                             } else if (captureInterface.equals("any")) {
-                                captureInterface = getString(R.string.all_interfaces);
+                                captureInterface = getString(C0130R.string.all_interfaces);
                             }
-                            this.mInterfaceInfo.setText(String.format(getResources().getString(R.string.capturing_from), captureInterface));
+                            this.mInterfaceInfo.setText(String.format(getResources().getString(C0130R.string.capturing_from), captureInterface));
                             this.mInterfaceInfo.setVisibility(0);
                         } else if (requireInstance.getSocks5Enabled() == 1) {
-                            this.mInterfaceInfo.setText(String.format(getResources().getString(R.string.socks5_info), requireInstance.getSocks5ProxyAddress(), Integer.valueOf(requireInstance.getSocks5ProxyPort())));
+                            this.mInterfaceInfo.setText(String.format(getResources().getString(C0130R.string.socks5_info), requireInstance.getSocks5ProxyAddress(), Integer.valueOf(requireInstance.getSocks5ProxyPort())));
                             this.mInterfaceInfo.setVisibility(0);
                         } else {
                             this.mInterfaceInfo.setVisibility(8);
@@ -353,13 +353,13 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.main_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.main_menu, menu);
         this.mMenu = menu;
-        this.mStartBtn = menu.findItem(R.id.action_start);
-        this.mStopBtn = this.mMenu.findItem(R.id.action_stop);
-        this.mMenuSettings = this.mMenu.findItem(R.id.action_settings);
-        this.mOpenPcap = this.mMenu.findItem(R.id.open_pcap);
-        MenuItem findItem = this.mMenu.findItem(R.id.decrypt_pcap);
+        this.mStartBtn = menu.findItem(C0130R.C0132id.action_start);
+        this.mStopBtn = this.mMenu.findItem(C0130R.C0132id.action_stop);
+        this.mMenuSettings = this.mMenu.findItem(C0130R.C0132id.action_settings);
+        this.mOpenPcap = this.mMenu.findItem(C0130R.C0132id.open_pcap);
+        MenuItem findItem = this.mMenu.findItem(C0130R.C0132id.decrypt_pcap);
         this.mDecryptPcap = findItem;
         findItem.setVisible(PCAPdroid.getInstance().isUsharkAvailable());
         refreshStatus();
@@ -368,7 +368,7 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.status, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.status, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -401,23 +401,23 @@ public class StatusFragment extends Fragment implements AppStateListener, MenuPr
     @Override // androidx.fragment.app.Fragment
     @SuppressLint({"ClickableViewAccessibility"})
     public void onViewCreated(View view, Bundle bundle) {
-        this.mInterfaceInfo = (TextView) view.findViewById(R.id.interface_info);
-        View findViewById = view.findViewById(R.id.collector_info_layout);
+        this.mInterfaceInfo = (TextView) view.findViewById(C0130R.C0132id.interface_info);
+        View findViewById = view.findViewById(C0130R.C0132id.collector_info_layout);
         this.mCollectorInfoLayout = findViewById;
-        this.mCollectorInfoText = (TextView) findViewById.findViewById(R.id.collector_info_text);
-        this.mCollectorInfoIcon = (ImageView) this.mCollectorInfoLayout.findViewById(R.id.collector_info_icon);
-        this.mCaptureStatus = (TextView) view.findViewById(R.id.status_view);
-        this.mQuickSettings = view.findViewById(R.id.quick_settings);
-        this.mFilterRootDecryptionWarning = (TextView) view.findViewById(R.id.app_filter_root_decryption_warning);
+        this.mCollectorInfoText = (TextView) findViewById.findViewById(C0130R.C0132id.collector_info_text);
+        this.mCollectorInfoIcon = (ImageView) this.mCollectorInfoLayout.findViewById(C0130R.C0132id.collector_info_icon);
+        this.mCaptureStatus = (TextView) view.findViewById(C0130R.C0132id.status_view);
+        this.mQuickSettings = view.findViewById(C0130R.C0132id.quick_settings);
+        this.mFilterRootDecryptionWarning = (TextView) view.findViewById(C0130R.C0132id.app_filter_root_decryption_warning);
         SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.mActivity);
         this.mPrefs = defaultSharedPreferences;
         this.mAppFilter = Prefs.getAppFilter(defaultSharedPreferences);
-        PrefSpinner.init((Spinner) view.findViewById(R.id.dump_mode_spinner), R.array.pcap_dump_modes, R.array.pcap_dump_modes_labels, R.array.pcap_dump_modes_descriptions, Prefs.PREF_PCAP_DUMP_MODE, "none");
-        this.mAppFilterSwitch = (SwitchCompat) view.findViewById(R.id.app_filter_switch);
-        View findViewById2 = view.findViewById(R.id.app_filter_text);
-        this.mFilterDescription = (TextView) findViewById2.findViewById(R.id.description);
-        this.mFilterIcon = (ImageView) findViewById2.findViewById(R.id.icon);
-        ((TextView) findViewById2.findViewById(R.id.title)).setText(R.string.target_apps);
+        PrefSpinner.init((Spinner) view.findViewById(C0130R.C0132id.dump_mode_spinner), C0130R.array.pcap_dump_modes, C0130R.array.pcap_dump_modes_labels, C0130R.array.pcap_dump_modes_descriptions, Prefs.PREF_PCAP_DUMP_MODE, "none");
+        this.mAppFilterSwitch = (SwitchCompat) view.findViewById(C0130R.C0132id.app_filter_switch);
+        View findViewById2 = view.findViewById(C0130R.C0132id.app_filter_text);
+        this.mFilterDescription = (TextView) findViewById2.findViewById(C0130R.C0132id.description);
+        this.mFilterIcon = (ImageView) findViewById2.findViewById(C0130R.C0132id.icon);
+        ((TextView) findViewById2.findViewById(C0130R.C0132id.title)).setText(C0130R.string.target_apps);
         this.mAppFilterSwitch.setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.fragments.StatusFragment$$ExternalSyntheticLambda0
             public final /* synthetic */ StatusFragment f$0;
 

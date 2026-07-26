@@ -7,8 +7,8 @@ import com.google.firebase.encoders.ObjectEncoderContext;
 /* loaded from: classes.dex */
 public final class AutoBatchedLogRequestEncoder$ClientInfoEncoder implements ObjectEncoder {
     public static final AutoBatchedLogRequestEncoder$ClientInfoEncoder INSTANCE = new Object();
-    public static final FieldDescriptor CLIENTTYPE_DESCRIPTOR = FieldDescriptor.of("clientType");
-    public static final FieldDescriptor ANDROIDCLIENTINFO_DESCRIPTOR = FieldDescriptor.of("androidClientInfo");
+    public static final FieldDescriptor CLIENTTYPE_DESCRIPTOR = FieldDescriptor.m566of("clientType");
+    public static final FieldDescriptor ANDROIDCLIENTINFO_DESCRIPTOR = FieldDescriptor.m566of("androidClientInfo");
 
     @Override // com.google.firebase.encoders.Encoder
     public final void encode(Object obj, Object obj2) {

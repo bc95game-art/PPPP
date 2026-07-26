@@ -13,11 +13,11 @@ import com.google.android.datatransport.runtime.scheduling.jobscheduling.Uploade
 import com.google.android.datatransport.runtime.synchronization.SynchronizationGuard;
 import com.google.android.datatransport.runtime.time.Clock;
 import com.google.android.datatransport.runtime.util.PriorityMapping;
-import j$.util.Objects;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import javax.inject.Provider;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class SQLiteEventStore implements EventStore, SynchronizationGuard, ClientHealthMetricsStore {
     public static final Encoding PROTOBUF_ENCODING = new Encoding("proto");
@@ -79,7 +79,7 @@ public final class SQLiteEventStore implements EventStore, SynchronizationGuard,
         StringBuilder sb = new StringBuilder("(");
         Iterator it = iterable.iterator();
         while (it.hasNext()) {
-            sb.append(((AutoValue_PersistedEvent) it.next()).id);
+            sb.append(((AutoValue_PersistedEvent) it.next()).f34id);
             if (it.hasNext()) {
                 sb.append(',');
             }

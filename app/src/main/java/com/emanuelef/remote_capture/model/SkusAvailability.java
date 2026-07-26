@@ -25,7 +25,7 @@ public class SkusAvailability implements Serializable {
         try {
             skusAvailability = (SkusAvailability) new Gson().fromJson(string, TypeToken.get(SkusAvailability.class));
         } catch (JsonSyntaxException | IllegalArgumentException e) {
-            Log.e(TAG, "SkusAvailability JSON load error: " + e);
+            Log.m585e(TAG, "SkusAvailability JSON load error: " + e);
             skusAvailability = null;
         }
         if (skusAvailability == null) {

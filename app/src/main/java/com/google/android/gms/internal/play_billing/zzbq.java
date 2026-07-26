@@ -1,15 +1,15 @@
 package com.google.android.gms.internal.play_billing;
 
-import j$.lang.Iterable$CC;
-import j$.util.Collection;
-import j$.util.Spliterator;
-import j$.util.Spliterators;
 import java.io.Serializable;
 import java.util.AbstractCollection;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
+import p004j$.lang.Iterable$CC;
+import p004j$.util.Collection;
+import p004j$.util.Spliterator;
+import p004j$.util.Spliterators;
 /* loaded from: classes.dex */
 public abstract class zzbq extends AbstractCollection implements Serializable, Collection {
     public static final Object[] zza = new Object[0];
@@ -29,7 +29,7 @@ public abstract class zzbq extends AbstractCollection implements Serializable, C
         throw new UnsupportedOperationException();
     }
 
-    @Override // java.lang.Iterable, j$.util.Collection
+    @Override // java.lang.Iterable, p004j$.util.Collection
     public /* synthetic */ void forEach(Consumer consumer) {
         Iterable$CC.$default$forEach(this, consumer);
     }
@@ -44,7 +44,7 @@ public abstract class zzbq extends AbstractCollection implements Serializable, C
         throw new UnsupportedOperationException();
     }
 
-    @Override // java.util.Collection, j$.util.Collection
+    @Override // java.util.Collection, p004j$.util.Collection
     public /* synthetic */ boolean removeIf(Predicate predicate) {
         return Collection.CC.$default$removeIf(this, predicate);
     }
@@ -54,7 +54,7 @@ public abstract class zzbq extends AbstractCollection implements Serializable, C
         throw new UnsupportedOperationException();
     }
 
-    @Override // j$.util.Collection
+    @Override // p004j$.util.Collection
     public /* synthetic */ Object[] toArray(IntFunction intFunction) {
         Object[] array;
         array = toArray((Object[]) intFunction.apply(0));
@@ -79,9 +79,9 @@ public abstract class zzbq extends AbstractCollection implements Serializable, C
         return null;
     }
 
-    @Override // java.util.Collection, java.lang.Iterable, j$.util.Collection
+    @Override // java.util.Collection, java.lang.Iterable, p004j$.util.Collection
     /* renamed from: spliterator */
-    public final Spliterator mo258spliterator() {
+    public final Spliterator mo888spliterator() {
         return Spliterators.spliterator(this, 1296);
     }
 

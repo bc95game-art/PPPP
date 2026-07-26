@@ -9,7 +9,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 /* loaded from: classes.dex */
 public final class NumberTypeAdapter extends TypeAdapter {
-    public static final TypeAdapters.AnonymousClass31 LAZILY_PARSED_NUMBER_FACTORY = new TypeAdapters.AnonymousClass31(1, new NumberTypeAdapter(ToNumberPolicy.LAZILY_PARSED_NUMBER));
+    public static final TypeAdapters.C026731 LAZILY_PARSED_NUMBER_FACTORY = new TypeAdapters.C026731(1, new NumberTypeAdapter(ToNumberPolicy.LAZILY_PARSED_NUMBER));
     public final ToNumberPolicy toNumberStrategy;
 
     public NumberTypeAdapter(ToNumberPolicy toNumberPolicy) {

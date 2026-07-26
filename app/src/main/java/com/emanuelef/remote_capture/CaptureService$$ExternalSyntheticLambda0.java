@@ -18,7 +18,7 @@ public final /* synthetic */ class CaptureService$$ExternalSyntheticLambda0 impl
                 CaptureService.$r8$lambda$TgVAKJnL_N9D6jcUnIOo9Eu2ku4((CaptureService) this.f$0);
                 return;
             case 1:
-                CaptureService.m35$r8$lambda$Wn0Xt9R9gu2fOxGH_YGVKXhtKA((CaptureService) this.f$0);
+                CaptureService.m665$r8$lambda$Wn0Xt9R9gu2fOxGH_YGVKXhtKA((CaptureService) this.f$0);
                 return;
             case 2:
                 CaptureService.$r8$lambda$OpuoSjshhRR79oizsM9OSGox59E((CaptureService) this.f$0);
@@ -30,13 +30,13 @@ public final /* synthetic */ class CaptureService$$ExternalSyntheticLambda0 impl
                 CaptureService.$r8$lambda$EqwfYLJ6HPqz3YCybVj1akR4MPw((CaptureService) this.f$0);
                 return;
             case 5:
-                CaptureService.m37$r8$lambda$iIiIbTmrBznc8fIm7NLuEv85A((CaptureService) this.f$0);
+                CaptureService.m667$r8$lambda$iIiIbTmrBznc8fIm7NLuEv85A((CaptureService) this.f$0);
                 return;
             case 6:
                 CaptureService.$r8$lambda$_Alazbw3pezXDoxDChLwJvt3eRA((CaptureService) this.f$0);
                 return;
             default:
-                VpnReconnectService.AnonymousClass1.m85$r8$lambda$jd6ycCmYTEy9zwO1Zb5m4aNPnU((VpnReconnectService.AnonymousClass1) this.f$0);
+                VpnReconnectService.C01401.m715$r8$lambda$jd6ycCmYTEy9zwO1Zb5m4aNPnU((VpnReconnectService.C01401) this.f$0);
                 return;
         }
     }

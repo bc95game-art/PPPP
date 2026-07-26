@@ -4,6 +4,7 @@ import androidx.fragment.app.LogWriter;
 import com.google.android.gms.tasks.zzr;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.ToNumberPolicy;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.internal.Excluder;
 import com.google.gson.internal.LazilyParsedNumber;
 import com.google.gson.internal.Streams;
@@ -22,9 +23,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.stream.MalformedJsonException;
-import j$.util.DesugarCollections;
-import j$.util.Objects;
-import j$.util.concurrent.ConcurrentHashMap;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.StringReader;
@@ -33,12 +31,16 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicLongArray;
+import p004j$.util.DesugarCollections;
+import p004j$.util.Objects;
+import p004j$.util.concurrent.ConcurrentHashMap;
 /* loaded from: classes.dex */
 public final class Gson {
     public final zzr constructorConstructor;
@@ -49,16 +51,16 @@ public final class Gson {
     public final ThreadLocal threadLocalAdapterResults;
     public final ConcurrentHashMap typeTokenCache;
     public static final FormattingStyle DEFAULT_FORMATTING_STYLE = FormattingStyle.COMPACT;
-    public static final FieldNamingPolicy.AnonymousClass1 DEFAULT_FIELD_NAMING_STRATEGY = FieldNamingPolicy.IDENTITY;
-    public static final ToNumberPolicy.AnonymousClass1 DEFAULT_OBJECT_TO_NUMBER_STRATEGY = ToNumberPolicy.DOUBLE;
-    public static final ToNumberPolicy.AnonymousClass2 DEFAULT_NUMBER_TO_NUMBER_STRATEGY = ToNumberPolicy.LAZILY_PARSED_NUMBER;
+    public static final FieldNamingPolicy.C02201 DEFAULT_FIELD_NAMING_STRATEGY = FieldNamingPolicy.IDENTITY;
+    public static final ToNumberPolicy.C02301 DEFAULT_OBJECT_TO_NUMBER_STRATEGY = ToNumberPolicy.DOUBLE;
+    public static final ToNumberPolicy.C02312 DEFAULT_NUMBER_TO_NUMBER_STRATEGY = ToNumberPolicy.LAZILY_PARSED_NUMBER;
 
-    /* renamed from: com.google.gson.Gson$1  reason: invalid class name */
+    /* renamed from: com.google.gson.Gson$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 extends TypeAdapter {
+    public final class C02271 extends TypeAdapter {
         public final /* synthetic */ int $r8$classId;
 
-        public /* synthetic */ AnonymousClass1(int i) {
+        public /* synthetic */ C02271(int i) {
             this.$r8$classId = i;
         }
 
@@ -161,27 +163,12 @@ public final class Gson {
     /* JADX WARN: Illegal instructions before constructor call */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public Gson() {
-        /*
-            r12 = this;
-            com.google.gson.internal.Excluder r1 = com.google.gson.internal.Excluder.DEFAULT
-            java.util.Map r3 = java.util.Collections.EMPTY_MAP
-            java.util.List r8 = java.util.Collections.EMPTY_LIST
-            com.google.gson.ToNumberPolicy$1 r9 = com.google.gson.Gson.DEFAULT_OBJECT_TO_NUMBER_STRATEGY
-            com.google.gson.ToNumberPolicy$2 r10 = com.google.gson.Gson.DEFAULT_NUMBER_TO_NUMBER_STRATEGY
-            com.google.gson.FieldNamingPolicy$1 r2 = com.google.gson.Gson.DEFAULT_FIELD_NAMING_STRATEGY
-            r4 = 1
-            com.google.gson.FormattingStyle r5 = com.google.gson.Gson.DEFAULT_FORMATTING_STYLE
-            r6 = 1
-            r7 = 1
-            r11 = r8
-            r0 = r12
-            r0.<init>(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.Gson.<init>():void");
+        this(r1, DEFAULT_FIELD_NAMING_STRATEGY, r3, true, DEFAULT_FORMATTING_STYLE, true, 1, r8, DEFAULT_OBJECT_TO_NUMBER_STRATEGY, DEFAULT_NUMBER_TO_NUMBER_STRATEGY, r8);
+        Excluder excluder = Excluder.DEFAULT;
+        Map map = Collections.EMPTY_MAP;
+        List list = Collections.EMPTY_LIST;
     }
 
     public static void checkValidFloatingPoint(double d) {
@@ -316,87 +303,52 @@ public final class Gson {
     /* JADX WARN: Removed duplicated region for block: B:29:0x0081  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final com.google.gson.TypeAdapter getDelegateAdapter(com.google.gson.TypeAdapterFactory r7, com.google.gson.reflect.TypeToken r8) {
-        /*
-            r6 = this;
-            java.lang.String r0 = "skipPast must not be null"
-            j$.util.Objects.requireNonNull(r7, r0)
-            java.lang.String r0 = "type must not be null"
-            j$.util.Objects.requireNonNull(r8, r0)
-            com.google.gson.internal.bind.JsonAdapterAnnotationTypeAdapterFactory r0 = r6.jsonAdapterFactory
-            r0.getClass()
-            j$.util.concurrent.ConcurrentHashMap r1 = r0.adapterFactoryMap
-            com.google.gson.internal.bind.JsonAdapterAnnotationTypeAdapterFactory$DummyTypeAdapterFactory r2 = com.google.gson.internal.bind.JsonAdapterAnnotationTypeAdapterFactory.TREE_TYPE_CLASS_DUMMY_FACTORY
-            r3 = 1
-            if (r7 != r2) goto L17
-            goto L59
-        L17:
-            java.lang.Class r2 = r8.getRawType()
-            java.lang.Object r4 = r1.get(r2)
-            com.google.gson.TypeAdapterFactory r4 = (com.google.gson.TypeAdapterFactory) r4
-            if (r4 == 0) goto L26
-            if (r4 != r7) goto L5a
-            goto L59
-        L26:
-            java.lang.Class<com.google.gson.annotations.JsonAdapter> r4 = com.google.gson.annotations.JsonAdapter.class
-            java.lang.annotation.Annotation r4 = r2.getAnnotation(r4)
-            com.google.gson.annotations.JsonAdapter r4 = (com.google.gson.annotations.JsonAdapter) r4
-            if (r4 != 0) goto L31
-            goto L5a
-        L31:
-            java.lang.Class r4 = r4.value()
-            java.lang.Class<com.google.gson.TypeAdapterFactory> r5 = com.google.gson.TypeAdapterFactory.class
-            boolean r5 = r5.isAssignableFrom(r4)
-            if (r5 != 0) goto L3e
-            goto L5a
-        L3e:
-            com.google.android.gms.tasks.zzr r5 = r0.constructorConstructor
-            com.google.gson.reflect.TypeToken r4 = com.google.gson.reflect.TypeToken.get(r4)
-            com.google.gson.internal.ObjectConstructor r4 = r5.get(r4, r3)
-            java.lang.Object r4 = r4.construct()
-            com.google.gson.TypeAdapterFactory r4 = (com.google.gson.TypeAdapterFactory) r4
-            java.lang.Object r1 = r1.putIfAbsent(r2, r4)
-            com.google.gson.TypeAdapterFactory r1 = (com.google.gson.TypeAdapterFactory) r1
-            if (r1 == 0) goto L57
-            r4 = r1
-        L57:
-            if (r4 != r7) goto L5a
-        L59:
-            r7 = r0
-        L5a:
-            java.util.List r0 = r6.factories
-            java.util.Iterator r0 = r0.iterator()
-            r1 = 0
-        L61:
-            boolean r2 = r0.hasNext()
-            if (r2 == 0) goto L7a
-            java.lang.Object r2 = r0.next()
-            com.google.gson.TypeAdapterFactory r2 = (com.google.gson.TypeAdapterFactory) r2
-            if (r1 != 0) goto L73
-            if (r2 != r7) goto L61
-            r1 = 1
-            goto L61
-        L73:
-            com.google.gson.TypeAdapter r2 = r2.create(r6, r8)
-            if (r2 == 0) goto L61
-            return r2
-        L7a:
-            if (r1 != 0) goto L81
-            com.google.gson.TypeAdapter r7 = r6.getAdapter(r8)
-            return r7
-        L81:
-            java.lang.IllegalArgumentException r7 = new java.lang.IllegalArgumentException
-            java.lang.StringBuilder r0 = new java.lang.StringBuilder
-            java.lang.String r1 = "GSON cannot serialize or deserialize "
-            r0.<init>(r1)
-            r0.append(r8)
-            java.lang.String r8 = r0.toString()
-            r7.<init>(r8)
-            throw r7
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.Gson.getDelegateAdapter(com.google.gson.TypeAdapterFactory, com.google.gson.reflect.TypeToken):com.google.gson.TypeAdapter");
+    public final TypeAdapter getDelegateAdapter(TypeAdapterFactory typeAdapterFactory, TypeToken typeToken) {
+        boolean z;
+        Objects.requireNonNull(typeAdapterFactory, "skipPast must not be null");
+        Objects.requireNonNull(typeToken, "type must not be null");
+        JsonAdapterAnnotationTypeAdapterFactory jsonAdapterAnnotationTypeAdapterFactory = this.jsonAdapterFactory;
+        jsonAdapterAnnotationTypeAdapterFactory.getClass();
+        ConcurrentHashMap concurrentHashMap = jsonAdapterAnnotationTypeAdapterFactory.adapterFactoryMap;
+        if (typeAdapterFactory != JsonAdapterAnnotationTypeAdapterFactory.TREE_TYPE_CLASS_DUMMY_FACTORY) {
+            Class rawType = typeToken.getRawType();
+            TypeAdapterFactory typeAdapterFactory2 = (TypeAdapterFactory) concurrentHashMap.get(rawType);
+            if (typeAdapterFactory2 == null) {
+                JsonAdapter jsonAdapter = (JsonAdapter) rawType.getAnnotation(JsonAdapter.class);
+                if (jsonAdapter != null) {
+                    Class value = jsonAdapter.value();
+                    if (TypeAdapterFactory.class.isAssignableFrom(value)) {
+                        TypeAdapterFactory typeAdapterFactory3 = (TypeAdapterFactory) jsonAdapterAnnotationTypeAdapterFactory.constructorConstructor.get(TypeToken.get(value), true).construct();
+                        TypeAdapterFactory typeAdapterFactory4 = (TypeAdapterFactory) concurrentHashMap.putIfAbsent(rawType, typeAdapterFactory3);
+                        if (typeAdapterFactory4 != null) {
+                            typeAdapterFactory3 = typeAdapterFactory4;
+                        }
+                    }
+                }
+            }
+            z = false;
+            for (TypeAdapterFactory typeAdapterFactory5 : this.factories) {
+                if (z) {
+                    TypeAdapter create = typeAdapterFactory5.create(this, typeToken);
+                    if (create != null) {
+                        return create;
+                    }
+                } else if (typeAdapterFactory5 == typeAdapterFactory) {
+                    z = true;
+                }
+            }
+            if (z) {
+                return getAdapter(typeToken);
+            }
+            throw new IllegalArgumentException("GSON cannot serialize or deserialize " + typeToken);
+        }
+        typeAdapterFactory = jsonAdapterAnnotationTypeAdapterFactory;
+        z = false;
+        while (r0.hasNext()) {
+        }
+        if (z) {
+        }
     }
 
     public final JsonWriter newJsonWriter(Writer writer) {
@@ -427,9 +379,9 @@ public final class Gson {
     }
 
     public Gson(Excluder excluder, FieldNamingPolicy fieldNamingPolicy, Map map, boolean z, FormattingStyle formattingStyle, boolean z2, int i, List list, ToNumberPolicy toNumberPolicy, ToNumberPolicy toNumberPolicy2, List list2) {
-        TypeAdapters.AnonymousClass31 r5;
+        TypeAdapters.C026731 r5;
         final TypeAdapter typeAdapter;
-        TypeAdapters.AnonymousClass31 r6;
+        TypeAdapters.C026731 r6;
         this.threadLocalAdapterResults = new ThreadLocal();
         this.typeTokenCache = new ConcurrentHashMap();
         zzr zzrVar = new zzr(map, z2, list2);
@@ -441,7 +393,7 @@ public final class Gson {
         if (toNumberPolicy == ToNumberPolicy.DOUBLE) {
             r5 = ObjectTypeAdapter.DOUBLE_FACTORY;
         } else {
-            r5 = new TypeAdapters.AnonymousClass31(2, toNumberPolicy);
+            r5 = new TypeAdapters.C026731(2, toNumberPolicy);
         }
         arrayList.add(r5);
         arrayList.add(excluder);
@@ -475,18 +427,18 @@ public final class Gson {
                 }
             };
         }
-        arrayList.add(new TypeAdapters.AnonymousClass30(Long.TYPE, Long.class, typeAdapter));
-        arrayList.add(new TypeAdapters.AnonymousClass30(Double.TYPE, Double.class, new AnonymousClass1(0)));
-        arrayList.add(new TypeAdapters.AnonymousClass30(Float.TYPE, Float.class, new AnonymousClass1(1)));
+        arrayList.add(new TypeAdapters.C026630(Long.TYPE, Long.class, typeAdapter));
+        arrayList.add(new TypeAdapters.C026630(Double.TYPE, Double.class, new C02271(0)));
+        arrayList.add(new TypeAdapters.C026630(Float.TYPE, Float.class, new C02271(1)));
         if (toNumberPolicy2 == ToNumberPolicy.LAZILY_PARSED_NUMBER) {
             r6 = NumberTypeAdapter.LAZILY_PARSED_NUMBER_FACTORY;
         } else {
-            r6 = new TypeAdapters.AnonymousClass31(1, new NumberTypeAdapter(toNumberPolicy2));
+            r6 = new TypeAdapters.C026731(1, new NumberTypeAdapter(toNumberPolicy2));
         }
         arrayList.add(r6);
         arrayList.add(TypeAdapters.ATOMIC_INTEGER_FACTORY);
         arrayList.add(TypeAdapters.ATOMIC_BOOLEAN_FACTORY);
-        arrayList.add(new TypeAdapters.AnonymousClass29(AtomicLong.class, new TypeAdapter() { // from class: com.google.gson.Gson.4
+        arrayList.add(new TypeAdapters.C026429(AtomicLong.class, new TypeAdapter() { // from class: com.google.gson.Gson.4
             @Override // com.google.gson.TypeAdapter
             public final Object read(JsonReader jsonReader) {
                 switch (r2) {
@@ -526,7 +478,7 @@ public final class Gson {
                 }
             }
         }.nullSafe(), 0));
-        arrayList.add(new TypeAdapters.AnonymousClass29(AtomicLongArray.class, new TypeAdapter() { // from class: com.google.gson.Gson.4
+        arrayList.add(new TypeAdapters.C026429(AtomicLongArray.class, new TypeAdapter() { // from class: com.google.gson.Gson.4
             @Override // com.google.gson.TypeAdapter
             public final Object read(JsonReader jsonReader) {
                 switch (r2) {
@@ -570,9 +522,9 @@ public final class Gson {
         arrayList.add(TypeAdapters.CHARACTER_FACTORY);
         arrayList.add(TypeAdapters.STRING_BUILDER_FACTORY);
         arrayList.add(TypeAdapters.STRING_BUFFER_FACTORY);
-        arrayList.add(new TypeAdapters.AnonymousClass29(BigDecimal.class, TypeAdapters.BIG_DECIMAL, 0));
-        arrayList.add(new TypeAdapters.AnonymousClass29(BigInteger.class, TypeAdapters.BIG_INTEGER, 0));
-        arrayList.add(new TypeAdapters.AnonymousClass29(LazilyParsedNumber.class, TypeAdapters.LAZILY_PARSED_NUMBER, 0));
+        arrayList.add(new TypeAdapters.C026429(BigDecimal.class, TypeAdapters.BIG_DECIMAL, 0));
+        arrayList.add(new TypeAdapters.C026429(BigInteger.class, TypeAdapters.BIG_INTEGER, 0));
+        arrayList.add(new TypeAdapters.C026429(LazilyParsedNumber.class, TypeAdapters.LAZILY_PARSED_NUMBER, 0));
         arrayList.add(TypeAdapters.URL_FACTORY);
         arrayList.add(TypeAdapters.URI_FACTORY);
         arrayList.add(TypeAdapters.UUID_FACTORY);

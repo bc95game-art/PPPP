@@ -15,7 +15,7 @@ import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
 import androidx.core.view.ViewPropertyAnimatorCompat$$ExternalSyntheticLambda0;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.transition.Transition;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.fragments.AppsFragment$$ExternalSyntheticLambda2;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.internal.CheckableImageButton;
@@ -56,9 +56,9 @@ public final class DropdownMenuEndIconDelegate extends EndIconDelegate {
     /* JADX WARN: Type inference failed for: r0v2, types: [com.google.android.material.textfield.DropdownMenuEndIconDelegate$$ExternalSyntheticLambda5] */
     public DropdownMenuEndIconDelegate(EndCompoundLayout endCompoundLayout) {
         super(endCompoundLayout);
-        this.animationFadeInDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), R.attr.motionDurationShort3, 67);
-        this.animationFadeOutDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), R.attr.motionDurationShort3, 50);
-        this.animationFadeInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(endCompoundLayout.getContext(), R.attr.motionEasingLinearInterpolator, AnimationUtils.LINEAR_INTERPOLATOR);
+        this.animationFadeInDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), C0130R.attr.motionDurationShort3, 67);
+        this.animationFadeOutDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), C0130R.attr.motionDurationShort3, 50);
+        this.animationFadeInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(endCompoundLayout.getContext(), C0130R.attr.motionEasingLinearInterpolator, AnimationUtils.LINEAR_INTERPOLATOR);
     }
 
     @Override // com.google.android.material.textfield.EndIconDelegate
@@ -71,12 +71,12 @@ public final class DropdownMenuEndIconDelegate extends EndIconDelegate {
 
     @Override // com.google.android.material.textfield.EndIconDelegate
     public final int getIconContentDescriptionResId() {
-        return R.string.exposed_dropdown_menu_content_description;
+        return C0130R.string.exposed_dropdown_menu_content_description;
     }
 
     @Override // com.google.android.material.textfield.EndIconDelegate
     public final int getIconDrawableResId() {
-        return R.drawable.mtrl_dropdown_arrow;
+        return C0130R.C0131drawable.mtrl_dropdown_arrow;
     }
 
     @Override // com.google.android.material.textfield.EndIconDelegate
@@ -195,7 +195,7 @@ public final class DropdownMenuEndIconDelegate extends EndIconDelegate {
         ofFloat2.setDuration(this.animationFadeOutDuration);
         ofFloat2.addUpdateListener(new ViewPropertyAnimatorCompat$$ExternalSyntheticLambda0(4, this));
         this.fadeOutAnim = ofFloat2;
-        ofFloat2.addListener(new Transition.AnonymousClass3(10, this));
+        ofFloat2.addListener(new Transition.C01123(10, this));
         this.accessibilityManager = (AccessibilityManager) this.context.getSystemService("accessibility");
     }
 

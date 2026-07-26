@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 /* loaded from: classes.dex */
 public final class EnumTypeAdapter extends TypeAdapter {
-    public static final AnonymousClass1 FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.bind.EnumTypeAdapter.1
+    public static final C02421 FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.bind.EnumTypeAdapter.1
         @Override // com.google.gson.TypeAdapterFactory
         public final TypeAdapter create(Gson gson, TypeToken typeToken) {
             Class rawType = typeToken.getRawType();

@@ -21,10 +21,11 @@ import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.WrappedDrawable;
 import androidx.core.graphics.drawable.WrappedDrawableApi21;
-import androidx.core.os.BundleKt;
-import com.emanuelef.remote_capture.R;
+import androidx.core.p002os.BundleKt;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.MotionSpec;
 import com.google.android.material.internal.TextDrawableHelper;
 import com.google.android.material.internal.ViewUtils;
@@ -105,7 +106,7 @@ public final class ChipDrawable extends MaterialShapeDrawable implements Drawabl
     }
 
     public ChipDrawable(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action);
+        super(context, attributeSet, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action);
         initializeElevationOverlay(context);
         this.context = context;
         TextDrawableHelper textDrawableHelper = new TextDrawableHelper(this);
@@ -291,7 +292,7 @@ public final class ChipDrawable extends MaterialShapeDrawable implements Drawabl
                 ShapeAppearanceModel shapeAppearanceModel = materialShapeDrawableState.shapeAppearanceModel;
                 float[] fArr = this.springAnimatedCornerSizes;
                 float f8 = materialShapeDrawableState.interpolation;
-                MaterialShapeDrawable.AnonymousClass1 r6 = this.pathShadowListener;
+                MaterialShapeDrawable.C01961 r6 = this.pathShadowListener;
                 ShapeAppearancePathProvider shapeAppearancePathProvider = this.pathProvider;
                 f = 2.0f;
                 Path path = this.shapePath;
@@ -938,14 +939,198 @@ public final class ChipDrawable extends MaterialShapeDrawable implements Drawabl
     /* JADX WARN: Removed duplicated region for block: B:97:0x0122  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final boolean onStateChange(int[] r10, int[] r11) {
-        /*
-            Method dump skipped, instructions count: 376
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.chip.ChipDrawable.onStateChange(int[], int[]):boolean");
+    public final boolean onStateChange(int[] iArr, int[] iArr2) {
+        int i;
+        int colorForState;
+        int[] state;
+        boolean z;
+        boolean z2;
+        int colorForState2;
+        float calculateChipIconWidth;
+        ColorStateList colorStateList;
+        boolean onStateChange = super.onStateChange(iArr);
+        ColorStateList colorStateList2 = this.chipSurfaceColor;
+        int compositeElevationOverlayIfNeeded = compositeElevationOverlayIfNeeded(colorStateList2 != null ? colorStateList2.getColorForState(iArr, this.currentChipSurfaceColor) : 0);
+        boolean z3 = true;
+        if (this.currentChipSurfaceColor != compositeElevationOverlayIfNeeded) {
+            this.currentChipSurfaceColor = compositeElevationOverlayIfNeeded;
+            onStateChange = true;
+        }
+        ColorStateList colorStateList3 = this.chipBackgroundColor;
+        int compositeElevationOverlayIfNeeded2 = compositeElevationOverlayIfNeeded(colorStateList3 != null ? colorStateList3.getColorForState(iArr, this.currentChipBackgroundColor) : 0);
+        if (this.currentChipBackgroundColor != compositeElevationOverlayIfNeeded2) {
+            this.currentChipBackgroundColor = compositeElevationOverlayIfNeeded2;
+            onStateChange = true;
+        }
+        int compositeColors = ColorUtils.compositeColors(compositeElevationOverlayIfNeeded2, compositeElevationOverlayIfNeeded);
+        if ((this.currentCompositeSurfaceBackgroundColor != compositeColors) || (this.drawableState.fillColor == null)) {
+            this.currentCompositeSurfaceBackgroundColor = compositeColors;
+            setFillColor(ColorStateList.valueOf(compositeColors));
+            onStateChange = true;
+        }
+        ColorStateList colorStateList4 = this.chipStrokeColor;
+        int colorForState3 = colorStateList4 != null ? colorStateList4.getColorForState(iArr, this.currentChipStrokeColor) : 0;
+        if (this.currentChipStrokeColor != colorForState3) {
+            this.currentChipStrokeColor = colorForState3;
+            onStateChange = true;
+        }
+        if (this.compatRippleColor != null) {
+            boolean z4 = false;
+            boolean z5 = false;
+            for (int i2 : iArr) {
+                if (i2 == 16842910) {
+                    z4 = true;
+                } else if (i2 == 16842908 || i2 == 16842919 || i2 == 16843623) {
+                    z5 = true;
+                }
+            }
+            if (z4 && z5) {
+                i = this.compatRippleColor.getColorForState(iArr, this.currentCompatRippleColor);
+                if (this.currentCompatRippleColor != i) {
+                    this.currentCompatRippleColor = i;
+                }
+                TextAppearance textAppearance = this.textDrawableHelper.textAppearance;
+                colorForState = (textAppearance != null || (colorStateList = textAppearance.textColor) == null) ? 0 : colorStateList.getColorForState(iArr, this.currentTextColor);
+                if (this.currentTextColor != colorForState) {
+                    this.currentTextColor = colorForState;
+                    onStateChange = true;
+                }
+                state = getState();
+                if (state != null) {
+                    int length = state.length;
+                    int i3 = 0;
+                    while (true) {
+                        if (i3 >= length) {
+                            break;
+                        } else if (state[i3] != 16842912) {
+                            i3++;
+                        } else if (this.checkable) {
+                            z = true;
+                        }
+                    }
+                    if (!(this.currentChecked == z || this.checkedIcon == null)) {
+                        calculateChipIconWidth = calculateChipIconWidth();
+                        this.currentChecked = z;
+                        if (calculateChipIconWidth == calculateChipIconWidth()) {
+                            onStateChange = true;
+                            z2 = true;
+                            ColorStateList colorStateList5 = this.tint;
+                            colorForState2 = colorStateList5 == null ? colorStateList5.getColorForState(iArr, this.currentTint) : 0;
+                            if (this.currentTint == colorForState2) {
+                                this.currentTint = colorForState2;
+                                ColorStateList colorStateList6 = this.tint;
+                                PorterDuff.Mode mode = this.tintMode;
+                                this.tintFilter = (colorStateList6 == null || mode == null) ? null : new PorterDuffColorFilter(colorStateList6.getColorForState(getState(), 0), mode);
+                            } else {
+                                z3 = onStateChange;
+                            }
+                            if (isStateful(this.chipIcon)) {
+                                z3 |= this.chipIcon.setState(iArr);
+                            }
+                            if (isStateful(this.checkedIcon)) {
+                                z3 |= this.checkedIcon.setState(iArr);
+                            }
+                            if (isStateful(this.closeIcon)) {
+                                int[] iArr3 = new int[iArr.length + iArr2.length];
+                                System.arraycopy(iArr, 0, iArr3, 0, iArr.length);
+                                System.arraycopy(iArr2, 0, iArr3, iArr.length, iArr2.length);
+                                z3 |= this.closeIcon.setState(iArr3);
+                            }
+                            if (isStateful(this.closeIconRipple)) {
+                                z3 |= this.closeIconRipple.setState(iArr2);
+                            }
+                            if (z3) {
+                                invalidateSelf();
+                            }
+                            if (z2) {
+                                onSizeChange();
+                            }
+                            return z3;
+                        }
+                        onStateChange = true;
+                    }
+                    z2 = false;
+                    ColorStateList colorStateList52 = this.tint;
+                    if (colorStateList52 == null) {
+                    }
+                    if (this.currentTint == colorForState2) {
+                    }
+                    if (isStateful(this.chipIcon)) {
+                    }
+                    if (isStateful(this.checkedIcon)) {
+                    }
+                    if (isStateful(this.closeIcon)) {
+                    }
+                    if (isStateful(this.closeIconRipple)) {
+                    }
+                    if (z3) {
+                    }
+                    if (z2) {
+                    }
+                    return z3;
+                }
+                z = false;
+                if (this.currentChecked == z) {
+                    calculateChipIconWidth = calculateChipIconWidth();
+                    this.currentChecked = z;
+                    if (calculateChipIconWidth == calculateChipIconWidth()) {
+                    }
+                }
+                z2 = false;
+                ColorStateList colorStateList522 = this.tint;
+                if (colorStateList522 == null) {
+                }
+                if (this.currentTint == colorForState2) {
+                }
+                if (isStateful(this.chipIcon)) {
+                }
+                if (isStateful(this.checkedIcon)) {
+                }
+                if (isStateful(this.closeIcon)) {
+                }
+                if (isStateful(this.closeIconRipple)) {
+                }
+                if (z3) {
+                }
+                if (z2) {
+                }
+                return z3;
+            }
+        }
+        i = 0;
+        if (this.currentCompatRippleColor != i) {
+        }
+        TextAppearance textAppearance2 = this.textDrawableHelper.textAppearance;
+        if (textAppearance2 != null) {
+        }
+        if (this.currentTextColor != colorForState) {
+        }
+        state = getState();
+        if (state != null) {
+        }
+        z = false;
+        if (this.currentChecked == z) {
+        }
+        z2 = false;
+        ColorStateList colorStateList5222 = this.tint;
+        if (colorStateList5222 == null) {
+        }
+        if (this.currentTint == colorForState2) {
+        }
+        if (isStateful(this.chipIcon)) {
+        }
+        if (isStateful(this.checkedIcon)) {
+        }
+        if (isStateful(this.closeIcon)) {
+        }
+        if (isStateful(this.closeIconRipple)) {
+        }
+        if (z3) {
+        }
+        if (z2) {
+        }
+        return z3;
     }
 
     public static boolean isStateful(ColorStateList colorStateList) {

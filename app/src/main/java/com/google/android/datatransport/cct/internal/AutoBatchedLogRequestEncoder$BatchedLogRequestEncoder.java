@@ -6,7 +6,7 @@ import com.google.firebase.encoders.ObjectEncoderContext;
 /* loaded from: classes.dex */
 public final class AutoBatchedLogRequestEncoder$BatchedLogRequestEncoder implements ObjectEncoder {
     public static final AutoBatchedLogRequestEncoder$BatchedLogRequestEncoder INSTANCE = new Object();
-    public static final FieldDescriptor LOGREQUEST_DESCRIPTOR = FieldDescriptor.of("logRequest");
+    public static final FieldDescriptor LOGREQUEST_DESCRIPTOR = FieldDescriptor.m566of("logRequest");
 
     @Override // com.google.firebase.encoders.Encoder
     public final void encode(Object obj, Object obj2) {

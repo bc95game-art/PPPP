@@ -141,9 +141,9 @@ public class HarWriter {
                     try {
                         writeEntry(jsonWriter, httpRequest);
                     } catch (Exception e) {
-                        StringBuilder m = ViewModelProvider.Factory.CC.m("Failed to serialize entry ", i, ": ");
+                        StringBuilder m = ViewModelProvider.Factory.CC.m598m("Failed to serialize entry ", i, ": ");
                         m.append(e.getMessage());
-                        Log.w(TAG, m.toString());
+                        Log.m581w(TAG, m.toString());
                         e.printStackTrace();
                     }
                 }

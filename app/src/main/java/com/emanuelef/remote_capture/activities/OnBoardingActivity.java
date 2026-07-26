@@ -12,15 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.widget.AutoSizeableTextView;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import com.emanuelef.remote_capture.Billing;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PlayBilling;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.Prefs;
 import com.github.appintro.AppIntro;
@@ -37,7 +37,7 @@ public class OnBoardingActivity extends AppIntro {
 
         public static OnBoardingFragment createInstance(CharSequence charSequence, CharSequence charSequence2, int i, int i2, boolean z) {
             OnBoardingFragment onBoardingFragment = new OnBoardingFragment();
-            Bundle bundle = new SliderPagerBuilder().title(charSequence).imageDrawable(i).backgroundColorRes(R.color.backgroundColor).titleColorRes(R.color.colorAccent).descriptionColorRes(R.color.colorTabText).build().toBundle();
+            Bundle bundle = new SliderPagerBuilder().title(charSequence).imageDrawable(i).backgroundColorRes(C0130R.color.backgroundColor).titleColorRes(C0130R.color.colorAccent).descriptionColorRes(C0130R.color.colorTabText).build().toBundle();
             bundle.putCharSequence("pd_descr", charSequence2);
             bundle.putInt("pd_image_tint", i2);
             bundle.putBoolean("pd_image_autosz", z);
@@ -47,7 +47,7 @@ public class OnBoardingActivity extends AppIntro {
 
         @Override // com.github.appintro.AppIntroBaseFragment
         public int getLayoutId() {
-            return R.layout.appintro_fragment_intro;
+            return C0130R.layout.appintro_fragment_intro;
         }
 
         @Override // com.github.appintro.AppIntroBaseFragment, androidx.fragment.app.Fragment
@@ -58,7 +58,7 @@ public class OnBoardingActivity extends AppIntro {
             }
             Bundle arguments = getArguments();
             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-            TextView textView = (TextView) onCreateView.findViewById(R.id.description);
+            TextView textView = (TextView) onCreateView.findViewById(C0130R.C0132id.description);
             textView.setAutoLinkMask(0);
             textView.setMovementMethod(LinkMovementMethod.getInstance());
             textView.setText(arguments.getCharSequence("pd_descr"));
@@ -79,7 +79,7 @@ public class OnBoardingActivity extends AppIntro {
                 textView.setPadding(textView.getPaddingLeft(), 0, textView.getPaddingRight(), 0);
                 textView.setLayoutParams(layoutParams2);
             }
-            ImageView imageView = (ImageView) onCreateView.findViewById(R.id.image);
+            ImageView imageView = (ImageView) onCreateView.findViewById(C0130R.C0132id.image);
             int i2 = arguments.getInt("pd_image_tint");
             if (i2 > 0) {
                 imageView.setColorFilter(BundleKt.getColor(onCreateView.getContext(), i2));
@@ -112,21 +112,21 @@ public class OnBoardingActivity extends AppIntro {
         } else {
             z = false;
         }
-        addSlide(OnBoardingFragment.createInstance(getString(R.string.welcome_to_pcapdroid), getText(R.string.app_intro_welcome_msg), R.drawable.ic_logo, R.color.colorAccent, true));
-        addSlide(OnBoardingFragment.createInstance(getString(R.string.privacy_first), Utils.getText(this, R.string.app_intro_privacy_msg, MainActivity.PRIVACY_POLICY_URL, MainActivity.GITHUB_PROJECT_URL), R.drawable.ic_shield, R.color.colorAccent, true));
-        addSlide(OnBoardingFragment.createInstance(getString(R.string.traffic_inspection), Utils.getText(this, R.string.app_intro_traffic_inspection, MainActivity.TLS_DECRYPTION_DOCS_URL), R.drawable.http_inspection, 0, false));
+        addSlide(OnBoardingFragment.createInstance(getString(C0130R.string.welcome_to_pcapdroid), getText(C0130R.string.app_intro_welcome_msg), C0130R.C0131drawable.ic_logo, C0130R.color.colorAccent, true));
+        addSlide(OnBoardingFragment.createInstance(getString(C0130R.string.privacy_first), Utils.getText(this, C0130R.string.app_intro_privacy_msg, MainActivity.PRIVACY_POLICY_URL, MainActivity.GITHUB_PROJECT_URL), C0130R.C0131drawable.ic_shield, C0130R.color.colorAccent, true));
+        addSlide(OnBoardingFragment.createInstance(getString(C0130R.string.traffic_inspection), Utils.getText(this, C0130R.string.app_intro_traffic_inspection, MainActivity.TLS_DECRYPTION_DOCS_URL), C0130R.C0131drawable.http_inspection, 0, false));
         if (newInstance.isPlayStore()) {
-            addSlide(OnBoardingFragment.createInstance(getString(R.string.firewall), Utils.getText(this, R.string.app_intro_firewall_msg, MainActivity.FIREWALL_DOCS_URL), R.drawable.firewall_block, 0, false));
-            addSlide(OnBoardingFragment.createInstance(getString(R.string.malware_detection), Utils.getText(this, R.string.app_intro_malware_detection, MainActivity.MALWARE_DETECTION_DOCS_URL), R.drawable.malware_notification, 0, false));
+            addSlide(OnBoardingFragment.createInstance(getString(C0130R.string.firewall), Utils.getText(this, C0130R.string.app_intro_firewall_msg, MainActivity.FIREWALL_DOCS_URL), C0130R.C0131drawable.firewall_block, 0, false));
+            addSlide(OnBoardingFragment.createInstance(getString(C0130R.string.malware_detection), Utils.getText(this, C0130R.string.app_intro_malware_detection, MainActivity.MALWARE_DETECTION_DOCS_URL), C0130R.C0131drawable.malware_notification, 0, false));
         }
-        addSlide(OnBoardingFragment.createInstance(getString(R.string.traffic_dump), Utils.getText(this, R.string.app_intro_traffic_dump, "https://emanuele-f.github.io/PCAPdroid/dump_modes", "https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions"), R.drawable.dump_modes, 0, false));
-        addSlide(OnBoardingFragment.createInstance(getString(R.string.country_and_asn), getText(R.string.app_intro_geolocation_msg), R.drawable.ic_location_dot, R.color.colorAccent, true));
+        addSlide(OnBoardingFragment.createInstance(getString(C0130R.string.traffic_dump), Utils.getText(this, C0130R.string.app_intro_traffic_dump, "https://emanuele-f.github.io/PCAPdroid/dump_modes", "https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions"), C0130R.C0131drawable.dump_modes, 0, false));
+        addSlide(OnBoardingFragment.createInstance(getString(C0130R.string.country_and_asn), getText(C0130R.string.app_intro_geolocation_msg), C0130R.C0131drawable.ic_location_dot, C0130R.color.colorAccent, true));
         showStatusBar(true);
         setSkipButtonEnabled(true);
         setIndicatorEnabled(true);
         setSystemBackButtonLocked(!z);
-        int color = BundleKt.getColor(this, R.color.colorAccent);
-        setIndicatorColor(color, BundleKt.getColor(this, R.color.colorAccentLight));
+        int color = BundleKt.getColor(this, C0130R.color.colorAccent);
+        setIndicatorColor(color, BundleKt.getColor(this, C0130R.color.colorAccentLight));
         setBackArrowColor(color);
         setColorSkipButton(color);
         setNextArrowColor(color);
@@ -136,14 +136,14 @@ public class OnBoardingActivity extends AppIntro {
 
     @Override // com.github.appintro.AppIntroBase
     public void onDonePressed(Fragment fragment) {
-        Log.d(TAG, "onDonePressed");
+        Log.m587d(TAG, "onDonePressed");
         super.onDonePressed(fragment);
         runMainActivity();
     }
 
     @Override // com.github.appintro.AppIntroBase
     public void onSkipPressed(Fragment fragment) {
-        Log.d(TAG, "onSkipPressed");
+        Log.m587d(TAG, "onSkipPressed");
         super.onSkipPressed(fragment);
         runMainActivity();
     }

@@ -24,7 +24,7 @@ import android.util.Log;
 import android.util.StateSet;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.TintAwareDrawable;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.inputmethod.InputConnectionCompat$$ExternalSyntheticLambda0;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
@@ -35,9 +35,9 @@ import com.google.android.material.shadow.ShadowRenderer;
 import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.android.material.shape.ShapeAppearancePathProvider;
 import com.google.android.material.shape.ShapePath;
-import j$.util.Objects;
 import java.util.BitSet;
 import kotlin.LazyKt__LazyJVMKt;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable, Shapeable {
     public static final SpringAnimatedCornerSizeProperty[] CORNER_SIZES_IN_PX = new SpringAnimatedCornerSizeProperty[4];
@@ -58,7 +58,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
     public boolean pathDirty;
     public final Path pathInsetByStroke;
     public final ShapeAppearancePathProvider pathProvider;
-    public final AnonymousClass1 pathShadowListener;
+    public final C01961 pathShadowListener;
     public final RectF rectF;
     public int resolvedTintColor;
     public final Region scratchRegion;
@@ -66,7 +66,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
     public final ShadowRenderer shadowRenderer;
     public float[] springAnimatedCornerSizes;
     public float[] springAnimatedStrokeCornerSizes;
-    public final AnonymousClass1 strokeInsetCornerSizeUnaryOperator;
+    public final C01961 strokeInsetCornerSizeUnaryOperator;
     public final Paint strokePaint;
     public boolean strokePathDirty;
     public ShapeAppearanceModel strokeShapeAppearanceModel;
@@ -74,10 +74,10 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
     public PorterDuffColorFilter tintFilter;
     public final Region transparentRegion;
 
-    /* renamed from: com.google.android.material.shape.MaterialShapeDrawable$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.shape.MaterialShapeDrawable$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 {
-        public /* synthetic */ AnonymousClass1() {
+    public final class C01961 {
+        public /* synthetic */ C01961() {
         }
 
         public CornerSize apply(CornerSize cornerSize) {
@@ -96,7 +96,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
             this.index = i;
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public final float getValue(Shapeable shapeable) {
             float[] fArr = ((MaterialShapeDrawable) shapeable).springAnimatedCornerSizes;
             if (fArr != null) {
@@ -105,7 +105,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
             return 0.0f;
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public final void setValue(Shapeable shapeable, float f) {
             MaterialShapeDrawable materialShapeDrawable = (MaterialShapeDrawable) shapeable;
             float[] fArr = materialShapeDrawable.springAnimatedCornerSizes;
@@ -269,7 +269,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
                 ShapeAppearanceModel shapeAppearanceModel = this.drawableState.shapeAppearanceModel;
                 ShapeAppearanceModel.Builder builder = shapeAppearanceModel.toBuilder();
                 CornerSize cornerSize = shapeAppearanceModel.topLeftCornerSize;
-                AnonymousClass1 r5 = this.strokeInsetCornerSizeUnaryOperator;
+                C01961 r5 = this.strokeInsetCornerSizeUnaryOperator;
                 builder.topLeftCornerSize = r5.apply(cornerSize);
                 builder.topRightCornerSize = r5.apply(shapeAppearanceModel.topRightCornerSize);
                 builder.bottomLeftCornerSize = r5.apply(shapeAppearanceModel.bottomLeftCornerSize);
@@ -864,7 +864,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
 
     public MaterialShapeDrawable(MaterialShapeDrawableState materialShapeDrawableState) {
         ShapeAppearancePathProvider shapeAppearancePathProvider;
-        this.strokeInsetCornerSizeUnaryOperator = new AnonymousClass1();
+        this.strokeInsetCornerSizeUnaryOperator = new C01961();
         this.cornerShadowOperation = new ShapePath.ShadowCompatOperation[4];
         this.edgeShadowOperation = new ShapePath.ShadowCompatOperation[4];
         this.containsIncompatibleShadowOp = new BitSet(8);
@@ -895,7 +895,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         paint.setStyle(Paint.Style.FILL);
         updateTintFilter();
         updateColorsForState(getState());
-        this.pathShadowListener = new AnonymousClass1();
+        this.pathShadowListener = new C01961();
     }
 
     /* loaded from: classes.dex */

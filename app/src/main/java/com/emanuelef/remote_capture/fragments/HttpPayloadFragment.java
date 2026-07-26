@@ -17,10 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.HttpLog;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.activities.ConnectionDetailsActivity;
 import com.emanuelef.remote_capture.activities.HttpDetailsActivity;
@@ -89,7 +89,7 @@ public class HttpPayloadFragment extends Fragment {
 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        return layoutInflater.inflate(R.layout.connection_payload, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.connection_payload, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -113,11 +113,11 @@ public class HttpPayloadFragment extends Fragment {
         HttpLog.HttpRequest request = httpLog.getRequest(arguments.getInt(HttpDetailsActivity.HTTP_REQ_POS_KEY));
         this.mHttpReq = request;
         if (request == null) {
-            Utils.showToast(requireContext(), R.string.item_not_found, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.item_not_found, new Object[0]);
             this.mActivity.finish();
             return;
         }
-        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.payload);
+        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(C0130R.C0132id.payload);
         this.mRecyclerView.setLayoutManager(new EmptyRecyclerView.MyLinearLayoutManager(requireContext()));
         EmptyRecyclerView emptyRecyclerView = this.mRecyclerView;
         TransportImpl$$ExternalSyntheticLambda0 transportImpl$$ExternalSyntheticLambda0 = new TransportImpl$$ExternalSyntheticLambda0(10);
@@ -129,10 +129,10 @@ public class HttpPayloadFragment extends Fragment {
         payloadAdapter.setDisplayAsPrintableText(true);
         this.mAdapter.setExportPayloadHandler(this.mActivity);
         if (!this.mHttpReq.decryptionError.isEmpty()) {
-            ((TextView) view.findViewById(R.id.request_url)).setText(this.mHttpReq.getProtoAndHost());
-            ((TextView) view.findViewById(R.id.decryption_error)).setText(this.mHttpReq.decryptionError);
-            this.mRecyclerView.setEmptyView((LinearLayout) view.findViewById(R.id.decryption_error_container));
-            ((Button) view.findViewById(R.id.show_connection_btn)).setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(5, this));
+            ((TextView) view.findViewById(C0130R.C0132id.request_url)).setText(this.mHttpReq.getProtoAndHost());
+            ((TextView) view.findViewById(C0130R.C0132id.decryption_error)).setText(this.mHttpReq.decryptionError);
+            this.mRecyclerView.setEmptyView((LinearLayout) view.findViewById(C0130R.C0132id.decryption_error_container));
+            ((Button) view.findViewById(C0130R.C0132id.show_connection_btn)).setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(5, this));
         } else if (payloadNoticeAcknowledged(PreferenceManager.getDefaultSharedPreferences(requireContext()))) {
             this.mRecyclerView.setAdapter(this.mAdapter);
         }
@@ -148,15 +148,15 @@ public class HttpPayloadFragment extends Fragment {
         super.setMenuVisibility(z);
         Context context = getContext();
         if (context != null) {
-            Log.d(TAG, "setMenuVisibility : " + z);
+            Log.m587d(TAG, "setMenuVisibility : " + z);
             SharedPreferences sharedPreferences = context.getSharedPreferences(PreferenceManager.getDefaultSharedPreferencesName(context), 0);
             if (z && !payloadNoticeAcknowledged(sharedPreferences)) {
                 zzbv zzbvVar = new zzbv(context);
-                zzbvVar.setTitle(R.string.warning);
-                zzbvVar.setMessage(R.string.payload_scams_notice);
+                zzbvVar.setTitle(C0130R.string.warning);
+                zzbvVar.setMessage(C0130R.string.payload_scams_notice);
                 ((AlertController.AlertParams) zzbvVar.zza).mOnCancelListener = new AppSelectDialog$$ExternalSyntheticLambda2(3, this);
-                zzbvVar.setNegativeButton(R.string.cancel_action, new AppsFragment$$ExternalSyntheticLambda0(6, this));
-                zzbvVar.setPositiveButton(R.string.show_data_action, new FirewallStatus$$ExternalSyntheticLambda2(this, 5, sharedPreferences));
+                zzbvVar.setNegativeButton(C0130R.string.cancel_action, new AppsFragment$$ExternalSyntheticLambda0(6, this));
+                zzbvVar.setPositiveButton(C0130R.string.show_data_action, new FirewallStatus$$ExternalSyntheticLambda2(this, 5, sharedPreferences));
                 zzbvVar.show().setCanceledOnTouchOutside(false);
             }
             if (z && (httpDetailsActivity = this.mActivity) != null) {

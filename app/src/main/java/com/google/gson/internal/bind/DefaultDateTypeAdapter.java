@@ -9,7 +9,6 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import j$.util.Objects;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -18,9 +17,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class DefaultDateTypeAdapter extends TypeAdapter {
-    public static final AnonymousClass1 DEFAULT_STYLE_FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.bind.DefaultDateTypeAdapter.1
+    public static final C02401 DEFAULT_STYLE_FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.bind.DefaultDateTypeAdapter.1
         @Override // com.google.gson.TypeAdapterFactory
         public final TypeAdapter create(Gson gson, TypeToken typeToken) {
             if (typeToken.getRawType() == Date.class) {
@@ -38,12 +38,12 @@ public final class DefaultDateTypeAdapter extends TypeAdapter {
 
     /* loaded from: classes.dex */
     public abstract class DateType {
-        public static final AnonymousClass1 DATE = new DateType(Date.class);
+        public static final C02411 DATE = new DateType(Date.class);
         public final Class dateClass;
 
-        /* renamed from: com.google.gson.internal.bind.DefaultDateTypeAdapter$DateType$1  reason: invalid class name */
+        /* renamed from: com.google.gson.internal.bind.DefaultDateTypeAdapter$DateType$1 */
         /* loaded from: classes.dex */
-        public final class AnonymousClass1 extends DateType {
+        public final class C02411 extends DateType {
             @Override // com.google.gson.internal.bind.DefaultDateTypeAdapter.DateType
             public final Date deserialize(Date date) {
                 return date;
@@ -80,7 +80,7 @@ public final class DefaultDateTypeAdapter extends TypeAdapter {
             } else if (i == 3) {
                 str = "M/d/yy";
             } else {
-                throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(i, "Unknown DateFormat style: "));
+                throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m604m(i, "Unknown DateFormat style: "));
             }
             sb.append(str);
             sb.append(" ");
@@ -91,7 +91,7 @@ public final class DefaultDateTypeAdapter extends TypeAdapter {
             } else if (i2 == 3) {
                 str2 = "h:mm a";
             } else {
-                throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(i2, "Unknown DateFormat style: "));
+                throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m604m(i2, "Unknown DateFormat style: "));
             }
             sb.append(str2);
             arrayList.add(new SimpleDateFormat(sb.toString(), locale));
@@ -129,7 +129,7 @@ public final class DefaultDateTypeAdapter extends TypeAdapter {
                             parse = ISO8601Utils.parse(nextString, new ParsePosition(0));
                             break;
                         } catch (ParseException e) {
-                            StringBuilder m = ViewModelProvider.Factory.CC.m15m("Failed parsing '", nextString, "' as Date; at path ");
+                            StringBuilder m = ViewModelProvider.Factory.CC.m594m("Failed parsing '", nextString, "' as Date; at path ");
                             m.append(jsonReader.getPath(true));
                             throw new RuntimeException(m.toString(), e);
                         }

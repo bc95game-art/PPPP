@@ -12,7 +12,8 @@ public final class FieldDescriptor {
         this.properties = map;
     }
 
-    public static FieldDescriptor of(String str) {
+    /* renamed from: of */
+    public static FieldDescriptor m566of(String str) {
         return new FieldDescriptor(str, Collections.EMPTY_MAP);
     }
 

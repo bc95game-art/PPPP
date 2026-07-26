@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.android.billingclient.api.ProductDetails;
 import com.emanuelef.remote_capture.Billing;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.PlayBilling;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.activities.MainActivity;
 import com.google.android.material.button.MaterialButton;
 /* loaded from: classes.dex */
@@ -99,19 +99,19 @@ public class SKUsAdapter extends ArrayAdapter<SKUItem> {
         int i2;
         int i3 = 0;
         if (view == null) {
-            view = this.mLayoutInflater.inflate(R.layout.sku_item, viewGroup, false);
+            view = this.mLayoutInflater.inflate(C0130R.layout.sku_item, viewGroup, false);
         }
         final SKUItem sKUItem = (SKUItem) getItem(i);
         boolean isPurchased = this.mIab.isPurchased(sKUItem.sku);
-        ((TextView) view.findViewById(R.id.label)).setText(sKUItem.label);
-        ((TextView) view.findViewById(R.id.description)).setText(sKUItem.description);
+        ((TextView) view.findViewById(C0130R.C0132id.label)).setText(sKUItem.label);
+        ((TextView) view.findViewById(C0130R.C0132id.description)).setText(sKUItem.description);
         if (isPurchased) {
-            str = this.mCtx.getString(R.string.purchased);
+            str = this.mCtx.getString(C0130R.string.purchased);
         } else {
             str = sKUItem.price;
         }
-        ((TextView) view.findViewById(R.id.price)).setText(str);
-        MaterialButton materialButton = (MaterialButton) view.findViewById(R.id.show);
+        ((TextView) view.findViewById(C0130R.C0132id.price)).setText(str);
+        MaterialButton materialButton = (MaterialButton) view.findViewById(C0130R.C0132id.show);
         if (!sKUItem.sku.equals(Billing.UNLOCK_TOKEN_SKU) || this.mIab.getLastUnlockToken().isEmpty()) {
             i2 = 8;
         } else {
@@ -140,7 +140,7 @@ public class SKUsAdapter extends ArrayAdapter<SKUItem> {
                 }
             }
         });
-        MaterialButton materialButton2 = (MaterialButton) view.findViewById(R.id.purchase);
+        MaterialButton materialButton2 = (MaterialButton) view.findViewById(C0130R.C0132id.purchase);
         materialButton2.setEnabled(!isPurchased);
         materialButton2.setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.adapters.SKUsAdapter$$ExternalSyntheticLambda0
             public final /* synthetic */ SKUsAdapter f$0;
@@ -164,7 +164,7 @@ public class SKUsAdapter extends ArrayAdapter<SKUItem> {
                 }
             }
         });
-        View findViewById = view.findViewById(R.id.learn_more);
+        View findViewById = view.findViewById(C0130R.C0132id.learn_more);
         if (sKUItem.docs_url == null) {
             i3 = 4;
         }
@@ -197,10 +197,10 @@ public class SKUsAdapter extends ArrayAdapter<SKUItem> {
     public void loadSKUs() {
         Log.d(TAG, "Populating SKUs...");
         clear();
-        addIfAvailable(Billing.FIREWALL_SKU, R.string.no_root_firewall, R.string.firewall_summary, MainActivity.FIREWALL_DOCS_URL);
-        addIfAvailable("malware_detection", R.string.malware_detection, R.string.malware_detection_summary, MainActivity.MALWARE_DETECTION_DOCS_URL);
-        addIfAvailable(Billing.PCAPNG_SKU, R.string.pcapng_format, R.string.pcapng_format_summary, MainActivity.PCAPNG_DOCS_URL);
-        addIfAvailable(Billing.UNLOCK_TOKEN_SKU, R.string.unlock_token, R.string.unlock_token_summary, MainActivity.PAID_FEATURES_URL);
+        addIfAvailable(Billing.FIREWALL_SKU, C0130R.string.no_root_firewall, C0130R.string.firewall_summary, MainActivity.FIREWALL_DOCS_URL);
+        addIfAvailable("malware_detection", C0130R.string.malware_detection, C0130R.string.malware_detection_summary, MainActivity.MALWARE_DETECTION_DOCS_URL);
+        addIfAvailable(Billing.PCAPNG_SKU, C0130R.string.pcapng_format, C0130R.string.pcapng_format_summary, MainActivity.PCAPNG_DOCS_URL);
+        addIfAvailable(Billing.UNLOCK_TOKEN_SKU, C0130R.string.unlock_token, C0130R.string.unlock_token_summary, MainActivity.PAID_FEATURES_URL);
         notifyDataSetChanged();
     }
 }

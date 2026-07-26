@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewParent;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.MotionSpec;
 import java.util.HashMap;
 import org.brotli.dec.IntReader;
@@ -22,9 +22,9 @@ public class FabTransformationSheetBehavior extends FabTransformationBehavior {
     public final IntReader onCreateMotionSpec(Context context, boolean z) {
         int i;
         if (z) {
-            i = R.animator.mtrl_fab_transformation_sheet_expand_spec;
+            i = C0130R.animator.mtrl_fab_transformation_sheet_expand_spec;
         } else {
-            i = R.animator.mtrl_fab_transformation_sheet_collapse_spec;
+            i = C0130R.animator.mtrl_fab_transformation_sheet_collapse_spec;
         }
         ?? obj = new Object();
         obj.byteBuffer = MotionSpec.createFromResource(context, i);

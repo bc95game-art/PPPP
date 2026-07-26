@@ -31,14 +31,14 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.graphics.drawable.WrappedDrawable;
 import androidx.core.graphics.drawable.WrappedDrawableApi21;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.text.BidiFormatter;
 import androidx.core.text.TextDirectionHeuristicsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.customview.widget.ExploreByTouchHelper;
 import com.android.billingclient.api.zzcn;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.animation.MotionSpec;
 import com.google.android.material.chip.ChipDrawable;
@@ -78,15 +78,15 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     public static final int[] CHECKABLE_STATE_SET = {16842911};
     public final Rect rect = new Rect();
     public final RectF rectF = new RectF();
-    public final AnonymousClass1 fontCallback = new AnonymousClass1(0, this);
+    public final C01741 fontCallback = new C01741(0, this);
 
-    /* renamed from: com.google.android.material.chip.Chip$2  reason: invalid class name */
+    /* renamed from: com.google.android.material.chip.Chip$2 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass2 extends ViewOutlineProvider {
+    public final class C01752 extends ViewOutlineProvider {
         public final /* synthetic */ int $r8$classId;
         public final /* synthetic */ Object this$0;
 
-        public /* synthetic */ AnonymousClass2(int i, Object obj) {
+        public /* synthetic */ C01752(int i, Object obj) {
             this.$r8$classId = i;
             this.this$0 = obj;
         }
@@ -202,7 +202,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
                     if (!TextUtils.isEmpty(text)) {
                         charSequence = text;
                     }
-                    accessibilityNodeInfoCompat.setContentDescription(context.getString(R.string.mtrl_chip_close_icon_content_description, charSequence).trim());
+                    accessibilityNodeInfoCompat.setContentDescription(context.getString(C0130R.string.mtrl_chip_close_icon_content_description, charSequence).trim());
                 }
                 accessibilityNodeInfo.setBoundsInParent(chip.getCloseIconTouchBoundsInt());
                 accessibilityNodeInfoCompat.addAction(AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK);
@@ -233,7 +233,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     }
 
     public Chip(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action), attributeSet, R.attr.chipStyle);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action), attributeSet, C0130R.attr.chipStyle);
         TextAppearance textAppearance;
         int resourceId;
         Context context2 = getContext();
@@ -258,7 +258,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
         ChipDrawable chipDrawable = new ChipDrawable(context2, attributeSet);
         Context context3 = chipDrawable.context;
         int[] iArr = R$styleable.Chip;
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context3, attributeSet, iArr, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context3, attributeSet, iArr, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action, new int[0]);
         chipDrawable.isShapeThemingEnabled = obtainStyledAttributes.hasValue(37);
         Context context4 = chipDrawable.context;
         ColorStateList colorStateList = LazyKt__LazyJVMKt.getColorStateList(context4, obtainStyledAttributes, 24);
@@ -369,17 +369,17 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
         }
         chipDrawable.maxWidth = obtainStyledAttributes.getDimensionPixelSize(4, Integer.MAX_VALUE);
         obtainStyledAttributes.recycle();
-        ViewUtils.checkCompatibleTheme(context2, attributeSet, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action);
-        ViewUtils.checkTextAppearance(context2, attributeSet, iArr, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action, new int[0]);
-        TypedArray obtainStyledAttributes2 = context2.obtainStyledAttributes(attributeSet, iArr, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action);
+        ViewUtils.checkCompatibleTheme(context2, attributeSet, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action);
+        ViewUtils.checkTextAppearance(context2, attributeSet, iArr, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action, new int[0]);
+        TypedArray obtainStyledAttributes2 = context2.obtainStyledAttributes(attributeSet, iArr, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action);
         this.ensureMinTouchTargetSize = obtainStyledAttributes2.getBoolean(32, false);
         this.minTouchTargetSize = (int) Math.ceil(obtainStyledAttributes2.getDimension(20, LazyKt__LazyJVMKt.resolveMinimumAccessibleTouchTarget(context2)));
         obtainStyledAttributes2.recycle();
         setChipDrawable(chipDrawable);
         chipDrawable.setElevation(getElevation());
-        ViewUtils.checkCompatibleTheme(context2, attributeSet, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action);
-        ViewUtils.checkTextAppearance(context2, attributeSet, iArr, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action, new int[0]);
-        TypedArray obtainStyledAttributes3 = context2.obtainStyledAttributes(attributeSet, iArr, R.attr.chipStyle, R.style.Widget_MaterialComponents_Chip_Action);
+        ViewUtils.checkCompatibleTheme(context2, attributeSet, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action);
+        ViewUtils.checkTextAppearance(context2, attributeSet, iArr, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action, new int[0]);
+        TypedArray obtainStyledAttributes3 = context2.obtainStyledAttributes(attributeSet, iArr, C0130R.attr.chipStyle, C0130R.style.Widget_MaterialComponents_Chip_Action);
         if (i < 23) {
             setTextColor(LazyKt__LazyJVMKt.getColorStateList(context2, obtainStyledAttributes3, 2));
         }
@@ -388,7 +388,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
         this.touchHelper = new ChipTouchHelper(this);
         updateAccessibilityDelegate();
         if (!hasValue) {
-            setOutlineProvider(new AnonymousClass2(0, this));
+            setOutlineProvider(new C01752(0, this));
         }
         setChecked(this.deferredCheckedValue);
         setText(chipDrawable.text);
@@ -537,7 +537,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
         return true;
     }
 
-    /* JADX WARN: Type inference failed for: r2v0, types: [int, boolean] */
+    /* JADX WARN: Type inference failed for: r2v0, types: [boolean, int] */
     @Override // androidx.appcompat.widget.AppCompatCheckBox, android.widget.CompoundButton, android.widget.TextView, android.view.View
     public final void drawableStateChanged() {
         super.drawableStateChanged();
@@ -1018,7 +1018,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
             } else {
                 i = -1;
             }
-            Object tag = getTag(R.id.row_index_key);
+            Object tag = getTag(C0130R.C0132id.row_index_key);
             if (!(tag instanceof Integer)) {
                 i2 = -1;
             } else {
@@ -1051,70 +1051,47 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     @Override // android.widget.TextView, android.view.View
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final boolean onTouchEvent(android.view.MotionEvent r6) {
-        /*
-            r5 = this;
-            int r0 = r6.getActionMasked()
-            android.graphics.RectF r1 = r5.getCloseIconTouchBounds()
-            float r2 = r6.getX()
-            float r3 = r6.getY()
-            boolean r1 = r1.contains(r2, r3)
-            r2 = 1
-            r3 = 0
-            if (r0 == 0) goto L4a
-            if (r0 == r2) goto L2c
-            r4 = 2
-            if (r0 == r4) goto L21
-            r1 = 3
-            if (r0 == r1) goto L45
-            goto L50
-        L21:
-            boolean r0 = r5.closeIconPressed
-            if (r0 == 0) goto L50
-            if (r1 != 0) goto L2a
-            r5.setCloseIconPressed(r3)
-        L2a:
-            r0 = 1
-            goto L51
-        L2c:
-            boolean r0 = r5.closeIconPressed
-            if (r0 == 0) goto L45
-            r5.playSoundEffect(r3)
-            android.view.View$OnClickListener r0 = r5.onCloseIconClickListener
-            if (r0 == 0) goto L3a
-            r0.onClick(r5)
-        L3a:
-            boolean r0 = r5.touchHelperEnabled
-            if (r0 == 0) goto L43
-            com.google.android.material.chip.Chip$ChipTouchHelper r0 = r5.touchHelper
-            r0.sendEventForVirtualView(r2, r2)
-        L43:
-            r0 = 1
-            goto L46
-        L45:
-            r0 = 0
-        L46:
-            r5.setCloseIconPressed(r3)
-            goto L51
-        L4a:
-            if (r1 == 0) goto L50
-            r5.setCloseIconPressed(r2)
-            goto L2a
-        L50:
-            r0 = 0
-        L51:
-            if (r0 != 0) goto L5b
-            boolean r6 = super.onTouchEvent(r6)
-            if (r6 == 0) goto L5a
-            goto L5b
-        L5a:
-            return r3
-        L5b:
-            return r2
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.chip.Chip.onTouchEvent(android.view.MotionEvent):boolean");
+    public final boolean onTouchEvent(MotionEvent motionEvent) {
+        boolean z;
+        int actionMasked = motionEvent.getActionMasked();
+        boolean contains = getCloseIconTouchBounds().contains(motionEvent.getX(), motionEvent.getY());
+        if (actionMasked != 0) {
+            if (actionMasked != 1) {
+                if (actionMasked == 2) {
+                    if (this.closeIconPressed) {
+                        if (!contains) {
+                            setCloseIconPressed(false);
+                        }
+                        z = true;
+                    }
+                }
+                z = false;
+            } else if (this.closeIconPressed) {
+                playSoundEffect(0);
+                View.OnClickListener onClickListener = this.onCloseIconClickListener;
+                if (onClickListener != null) {
+                    onClickListener.onClick(this);
+                }
+                if (this.touchHelperEnabled) {
+                    this.touchHelper.sendEventForVirtualView(1, 1);
+                }
+                z = true;
+                setCloseIconPressed(false);
+            }
+            z = false;
+            setCloseIconPressed(false);
+        } else {
+            if (contains) {
+                setCloseIconPressed(true);
+                z = true;
+            }
+            z = false;
+        }
+        if (z || super.onTouchEvent(motionEvent)) {
+            return true;
+        }
+        return false;
     }
 
     public void setAccessibilityClassName(CharSequence charSequence) {
@@ -1973,13 +1950,13 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
         updateTextPaintDrawState();
     }
 
-    /* renamed from: com.google.android.material.chip.Chip$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.chip.Chip$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 extends LazyKt__LazyJVMKt {
+    public final class C01741 extends LazyKt__LazyJVMKt {
         public final /* synthetic */ int $r8$classId;
         public final /* synthetic */ Object this$0;
 
-        public /* synthetic */ AnonymousClass1(int i, Object obj) {
+        public /* synthetic */ C01741(int i, Object obj) {
             this.$r8$classId = i;
             this.this$0 = obj;
         }

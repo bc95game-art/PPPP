@@ -8,7 +8,7 @@ import android.animation.ValueAnimator;
 import android.view.View;
 import android.widget.EditText;
 import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.fragments.AppsFragment$$ExternalSyntheticLambda2;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.internal.CheckableImageButton;
@@ -27,10 +27,10 @@ public final class ClearTextEndIconDelegate extends EndIconDelegate {
 
     public ClearTextEndIconDelegate(EndCompoundLayout endCompoundLayout) {
         super(endCompoundLayout);
-        this.animationFadeDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), R.attr.motionDurationShort3, 100);
-        this.animationScaleDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), R.attr.motionDurationShort3, 150);
-        this.animationFadeInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(endCompoundLayout.getContext(), R.attr.motionEasingLinearInterpolator, AnimationUtils.LINEAR_INTERPOLATOR);
-        this.animationScaleInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(endCompoundLayout.getContext(), R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
+        this.animationFadeDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), C0130R.attr.motionDurationShort3, 100);
+        this.animationScaleDuration = LazyKt__LazyJVMKt.resolveThemeDuration(endCompoundLayout.getContext(), C0130R.attr.motionDurationShort3, 150);
+        this.animationFadeInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(endCompoundLayout.getContext(), C0130R.attr.motionEasingLinearInterpolator, AnimationUtils.LINEAR_INTERPOLATOR);
+        this.animationScaleInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(endCompoundLayout.getContext(), C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
     }
 
     @Override // com.google.android.material.textfield.EndIconDelegate
@@ -64,12 +64,12 @@ public final class ClearTextEndIconDelegate extends EndIconDelegate {
 
     @Override // com.google.android.material.textfield.EndIconDelegate
     public final int getIconContentDescriptionResId() {
-        return R.string.clear_text_end_icon_content_description;
+        return C0130R.string.clear_text_end_icon_content_description;
     }
 
     @Override // com.google.android.material.textfield.EndIconDelegate
     public final int getIconDrawableResId() {
-        return R.drawable.mtrl_ic_cancel;
+        return C0130R.C0131drawable.mtrl_ic_cancel;
     }
 
     @Override // com.google.android.material.textfield.EndIconDelegate

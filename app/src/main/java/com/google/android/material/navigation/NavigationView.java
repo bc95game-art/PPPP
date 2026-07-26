@@ -1,5 +1,6 @@
 package com.google.android.material.navigation;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -8,10 +9,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
@@ -24,45 +27,56 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import androidx.activity.BackEventCompat;
 import androidx.appcompat.view.SupportMenuInflater;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.view.menu.MenuPresenter;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
 import androidx.core.graphics.Insets;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat$$ExternalSyntheticLambda0;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.view.AbsSavedState;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.tracing.Trace;
 import androidx.transition.Transition;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
+import com.google.android.material.R$styleable;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.internal.NavigationMenuPresenter;
 import com.google.android.material.internal.NavigationMenuView;
 import com.google.android.material.internal.ScrimInsetsFrameLayout;
+import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.motion.MaterialBackHandler;
 import com.google.android.material.motion.MaterialBackOrchestrator$Api33BackCallbackDelegate;
 import com.google.android.material.motion.MaterialSideContainerBackHelper;
+import com.google.android.material.ripple.RippleUtils;
 import com.google.android.material.shape.AbsoluteCornerSize;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.android.material.shape.ShapeableDelegate;
+import com.google.android.material.shape.ShapeableDelegateV22;
+import com.google.android.material.shape.ShapeableDelegateV33;
+import com.google.android.material.theme.overlay.MaterialThemeOverlay;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.WeakHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import kotlin.LazyKt__LazyJVMKt;
 import kotlin.text.MatcherMatchResult;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBackHandler {
     public static final int[] CHECKED_STATE_SET = {16842912};
     public static final int[] DISABLED_STATE_SET = {-16842910};
-    public final AnonymousClass1 backDrawerListener;
+    public final C01921 backDrawerListener;
     public final MatcherMatchResult backOrchestrator;
     public int drawerLayoutCornerSize;
     public final boolean drawerLayoutCornerSizeBackAnimationEnabled;
@@ -71,7 +85,7 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
     public final int maxWidth;
     public final NavigationMenu menu;
     public SupportMenuInflater menuInflater;
-    public final AppCompatSpinner.AnonymousClass2 onGlobalLayoutListener;
+    public final AppCompatSpinner.ViewTreeObserver$OnGlobalLayoutListenerC00252 onGlobalLayoutListener;
     public final NavigationMenuPresenter presenter;
     public final ShapeableDelegate shapeableDelegate;
     public final MaterialSideContainerBackHelper sideContainerBackHelper;
@@ -81,10 +95,10 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
     public boolean startInsetScrimEnabled = true;
     public boolean endInsetScrimEnabled = true;
 
-    /* renamed from: com.google.android.material.navigation.NavigationView$2  reason: invalid class name */
+    /* renamed from: com.google.android.material.navigation.NavigationView$2 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass2 implements OnApplyWindowInsetsListener, MenuBuilder.Callback {
-        public /* synthetic */ AnonymousClass2() {
+    public final class C01932 implements OnApplyWindowInsetsListener, MenuBuilder.Callback {
+        public /* synthetic */ C01932() {
         }
 
         @Override // androidx.core.view.OnApplyWindowInsetsListener
@@ -144,7 +158,7 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
 
     /* loaded from: classes.dex */
     public final class SavedState extends AbsSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.AnonymousClass2(13);
+        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.C00522(13);
         public Bundle menuState;
 
         public SavedState(Parcel parcel, ClassLoader classLoader) {
@@ -174,14 +188,296 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
     /* JADX WARN: Type inference failed for: r1v9, types: [com.google.android.material.navigation.NavigationView$1] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public NavigationView(android.content.Context r19, android.util.AttributeSet r20) {
-        /*
-            Method dump skipped, instructions count: 840
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.navigation.NavigationView.<init>(android.content.Context, android.util.AttributeSet):void");
+    public NavigationView(Context context, AttributeSet attributeSet) {
+        super(r1, attributeSet, C0130R.attr.navigationViewStyle);
+        ShapeableDelegate shapeableDelegate;
+        boolean z;
+        ColorStateList colorStateList;
+        int i;
+        ColorStateList colorStateList2;
+        int i2;
+        ColorStateList colorStateList3;
+        MatcherMatchResult matcherMatchResult;
+        int i3;
+        NavigationMenuView navigationMenuView;
+        Context wrap = MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.navigationViewStyle, C0130R.style.Widget_Design_NavigationView);
+        this.tempRect = new Rect();
+        this.drawTopInsetForeground = true;
+        this.drawBottomInsetForeground = true;
+        this.drawLeftInsetForeground = true;
+        this.drawRightInsetForeground = true;
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(wrap, attributeSet, R$styleable.ScrimInsetsFrameLayout, C0130R.attr.navigationViewStyle, C0130R.style.Widget_Design_ScrimInsetsFrameLayout, new int[0]);
+        this.insetForeground = obtainStyledAttributes.getDrawable(0);
+        obtainStyledAttributes.recycle();
+        setWillNotDraw(true);
+        C01932 r1 = new C01932();
+        WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
+        ViewCompat.Api21Impl.setOnApplyWindowInsetsListener(this, r1);
+        NavigationMenuPresenter navigationMenuPresenter = new NavigationMenuPresenter();
+        this.presenter = navigationMenuPresenter;
+        this.drawerLayoutCornerSize = 0;
+        int i4 = Build.VERSION.SDK_INT;
+        if (i4 >= 33) {
+            shapeableDelegate = new ShapeableDelegateV33(this);
+        } else if (i4 >= 22) {
+            shapeableDelegate = new ShapeableDelegateV22(this);
+        } else {
+            shapeableDelegate = new ShapeableDelegate();
+        }
+        this.shapeableDelegate = shapeableDelegate;
+        this.sideContainerBackHelper = new MaterialSideContainerBackHelper(this);
+        this.backOrchestrator = new MatcherMatchResult(this);
+        this.backDrawerListener = new DrawerLayout.DrawerListener() { // from class: com.google.android.material.navigation.NavigationView.1
+            @Override // androidx.drawerlayout.widget.DrawerLayout.DrawerListener
+            public final void onDrawerClosed(View view) {
+                NavigationView navigationView = NavigationView.this;
+                if (view == navigationView) {
+                    MatcherMatchResult matcherMatchResult2 = navigationView.backOrchestrator;
+                    MaterialBackOrchestrator$Api33BackCallbackDelegate materialBackOrchestrator$Api33BackCallbackDelegate = (MaterialBackOrchestrator$Api33BackCallbackDelegate) matcherMatchResult2.matcher;
+                    if (materialBackOrchestrator$Api33BackCallbackDelegate != null) {
+                        materialBackOrchestrator$Api33BackCallbackDelegate.stopListeningForBackCallbacks((NavigationView) matcherMatchResult2.groups);
+                    }
+                    if (navigationView.drawerLayoutCornerSizeBackAnimationEnabled && navigationView.drawerLayoutCornerSize != 0) {
+                        navigationView.drawerLayoutCornerSize = 0;
+                        navigationView.maybeUpdateCornerSizeForDrawerLayout(navigationView.getWidth(), navigationView.getHeight());
+                    }
+                }
+            }
+
+            @Override // androidx.drawerlayout.widget.DrawerLayout.DrawerListener
+            public final void onDrawerOpened(View view) {
+                NavigationView navigationView = NavigationView.this;
+                if (view == navigationView) {
+                    MatcherMatchResult matcherMatchResult2 = navigationView.backOrchestrator;
+                    Objects.requireNonNull(matcherMatchResult2);
+                    view.post(new ActivityCompat$$ExternalSyntheticLambda0(19, matcherMatchResult2));
+                }
+            }
+
+            @Override // androidx.drawerlayout.widget.DrawerLayout.DrawerListener
+            public final void onDrawerSlide(float f) {
+            }
+        };
+        Context context2 = getContext();
+        ?? menuBuilder = new MenuBuilder(context2);
+        this.menu = menuBuilder;
+        ViewUtils.checkCompatibleTheme(context2, attributeSet, C0130R.attr.navigationViewStyle, C0130R.style.Widget_Design_NavigationView);
+        int[] iArr = R$styleable.NavigationView;
+        ViewUtils.checkTextAppearance(context2, attributeSet, iArr, C0130R.attr.navigationViewStyle, C0130R.style.Widget_Design_NavigationView, new int[0]);
+        TypedArray obtainStyledAttributes2 = context2.obtainStyledAttributes(attributeSet, iArr, C0130R.attr.navigationViewStyle, C0130R.style.Widget_Design_NavigationView);
+        MatcherMatchResult matcherMatchResult2 = new MatcherMatchResult(context2, obtainStyledAttributes2);
+        if (obtainStyledAttributes2.hasValue(1)) {
+            setBackground(matcherMatchResult2.getDrawable(1));
+        }
+        int dimensionPixelSize = obtainStyledAttributes2.getDimensionPixelSize(7, 0);
+        this.drawerLayoutCornerSize = dimensionPixelSize;
+        if (dimensionPixelSize == 0) {
+            z = true;
+        } else {
+            z = false;
+        }
+        this.drawerLayoutCornerSizeBackAnimationEnabled = z;
+        this.drawerLayoutCornerSizeBackAnimationMax = getResources().getDimensionPixelSize(C0130R.dimen.m3_navigation_drawer_layout_corner_size);
+        Drawable background = getBackground();
+        ColorStateList colorStateListOrNull = Trace.getColorStateListOrNull(background);
+        if (background == null || colorStateListOrNull != null) {
+            MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(ShapeAppearanceModel.builder(context2, attributeSet, (int) C0130R.attr.navigationViewStyle, (int) C0130R.style.Widget_Design_NavigationView).build());
+            if (colorStateListOrNull != null) {
+                materialShapeDrawable.setFillColor(colorStateListOrNull);
+            }
+            materialShapeDrawable.initializeElevationOverlay(context2);
+            setBackground(materialShapeDrawable);
+        }
+        if (obtainStyledAttributes2.hasValue(8)) {
+            setElevation(obtainStyledAttributes2.getDimensionPixelSize(8, 0));
+        }
+        setFitsSystemWindows(obtainStyledAttributes2.getBoolean(2, false));
+        this.maxWidth = obtainStyledAttributes2.getDimensionPixelSize(3, 0);
+        if (obtainStyledAttributes2.hasValue(33)) {
+            colorStateList = matcherMatchResult2.getColorStateList(33);
+        } else {
+            colorStateList = null;
+        }
+        if (obtainStyledAttributes2.hasValue(36)) {
+            i = obtainStyledAttributes2.getResourceId(36, 0);
+        } else {
+            i = 0;
+        }
+        if (i == 0 && colorStateList == null) {
+            colorStateList = createDefaultColorStateList(16842808);
+        }
+        if (obtainStyledAttributes2.hasValue(15)) {
+            colorStateList2 = matcherMatchResult2.getColorStateList(15);
+        } else {
+            colorStateList2 = createDefaultColorStateList(16842808);
+        }
+        if (obtainStyledAttributes2.hasValue(25)) {
+            i2 = obtainStyledAttributes2.getResourceId(25, 0);
+        } else {
+            i2 = 0;
+        }
+        boolean z2 = obtainStyledAttributes2.getBoolean(26, true);
+        if (obtainStyledAttributes2.hasValue(14)) {
+            setItemIconSize(obtainStyledAttributes2.getDimensionPixelSize(14, 0));
+        }
+        if (obtainStyledAttributes2.hasValue(27)) {
+            colorStateList3 = matcherMatchResult2.getColorStateList(27);
+        } else {
+            colorStateList3 = null;
+        }
+        if (i2 == 0 && colorStateList3 == null) {
+            colorStateList3 = createDefaultColorStateList(16842806);
+        }
+        Drawable drawable = matcherMatchResult2.getDrawable(11);
+        if (drawable == null && (obtainStyledAttributes2.hasValue(18) || obtainStyledAttributes2.hasValue(19))) {
+            drawable = createDefaultItemDrawable(matcherMatchResult2, LazyKt__LazyJVMKt.getColorStateList(getContext(), matcherMatchResult2, 20));
+            ColorStateList colorStateList4 = LazyKt__LazyJVMKt.getColorStateList(context2, matcherMatchResult2, 17);
+            if (colorStateList4 != null) {
+                matcherMatchResult = matcherMatchResult2;
+                navigationMenuPresenter.itemForeground = new RippleDrawable(RippleUtils.sanitizeRippleDrawableColor(colorStateList4), null, createDefaultItemDrawable(matcherMatchResult2, null));
+                navigationMenuPresenter.updateAllTextMenuItems();
+                if (!obtainStyledAttributes2.hasValue(12)) {
+                    i3 = 0;
+                    setItemHorizontalPadding(obtainStyledAttributes2.getDimensionPixelSize(12, 0));
+                } else {
+                    i3 = 0;
+                }
+                if (obtainStyledAttributes2.hasValue(28)) {
+                    setItemVerticalPadding(obtainStyledAttributes2.getDimensionPixelSize(28, i3));
+                }
+                setDividerInsetStart(obtainStyledAttributes2.getDimensionPixelSize(6, i3));
+                setDividerInsetEnd(obtainStyledAttributes2.getDimensionPixelSize(5, i3));
+                setSubheaderInsetStart(obtainStyledAttributes2.getDimensionPixelSize(35, i3));
+                setSubheaderInsetEnd(obtainStyledAttributes2.getDimensionPixelSize(34, i3));
+                setTopInsetScrimEnabled(obtainStyledAttributes2.getBoolean(37, this.topInsetScrimEnabled));
+                setBottomInsetScrimEnabled(obtainStyledAttributes2.getBoolean(4, this.bottomInsetScrimEnabled));
+                setStartInsetScrimEnabled(obtainStyledAttributes2.getBoolean(32, this.startInsetScrimEnabled));
+                setEndInsetScrimEnabled(obtainStyledAttributes2.getBoolean(9, this.endInsetScrimEnabled));
+                int dimensionPixelSize2 = obtainStyledAttributes2.getDimensionPixelSize(13, 0);
+                setItemMaxLines(obtainStyledAttributes2.getInt(16, 1));
+                menuBuilder.mCallback = new C01932();
+                navigationMenuPresenter.f35id = 1;
+                navigationMenuPresenter.initForMenu(context2, menuBuilder);
+                if (i != 0) {
+                    navigationMenuPresenter.subheaderTextAppearance = i;
+                    navigationMenuPresenter.updateAllSubHeaderMenuItems();
+                }
+                navigationMenuPresenter.subheaderColor = colorStateList;
+                navigationMenuPresenter.updateAllSubHeaderMenuItems();
+                navigationMenuPresenter.iconTintList = colorStateList2;
+                navigationMenuPresenter.updateAllTextMenuItems();
+                int overScrollMode = getOverScrollMode();
+                navigationMenuPresenter.overScrollMode = overScrollMode;
+                navigationMenuView = navigationMenuPresenter.menuView;
+                if (navigationMenuView != null) {
+                    navigationMenuView.setOverScrollMode(overScrollMode);
+                }
+                if (i2 != 0) {
+                    navigationMenuPresenter.textAppearance = i2;
+                    navigationMenuPresenter.updateAllTextMenuItems();
+                }
+                navigationMenuPresenter.textAppearanceActiveBoldEnabled = z2;
+                navigationMenuPresenter.updateAllTextMenuItems();
+                navigationMenuPresenter.textColor = colorStateList3;
+                navigationMenuPresenter.updateAllTextMenuItems();
+                navigationMenuPresenter.itemBackground = drawable;
+                navigationMenuPresenter.updateAllTextMenuItems();
+                navigationMenuPresenter.itemIconPadding = dimensionPixelSize2;
+                navigationMenuPresenter.updateAllTextMenuItems();
+                menuBuilder.addMenuPresenter(navigationMenuPresenter, menuBuilder.mContext);
+                if (navigationMenuPresenter.menuView == null) {
+                    NavigationMenuView navigationMenuView2 = (NavigationMenuView) navigationMenuPresenter.layoutInflater.inflate(C0130R.layout.design_navigation_menu, (ViewGroup) this, false);
+                    navigationMenuPresenter.menuView = navigationMenuView2;
+                    navigationMenuView2.setAccessibilityDelegateCompat(new NavigationMenuPresenter.NavigationMenuViewAccessibilityDelegate(navigationMenuPresenter.menuView));
+                    if (navigationMenuPresenter.adapter == null) {
+                        NavigationMenuPresenter.NavigationMenuAdapter navigationMenuAdapter = new NavigationMenuPresenter.NavigationMenuAdapter();
+                        navigationMenuPresenter.adapter = navigationMenuAdapter;
+                        navigationMenuAdapter.setHasStableIds(true);
+                    }
+                    int i5 = navigationMenuPresenter.overScrollMode;
+                    if (i5 != -1) {
+                        navigationMenuPresenter.menuView.setOverScrollMode(i5);
+                    }
+                    LinearLayout linearLayout = (LinearLayout) navigationMenuPresenter.layoutInflater.inflate(C0130R.layout.design_navigation_item_header, (ViewGroup) navigationMenuPresenter.menuView, false);
+                    navigationMenuPresenter.headerLayout = linearLayout;
+                    linearLayout.setImportantForAccessibility(2);
+                    navigationMenuPresenter.menuView.setAdapter(navigationMenuPresenter.adapter);
+                }
+                addView(navigationMenuPresenter.menuView);
+                if (obtainStyledAttributes2.hasValue(29)) {
+                    int resourceId = obtainStyledAttributes2.getResourceId(29, 0);
+                    NavigationMenuPresenter.NavigationMenuAdapter navigationMenuAdapter2 = navigationMenuPresenter.adapter;
+                    if (navigationMenuAdapter2 != null) {
+                        navigationMenuAdapter2.updateSuspended = true;
+                    }
+                    getMenuInflater().inflate(resourceId, menuBuilder);
+                    NavigationMenuPresenter.NavigationMenuAdapter navigationMenuAdapter3 = navigationMenuPresenter.adapter;
+                    if (navigationMenuAdapter3 != null) {
+                        navigationMenuAdapter3.updateSuspended = false;
+                    }
+                    navigationMenuPresenter.updateMenuView();
+                }
+                if (obtainStyledAttributes2.hasValue(10)) {
+                    navigationMenuPresenter.headerLayout.addView(navigationMenuPresenter.layoutInflater.inflate(obtainStyledAttributes2.getResourceId(10, 0), (ViewGroup) navigationMenuPresenter.headerLayout, false));
+                    NavigationMenuView navigationMenuView3 = navigationMenuPresenter.menuView;
+                    navigationMenuView3.setPadding(0, 0, 0, navigationMenuView3.getPaddingBottom());
+                }
+                matcherMatchResult.recycle();
+                this.onGlobalLayoutListener = new AppCompatSpinner.ViewTreeObserver$OnGlobalLayoutListenerC00252(4, this);
+                getViewTreeObserver().addOnGlobalLayoutListener(this.onGlobalLayoutListener);
+            }
+        }
+        matcherMatchResult = matcherMatchResult2;
+        if (!obtainStyledAttributes2.hasValue(12)) {
+        }
+        if (obtainStyledAttributes2.hasValue(28)) {
+        }
+        setDividerInsetStart(obtainStyledAttributes2.getDimensionPixelSize(6, i3));
+        setDividerInsetEnd(obtainStyledAttributes2.getDimensionPixelSize(5, i3));
+        setSubheaderInsetStart(obtainStyledAttributes2.getDimensionPixelSize(35, i3));
+        setSubheaderInsetEnd(obtainStyledAttributes2.getDimensionPixelSize(34, i3));
+        setTopInsetScrimEnabled(obtainStyledAttributes2.getBoolean(37, this.topInsetScrimEnabled));
+        setBottomInsetScrimEnabled(obtainStyledAttributes2.getBoolean(4, this.bottomInsetScrimEnabled));
+        setStartInsetScrimEnabled(obtainStyledAttributes2.getBoolean(32, this.startInsetScrimEnabled));
+        setEndInsetScrimEnabled(obtainStyledAttributes2.getBoolean(9, this.endInsetScrimEnabled));
+        int dimensionPixelSize22 = obtainStyledAttributes2.getDimensionPixelSize(13, 0);
+        setItemMaxLines(obtainStyledAttributes2.getInt(16, 1));
+        menuBuilder.mCallback = new C01932();
+        navigationMenuPresenter.f35id = 1;
+        navigationMenuPresenter.initForMenu(context2, menuBuilder);
+        if (i != 0) {
+        }
+        navigationMenuPresenter.subheaderColor = colorStateList;
+        navigationMenuPresenter.updateAllSubHeaderMenuItems();
+        navigationMenuPresenter.iconTintList = colorStateList2;
+        navigationMenuPresenter.updateAllTextMenuItems();
+        int overScrollMode2 = getOverScrollMode();
+        navigationMenuPresenter.overScrollMode = overScrollMode2;
+        navigationMenuView = navigationMenuPresenter.menuView;
+        if (navigationMenuView != null) {
+        }
+        if (i2 != 0) {
+        }
+        navigationMenuPresenter.textAppearanceActiveBoldEnabled = z2;
+        navigationMenuPresenter.updateAllTextMenuItems();
+        navigationMenuPresenter.textColor = colorStateList3;
+        navigationMenuPresenter.updateAllTextMenuItems();
+        navigationMenuPresenter.itemBackground = drawable;
+        navigationMenuPresenter.updateAllTextMenuItems();
+        navigationMenuPresenter.itemIconPadding = dimensionPixelSize22;
+        navigationMenuPresenter.updateAllTextMenuItems();
+        menuBuilder.addMenuPresenter(navigationMenuPresenter, menuBuilder.mContext);
+        if (navigationMenuPresenter.menuView == null) {
+        }
+        addView(navigationMenuPresenter.menuView);
+        if (obtainStyledAttributes2.hasValue(29)) {
+        }
+        if (obtainStyledAttributes2.hasValue(10)) {
+        }
+        matcherMatchResult.recycle();
+        this.onGlobalLayoutListener = new AppCompatSpinner.ViewTreeObserver$OnGlobalLayoutListenerC00252(4, this);
+        getViewTreeObserver().addOnGlobalLayoutListener(this.onGlobalLayoutListener);
     }
 
     private MenuInflater getMenuInflater() {
@@ -207,7 +503,7 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
             return null;
         }
         ColorStateList colorStateList = BundleKt.getColorStateList(getContext(), typedValue.resourceId);
-        if (!getContext().getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true)) {
+        if (!getContext().getTheme().resolveAttribute(C0130R.attr.colorPrimary, typedValue, true)) {
             return null;
         }
         int i2 = typedValue.data;
@@ -310,7 +606,7 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
         }
         int i = ((DrawerLayout.LayoutParams) requireDrawerLayoutParent.second).gravity;
         int i2 = DrawerLayoutUtils.DEFAULT_SCRIM_ALPHA;
-        materialSideContainerBackHelper.finishBackProgress(backEventCompat, i, new Transition.AnonymousClass2(this, 2, drawerLayout), new ViewPropertyAnimatorCompat$$ExternalSyntheticLambda0(2, drawerLayout));
+        materialSideContainerBackHelper.finishBackProgress(backEventCompat, i, new Transition.C01112(this, 2, drawerLayout), new ViewPropertyAnimatorCompat$$ExternalSyntheticLambda0(2, drawerLayout));
     }
 
     public final void maybeUpdateCornerSizeForDrawerLayout(int i, int i2) {
@@ -358,7 +654,7 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
             MatcherMatchResult matcherMatchResult = this.backOrchestrator;
             if (((MaterialBackOrchestrator$Api33BackCallbackDelegate) matcherMatchResult.matcher) != null) {
                 DrawerLayout drawerLayout = (DrawerLayout) parent;
-                AnonymousClass1 r2 = this.backDrawerListener;
+                C01921 r2 = this.backDrawerListener;
                 if (!(r2 == null || (arrayList = drawerLayout.mListeners) == null)) {
                     arrayList.remove(r2);
                 }
@@ -378,7 +674,7 @@ public class NavigationView extends ScrimInsetsFrameLayout implements MaterialBa
         ViewParent parent = getParent();
         if (parent instanceof DrawerLayout) {
             DrawerLayout drawerLayout = (DrawerLayout) parent;
-            AnonymousClass1 r1 = this.backDrawerListener;
+            C01921 r1 = this.backDrawerListener;
             if (!(r1 == null || (arrayList = drawerLayout.mListeners) == null)) {
                 arrayList.remove(r1);
             }

@@ -6,13 +6,13 @@ import com.google.firebase.encoders.ObjectEncoderContext;
 /* loaded from: classes.dex */
 public final class AutoBatchedLogRequestEncoder$LogRequestEncoder implements ObjectEncoder {
     public static final AutoBatchedLogRequestEncoder$LogRequestEncoder INSTANCE = new Object();
-    public static final FieldDescriptor REQUESTTIMEMS_DESCRIPTOR = FieldDescriptor.of("requestTimeMs");
-    public static final FieldDescriptor REQUESTUPTIMEMS_DESCRIPTOR = FieldDescriptor.of("requestUptimeMs");
-    public static final FieldDescriptor CLIENTINFO_DESCRIPTOR = FieldDescriptor.of("clientInfo");
-    public static final FieldDescriptor LOGSOURCE_DESCRIPTOR = FieldDescriptor.of("logSource");
-    public static final FieldDescriptor LOGSOURCENAME_DESCRIPTOR = FieldDescriptor.of("logSourceName");
-    public static final FieldDescriptor LOGEVENT_DESCRIPTOR = FieldDescriptor.of("logEvent");
-    public static final FieldDescriptor QOSTIER_DESCRIPTOR = FieldDescriptor.of("qosTier");
+    public static final FieldDescriptor REQUESTTIMEMS_DESCRIPTOR = FieldDescriptor.m566of("requestTimeMs");
+    public static final FieldDescriptor REQUESTUPTIMEMS_DESCRIPTOR = FieldDescriptor.m566of("requestUptimeMs");
+    public static final FieldDescriptor CLIENTINFO_DESCRIPTOR = FieldDescriptor.m566of("clientInfo");
+    public static final FieldDescriptor LOGSOURCE_DESCRIPTOR = FieldDescriptor.m566of("logSource");
+    public static final FieldDescriptor LOGSOURCENAME_DESCRIPTOR = FieldDescriptor.m566of("logSourceName");
+    public static final FieldDescriptor LOGEVENT_DESCRIPTOR = FieldDescriptor.m566of("logEvent");
+    public static final FieldDescriptor QOSTIER_DESCRIPTOR = FieldDescriptor.m566of("qosTier");
 
     @Override // com.google.firebase.encoders.Encoder
     public final void encode(Object obj, Object obj2) {

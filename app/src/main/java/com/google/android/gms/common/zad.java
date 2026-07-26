@@ -3,6 +3,7 @@ package com.google.android.gms.common;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import com.google.android.gms.internal.base.zau;
@@ -16,26 +17,17 @@ public final class zad extends zau {
     /* JADX WARN: Illegal instructions before constructor call */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public zad(com.google.android.gms.common.GoogleApiAvailability r2, android.content.Context r3) {
-        /*
-            r1 = this;
-            r1.zaa = r2
-            android.os.Looper r2 = android.os.Looper.myLooper()
-            if (r2 != 0) goto Ld
-            android.os.Looper r2 = android.os.Looper.getMainLooper()
-            goto L11
-        Ld:
-            android.os.Looper r2 = android.os.Looper.myLooper()
-        L11:
-            r0 = 0
-            r1.<init>(r2, r0)
-            android.content.Context r2 = r3.getApplicationContext()
-            r1.zab = r2
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.common.zad.<init>(com.google.android.gms.common.GoogleApiAvailability, android.content.Context):void");
+    public zad(GoogleApiAvailability googleApiAvailability, Context context) {
+        super(r2, 0);
+        Looper looper;
+        this.zaa = googleApiAvailability;
+        if (Looper.myLooper() == null) {
+            looper = Looper.getMainLooper();
+        } else {
+            looper = Looper.myLooper();
+        }
+        this.zab = context.getApplicationContext();
     }
 
     @Override // com.google.android.gms.internal.base.zau, android.os.Handler

@@ -26,7 +26,7 @@ public class Cidr {
             calculate();
             return;
         }
-        Log.w(TAG, "Invalid CIDR: ".concat(str));
+        Log.m581w(TAG, "Invalid CIDR: ".concat(str));
         throw new IllegalArgumentException("not an valid CIDR format!");
     }
 

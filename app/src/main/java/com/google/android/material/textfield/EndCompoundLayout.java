@@ -18,10 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.appcompat.view.menu.StandardMenuPopup;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.widget.TextViewCompat;
 import androidx.lifecycle.ViewModelProvider;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.internal.CheckableImageButton;
 import com.google.android.material.internal.TextWatcherAdapter;
 import com.google.android.material.internal.ViewUtils;
@@ -52,7 +52,7 @@ public final class EndCompoundLayout extends LinearLayout {
     public AccessibilityManager.TouchExplorationStateChangeListener touchExplorationStateChangeListener;
     public int endIconMode = 0;
     public final LinkedHashSet endIconChangedListeners = new LinkedHashSet();
-    public final AnonymousClass1 editTextWatcher = new TextWatcherAdapter() { // from class: com.google.android.material.textfield.EndCompoundLayout.1
+    public final C02061 editTextWatcher = new TextWatcherAdapter() { // from class: com.google.android.material.textfield.EndCompoundLayout.1
         @Override // android.text.TextWatcher
         public final void afterTextChanged(Editable editable) {
             EndCompoundLayout.this.getEndIconDelegate().afterEditTextChanged();
@@ -65,15 +65,15 @@ public final class EndCompoundLayout extends LinearLayout {
     };
     public final AccessibilityManager accessibilityManager = (AccessibilityManager) getContext().getSystemService("accessibility");
 
-    /* renamed from: com.google.android.material.textfield.EndCompoundLayout$2  reason: invalid class name */
+    /* renamed from: com.google.android.material.textfield.EndCompoundLayout$2 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass2 {
-        public AnonymousClass2() {
+    public final class C02072 {
+        public C02072() {
         }
 
         public final void onEditTextAttached(TextInputLayout textInputLayout) {
             EndCompoundLayout endCompoundLayout = EndCompoundLayout.this;
-            AnonymousClass1 r1 = endCompoundLayout.editTextWatcher;
+            C02061 r1 = endCompoundLayout.editTextWatcher;
             if (endCompoundLayout.editText != textInputLayout.getEditText()) {
                 EditText editText = endCompoundLayout.editText;
                 if (editText != null) {
@@ -112,7 +112,7 @@ public final class EndCompoundLayout extends LinearLayout {
     public EndCompoundLayout(TextInputLayout textInputLayout, MatcherMatchResult matcherMatchResult) {
         super(textInputLayout.getContext());
         CharSequence text;
-        AnonymousClass2 r4 = new AnonymousClass2();
+        C02072 r4 = new C02072();
         this.textInputLayout = textInputLayout;
         setVisibility(8);
         setOrientation(0);
@@ -122,9 +122,9 @@ public final class EndCompoundLayout extends LinearLayout {
         frameLayout.setVisibility(8);
         frameLayout.setLayoutParams(new LinearLayout.LayoutParams(-2, -1));
         LayoutInflater from = LayoutInflater.from(getContext());
-        CheckableImageButton createIconView = createIconView(this, from, R.id.text_input_error_icon);
+        CheckableImageButton createIconView = createIconView(this, from, C0130R.C0132id.text_input_error_icon);
         this.errorIconView = createIconView;
-        CheckableImageButton createIconView2 = createIconView(frameLayout, from, R.id.text_input_end_icon);
+        CheckableImageButton createIconView2 = createIconView(frameLayout, from, C0130R.C0132id.text_input_end_icon);
         this.endIconView = createIconView2;
         this.endIconDelegates = new EndIconDelegates(this, matcherMatchResult);
         CharSequence charSequence = null;
@@ -140,7 +140,7 @@ public final class EndCompoundLayout extends LinearLayout {
         if (typedArray.hasValue(37)) {
             setErrorIconDrawable(matcherMatchResult.getDrawable(37));
         }
-        createIconView.setContentDescription(getResources().getText(R.string.error_icon_content_description));
+        createIconView.setContentDescription(getResources().getText(C0130R.string.error_icon_content_description));
         createIconView.setImportantForAccessibility(2);
         createIconView.setClickable(false);
         createIconView.setPressable(false);
@@ -173,7 +173,7 @@ public final class EndCompoundLayout extends LinearLayout {
                 createIconView2.setContentDescription(text2);
             }
         }
-        int dimensionPixelSize = typedArray.getDimensionPixelSize(29, getResources().getDimensionPixelSize(R.dimen.mtrl_min_touch_target_size));
+        int dimensionPixelSize = typedArray.getDimensionPixelSize(29, getResources().getDimensionPixelSize(C0130R.dimen.mtrl_min_touch_target_size));
         if (dimensionPixelSize >= 0) {
             if (dimensionPixelSize != this.endIconMinSize) {
                 this.endIconMinSize = dimensionPixelSize;
@@ -189,7 +189,7 @@ public final class EndCompoundLayout extends LinearLayout {
                 createIconView.setScaleType(convertScaleType);
             }
             appCompatTextView.setVisibility(8);
-            appCompatTextView.setId(R.id.textinput_suffix_text);
+            appCompatTextView.setId(C0130R.C0132id.textinput_suffix_text);
             appCompatTextView.setLayoutParams(new LinearLayout.LayoutParams(-2, -2, 80.0f));
             appCompatTextView.setAccessibilityLiveRegion(1);
             TextViewCompat.setTextAppearance(appCompatTextView, typedArray.getResourceId(73, 0));
@@ -208,14 +208,14 @@ public final class EndCompoundLayout extends LinearLayout {
             if (textInputLayout.editText != null) {
                 r4.onEditTextAttached(textInputLayout);
             }
-            addOnAttachStateChangeListener(new StandardMenuPopup.AnonymousClass2(4, this));
+            addOnAttachStateChangeListener(new StandardMenuPopup.View$OnAttachStateChangeListenerC00202(4, this));
             return;
         }
         throw new IllegalArgumentException("endIconSize cannot be less than 0");
     }
 
     public final CheckableImageButton createIconView(ViewGroup viewGroup, LayoutInflater layoutInflater, int i) {
-        CheckableImageButton checkableImageButton = (CheckableImageButton) layoutInflater.inflate(R.layout.design_text_input_end_icon, viewGroup, false);
+        CheckableImageButton checkableImageButton = (CheckableImageButton) layoutInflater.inflate(C0130R.layout.design_text_input_end_icon, viewGroup, false);
         checkableImageButton.setId(i);
         if (Build.VERSION.SDK_INT < 23) {
             checkableImageButton.setBackground(RippleUtils.RippleUtilsLollipop.access$000(checkableImageButton.getContext(), (int) ViewUtils.dpToPx(checkableImageButton.getContext(), 4)));
@@ -247,7 +247,7 @@ public final class EndCompoundLayout extends LinearLayout {
         } else if (i == 3) {
             endIconDelegate = new DropdownMenuEndIconDelegate(endCompoundLayout);
         } else {
-            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(i, "Invalid end icon mode: "));
+            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m604m(i, "Invalid end icon mode: "));
         }
         sparseArray.append(i, endIconDelegate);
         return endIconDelegate;
@@ -371,7 +371,7 @@ public final class EndCompoundLayout extends LinearLayout {
                 }
                 throw new IllegalStateException("The current box background mode " + textInputLayout.getBoxBackgroundMode() + " is not supported by the end icon mode " + i);
             }
-            throw ViewModelProvider.Factory.CC.m(it);
+            throw ViewModelProvider.Factory.CC.m592m(it);
         }
     }
 
@@ -456,7 +456,7 @@ public final class EndCompoundLayout extends LinearLayout {
             } else {
                 i = textInputLayout.editText.getPaddingEnd();
             }
-            this.suffixTextView.setPaddingRelative(getContext().getResources().getDimensionPixelSize(R.dimen.material_input_text_to_prefix_suffix_padding), textInputLayout.editText.getPaddingTop(), i, textInputLayout.editText.getPaddingBottom());
+            this.suffixTextView.setPaddingRelative(getContext().getResources().getDimensionPixelSize(C0130R.dimen.material_input_text_to_prefix_suffix_padding), textInputLayout.editText.getPaddingTop(), i, textInputLayout.editText.getPaddingBottom());
         }
     }
 

@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.core.content.ContextCompat$Api21Impl;
 import androidx.core.graphics.drawable.DrawableCompat$Api21Impl;
-import androidx.core.os.BundleKt;
-import com.github.appintro.R;
+import androidx.core.p002os.BundleKt;
+import com.github.appintro.C0161R;
 import kotlin.jvm.internal.Intrinsics;
 /* loaded from: classes.dex */
 public final class DotIndicatorController extends LinearLayout implements IndicatorController {
@@ -21,8 +21,8 @@ public final class DotIndicatorController extends LinearLayout implements Indica
     public DotIndicatorController(Context context) {
         super(context);
         Intrinsics.checkNotNullParameter(context, "context");
-        this.selectedIndicatorColor = BundleKt.getColor(context, R.color.appintro_default_selected_color);
-        this.unselectedIndicatorColor = BundleKt.getColor(context, R.color.appintro_default_unselected_color);
+        this.selectedIndicatorColor = BundleKt.getColor(context, C0161R.color.appintro_default_selected_color);
+        this.unselectedIndicatorColor = BundleKt.getColor(context, C0161R.color.appintro_default_unselected_color);
     }
 
     @Override // com.github.appintro.indicator.IndicatorController
@@ -42,7 +42,7 @@ public final class DotIndicatorController extends LinearLayout implements Indica
         while (i2 < i) {
             i2++;
             ImageView imageView = new ImageView(getContext());
-            imageView.setImageDrawable(ContextCompat$Api21Impl.getDrawable(getContext(), R.drawable.ic_appintro_indicator));
+            imageView.setImageDrawable(ContextCompat$Api21Impl.getDrawable(getContext(), C0161R.C0162drawable.ic_appintro_indicator));
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
             if (i == 1) {
                 imageView.setVisibility(4);

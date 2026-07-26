@@ -18,9 +18,13 @@ import com.emanuelef.remote_capture.model.PayloadChunk;
 import com.emanuelef.remote_capture.model.Prefs;
 import com.pcapdroid.mitm.MitmAPI;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 /* loaded from: classes.dex */
 public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener {
     private static final String TAG = "MitmReceiver";
@@ -112,7 +116,7 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
                 long elapsedRealtime = SystemClock.elapsedRealtime();
                 for (int size = this.mPendingMessages.size() - 1; size >= 0; size--) {
                     if (elapsedRealtime - this.mPendingMessages.valueAt(size).get(0).pendingSince > 5000) {
-                        Log.w(TAG, "Dropping " + valueAt.size() + " old messages");
+                        Log.m581w(TAG, "Dropping " + valueAt.size() + " old messages");
                         SparseArray<ArrayList<PendingMessage>> sparseArray = this.mPendingMessages;
                         sparseArray.remove(sparseArray.keyAt(size));
                     }
@@ -397,7 +401,7 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
                 return;
             }
             if (MitmAddon.isDozeEnabled(this.mContext)) {
-                Utils.showToastLong(this.mContext, R.string.mitm_doze_notice, new Object[0]);
+                Utils.showToastLong(this.mContext, C0130R.string.mitm_doze_notice, new Object[0]);
                 this.mAddon.disableDoze();
             }
             Thread thread = this.mThread;
@@ -409,7 +413,7 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
             thread2.start();
             return;
         }
-        Utils.showToastLong(this.mContext, R.string.cert_reinstall_required, new Object[0]);
+        Utils.showToastLong(this.mContext, C0130R.string.cert_reinstall_required, new Object[0]);
         MitmAddon.setDecryptionSetupDone(this.mContext, false);
         CaptureService.stopService();
     }
@@ -436,21 +440,151 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
     @Override // java.lang.Runnable
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public void run() {
-        /*
-            Method dump skipped, instructions count: 326
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.MitmReceiver.run():void");
+        Throwable th;
+        MitmReceiver mitmReceiver;
+        IOException e;
+        Object obj;
+        Throwable th2;
+        if (this.mSocketFd == null) {
+            Log.m585e(TAG, "Null socket, abort");
+            proxyStatus.postValue(Status.NOT_STARTED);
+            return;
+        }
+        Log.m583i(TAG, "Receiving data...");
+        Status status = null;
+        try {
+            try {
+                DataInputStream dataInputStream = new DataInputStream(new ParcelFileDescriptor.AutoCloseInputStream(this.mSocketFd));
+                while (true) {
+                    try {
+                        try {
+                            if (!this.mAddon.isConnected()) {
+                                break;
+                            }
+                            String readLine = dataInputStream.readLine();
+                            if (readLine == null) {
+                                break;
+                            }
+                            StringTokenizer stringTokenizer = new StringTokenizer(readLine);
+                            try {
+                                String nextToken = stringTokenizer.nextToken(":");
+                                String nextToken2 = stringTokenizer.nextToken();
+                                String nextToken3 = stringTokenizer.nextToken();
+                                String nextToken4 = stringTokenizer.nextToken();
+                                long parseLong = Long.parseLong(nextToken);
+                                int parseInt = Integer.parseInt(nextToken2);
+                                int parseInt2 = Integer.parseInt(nextToken4);
+                                if (parseInt2 < 0 || parseInt2 > 67108864) {
+                                    mitmReceiver = this;
+                                    Log.m581w(TAG, "Ignoring bad message length: " + parseInt2);
+                                    dataInputStream.skipBytes(parseInt2);
+                                } else {
+                                    MsgType parseMsgType = parseMsgType(nextToken3);
+                                    try {
+                                        byte[] bArr = new byte[parseInt2];
+                                        dataInputStream.readFully(bArr);
+                                        if (parseMsgType == MsgType.MASTER_SECRET) {
+                                            logMasterSecret(bArr);
+                                        } else if (parseMsgType == MsgType.LOG) {
+                                            handleLog(bArr);
+                                        } else if (parseMsgType == MsgType.RUNNING) {
+                                            Log.m583i(TAG, "MITM proxy is running");
+                                            proxyStatus.postValue(Status.RUNNING);
+                                        } else {
+                                            ConnectionDescriptor connByLocalPort = getConnByLocalPort(parseInt);
+                                            if (connByLocalPort != null) {
+                                                try {
+                                                    handleMessage(connByLocalPort, parseMsgType, bArr, parseLong);
+                                                    mitmReceiver = this;
+                                                } catch (Throwable th3) {
+                                                    th2 = th3;
+                                                    Throwable th4 = th2;
+                                                    try {
+                                                        dataInputStream.close();
+                                                    } catch (Throwable th5) {
+                                                        th4.addSuppressed(th5);
+                                                    }
+                                                    throw th4;
+                                                }
+                                            } else {
+                                                mitmReceiver = this;
+                                                try {
+                                                    addPendingMessage(new PendingMessage(parseMsgType, bArr, parseInt, parseLong));
+                                                } catch (Throwable th6) {
+                                                    th2 = th6;
+                                                }
+                                            }
+                                        }
+                                        mitmReceiver = this;
+                                    } catch (OutOfMemoryError unused) {
+                                        mitmReceiver = this;
+                                        Log.m581w(TAG, "Ignoring message causing OOM (length: " + parseInt2 + ")");
+                                        dataInputStream.skipBytes(parseInt2);
+                                    }
+                                }
+                            } catch (NumberFormatException | NoSuchElementException unused2) {
+                                mitmReceiver = this;
+                                CaptureService.requireInstance().reportError("[BUG] Invalid header received from the mitm plugin");
+                                CaptureService.stopService();
+                            }
+                        } catch (IOException e2) {
+                            e = e2;
+                            if (mitmReceiver.mSocketFd != null) {
+                                e.printStackTrace();
+                            }
+                            Utils.safeClose(mitmReceiver.mKeylog);
+                            mitmReceiver.mKeylog = null;
+                            MutableLiveData mutableLiveData = proxyStatus;
+                            obj = mutableLiveData.mData;
+                            if (obj != LiveData.NOT_SET) {
+                            }
+                            if (status != Status.STARTING) {
+                            }
+                            Log.m583i(TAG, "End receiving data");
+                        }
+                    } catch (Throwable th7) {
+                        th2 = th7;
+                    }
+                }
+                mitmReceiver = this;
+                dataInputStream.close();
+            } catch (Throwable th8) {
+                th = th8;
+                Utils.safeClose(this.mKeylog);
+                this.mKeylog = null;
+                throw th;
+            }
+        } catch (IOException e3) {
+            e = e3;
+            mitmReceiver = this;
+        } catch (Throwable th9) {
+            th = th9;
+            Utils.safeClose(this.mKeylog);
+            this.mKeylog = null;
+            throw th;
+        }
+        Utils.safeClose(mitmReceiver.mKeylog);
+        mitmReceiver.mKeylog = null;
+        MutableLiveData mutableLiveData2 = proxyStatus;
+        obj = mutableLiveData2.mData;
+        if (obj != LiveData.NOT_SET) {
+            status = obj;
+        }
+        if (status != Status.STARTING) {
+            mutableLiveData2.postValue(Status.START_ERROR);
+        } else {
+            mutableLiveData2.postValue(Status.NOT_STARTED);
+        }
+        Log.m583i(TAG, "End receiving data");
     }
 
     public boolean start() {
-        Log.d(TAG, "starting");
+        Log.m587d(TAG, "starting");
         proxyStatus.postValue(Status.STARTING);
         if (!this.mAddon.connect(64)) {
-            Utils.showToastLong(this.mContext, R.string.mitm_start_failed, new Object[0]);
+            Utils.showToastLong(this.mContext, C0130R.string.mitm_start_failed, new Object[0]);
             return false;
         }
         this.mReg.addListener(this);
@@ -458,7 +592,7 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
     }
 
     public void stop() {
-        Log.d(TAG, "stopping");
+        Log.m587d(TAG, "stopping");
         this.mReg.removeListener(this);
         ParcelFileDescriptor parcelFileDescriptor = this.mSocketFd;
         this.mSocketFd = null;
@@ -471,12 +605,12 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
                 break;
             }
             try {
-                Log.d(TAG, "Joining receiver thread...");
+                Log.m587d(TAG, "Joining receiver thread...");
                 this.mThread.join();
             } catch (InterruptedException unused) {
             }
         }
         this.mThread = null;
-        Log.d(TAG, "stop done");
+        Log.m587d(TAG, "stop done");
     }
 }

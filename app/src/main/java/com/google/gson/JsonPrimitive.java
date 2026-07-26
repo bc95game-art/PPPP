@@ -2,10 +2,10 @@ package com.google.gson;
 
 import com.google.gson.internal.LazilyParsedNumber;
 import com.google.gson.internal.Streams;
-import j$.util.Objects;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class JsonPrimitive extends JsonElement {
     public final Serializable value;

@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.VectorEnabledTintResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -240,8 +240,8 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
     }
 
     /* renamed from: $r8$lambda$NWNhR1g9TmE6D3q_-J_pOxL4MlU */
-    public static /* synthetic */ void m244$r8$lambda$NWNhR1g9TmE6D3q_J_pOxL4MlU(AppIntroBase appIntroBase) {
-        m248onPostCreate$lambda2(appIntroBase);
+    public static /* synthetic */ void m874$r8$lambda$NWNhR1g9TmE6D3q_J_pOxL4MlU(AppIntroBase appIntroBase) {
+        m878onPostCreate$lambda2(appIntroBase);
     }
 
     public static /* synthetic */ void askForPermissions$default(AppIntroBase appIntroBase, String[] strArr, int i, boolean z, int i2, Object obj) {
@@ -360,7 +360,7 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
     }
 
     /* renamed from: onCreate$lambda-0 */
-    public static final void m246onCreate$lambda0(AppIntroBase this$0, View view) {
+    public static final void m876onCreate$lambda0(AppIntroBase this$0, View view) {
         Intrinsics.checkNotNullParameter(this$0, "this$0");
         AppIntroViewPager appIntroViewPager = this$0.pager;
         if (appIntroViewPager != null) {
@@ -372,7 +372,7 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
     }
 
     /* renamed from: onCreate$lambda-1 */
-    public static final void m247onCreate$lambda1(AppIntroBase this$0, View view) {
+    public static final void m877onCreate$lambda1(AppIntroBase this$0, View view) {
         Intrinsics.checkNotNullParameter(this$0, "this$0");
         this$0.dispatchVibration();
         PagerAdapter pagerAdapter = this$0.pagerAdapter;
@@ -391,7 +391,7 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
     }
 
     /* renamed from: onPostCreate$lambda-2 */
-    public static final void m248onPostCreate$lambda2(AppIntroBase this$0) {
+    public static final void m878onPostCreate$lambda2(AppIntroBase this$0) {
         Intrinsics.checkNotNullParameter(this$0, "this$0");
         PagerAdapter pagerAdapter = this$0.pagerAdapter;
         if (pagerAdapter != null) {
@@ -652,10 +652,10 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
             if (appIntroViewPager != null) {
                 Fragment item = pagerAdapter.getItem(appIntroViewPager.getCurrentItem());
                 if (!(item instanceof SlidePolicy) || ((SlidePolicy) item).isPolicyRespected()) {
-                    LogHelper.d(TAG, "Change request will be allowed.");
+                    LogHelper.m577d(TAG, "Change request will be allowed.");
                     return true;
                 }
-                LogHelper.d(TAG, "Slide policy not respected, denying change request.");
+                LogHelper.m577d(TAG, "Slide policy not respected, denying change request.");
                 return false;
             }
             Intrinsics.throwUninitializedPropertyAccessException("pager");
@@ -674,38 +674,38 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
         this.indicatorController = new DotIndicatorController(this);
         showStatusBar(false);
         setContentView(getLayoutId());
-        ViewGroup viewGroup = (ViewGroup) findViewById(R.id.indicator_container);
+        ViewGroup viewGroup = (ViewGroup) findViewById(C0161R.C0163id.indicator_container);
         if (viewGroup != null) {
             this.indicatorContainer = viewGroup;
-            View findViewById = findViewById(R.id.next);
+            View findViewById = findViewById(C0161R.C0163id.next);
             if (findViewById != null) {
                 this.nextButton = findViewById;
-                View findViewById2 = findViewById(R.id.done);
+                View findViewById2 = findViewById(C0161R.C0163id.done);
                 if (findViewById2 != null) {
                     this.doneButton = findViewById2;
-                    View findViewById3 = findViewById(R.id.skip);
+                    View findViewById3 = findViewById(C0161R.C0163id.skip);
                     if (findViewById3 != null) {
                         this.skipButton = findViewById3;
-                        View findViewById4 = findViewById(R.id.back);
+                        View findViewById4 = findViewById(C0161R.C0163id.back);
                         if (findViewById4 != null) {
                             this.backButton = findViewById4;
                             View view = this.nextButton;
                             if (view != null) {
-                                BundleKt.setTooltipText(view, getString(R.string.app_intro_next_button));
+                                BundleKt.setTooltipText(view, getString(C0161R.string.app_intro_next_button));
                                 View view2 = this.skipButton;
                                 if (view2 != null) {
                                     if (view2 instanceof ImageButton) {
-                                        BundleKt.setTooltipText(view2, getString(R.string.app_intro_skip_button));
+                                        BundleKt.setTooltipText(view2, getString(C0161R.string.app_intro_skip_button));
                                     }
                                     View view3 = this.doneButton;
                                     if (view3 != null) {
                                         if (view3 instanceof ImageButton) {
-                                            BundleKt.setTooltipText(view3, getString(R.string.app_intro_done_button));
+                                            BundleKt.setTooltipText(view3, getString(C0161R.string.app_intro_done_button));
                                         }
                                         View view4 = this.backButton;
                                         if (view4 != null) {
                                             if (view4 instanceof ImageButton) {
-                                                BundleKt.setTooltipText(view4, getString(R.string.app_intro_back_button));
+                                                BundleKt.setTooltipText(view4, getString(C0161R.string.app_intro_back_button));
                                             }
                                             if (isRtl$appintro_release()) {
                                                 View view5 = this.nextButton;
@@ -729,7 +729,7 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
                                                 FragmentManager supportFragmentManager = getSupportFragmentManager();
                                                 Intrinsics.checkNotNullExpressionValue(supportFragmentManager, "supportFragmentManager");
                                                 this.pagerAdapter = new PagerAdapter(supportFragmentManager, this.fragments);
-                                                View findViewById5 = findViewById(R.id.view_pager);
+                                                View findViewById5 = findViewById(C0161R.C0163id.view_pager);
                                                 Intrinsics.checkNotNullExpressionValue(findViewById5, "findViewById(R.id.view_pager)");
                                                 this.pager = (AppIntroViewPager) findViewById5;
                                                 View view7 = this.doneButton;
@@ -751,10 +751,10 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
                                                                 public final void onClick(View view10) {
                                                                     switch (r2) {
                                                                         case 0:
-                                                                            AppIntroBase.m246onCreate$lambda0(this.f$0, view10);
+                                                                            AppIntroBase.m876onCreate$lambda0(this.f$0, view10);
                                                                             return;
                                                                         default:
-                                                                            AppIntroBase.m247onCreate$lambda1(this.f$0, view10);
+                                                                            AppIntroBase.m877onCreate$lambda1(this.f$0, view10);
                                                                             return;
                                                                     }
                                                                 }
@@ -772,10 +772,10 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
                                                                     public final void onClick(View view102) {
                                                                         switch (r2) {
                                                                             case 0:
-                                                                                AppIntroBase.m246onCreate$lambda0(this.f$0, view102);
+                                                                                AppIntroBase.m876onCreate$lambda0(this.f$0, view102);
                                                                                 return;
                                                                             default:
-                                                                                AppIntroBase.m247onCreate$lambda1(this.f$0, view102);
+                                                                                AppIntroBase.m877onCreate$lambda1(this.f$0, view102);
                                                                                 return;
                                                                         }
                                                                     }
@@ -1068,7 +1068,7 @@ public abstract class AppIntroBase extends AppCompatActivity implements AppIntro
 
     @Override // com.github.appintro.AppIntroViewPagerListener
     public void onUserRequestedPermissionsDialog() {
-        LogHelper.d(TAG, Intrinsics.stringPlus(Integer.valueOf(getCurrentSlideNumber()), "Requesting Permissions on "));
+        LogHelper.m577d(TAG, Intrinsics.stringPlus(Integer.valueOf(getCurrentSlideNumber()), "Requesting Permissions on "));
         requestPermissions();
     }
 

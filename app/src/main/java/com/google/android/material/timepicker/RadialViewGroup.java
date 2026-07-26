@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.RelativeCornerSize;
@@ -27,8 +27,8 @@ public abstract class RadialViewGroup extends ConstraintLayout {
 
     /* JADX WARN: Type inference failed for: r6v2, types: [com.google.android.material.timepicker.RadialViewGroup$$ExternalSyntheticLambda0] */
     public RadialViewGroup(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet, R.attr.materialClockStyle);
-        LayoutInflater.from(context).inflate(R.layout.material_radial_view_group, this);
+        super(context, attributeSet, C0130R.attr.materialClockStyle);
+        LayoutInflater.from(context).inflate(C0130R.layout.material_radial_view_group, this);
         MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
         this.background = materialShapeDrawable;
         RelativeCornerSize relativeCornerSize = new RelativeCornerSize(0.5f);
@@ -40,7 +40,7 @@ public abstract class RadialViewGroup extends ConstraintLayout {
         materialShapeDrawable.setShapeAppearanceModel(builder.build());
         this.background.setFillColor(ColorStateList.valueOf(-1));
         setBackground(this.background);
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.RadialViewGroup, R.attr.materialClockStyle, 0);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.RadialViewGroup, C0130R.attr.materialClockStyle, 0);
         this.radius = obtainStyledAttributes.getDimensionPixelSize(0, 0);
         obtainStyledAttributes.recycle();
     }

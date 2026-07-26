@@ -1,7 +1,7 @@
 package com.emanuelef.remote_capture.model;
 
-import com.maxmind.db.MaxMindDbConstructor;
-import com.maxmind.db.MaxMindDbParameter;
+import com.maxmind.p003db.MaxMindDbConstructor;
+import com.maxmind.p003db.MaxMindDbParameter;
 import java.io.Serializable;
 /* loaded from: classes.dex */
 public class Geomodel {

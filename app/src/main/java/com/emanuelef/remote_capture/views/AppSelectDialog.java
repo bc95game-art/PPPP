@@ -15,8 +15,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.preference.PreferenceManager;
 import com.android.billingclient.api.zzbv;
 import com.emanuelef.remote_capture.AppsLoader;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.interfaces.AppsLoadListener;
 import com.emanuelef.remote_capture.model.AppDescriptor;
 import com.emanuelef.remote_capture.model.Prefs;
@@ -55,12 +55,12 @@ public class AppSelectDialog implements AppsLoadListener {
     }
 
     private Dialog getDialog() {
-        View inflate = this.mActivity.getLayoutInflater().inflate(R.layout.apps_selector, (ViewGroup) null);
-        AppsListView appsListView = (AppsListView) inflate.findViewById(R.id.apps_list);
+        View inflate = this.mActivity.getLayoutInflater().inflate(C0130R.layout.apps_selector, (ViewGroup) null);
+        AppsListView appsListView = (AppsListView) inflate.findViewById(C0130R.C0132id.apps_list);
         appsListView.setApps(new ArrayList());
-        appsListView.setEmptyView((TextView) inflate.findViewById(R.id.no_apps));
-        ((SearchView) inflate.findViewById(R.id.apps_search)).setOnQueryTextListener(appsListView);
-        CheckBox checkBox = (CheckBox) inflate.findViewById(R.id.show_system_apps);
+        appsListView.setEmptyView((TextView) inflate.findViewById(C0130R.C0132id.no_apps));
+        ((SearchView) inflate.findViewById(C0130R.C0132id.apps_search)).setOnQueryTextListener(appsListView);
+        CheckBox checkBox = (CheckBox) inflate.findViewById(C0130R.C0132id.show_system_apps);
         checkBox.setChecked(sShowSystemApps);
         appsListView.setShowSystemApps(sShowSystemApps);
         checkBox.setOnCheckedChangeListener(new Chip$$ExternalSyntheticLambda0(3, appsListView));
@@ -108,10 +108,10 @@ public class AppSelectDialog implements AppsLoadListener {
         dialog.setOnCancelListener(new AppSelectDialog$$ExternalSyntheticLambda2(0, this));
         this.mDialog.setOnDismissListener(new AppSelectDialog$$ExternalSyntheticLambda3(0, this));
         this.mDialog.show();
-        this.mOpenAppsList = (AppsListView) this.mDialog.findViewById(R.id.apps_list);
-        TextView textView = (TextView) this.mDialog.findViewById(R.id.no_apps);
+        this.mOpenAppsList = (AppsListView) this.mDialog.findViewById(C0130R.C0132id.apps_list);
+        TextView textView = (TextView) this.mDialog.findViewById(C0130R.C0132id.no_apps);
         this.mEmptyAppsView = textView;
-        textView.setText(R.string.loading_apps);
+        textView.setText(C0130R.string.loading_apps);
         this.mLoader = new AppsLoader(this.mActivity).setAppsLoadListener(this).loadAllApps();
     }
 
@@ -127,7 +127,7 @@ public class AppSelectDialog implements AppsLoadListener {
     public void onAppsInfoLoaded(List<AppDescriptor> list) {
         AppDescriptor appDescriptor;
         if (this.mOpenAppsList != null) {
-            this.mEmptyAppsView.setText(R.string.no_apps);
+            this.mEmptyAppsView.setText(C0130R.string.no_apps);
             if (Prefs.isTLSDecryptionSetupDone(this.mPrefs)) {
                 Iterator<AppDescriptor> it = list.iterator();
                 while (true) {
@@ -144,7 +144,7 @@ public class AppSelectDialog implements AppsLoadListener {
                     list.remove(appDescriptor);
                 }
             }
-            Log.d(TAG, "loading " + list.size() + " apps in dialog, icons=" + list);
+            Log.m587d(TAG, "loading " + list.size() + " apps in dialog, icons=" + list);
             this.mOpenAppsList.setApps(list);
         }
     }

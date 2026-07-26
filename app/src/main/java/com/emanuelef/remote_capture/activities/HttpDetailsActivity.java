@@ -19,13 +19,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
+import com.emanuelef.remote_capture.HarWriter;
 import com.emanuelef.remote_capture.HttpLog;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.ConnectionPayload;
+import com.emanuelef.remote_capture.fragments.ConnectionsFragment$$ExternalSyntheticLambda6;
 import com.emanuelef.remote_capture.fragments.HttpPayloadFragment;
 import com.emanuelef.remote_capture.interfaces.ConnectionsListener;
 import com.emanuelef.remote_capture.interfaces.PayloadHostActivity;
@@ -34,6 +36,8 @@ import com.emanuelef.remote_capture.model.PayloadChunk;
 import com.emanuelef.remote_capture.views.AppSelectDialog$$ExternalSyntheticLambda3;
 import com.google.android.gms.tasks.zzw;
 import com.google.android.material.tabs.TabLayout;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -101,12 +105,12 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
         public int getPageTitle(int i) {
             int i2 = getVisibleTabsPositions()[i];
             if (i2 == 1) {
-                return R.string.response;
+                return C0130R.string.response;
             }
             if (i2 != 2) {
-                return R.string.request;
+                return C0130R.string.request;
             }
-            return R.string.websocket;
+            return C0130R.string.websocket;
         }
 
         public int[] getVisibleTabsPositions() {
@@ -146,13 +150,13 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
 
     private void exportHar() {
         if (this.mHarFname != null && this.mHttpReq != null) {
-            Log.d(TAG, "Writing HAR file: " + this.mHarFname);
+            Log.m587d(TAG, "Writing HAR file: " + this.mHarFname);
             final ExecutorService newSingleThreadExecutor = Executors.newSingleThreadExecutor();
             Handler handler = new Handler(Looper.getMainLooper());
             final boolean[] zArr = {false};
             zzbv zzbvVar = new zzbv(this);
-            zzbvVar.setTitle(R.string.exporting);
-            zzbvVar.setMessage(R.string.export_in_progress);
+            zzbvVar.setTitle(C0130R.string.exporting);
+            zzbvVar.setMessage(C0130R.string.export_in_progress);
             zzbvVar.setNegativeButton(17039360, new AboutActivity$$ExternalSyntheticLambda2(zArr, 1, newSingleThreadExecutor));
             AlertDialog create = zzbvVar.create();
             this.mAlertDialog = create;
@@ -188,13 +192,13 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
     }
 
     public static /* synthetic */ void lambda$exportHar$1(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface, int i) {
-        Log.i(TAG, "Abort HAR export");
+        Log.m583i(TAG, "Abort HAR export");
         zArr[0] = true;
         executorService.shutdownNow();
     }
 
     public static /* synthetic */ void lambda$exportHar$2(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface) {
-        Log.i(TAG, "Abort HAR export (back button)");
+        Log.m583i(TAG, "Abort HAR export (back button)");
         zArr[0] = true;
         executorService.shutdownNow();
     }
@@ -209,11 +213,11 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
             alertDialog.dismiss();
         }
         if (!z) {
-            Utils.showToast(this, R.string.cannot_write_file, new Object[0]);
+            Utils.showToast(this, C0130R.string.cannot_write_file, new Object[0]);
         } else if (uriStat != null) {
-            Utils.showToast(this, R.string.file_saved_with_name, uriStat.name);
+            Utils.showToast(this, C0130R.string.file_saved_with_name, uriStat.name);
         } else {
-            Utils.showToast(this, R.string.save_ok, new Object[0]);
+            Utils.showToast(this, C0130R.string.save_ok, new Object[0]);
         }
     }
 
@@ -221,47 +225,36 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
     /* JADX WARN: Removed duplicated region for block: B:15:0x0028  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public /* synthetic */ void lambda$exportHar$5(android.net.Uri r4, com.emanuelef.remote_capture.HttpLog.HttpRequest r5, boolean[] r6, android.os.Handler r7) {
-        /*
-            r3 = this;
-            r0 = 0
-            android.content.ContentResolver r1 = r3.getContentResolver()     // Catch: java.io.IOException -> L1a
-            java.lang.String r2 = "rwt"
-            java.io.OutputStream r1 = r1.openOutputStream(r4, r2)     // Catch: java.io.IOException -> L1a
-            if (r1 == 0) goto L22
-            com.emanuelef.remote_capture.HarWriter r2 = new com.emanuelef.remote_capture.HarWriter     // Catch: java.io.IOException -> L1a
-            r2.<init>(r3, r5)     // Catch: java.io.IOException -> L1a
-            r2.write(r1)     // Catch: java.io.IOException -> L1a
-            r1.close()     // Catch: java.io.IOException -> L1a
-            r5 = 1
-            goto L23
-        L1a:
-            r5 = move-exception
-            boolean r1 = r6[r0]
-            if (r1 != 0) goto L22
-            r5.printStackTrace()
-        L22:
-            r5 = 0
-        L23:
-            boolean r6 = r6[r0]
-            if (r6 == 0) goto L28
-            return
-        L28:
-            if (r5 == 0) goto L2f
-            com.emanuelef.remote_capture.Utils$UriStat r4 = com.emanuelef.remote_capture.Utils.getUriStat(r3, r4)
-            goto L30
-        L2f:
-            r4 = 0
-        L30:
-            com.emanuelef.remote_capture.fragments.ConnectionsFragment$$ExternalSyntheticLambda6 r6 = new com.emanuelef.remote_capture.fragments.ConnectionsFragment$$ExternalSyntheticLambda6
-            r0 = 1
-            r6.<init>(r0, r3, r4, r5)
-            r7.post(r6)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.activities.HttpDetailsActivity.lambda$exportHar$5(android.net.Uri, com.emanuelef.remote_capture.HttpLog$HttpRequest, boolean[], android.os.Handler):void");
+    public /* synthetic */ void lambda$exportHar$5(Uri uri, HttpLog.HttpRequest httpRequest, boolean[] zArr, Handler handler) {
+        boolean z;
+        Utils.UriStat uriStat;
+        OutputStream openOutputStream;
+        try {
+            openOutputStream = getContentResolver().openOutputStream(uri, "rwt");
+        } catch (IOException e) {
+            if (!zArr[0]) {
+                e.printStackTrace();
+            }
+        }
+        if (openOutputStream != null) {
+            new HarWriter(this, httpRequest).write(openOutputStream);
+            openOutputStream.close();
+            z = true;
+            if (zArr[0]) {
+                if (z) {
+                    uriStat = Utils.getUriStat(this, uri);
+                } else {
+                    uriStat = null;
+                }
+                handler.post(new ConnectionsFragment$$ExternalSyntheticLambda6(1, this, uriStat, z));
+                return;
+            }
+            return;
+        }
+        z = false;
+        if (zArr[0]) {
+        }
     }
 
     public /* synthetic */ void lambda$setupTabs$0(TabLayout.Tab tab, int i) {
@@ -274,7 +267,7 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
             HttpLog.HttpRequest request = httpLog.getRequest(this.mReqPos);
             this.mHttpReq = request;
             if (request != null) {
-                setTitle(String.format(getString(R.string.http_request_number), Integer.valueOf(this.mReqPos + 1)));
+                setTitle(String.format(getString(C0130R.string.http_request_number), Integer.valueOf(this.mReqPos + 1)));
                 this.mHasWebsocket = this.mHttpReq.hasWebsocketData();
                 int currentItem = this.mPager.getCurrentItem();
                 setupTabs();
@@ -287,7 +280,7 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
                 updateMenuVisibility();
                 return;
             }
-            Log.w(TAG, "HTTP request with position " + this.mReqPos + " not found");
+            Log.m581w(TAG, "HTTP request with position " + this.mReqPos + " not found");
         }
     }
 
@@ -348,21 +341,21 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
                 } catch (ActivityNotFoundException unused) {
                 }
             }
-            Log.d(TAG, "No app found to handle file selection");
+            Log.m587d(TAG, "No app found to handle file selection");
             Uri downloadsUri = Utils.getDownloadsUri(this, exportFileName);
             if (downloadsUri != null) {
                 this.mHarFname = downloadsUri;
                 exportHar();
                 return;
             }
-            Utils.showToastLong(this, R.string.no_activity_file_selection, new Object[0]);
+            Utils.showToastLong(this, C0130R.string.no_activity_file_selection, new Object[0]);
         }
     }
 
     private void registerConnsListener() {
         ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
         if (connsRegister != null && !this.mListenerSet && this.mHttpReq.conn.status < 3) {
-            Log.d(TAG, "Adding connections listener");
+            Log.m587d(TAG, "Adding connections listener");
             connsRegister.addListener(this);
             this.mListenerSet = true;
         }
@@ -373,7 +366,7 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
         StateAdapter stateAdapter = new StateAdapter(this);
         this.mPagerAdapter = stateAdapter;
         this.mPager.setAdapter(stateAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        TabLayout tabLayout = (TabLayout) findViewById(C0130R.C0132id.tablayout);
         Utils.fixScrollableTabLayoutInsets(tabLayout);
         new zzw(tabLayout, this.mPager, new HttpDetailsActivity$$ExternalSyntheticLambda0(this)).attach();
         ViewPager2 viewPager2 = this.mPager;
@@ -393,7 +386,7 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
         if (this.mListenerSet) {
             ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
             if (connsRegister != null) {
-                Log.d(TAG, "Removing connections listener");
+                Log.m587d(TAG, "Removing connections listener");
                 connsRegister.removeListener(this);
             }
             this.mListenerSet = false;
@@ -457,85 +450,35 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     private void updateNavigationButtons() {
-        /*
-            r5 = this;
-            android.view.MenuItem r0 = r5.mMenuPrev
-            if (r0 == 0) goto L72
-            android.view.MenuItem r0 = r5.mMenuNext
-            if (r0 != 0) goto La
-            goto L72
-        La:
-            java.util.ArrayList<java.lang.Integer> r0 = r5.mFilteredPositions
-            r1 = 0
-            r2 = 1
-            if (r0 == 0) goto L20
-            int r3 = r5.mFilteredIndex
-            if (r3 <= 0) goto L16
-            r4 = 1
-            goto L17
-        L16:
-            r4 = 0
-        L17:
-            int r0 = r0.size()
-            int r0 = r0 - r2
-            if (r3 >= r0) goto L37
-        L1e:
-            r1 = 1
-            goto L37
-        L20:
-            com.emanuelef.remote_capture.HttpLog r0 = com.emanuelef.remote_capture.CaptureService.getHttpLog()
-            if (r0 == 0) goto L2b
-            int r0 = r0.getSize()
-            goto L2c
-        L2b:
-            r0 = 0
-        L2c:
-            int r3 = r5.mReqPos
-            if (r3 <= 0) goto L32
-            r4 = 1
-            goto L33
-        L32:
-            r4 = 0
-        L33:
-            int r0 = r0 - r2
-            if (r3 >= r0) goto L37
-            goto L1e
-        L37:
-            android.view.MenuItem r0 = r5.mMenuPrev
-            r0.setEnabled(r4)
-            android.view.MenuItem r0 = r5.mMenuPrev
-            android.graphics.drawable.Drawable r0 = r0.getIcon()
-            r2 = 80
-            r3 = 255(0xff, float:3.57E-43)
-            if (r0 == 0) goto L58
-            android.view.MenuItem r0 = r5.mMenuPrev
-            android.graphics.drawable.Drawable r0 = r0.getIcon()
-            if (r4 == 0) goto L53
-            r4 = 255(0xff, float:3.57E-43)
-            goto L55
-        L53:
-            r4 = 80
-        L55:
-            r0.setAlpha(r4)
-        L58:
-            android.view.MenuItem r0 = r5.mMenuNext
-            r0.setEnabled(r1)
-            android.view.MenuItem r0 = r5.mMenuNext
-            android.graphics.drawable.Drawable r0 = r0.getIcon()
-            if (r0 == 0) goto L72
-            android.view.MenuItem r0 = r5.mMenuNext
-            android.graphics.drawable.Drawable r0 = r0.getIcon()
-            if (r1 == 0) goto L6f
-            r2 = 255(0xff, float:3.57E-43)
-        L6f:
-            r0.setAlpha(r2)
-        L72:
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.activities.HttpDetailsActivity.updateNavigationButtons():void");
+        boolean z;
+        int i;
+        if (this.mMenuPrev != null && this.mMenuNext != null) {
+            ArrayList<Integer> arrayList = this.mFilteredPositions;
+            boolean z2 = false;
+            if (arrayList != null) {
+                int i2 = this.mFilteredIndex;
+                if (i2 > 0) {
+                    z = true;
+                } else {
+                    z = false;
+                }
+            } else {
+                HttpLog httpLog = CaptureService.getHttpLog();
+                if (httpLog != null) {
+                    i = httpLog.getSize();
+                } else {
+                    i = 0;
+                }
+                int i3 = this.mReqPos;
+                if (i3 > 0) {
+                    z = true;
+                } else {
+                    z = false;
+                }
+            }
+        }
     }
 
     @Override // com.emanuelef.remote_capture.interfaces.PayloadHostActivity
@@ -573,7 +516,7 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         displayBackAction();
-        setContentView(R.layout.tabs_activity_fixed);
+        setContentView(C0130R.layout.tabs_activity_fixed);
         this.mReqPos = getIntent().getIntExtra(HTTP_REQ_POS_KEY, -1);
         ArrayList<Integer> integerArrayListExtra = getIntent().getIntegerArrayListExtra(FILTERED_POSITIONS_KEY);
         this.mFilteredPositions = integerArrayListExtra;
@@ -590,26 +533,26 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
                     i++;
                 }
             }
-            Log.d(TAG, "Using filtered navigation: " + this.mFilteredPositions.size() + " items, index=" + this.mFilteredIndex);
+            Log.m587d(TAG, "Using filtered navigation: " + this.mFilteredPositions.size() + " items, index=" + this.mFilteredIndex);
         }
         if (this.mReqPos != -1) {
-            setTitle(String.format(getString(R.string.http_request_number), Integer.valueOf(this.mReqPos + 1)));
+            setTitle(String.format(getString(C0130R.string.http_request_number), Integer.valueOf(this.mReqPos + 1)));
             HttpLog httpLog = CaptureService.getHttpLog();
             if (httpLog != null) {
                 this.mHttpReq = httpLog.getRequest(this.mReqPos);
             }
         } else {
-            setTitle(R.string.http_requests);
+            setTitle(C0130R.string.http_requests);
         }
         HttpLog.HttpRequest httpRequest = this.mHttpReq;
         if (httpRequest == null) {
-            Log.w(TAG, "HTTP request with position " + this.mReqPos + " not found");
+            Log.m581w(TAG, "HTTP request with position " + this.mReqPos + " not found");
             finish();
             return;
         }
         this.mHasWebsocket = httpRequest.hasWebsocketData();
         this.mHandler = new Handler(Looper.getMainLooper());
-        ViewPager2 viewPager2 = (ViewPager2) findViewById(R.id.pager);
+        ViewPager2 viewPager2 = (ViewPager2) findViewById(C0130R.C0132id.pager);
         this.mPager = viewPager2;
         Utils.fixViewPager2Insets(viewPager2);
         setupTabs();
@@ -617,10 +560,10 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
 
     @Override // android.app.Activity
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.http_details_menu, menu);
-        this.mMenuPrev = menu.findItem(R.id.navigate_before);
-        this.mMenuNext = menu.findItem(R.id.navigate_next);
-        this.mMenuDisplayAs = menu.findItem(R.id.display_as);
+        getMenuInflater().inflate(C0130R.C0134menu.http_details_menu, menu);
+        this.mMenuPrev = menu.findItem(C0130R.C0132id.navigate_before);
+        this.mMenuNext = menu.findItem(C0130R.C0132id.navigate_next);
+        this.mMenuDisplayAs = menu.findItem(C0130R.C0132id.display_as);
         updateNavigationButtons();
         updateMenuVisibility();
         return true;
@@ -638,20 +581,20 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, android.app.Activity
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.navigate_before) {
+        if (itemId == C0130R.C0132id.navigate_before) {
             navigateToPrevious();
             return true;
-        } else if (itemId == R.id.navigate_next) {
+        } else if (itemId == C0130R.C0132id.navigate_next) {
             navigateToNext();
             return true;
-        } else if (itemId == R.id.display_as) {
+        } else if (itemId == C0130R.C0132id.display_as) {
             Boolean bool = this.mDisplayMode;
             if (bool != null) {
                 this.mDisplayMode = Boolean.valueOf(!bool.booleanValue());
                 updateMenuVisibility();
             }
             return true;
-        } else if (itemId != R.id.save_as_har) {
+        } else if (itemId != C0130R.C0132id.save_as_har) {
             return super.onOptionsItemSelected(menuItem);
         } else {
             openHarFileSelector();
@@ -689,9 +632,9 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
                 }
                 httpPayloadFragment.setDisplayMode(this.mDisplayMode.booleanValue());
                 if (this.mDisplayMode.booleanValue()) {
-                    this.mMenuDisplayAs.setTitle(R.string.display_as_hexdump);
+                    this.mMenuDisplayAs.setTitle(C0130R.string.display_as_hexdump);
                 } else {
-                    this.mMenuDisplayAs.setTitle(R.string.display_as_text);
+                    this.mMenuDisplayAs.setTitle(C0130R.string.display_as_text);
                 }
             } else if (currentFragment instanceof ConnectionPayload) {
                 ConnectionPayload connectionPayload = (ConnectionPayload) currentFragment;
@@ -700,9 +643,9 @@ public class HttpDetailsActivity extends PayloadExportActivity implements Connec
                 }
                 connectionPayload.setDisplayMode(this.mDisplayMode.booleanValue());
                 if (this.mDisplayMode.booleanValue()) {
-                    this.mMenuDisplayAs.setTitle(R.string.display_as_hexdump);
+                    this.mMenuDisplayAs.setTitle(C0130R.string.display_as_hexdump);
                 } else {
-                    this.mMenuDisplayAs.setTitle(R.string.display_as_text);
+                    this.mMenuDisplayAs.setTitle(C0130R.string.display_as_text);
                 }
             }
         }

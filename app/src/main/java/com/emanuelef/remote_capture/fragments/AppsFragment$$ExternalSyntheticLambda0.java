@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.widget.Toast;
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cat.ereza.customactivityoncrash.activity.DefaultErrorActivity;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.activities.prefs.EditCtrlPermissions;
 import com.emanuelef.remote_capture.activities.prefs.SettingsActivity;
 /* loaded from: classes.dex */
@@ -33,8 +33,8 @@ public final /* synthetic */ class AppsFragment$$ExternalSyntheticLambda0 implem
                 String allErrorDetailsFromIntent = CustomActivityOnCrash.getAllErrorDetailsFromIntent(defaultErrorActivity, defaultErrorActivity.getIntent());
                 ClipboardManager clipboardManager = (ClipboardManager) defaultErrorActivity.getSystemService("clipboard");
                 if (clipboardManager != null) {
-                    clipboardManager.setPrimaryClip(ClipData.newPlainText(defaultErrorActivity.getString(R.string.customactivityoncrash_error_activity_error_details_clipboard_label), allErrorDetailsFromIntent));
-                    Toast.makeText(defaultErrorActivity, (int) R.string.customactivityoncrash_error_activity_error_details_copied, 0).show();
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(defaultErrorActivity.getString(C0130R.string.customactivityoncrash_error_activity_error_details_clipboard_label), allErrorDetailsFromIntent));
+                    Toast.makeText(defaultErrorActivity, (int) C0130R.string.customactivityoncrash_error_activity_error_details_copied, 0).show();
                     return;
                 }
                 return;

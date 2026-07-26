@@ -1,8 +1,8 @@
 package com.google.android.datatransport.runtime.firebase.transport;
 
-import j$.util.DesugarCollections;
 import java.util.ArrayList;
 import java.util.List;
+import p004j$.util.DesugarCollections;
 /* loaded from: classes.dex */
 public final class ClientMetrics {
     public static final /* synthetic */ int $r8$clinit = 0;

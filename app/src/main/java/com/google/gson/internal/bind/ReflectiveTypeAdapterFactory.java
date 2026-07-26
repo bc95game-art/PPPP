@@ -39,9 +39,9 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
     public final JsonAdapterAnnotationTypeAdapterFactory jsonAdapterFactory;
     public final List reflectionFilters;
 
-    /* renamed from: com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$2  reason: invalid class name */
+    /* renamed from: com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$2 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass2 {
+    public final class C02432 {
         public final Field field;
         public final String fieldName;
         public final String serializedName;
@@ -51,7 +51,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
         public final /* synthetic */ TypeAdapter val$typeAdapter;
         public final /* synthetic */ TypeAdapter val$writeTypeAdapter;
 
-        public AnonymousClass2(String str, Field field, Method method, TypeAdapter typeAdapter, TypeAdapter typeAdapter2, boolean z, boolean z2) {
+        public C02432(String str, Field field, Method method, TypeAdapter typeAdapter, TypeAdapter typeAdapter2, boolean z, boolean z2) {
             this.val$accessor = method;
             this.val$writeTypeAdapter = typeAdapter;
             this.val$typeAdapter = typeAdapter2;
@@ -69,7 +69,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
                 try {
                     obj2 = method.invoke(obj, null);
                 } catch (InvocationTargetException e) {
-                    throw new RuntimeException(ViewModelProvider.Factory.CC.m("Accessor ", ReflectionHelper.getAccessibleObjectDescription(method, false), " threw exception"), e.getCause());
+                    throw new RuntimeException(ViewModelProvider.Factory.CC.m595m("Accessor ", ReflectionHelper.getAccessibleObjectDescription(method, false), " threw exception"), e.getCause());
                 }
             } else {
                 obj2 = this.field.get(obj);
@@ -104,7 +104,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
             try {
                 jsonReader.beginObject();
                 while (jsonReader.hasNext()) {
-                    AnonymousClass2 r2 = (AnonymousClass2) map.get(jsonReader.nextName());
+                    C02432 r2 = (C02432) map.get(jsonReader.nextName());
                     if (r2 == null) {
                         jsonReader.skipValue();
                     } else {
@@ -121,7 +121,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
             }
         }
 
-        public abstract void readField(Object obj, JsonReader jsonReader, AnonymousClass2 r3);
+        public abstract void readField(Object obj, JsonReader jsonReader, C02432 r3);
 
         @Override // com.google.gson.TypeAdapter
         public final void write(JsonWriter jsonWriter, Object obj) {
@@ -131,7 +131,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
             }
             jsonWriter.beginObject();
             try {
-                for (AnonymousClass2 r1 : this.fieldsData.serializedFields) {
+                for (C02432 r1 : this.fieldsData.serializedFields) {
                     r1.write(jsonWriter, obj);
                 }
                 jsonWriter.endObject();
@@ -162,7 +162,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
         }
 
         @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter
-        public final void readField(Object obj, JsonReader jsonReader, AnonymousClass2 r5) {
+        public final void readField(Object obj, JsonReader jsonReader, C02432 r5) {
             Field field = r5.field;
             Object read = r5.val$typeAdapter.read(jsonReader);
             if (read == null && r5.val$isPrimitive) {
@@ -253,7 +253,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
         }
 
         @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter
-        public final void readField(Object obj, JsonReader jsonReader, AnonymousClass2 r6) {
+        public final void readField(Object obj, JsonReader jsonReader, C02432 r6) {
             Object[] objArr = (Object[]) obj;
             String str = r6.fieldName;
             Integer num = (Integer) this.componentIndices.get(str);
@@ -264,7 +264,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
                     objArr[intValue] = read;
                     return;
                 }
-                StringBuilder m = ViewModelProvider.Factory.CC.m15m("null is not allowed as value for record component '", str, "' of primitive type; at path ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m594m("null is not allowed as value for record component '", str, "' of primitive type; at path ");
                 m.append(jsonReader.getPath(false));
                 throw new RuntimeException(m.toString());
             }
@@ -292,7 +292,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
         }
         LazyKt__LazyJVMKt lazyKt__LazyJVMKt = ReflectionHelper.RECORD_HELPER;
         if (!Modifier.isStatic(rawType.getModifiers()) && (rawType.isAnonymousClass() || rawType.isLocalClass())) {
-            return new Gson.AnonymousClass1(2);
+            return new Gson.C02271(2);
         }
         Streams.getFilterResult(this.reflectionFilters);
         if (ReflectionHelper.RECORD_HELPER.isRecord(rawType)) {
@@ -315,7 +315,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
         TypeAdapter typeAdapter;
         boolean z5;
         TypeAdapter typeAdapter2;
-        AnonymousClass2 r2;
+        C02432 r2;
         TypeAdapter typeAdapter3;
         if (cls.isInterface()) {
             return FieldsData.EMPTY;
@@ -350,7 +350,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
                             z2 = includeField2;
                             method = accessor;
                         } else {
-                            throw new RuntimeException(ViewModelProvider.Factory.CC.m("@SerializedName on ", ReflectionHelper.getAccessibleObjectDescription(accessor, z6), " is not supported"));
+                            throw new RuntimeException(ViewModelProvider.Factory.CC.m595m("@SerializedName on ", ReflectionHelper.getAccessibleObjectDescription(accessor, z6), " is not supported"));
                         }
                     }
                     if (method == null) {
@@ -420,18 +420,18 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
                     } else {
                         typeAdapter2 = typeAdapter;
                     }
-                    AnonymousClass2 r16 = new AnonymousClass2(str2, field, method, typeAdapter2, typeAdapter, z3, z4);
+                    C02432 r16 = new C02432(str2, field, method, typeAdapter2, typeAdapter, z3, z4);
                     Field field3 = field;
                     if (z2) {
                         for (String str3 : list2) {
-                            AnonymousClass2 r14 = (AnonymousClass2) linkedHashMap.put(str3, r16);
+                            C02432 r14 = (C02432) linkedHashMap.put(str3, r16);
                             if (r14 != null) {
                                 createDuplicateFieldException(cls, str3, r14.field, field3);
                                 throw null;
                             }
                         }
                     }
-                    if (includeField && (r2 = (AnonymousClass2) linkedHashMap2.put(str2, r16)) != null) {
+                    if (includeField && (r2 = (C02432) linkedHashMap2.put(str2, r16)) != null) {
                         createDuplicateFieldException(cls, str2, r2.field, field3);
                         throw null;
                     }
@@ -459,7 +459,7 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
             if (!list.isEmpty()) {
                 Iterator it = list.iterator();
                 if (it.hasNext()) {
-                    throw ViewModelProvider.Factory.CC.m(it);
+                    throw ViewModelProvider.Factory.CC.m592m(it);
                 }
             }
             z2 = false;

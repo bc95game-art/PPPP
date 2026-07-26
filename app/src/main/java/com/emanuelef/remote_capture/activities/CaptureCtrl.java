@@ -24,13 +24,13 @@ import androidx.preference.PreferenceManager;
 import com.emanuelef.remote_capture.AppsResolver;
 import com.emanuelef.remote_capture.Billing;
 import com.emanuelef.remote_capture.BuildConfig;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureHelper;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
 import com.emanuelef.remote_capture.PersistableUriPermission;
 import com.emanuelef.remote_capture.PlayBilling;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.model.AppDescriptor;
 import com.emanuelef.remote_capture.model.CaptureSettings;
@@ -54,7 +54,7 @@ public class CaptureCtrl extends AppCompatActivity {
 
     private void abort(boolean z) {
         if (z) {
-            Utils.showToast(this, R.string.ctrl_consent_denied, new Object[0]);
+            Utils.showToast(this, C0130R.string.ctrl_consent_denied, new Object[0]);
         }
         setResult(0, null);
         finish();
@@ -76,7 +76,7 @@ public class CaptureCtrl extends AppCompatActivity {
         String str2;
         CtrlPermissions.ConsentType consentType;
         AppDescriptor callingApp = getCallingApp();
-        if (callingApp != null && ((RadioButton) findViewById(R.id.choice_forever)).isChecked()) {
+        if (callingApp != null && ((RadioButton) findViewById(C0130R.C0132id.choice_forever)).isChecked()) {
             StringBuilder sb = new StringBuilder();
             if (z) {
                 str2 = "Grant";
@@ -86,7 +86,7 @@ public class CaptureCtrl extends AppCompatActivity {
             sb.append(str2);
             sb.append(" forever to ");
             sb.append(callingApp.getPackageName());
-            Log.d(TAG, sb.toString());
+            Log.m587d(TAG, sb.toString());
             CtrlPermissions ctrlPermissions = this.mPermissions;
             String packageName = callingApp.getPackageName();
             if (z) {
@@ -114,7 +114,7 @@ public class CaptureCtrl extends AppCompatActivity {
     private void getPeerInfo() {
         String callingPackage = getCallingPackage();
         if (callingPackage == null || !callingPackage.equals("com.emanuelef.remote_capture.debug")) {
-            Log.w(TAG, "getPeerInfo: package name mismatch");
+            Log.m581w(TAG, "getPeerInfo: package name mismatch");
             abort(false);
             return;
         }
@@ -160,13 +160,13 @@ public class CaptureCtrl extends AppCompatActivity {
     }
 
     public /* synthetic */ void lambda$onCreate$3() {
-        Button button = (Button) findViewById(R.id.allow_btn);
+        Button button = (Button) findViewById(C0130R.C0132id.allow_btn);
         button.setTextColor(-16737844);
         button.setEnabled(true);
     }
 
     public /* synthetic */ void lambda$processRequest$4(CaptureSettings captureSettings, Uri uri) {
-        Log.d(TAG, "persistable uri granted? " + uri);
+        Log.m587d(TAG, "persistable uri granted? " + uri);
         if (uri != null) {
             captureSettings.pcap_uri = uri.toString();
             this.mCapHelper.startCapture(captureSettings);
@@ -177,10 +177,10 @@ public class CaptureCtrl extends AppCompatActivity {
 
     public static void notifyCaptureStopped(Context context, CaptureStats captureStats) {
         if (captureStats != null) {
-            Log.d(TAG, "notifyCaptureStopped: " + (captureStats.pkts_sent + captureStats.pkts_rcvd) + " pkts");
+            Log.m587d(TAG, "notifyCaptureStopped: " + (captureStats.pkts_sent + captureStats.pkts_rcvd) + " pkts");
         }
         if (!(mStarterApp == null || mReceiverClass == null)) {
-            Log.d(TAG, "Notifying receiver");
+            Log.m587d(TAG, "Notifying receiver");
             Intent intent = new Intent(ACTION_NOTIFY_STATUS);
             intent.putExtra("running", false);
             if (captureStats != null) {
@@ -199,15 +199,15 @@ public class CaptureCtrl extends AppCompatActivity {
 
     private void processRequest(Intent intent, String str) {
         Intent intent2 = new Intent();
-        Utils.showToast(this, R.string.ctrl_consent_allowed, new Object[0]);
+        Utils.showToast(this, C0130R.string.ctrl_consent_allowed, new Object[0]);
         if (str.equals(ACTION_START)) {
             mStarterApp = getCallingApp();
             mReceiverClass = intent.getStringExtra("broadcast_receiver");
-            Log.d(TAG, "Starting capture, caller=" + mStarterApp);
+            Log.m587d(TAG, "Starting capture, caller=" + mStarterApp);
             CaptureSettings captureSettings = new CaptureSettings(this, intent);
             String checkRemoteServerNotAllowed = checkRemoteServerNotAllowed(captureSettings);
             if (checkRemoteServerNotAllowed != null) {
-                Utils.showToastLong(this, R.string.remote_server_warning, checkRemoteServerNotAllowed);
+                Utils.showToastLong(this, C0130R.string.remote_server_warning, checkRemoteServerNotAllowed);
                 abort();
                 return;
             }
@@ -219,19 +219,19 @@ public class CaptureCtrl extends AppCompatActivity {
             }
         } else {
             if (str.equals(ACTION_STOP)) {
-                Log.d(TAG, "Stopping capture");
+                Log.m587d(TAG, "Stopping capture");
                 CaptureService.stopService();
                 mStarterApp = null;
                 CaptureService.waitForCaptureStop();
                 putStats(intent2, CaptureService.getStats());
             } else if (str.equals(ACTION_STATUS)) {
-                Log.d(TAG, "Returning status");
+                Log.m587d(TAG, "Returning status");
                 intent2.putExtra("running", CaptureService.isServiceActive());
                 intent2.putExtra("version_name", BuildConfig.VERSION_NAME);
                 intent2.putExtra("version_code", 91);
                 putStats(intent2, CaptureService.getStats());
             } else {
-                Log.e(TAG, "unknown action: ".concat(str));
+                Log.m585e(TAG, "unknown action: ".concat(str));
                 abort();
                 return;
             }
@@ -260,7 +260,7 @@ public class CaptureCtrl extends AppCompatActivity {
     @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         requestWindowFeature(1);
-        setContentView(R.layout.ctrl_consent);
+        setContentView(C0130R.layout.ctrl_consent);
         this.persistableUriPermission = new PersistableUriPermission(this);
         if (Build.VERSION.SDK_INT >= 30) {
             WindowInsetsController insetsController = getWindow().getInsetsController();
@@ -279,7 +279,7 @@ public class CaptureCtrl extends AppCompatActivity {
         final String stringExtra = intent.getStringExtra("action");
         String stringExtra2 = intent.getStringExtra(Prefs.PREF_API_KEY);
         if (stringExtra == null) {
-            Log.e(TAG, "no action provided");
+            Log.m585e(TAG, "no action provided");
             abort();
         } else if (stringExtra.equals(ACTION_PEER_INFO)) {
             getPeerInfo();
@@ -307,7 +307,7 @@ public class CaptureCtrl extends AppCompatActivity {
                 processRequest(intent, stringExtra);
                 return;
             }
-            findViewById(R.id.allow_btn).setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.CaptureCtrl$$ExternalSyntheticLambda2
+            findViewById(C0130R.C0132id.allow_btn).setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.CaptureCtrl$$ExternalSyntheticLambda2
                 public final /* synthetic */ CaptureCtrl f$0;
 
                 {
@@ -326,7 +326,7 @@ public class CaptureCtrl extends AppCompatActivity {
                     }
                 }
             });
-            findViewById(R.id.deny_btn).setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.CaptureCtrl$$ExternalSyntheticLambda2
+            findViewById(C0130R.C0132id.deny_btn).setOnClickListener(new View.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.CaptureCtrl$$ExternalSyntheticLambda2
                 public final /* synthetic */ CaptureCtrl f$0;
 
                 {
@@ -346,11 +346,11 @@ public class CaptureCtrl extends AppCompatActivity {
                 }
             });
             if (callingApp != null) {
-                ((TextView) findViewById(R.id.app_name)).setText(callingApp.getName());
-                ((TextView) findViewById(R.id.app_package)).setText(callingApp.getPackageName());
-                ((ImageView) findViewById(R.id.app_icon)).setImageDrawable(callingApp.getIcon());
+                ((TextView) findViewById(C0130R.C0132id.app_name)).setText(callingApp.getName());
+                ((TextView) findViewById(C0130R.C0132id.app_package)).setText(callingApp.getPackageName());
+                ((ImageView) findViewById(C0130R.C0132id.app_icon)).setImageDrawable(callingApp.getIcon());
             } else {
-                findViewById(R.id.caller_app).setVisibility(8);
+                findViewById(C0130R.C0132id.caller_app).setVisibility(8);
             }
             new Handler(Looper.getMainLooper()).postDelayed(new ActivityCompat$$ExternalSyntheticLambda0(7, this), 1500L);
         }

@@ -123,7 +123,7 @@ public class Blacklists {
         if (listFiles != null) {
             for (File file3 : listFiles) {
                 if (!arraySet.contains(file3)) {
-                    Log.i(TAG, "Removing unknown list: " + file3.getPath());
+                    Log.m583i(TAG, "Removing unknown list: " + file3.getPath());
                     file3.delete();
                 }
             }
@@ -263,7 +263,7 @@ public class Blacklists {
                 }
                 i++;
             } else {
-                Log.w(TAG, "Loaded unknown blacklist " + nativeBlacklistStatus.fname);
+                Log.m581w(TAG, "Loaded unknown blacklist " + nativeBlacklistStatus.fname);
             }
         }
         ArrayList<BlacklistDescriptor> arrayList = this.mLists;
@@ -274,11 +274,11 @@ public class Blacklists {
             i5++;
             BlacklistDescriptor blacklistDescriptor3 = blacklistDescriptor2;
             if (!arraySet.contains(blacklistDescriptor3.fname)) {
-                Log.w(TAG, "Blacklist not loaded: " + blacklistDescriptor3.fname);
+                Log.m581w(TAG, "Blacklist not loaded: " + blacklistDescriptor3.fname);
                 blacklistDescriptor3.loaded = false;
             }
         }
-        Log.i(TAG, "Blacklists loaded: " + i + " lists, " + i2 + " domains, " + i3 + " IPs");
+        Log.m583i(TAG, "Blacklists loaded: " + i + " lists, " + i2 + " domains, " + i3 + " IPs");
         this.mNumDomainRules = i2;
         this.mNumIPRules = i3;
         this.mUpdateInProgress = false;
@@ -312,7 +312,7 @@ public class Blacklists {
             blacklistDescriptor.setUpdating();
         }
         notifyListeners();
-        Log.i(TAG, "Updating " + this.mLists.size() + " blacklists...");
+        Log.m583i(TAG, "Updating " + this.mLists.size() + " blacklists...");
         ArrayList<BlacklistDescriptor> arrayList2 = this.mLists;
         int size2 = arrayList2.size();
         while (true) {
@@ -323,10 +323,10 @@ public class Blacklists {
             i++;
             BlacklistDescriptor blacklistDescriptor3 = blacklistDescriptor2;
             if (this.mStopRequest) {
-                Log.i(TAG, "Stop request received, abort");
+                Log.m583i(TAG, "Stop request received, abort");
                 break;
             }
-            Log.i(TAG, "\tupdating " + blacklistDescriptor3.fname + "...");
+            Log.m583i(TAG, "\tupdating " + blacklistDescriptor3.fname + "...");
             if (Utils.downloadFile(blacklistDescriptor3.url, getListPath(blacklistDescriptor3))) {
                 blacklistDescriptor3.setUpdated(System.currentTimeMillis());
             } else {

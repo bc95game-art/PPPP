@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.Transition;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import java.util.Locale;
 /* loaded from: classes.dex */
 public final class YearGridAdapter extends RecyclerView.Adapter {
@@ -41,22 +41,22 @@ public final class YearGridAdapter extends RecyclerView.Adapter {
         TextView textView = viewHolder2.textView;
         Context context = textView.getContext();
         if (UtcDates.getTodayCalendar().get(1) == i2) {
-            str = String.format(context.getString(R.string.mtrl_picker_navigate_to_current_year_description), Integer.valueOf(i2));
+            str = String.format(context.getString(C0130R.string.mtrl_picker_navigate_to_current_year_description), Integer.valueOf(i2));
         } else {
-            str = String.format(context.getString(R.string.mtrl_picker_navigate_to_year_description), Integer.valueOf(i2));
+            str = String.format(context.getString(C0130R.string.mtrl_picker_navigate_to_year_description), Integer.valueOf(i2));
         }
         textView.setContentDescription(str);
         CalendarStyle calendarStyle = materialCalendar.calendarStyle;
         if (UtcDates.getTodayCalendar().get(1) == i2) {
-            Transition.AnonymousClass1 r8 = calendarStyle.todayYear;
+            Transition.C01101 r8 = calendarStyle.todayYear;
         } else {
-            Transition.AnonymousClass1 r82 = calendarStyle.year;
+            Transition.C01101 r82 = calendarStyle.year;
         }
         throw null;
     }
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new ViewHolder((TextView) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.mtrl_calendar_year, viewGroup, false));
+        return new ViewHolder((TextView) LayoutInflater.from(viewGroup.getContext()).inflate(C0130R.layout.mtrl_calendar_year, viewGroup, false));
     }
 }

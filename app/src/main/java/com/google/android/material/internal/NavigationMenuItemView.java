@@ -20,15 +20,15 @@ import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.TextViewCompat;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.datepicker.MaterialCalendar;
 /* loaded from: classes.dex */
 public class NavigationMenuItemView extends ForegroundLinearLayout implements MenuView.ItemView {
     public static final int[] CHECKED_STATE_SET = {16842912};
-    public final MaterialCalendar.AnonymousClass6 accessibilityDelegate;
+    public final MaterialCalendar.C01796 accessibilityDelegate;
     public FrameLayout actionArea;
     public boolean checkable;
     public Drawable emptyDrawable;
@@ -42,12 +42,12 @@ public class NavigationMenuItemView extends ForegroundLinearLayout implements Me
 
     public NavigationMenuItemView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        MaterialCalendar.AnonymousClass6 r0 = new MaterialCalendar.AnonymousClass6(4, this);
+        MaterialCalendar.C01796 r0 = new MaterialCalendar.C01796(4, this);
         this.accessibilityDelegate = r0;
         setOrientation(0);
-        LayoutInflater.from(context).inflate(R.layout.design_navigation_menu_item, (ViewGroup) this, true);
-        setIconSize(context.getResources().getDimensionPixelSize(R.dimen.design_navigation_icon_size));
-        CheckedTextView checkedTextView = (CheckedTextView) findViewById(R.id.design_menu_item_text);
+        LayoutInflater.from(context).inflate(C0130R.layout.design_navigation_menu_item, (ViewGroup) this, true);
+        setIconSize(context.getResources().getDimensionPixelSize(C0130R.dimen.design_navigation_icon_size));
+        CheckedTextView checkedTextView = (CheckedTextView) findViewById(C0130R.C0132id.design_menu_item_text);
         this.textView = checkedTextView;
         ViewCompat.setAccessibilityDelegate(checkedTextView, r0);
     }
@@ -55,7 +55,7 @@ public class NavigationMenuItemView extends ForegroundLinearLayout implements Me
     private void setActionView(View view) {
         if (view != null) {
             if (this.actionArea == null) {
-                this.actionArea = (FrameLayout) ((ViewStub) findViewById(R.id.design_menu_item_action_area_stub)).inflate();
+                this.actionArea = (FrameLayout) ((ViewStub) findViewById(C0130R.C0132id.design_menu_item_action_area_stub)).inflate();
             }
             if (view.getParent() != null) {
                 ((ViewGroup) view.getParent()).removeView(view);
@@ -87,7 +87,7 @@ public class NavigationMenuItemView extends ForegroundLinearLayout implements Me
         setVisibility(i);
         if (getBackground() == null) {
             TypedValue typedValue = new TypedValue();
-            if (getContext().getTheme().resolveAttribute(R.attr.colorControlHighlight, typedValue, true)) {
+            if (getContext().getTheme().resolveAttribute(C0130R.attr.colorControlHighlight, typedValue, true)) {
                 stateListDrawable = new StateListDrawable();
                 stateListDrawable.addState(CHECKED_STATE_SET, new ColorDrawable(typedValue.data));
                 stateListDrawable.addState(ViewGroup.EMPTY_STATE_SET, new ColorDrawable(0));
@@ -180,7 +180,7 @@ public class NavigationMenuItemView extends ForegroundLinearLayout implements Me
                 Resources resources = getResources();
                 Resources.Theme theme = getContext().getTheme();
                 ThreadLocal threadLocal = ResourcesCompat.sTempTypedValue;
-                Drawable drawable2 = ResourcesCompat.Api21Impl.getDrawable(resources, R.drawable.navigation_empty_icon, theme);
+                Drawable drawable2 = ResourcesCompat.Api21Impl.getDrawable(resources, C0130R.C0131drawable.navigation_empty_icon, theme);
                 this.emptyDrawable = drawable2;
                 if (drawable2 != null) {
                     int i2 = this.iconSize;

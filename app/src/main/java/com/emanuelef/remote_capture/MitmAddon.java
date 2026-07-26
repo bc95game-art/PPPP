@@ -16,7 +16,7 @@ import android.os.Messenger;
 import android.os.ParcelFileDescriptor;
 import android.os.PowerManager;
 import android.os.RemoteException;
-import androidx.core.content.pm.PackageInfoCompat$Api28Impl;
+import androidx.core.content.p001pm.PackageInfoCompat$Api28Impl;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import com.emanuelef.remote_capture.interfaces.MitmListener;
@@ -33,21 +33,21 @@ public class MitmAddon {
     private final ServiceConnection mConnection = new ServiceConnection() { // from class: com.emanuelef.remote_capture.MitmAddon.1
         @Override // android.content.ServiceConnection
         public void onBindingDied(ComponentName componentName) {
-            Log.w(MitmAddon.TAG, "onBindingDied");
+            Log.m581w(MitmAddon.TAG, "onBindingDied");
             MitmAddon.this.disconnect();
             MitmAddon.this.mReceiver.onMitmServiceDisconnect();
         }
 
         @Override // android.content.ServiceConnection
         public void onNullBinding(ComponentName componentName) {
-            Log.w(MitmAddon.TAG, "onNullBinding");
+            Log.m581w(MitmAddon.TAG, "onNullBinding");
             MitmAddon.this.disconnect();
             MitmAddon.this.mReceiver.onMitmServiceDisconnect();
         }
 
         @Override // android.content.ServiceConnection
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            Log.i(MitmAddon.TAG, "Service connected");
+            Log.m583i(MitmAddon.TAG, "Service connected");
             MitmAddon.this.mService = new Messenger(iBinder);
             if (MitmAddon.this.mStopRequested) {
                 MitmAddon.this.stopProxy();
@@ -58,7 +58,7 @@ public class MitmAddon {
 
         @Override // android.content.ServiceConnection
         public void onServiceDisconnected(ComponentName componentName) {
-            Log.i(MitmAddon.TAG, "Service disconnected");
+            Log.m583i(MitmAddon.TAG, "Service disconnected");
             MitmAddon.this.disconnect();
             MitmAddon.this.mReceiver.onMitmServiceDisconnect();
         }
@@ -81,7 +81,7 @@ public class MitmAddon {
         @Override // android.os.Handler
         public void handleMessage(Message message) {
             String str;
-            Log.d(MitmAddon.TAG, "Message: " + message.what);
+            Log.m587d(MitmAddon.TAG, "Message: " + message.what);
             MitmListener mitmListener = this.mReceiver.get();
             if (mitmListener != null && message.what == 2) {
                 if (message.getData() != null) {
@@ -106,7 +106,7 @@ public class MitmAddon {
         sb.append("/PCAPdroid-mitm_v");
         sb.append(str);
         sb.append("_");
-        return ViewModelProvider.Factory.CC.m(sb, Build.SUPPORTED_ABIS[0], ".apk");
+        return ViewModelProvider.Factory.CC.m593m(sb, Build.SUPPORTED_ABIS[0], ".apk");
     }
 
     public static long getInstalledVersion(Context context) {
@@ -212,7 +212,7 @@ public class MitmAddon {
         try {
             this.mContext.unbindService(this.mConnection);
         } catch (IllegalArgumentException unused) {
-            Log.w(TAG, "unbindService failed");
+            Log.m581w(TAG, "unbindService failed");
         }
         this.mService = null;
         return false;
@@ -222,7 +222,7 @@ public class MitmAddon {
         if (this.mService == null) {
             return false;
         }
-        Log.i(TAG, "Send disable doze");
+        Log.m583i(TAG, "Send disable doze");
         try {
             this.mService.send(Message.obtain((Handler) null, 4));
             return true;
@@ -234,11 +234,11 @@ public class MitmAddon {
 
     public void disconnect() {
         if (this.mService != null) {
-            Log.i(TAG, "Unbinding service...");
+            Log.m583i(TAG, "Unbinding service...");
             try {
                 this.mContext.unbindService(this.mConnection);
             } catch (IllegalArgumentException unused) {
-                Log.w(TAG, "unbindService failed");
+                Log.m581w(TAG, "unbindService failed");
             }
             this.mService = null;
         }
@@ -253,7 +253,7 @@ public class MitmAddon {
 
     public boolean requestCaCertificate() {
         if (this.mService == null) {
-            Log.e(TAG, "Not connected");
+            Log.m585e(TAG, "Not connected");
             return false;
         }
         Message obtain = Message.obtain((Handler) null, 2);
@@ -269,7 +269,7 @@ public class MitmAddon {
 
     public ParcelFileDescriptor startProxy(MitmAPI.MitmConfig mitmConfig) {
         if (this.mService == null) {
-            Log.e(TAG, "Not connected");
+            Log.m585e(TAG, "Not connected");
             return null;
         }
         try {
@@ -296,11 +296,11 @@ public class MitmAddon {
 
     public boolean stopProxy() {
         if (this.mService == null) {
-            Log.i(TAG, "Not connected, postponing stop message");
+            Log.m583i(TAG, "Not connected, postponing stop message");
             this.mStopRequested = true;
             return true;
         }
-        Log.i(TAG, "Send stop message");
+        Log.m583i(TAG, "Send stop message");
         try {
             this.mService.send(Message.obtain((Handler) null, 3));
             this.mStopRequested = false;

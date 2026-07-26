@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 /* loaded from: classes.dex */
 public class PrefSpinnerAdapter extends BaseAdapter {
     static final /* synthetic */ boolean $assertionsDisabled = false;
@@ -69,11 +69,11 @@ public class PrefSpinnerAdapter extends BaseAdapter {
     @Override // android.widget.Adapter
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = this.mInflater.inflate(R.layout.quick_settings_item, viewGroup, false);
+            view = this.mInflater.inflate(C0130R.layout.quick_settings_item, viewGroup, false);
         }
         ModeInfo modeInfo = (ModeInfo) getItem(i);
-        ((TextView) view.findViewById(R.id.title)).setText(modeInfo.label);
-        ((TextView) view.findViewById(R.id.description)).setText(modeInfo.description);
+        ((TextView) view.findViewById(C0130R.C0132id.title)).setText(modeInfo.label);
+        ((TextView) view.findViewById(C0130R.C0132id.description)).setText(modeInfo.description);
         return view;
     }
 }

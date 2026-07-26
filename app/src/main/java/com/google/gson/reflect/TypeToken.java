@@ -3,7 +3,6 @@ package com.google.gson.reflect;
 import com.google.gson.internal.GsonTypes$GenericArrayTypeImpl;
 import com.google.gson.internal.GsonTypes$ParameterizedTypeImpl;
 import com.google.gson.internal.Streams;
-import j$.util.Objects;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -11,6 +10,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.HashMap;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class TypeToken<T> {
     private final int hashCode;

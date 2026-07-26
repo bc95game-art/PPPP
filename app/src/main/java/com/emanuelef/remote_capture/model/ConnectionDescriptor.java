@@ -3,11 +3,12 @@ package com.emanuelef.remote_capture.model;
 import android.content.Context;
 import androidx.core.view.inputmethod.InputConnectionCompat$$ExternalSyntheticLambda0;
 import com.emanuelef.remote_capture.AppsResolver;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.HTTPReassembly;
 import com.emanuelef.remote_capture.HttpLog;
+import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.fragments.LogviewFragment;
 import com.emanuelef.remote_capture.model.Geomodel;
 import com.emanuelef.remote_capture.model.PayloadChunk;
@@ -16,6 +17,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicReference;
 /* loaded from: classes.dex */
@@ -126,7 +128,7 @@ public class ConnectionDescriptor implements HTTPReassembly.ReassemblyListener {
 
     public static String getDecryptionStatusLabel(DecryptionStatus decryptionStatus, Context context) {
         int ordinal = decryptionStatus.ordinal();
-        return context.getString(ordinal != 1 ? ordinal != 2 ? ordinal != 3 ? ordinal != 4 ? ordinal != 5 ? R.string.error : R.string.waiting_application_data : R.string.not_decryptable : R.string.decrypted : R.string.not_encrypted : R.string.status_encrypted);
+        return context.getString(ordinal != 1 ? ordinal != 2 ? ordinal != 3 ? ordinal != 4 ? ordinal != 5 ? C0130R.string.error : C0130R.string.waiting_application_data : C0130R.string.not_decryptable : C0130R.string.decrypted : C0130R.string.not_encrypted : C0130R.string.status_encrypted);
     }
 
     private String getHttpAsString(boolean z) {
@@ -168,7 +170,7 @@ public class ConnectionDescriptor implements HTTPReassembly.ReassemblyListener {
 
     public static String getStatusLabel(Status status, Context context) {
         int ordinal = status.ordinal();
-        return context.getString(ordinal != 1 ? ordinal != 2 ? ordinal != 3 ? R.string.error : R.string.conn_status_unreachable : R.string.conn_status_closed : R.string.conn_status_active);
+        return context.getString(ordinal != 1 ? ordinal != 2 ? ordinal != 3 ? C0130R.string.error : C0130R.string.conn_status_unreachable : C0130R.string.conn_status_closed : C0130R.string.conn_status_active);
     }
 
     private synchronized boolean hasHttp(boolean z) {
@@ -391,14 +393,80 @@ public class ConnectionDescriptor implements HTTPReassembly.ReassemblyListener {
     @Override // com.emanuelef.remote_capture.HTTPReassembly.ReassemblyListener
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public void onChunkReassembled(com.emanuelef.remote_capture.model.PayloadChunk r7) {
-        /*
-            Method dump skipped, instructions count: 294
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.model.ConnectionDescriptor.onChunkReassembled(com.emanuelef.remote_capture.model.PayloadChunk):void");
+    public void onChunkReassembled(PayloadChunk payloadChunk) {
+        HttpLog httpLog;
+        HttpLog.HttpRequest httpRequest;
+        String str;
+        if (payloadChunk.type != PayloadChunk.ChunkType.HTTP || (httpLog = CaptureService.getHttpLog()) == null) {
+            return;
+        }
+        if (!payloadChunk.is_sent || payloadChunk.isHttp2Rst()) {
+            int i = 0;
+            if (payloadChunk.stream_id == 0) {
+                if (!this.mPendingRequests.isEmpty()) {
+                    httpRequest = this.mPendingRequests.remove(0);
+                    if (httpRequest == null) {
+                        if (!payloadChunk.isHttp2Rst()) {
+                            HttpLog.HttpReply httpReply = new HttpLog.HttpReply(httpRequest, this.mFirstReplyChunkPos);
+                            httpReply.responseCode = payloadChunk.httpResponseCode;
+                            httpReply.responseStatus = payloadChunk.httpResponseStatus;
+                            httpReply.contentType = payloadChunk.httpContentType;
+                            httpReply.bodyLength = payloadChunk.httpBodyLength;
+                            httpRequest.reply = httpReply;
+                            httpLog.addHttpReply(httpReply);
+                            this.mFirstReplyChunkPos = -1;
+                            return;
+                        }
+                        httpRequest.httpRst = true;
+                        Log.m587d(TAG, "Got RST: " + httpRequest.getUrl());
+                        return;
+                    } else if (payloadChunk.is_sent) {
+                        return;
+                    } else {
+                        if (payloadChunk.isHttp2Rst()) {
+                            Log.m581w(TAG, "Unmatched HTTP RST (sent=" + payloadChunk.is_sent + ", stream=" + payloadChunk.stream_id + ")");
+                            return;
+                        }
+                        Log.m581w(TAG, "Unmatched HTTP reply (sent=" + payloadChunk.is_sent + ", stream=" + payloadChunk.stream_id + ")");
+                        return;
+                    }
+                }
+                httpRequest = null;
+                if (httpRequest == null) {
+                }
+            } else {
+                Iterator<HttpLog.HttpRequest> it = this.mPendingRequests.iterator();
+                while (it.hasNext() && it.next().streamId != payloadChunk.stream_id) {
+                    i++;
+                }
+                if (i < this.mPendingRequests.size()) {
+                    httpRequest = this.mPendingRequests.remove(i);
+                    if (httpRequest == null) {
+                    }
+                }
+                httpRequest = null;
+                if (httpRequest == null) {
+                }
+            }
+        } else {
+            HttpLog.HttpRequest httpRequest2 = new HttpLog.HttpRequest(this, this.mFirstReqChunkPos);
+            if (!payloadChunk.httpHost.isEmpty()) {
+                str = payloadChunk.httpHost;
+            } else {
+                str = this.info;
+            }
+            httpRequest2.host = str;
+            httpRequest2.method = payloadChunk.httpMethod;
+            httpRequest2.path = payloadChunk.httpPath;
+            httpRequest2.query = payloadChunk.httpQuery;
+            httpRequest2.bodyLength = payloadChunk.httpBodyLength;
+            httpRequest2.streamId = payloadChunk.stream_id;
+            httpRequest2.timestamp = payloadChunk.timestamp;
+            httpLog.addHttpRequest(httpRequest2);
+            this.mPendingRequests.add(httpRequest2);
+            this.mFirstReqChunkPos = -1;
+        }
     }
 
     public void processUpdate(ConnectionUpdate connectionUpdate) {

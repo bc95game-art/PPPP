@@ -59,7 +59,7 @@ public final class AppIntroViewPager extends ViewPager {
             }
             throw new NullPointerException("null cannot be cast to non-null type android.view.animation.Interpolator");
         } catch (NoSuchFieldException e) {
-            LogHelper.e(TAG, "Failed to access the viewpager interpolator", e);
+            LogHelper.m575e(TAG, "Failed to access the viewpager interpolator", e);
         }
     }
 

@@ -155,7 +155,7 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     }
 
     public /* synthetic */ void lambda$processPurchases$0() {
-        Utils.showToastLong(this.mContext, R.string.pending_transaction, new Object[0]);
+        Utils.showToastLong(this.mContext, C0130R.string.pending_transaction, new Object[0]);
     }
 
     public /* synthetic */ void lambda$processPurchases$1(String str) {
@@ -170,11 +170,11 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     }
 
     public /* synthetic */ void lambda$processPurchases$3() {
-        Utils.showToast(this.mContext, R.string.requesting_unlock_token, new Object[0]);
+        Utils.showToast(this.mContext, C0130R.string.requesting_unlock_token, new Object[0]);
     }
 
     public /* synthetic */ void lambda$processPurchases$4() {
-        Utils.showToastLong(this.mContext, R.string.can_use_purchased_feature, new Object[0]);
+        Utils.showToastLong(this.mContext, C0130R.string.can_use_purchased_feature, new Object[0]);
     }
 
     public /* synthetic */ void lambda$processPurchases$5(String str) {
@@ -203,11 +203,11 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     }
 
     public /* synthetic */ void lambda$purchase$15() {
-        Utils.showToast(this.mContext, R.string.billing_connecting, new Object[0]);
+        Utils.showToast(this.mContext, C0130R.string.billing_connecting, new Object[0]);
     }
 
     public /* synthetic */ void lambda$purchase$16() {
-        Utils.showToast(this.mContext, R.string.feature_not_available, new Object[0]);
+        Utils.showToast(this.mContext, C0130R.string.feature_not_available, new Object[0]);
     }
 
     public /* synthetic */ void lambda$requestQrLicenseCode$23(String str, DialogInterface dialogInterface, int i) {
@@ -219,19 +219,19 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
 
     public void lambda$requestQrLicenseCode$25(String str) {
         zzbv zzbvVar = new zzbv(this.mContext);
-        zzbvVar.setTitle(R.string.error);
+        zzbvVar.setTitle(C0130R.string.error);
         AlertController.AlertParams alertParams = (AlertController.AlertParams) zzbvVar.zza;
         alertParams.mMessage = str;
         alertParams.mCancelable = true;
-        zzbvVar.setNeutralButton(R.string.copy_to_clipboard, new PlayBilling$$ExternalSyntheticLambda0(this, 0, str));
-        zzbvVar.setPositiveButton(R.string.ok, new Utils$$ExternalSyntheticLambda1(2));
+        zzbvVar.setNeutralButton(C0130R.string.copy_to_clipboard, new PlayBilling$$ExternalSyntheticLambda0(this, 0, str));
+        zzbvVar.setPositiveButton(C0130R.string.ok, new Utils$$ExternalSyntheticLambda1(2));
         AlertDialog create = zzbvVar.create();
         create.setCanceledOnTouchOutside(false);
         create.show();
     }
 
     public /* synthetic */ void lambda$requestQrLicenseCode$26() {
-        Utils.showToastLong(this.mContext, R.string.license_service_unavailable, new Object[0]);
+        Utils.showToastLong(this.mContext, C0130R.string.license_service_unavailable, new Object[0]);
     }
 
     public /* synthetic */ void lambda$requestUnlockToken$17(String str, DialogInterface dialogInterface, int i) {
@@ -242,14 +242,14 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     }
 
     public void lambda$requestUnlockToken$19(int i, String str, String str2) {
-        String str3 = this.mContext.getString(R.string.unlock_token_error, Integer.valueOf(i), str) + "\n\nPurchase Token:" + str2;
+        String str3 = this.mContext.getString(C0130R.string.unlock_token_error, Integer.valueOf(i), str) + "\n\nPurchase Token:" + str2;
         zzbv zzbvVar = new zzbv(this.mContext);
-        zzbvVar.setTitle(R.string.error);
+        zzbvVar.setTitle(C0130R.string.error);
         AlertController.AlertParams alertParams = (AlertController.AlertParams) zzbvVar.zza;
         alertParams.mMessage = str3;
         alertParams.mCancelable = true;
-        zzbvVar.setNeutralButton(R.string.copy_to_clipboard, new PlayBilling$$ExternalSyntheticLambda0(this, 2, str3));
-        zzbvVar.setPositiveButton(R.string.ok, new Utils$$ExternalSyntheticLambda1(5));
+        zzbvVar.setNeutralButton(C0130R.string.copy_to_clipboard, new PlayBilling$$ExternalSyntheticLambda0(this, 2, str3));
+        zzbvVar.setPositiveButton(C0130R.string.ok, new Utils$$ExternalSyntheticLambda1(5));
         AlertDialog create = zzbvVar.create();
         create.setCanceledOnTouchOutside(false);
         create.show();
@@ -277,7 +277,7 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     }
 
     public /* synthetic */ void lambda$requestUnlockToken$22() {
-        Utils.showToastLong(this.mContext, R.string.license_service_unavailable, new Object[0]);
+        Utils.showToastLong(this.mContext, C0130R.string.license_service_unavailable, new Object[0]);
     }
 
     public static /* synthetic */ void lambda$showUnlockToken$33(DialogInterface dialogInterface, int i) {
@@ -288,7 +288,7 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     }
 
     public /* synthetic */ void lambda$startQrActivation$27() {
-        Utils.showToast(this.mContext, R.string.license_activation_ok, new Object[0]);
+        Utils.showToast(this.mContext, C0130R.string.license_activation_ok, new Object[0]);
         if (this.mPendingQrRequest != null) {
             showUnlockToken();
         }
@@ -339,7 +339,7 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
                     Object obj = arrayList.get(i3);
                     i3++;
                     String str2 = (String) obj;
-                    StringBuilder m = ViewModelProvider.Factory.CC.m15m("\tPurchase: ", str2, " -> ");
+                    StringBuilder m = ViewModelProvider.Factory.CC.m594m("\tPurchase: ", str2, " -> ");
                     Iterator<Purchase> it2 = it;
                     boolean z4 = z2;
                     ArrayList arrayList2 = arrayList;
@@ -497,11 +497,11 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
                 String sb2 = sb.toString();
                 Log.i(TAG, "requestQrLicenseCode failure: " + sb2);
                 if (responseCode == 402) {
-                    str4 = this.mContext.getString(R.string.license_limit_reached);
+                    str4 = this.mContext.getString(C0130R.string.license_limit_reached);
                 } else if (responseCode == 410) {
-                    str4 = this.mContext.getString(R.string.qr_code_expired);
+                    str4 = this.mContext.getString(C0130R.string.qr_code_expired);
                 } else {
-                    str4 = this.mContext.getString(R.string.license_error, Integer.valueOf(responseCode), sb2);
+                    str4 = this.mContext.getString(C0130R.string.license_error, Integer.valueOf(responseCode), sb2);
                 }
                 this.mHandler.post(new PlayBilling$$ExternalSyntheticLambda2(this, str4, 4));
                 httpURLConnection.disconnect();
@@ -586,7 +586,7 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     }
 
     private void startQrActivation(QrActivationRequest qrActivationRequest, String str) {
-        Utils.showToast(this.mContext, R.string.requesting_license, new Object[0]);
+        Utils.showToast(this.mContext, C0130R.string.requesting_license, new Object[0]);
         ExecutorService executorService = this.mQrActivationExecutor;
         if (executorService != null) {
             executorService.shutdownNow();
@@ -612,15 +612,15 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
                 Context context = this.mContext;
                 EmojiCompat.CompatInternal19 compatInternal19 = new EmojiCompat.CompatInternal19(context);
                 compatInternal19.mMetadataRepo = this;
-                compatInternal19.mProcessor = new Transition.AnonymousClass1(14);
+                compatInternal19.mProcessor = new Transition.C01101(14);
                 if (context == null) {
                     throw new IllegalArgumentException("Please provide a valid Context.");
                 } else if (((PlayBilling) compatInternal19.mMetadataRepo) == null) {
                     throw new IllegalArgumentException("Please provide a valid listener for purchases updates.");
-                } else if (((Transition.AnonymousClass1) compatInternal19.mProcessor) != null) {
-                    ((Transition.AnonymousClass1) compatInternal19.mProcessor).getClass();
+                } else if (((Transition.C01101) compatInternal19.mProcessor) != null) {
+                    ((Transition.C01101) compatInternal19.mProcessor).getClass();
                     if (((PlayBilling) compatInternal19.mMetadataRepo) != null) {
-                        Transition.AnonymousClass1 r2 = (Transition.AnonymousClass1) compatInternal19.mProcessor;
+                        Transition.C01101 r2 = (Transition.C01101) compatInternal19.mProcessor;
                         PlayBilling playBilling = (PlayBilling) compatInternal19.mMetadataRepo;
                         if (compatInternal19.zza()) {
                             billingClient = new zzce(r2, context, playBilling, compatInternal19);
@@ -628,7 +628,7 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
                             billingClient = new BillingClientImpl(r2, context, playBilling, compatInternal19);
                         }
                     } else {
-                        Transition.AnonymousClass1 r22 = (Transition.AnonymousClass1) compatInternal19.mProcessor;
+                        Transition.C01101 r22 = (Transition.C01101) compatInternal19.mProcessor;
                         if (compatInternal19.zza()) {
                             billingClient = new zzce(r22, context, compatInternal19);
                         } else {
@@ -789,18 +789,18 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
         String lastUnlockToken = getLastUnlockToken();
         if (!lastUnlockToken.isEmpty()) {
             zzbv zzbvVar = new zzbv(this.mContext);
-            zzbvVar.setTitle(R.string.license_code);
-            ((AlertController.AlertParams) zzbvVar.zza).mMessage = this.mContext.getString(R.string.qr_license_confirm, qrActivationRequest.device_name) + "\n\n" + lastUnlockToken;
-            zzbvVar.setPositiveButton(R.string.yes, new PlayBilling$$ExternalSyntheticLambda24(this, qrActivationRequest, lastUnlockToken, 0));
-            zzbvVar.setNegativeButton(R.string.no, new Utils$$ExternalSyntheticLambda1(3));
+            zzbvVar.setTitle(C0130R.string.license_code);
+            ((AlertController.AlertParams) zzbvVar.zza).mMessage = this.mContext.getString(C0130R.string.qr_license_confirm, qrActivationRequest.device_name) + "\n\n" + lastUnlockToken;
+            zzbvVar.setPositiveButton(C0130R.string.yes, new PlayBilling$$ExternalSyntheticLambda24(this, qrActivationRequest, lastUnlockToken, 0));
+            zzbvVar.setNegativeButton(C0130R.string.no, new Utils$$ExternalSyntheticLambda1(3));
             zzbvVar.show();
             return;
         }
         zzbv zzbvVar2 = new zzbv(this.mContext);
-        zzbvVar2.setTitle(R.string.unlock_token);
-        ((AlertController.AlertParams) zzbvVar2.zza).mMessage = this.mContext.getString(R.string.qr_purchase_required);
-        zzbvVar2.setPositiveButton(R.string.ok, new PlayBilling$$ExternalSyntheticLambda24(this, qrActivationRequest, activity, 1));
-        zzbvVar2.setNegativeButton(R.string.cancel_action, new Utils$$ExternalSyntheticLambda1(4));
+        zzbvVar2.setTitle(C0130R.string.unlock_token);
+        ((AlertController.AlertParams) zzbvVar2.zza).mMessage = this.mContext.getString(C0130R.string.qr_purchase_required);
+        zzbvVar2.setPositiveButton(C0130R.string.ok, new PlayBilling$$ExternalSyntheticLambda24(this, qrActivationRequest, activity, 1));
+        zzbvVar2.setNegativeButton(C0130R.string.cancel_action, new Utils$$ExternalSyntheticLambda1(4));
         zzbvVar2.show();
     }
 
@@ -898,14 +898,14 @@ public class PlayBilling extends Billing implements BillingClientStateListener, 
     public void showUnlockToken() {
         String lastUnlockToken = getLastUnlockToken();
         if (!lastUnlockToken.isEmpty()) {
-            View inflate = LayoutInflater.from(this.mContext).inflate(R.layout.unlock_token_dialog, (ViewGroup) null);
-            ((TextView) inflate.findViewById(R.id.unlock_token)).setText(lastUnlockToken);
-            Utils.setTextUrls((TextView) inflate.findViewById(R.id.unlock_token_msg), R.string.unlock_token_msg1, "https://pcapdroid.org/getlicense/?unlock_token=".concat(lastUnlockToken));
+            View inflate = LayoutInflater.from(this.mContext).inflate(C0130R.layout.unlock_token_dialog, (ViewGroup) null);
+            ((TextView) inflate.findViewById(C0130R.C0132id.unlock_token)).setText(lastUnlockToken);
+            Utils.setTextUrls((TextView) inflate.findViewById(C0130R.C0132id.unlock_token_msg), C0130R.string.unlock_token_msg1, "https://pcapdroid.org/getlicense/?unlock_token=".concat(lastUnlockToken));
             zzbv zzbvVar = new zzbv(this.mContext);
-            zzbvVar.setTitle(R.string.unlock_token);
+            zzbvVar.setTitle(C0130R.string.unlock_token);
             ((AlertController.AlertParams) zzbvVar.zza).mView = inflate;
-            zzbvVar.setPositiveButton(R.string.ok, new Utils$$ExternalSyntheticLambda1(1));
-            zzbvVar.setNeutralButton(R.string.copy_to_clipboard, new PlayBilling$$ExternalSyntheticLambda0(this, 1, lastUnlockToken));
+            zzbvVar.setPositiveButton(C0130R.string.ok, new Utils$$ExternalSyntheticLambda1(1));
+            zzbvVar.setNeutralButton(C0130R.string.copy_to_clipboard, new PlayBilling$$ExternalSyntheticLambda0(this, 1, lastUnlockToken));
             zzbvVar.show();
         }
     }

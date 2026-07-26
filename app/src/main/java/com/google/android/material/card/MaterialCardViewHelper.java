@@ -17,10 +17,10 @@ import androidx.cardview.R$styleable;
 import androidx.cardview.widget.CardView;
 import androidx.cardview.widget.RoundRectDrawable;
 import androidx.cardview.widget.RoundRectDrawableWithShadow;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.ViewPropertyAnimatorCompat$$ExternalSyntheticLambda0;
 import com.android.billingclient.api.zzcl;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.shape.CutCornerTreatment;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -56,9 +56,9 @@ public final class MaterialCardViewHelper {
     public boolean isBackgroundOverwritten = false;
     public float checkedAnimationProgress = 0.0f;
 
-    /* renamed from: com.google.android.material.card.MaterialCardViewHelper$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.card.MaterialCardViewHelper$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 extends InsetDrawable {
+    public final class C01711 extends InsetDrawable {
         @Override // android.graphics.drawable.Drawable
         public final int getMinimumHeight() {
             return -1;
@@ -87,20 +87,20 @@ public final class MaterialCardViewHelper {
 
     public MaterialCardViewHelper(MaterialCardView materialCardView, AttributeSet attributeSet) {
         this.materialCardView = materialCardView;
-        MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(materialCardView.getContext(), attributeSet, R.attr.materialCardViewStyle, R.style.Widget_MaterialComponents_CardView);
+        MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(materialCardView.getContext(), attributeSet, C0130R.attr.materialCardViewStyle, C0130R.style.Widget_MaterialComponents_CardView);
         this.bgDrawable = materialShapeDrawable;
         materialShapeDrawable.initializeElevationOverlay(materialCardView.getContext());
         materialShapeDrawable.setShadowColor();
         ShapeAppearanceModel.Builder builder = materialShapeDrawable.drawableState.shapeAppearanceModel.toBuilder();
-        TypedArray obtainStyledAttributes = materialCardView.getContext().obtainStyledAttributes(attributeSet, R$styleable.CardView, R.attr.materialCardViewStyle, R.style.CardView);
+        TypedArray obtainStyledAttributes = materialCardView.getContext().obtainStyledAttributes(attributeSet, R$styleable.CardView, C0130R.attr.materialCardViewStyle, C0130R.style.CardView);
         if (obtainStyledAttributes.hasValue(3)) {
             builder.setAllCornerSizes(obtainStyledAttributes.getDimension(3, 0.0f));
         }
         this.foregroundContentDrawable = new MaterialShapeDrawable();
         setShapeAppearanceModel(builder.build());
-        this.iconFadeAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(materialCardView.getContext(), R.attr.motionEasingLinearInterpolator, AnimationUtils.LINEAR_INTERPOLATOR);
-        this.iconFadeInAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(materialCardView.getContext(), R.attr.motionDurationShort2, 300);
-        this.iconFadeOutAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(materialCardView.getContext(), R.attr.motionDurationShort1, 300);
+        this.iconFadeAnimInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(materialCardView.getContext(), C0130R.attr.motionEasingLinearInterpolator, AnimationUtils.LINEAR_INTERPOLATOR);
+        this.iconFadeInAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(materialCardView.getContext(), C0130R.attr.motionDurationShort2, 300);
+        this.iconFadeOutAnimDuration = LazyKt__LazyJVMKt.resolveThemeDuration(materialCardView.getContext(), C0130R.attr.motionDurationShort1, 300);
         obtainStyledAttributes.recycle();
     }
 
@@ -155,13 +155,13 @@ public final class MaterialCardViewHelper {
         if (this.clickableForegroundDrawable == null) {
             LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{this.rippleDrawable, this.foregroundContentDrawable, this.checkedIcon});
             this.clickableForegroundDrawable = layerDrawable;
-            layerDrawable.setId(2, R.id.mtrl_card_checked_layer_id);
+            layerDrawable.setId(2, C0130R.C0132id.mtrl_card_checked_layer_id);
         }
         return this.clickableForegroundDrawable;
     }
 
     /* JADX WARN: Type inference failed for: r2v0, types: [android.graphics.drawable.InsetDrawable, com.google.android.material.card.MaterialCardViewHelper$1] */
-    public final AnonymousClass1 insetDrawable(Drawable drawable) {
+    public final C01711 insetDrawable(Drawable drawable) {
         int i;
         int i2;
         float f;
@@ -309,7 +309,7 @@ public final class MaterialCardViewHelper {
         }
         LayerDrawable layerDrawable = this.clickableForegroundDrawable;
         if (layerDrawable != null) {
-            layerDrawable.setDrawableByLayerId(R.id.mtrl_card_checked_layer_id, this.checkedIcon);
+            layerDrawable.setDrawableByLayerId(C0130R.C0132id.mtrl_card_checked_layer_id, this.checkedIcon);
         }
     }
 

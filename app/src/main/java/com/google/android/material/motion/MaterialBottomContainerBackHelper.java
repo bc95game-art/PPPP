@@ -6,7 +6,7 @@ import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 /* loaded from: classes.dex */
 public final class MaterialBottomContainerBackHelper extends MaterialBackAnimationHelper {
@@ -16,8 +16,8 @@ public final class MaterialBottomContainerBackHelper extends MaterialBackAnimati
     public MaterialBottomContainerBackHelper(View view) {
         super(view);
         Resources resources = view.getResources();
-        this.maxScaleXDistance = resources.getDimension(R.dimen.m3_back_progress_bottom_container_max_scale_x_distance);
-        this.maxScaleYDistance = resources.getDimension(R.dimen.m3_back_progress_bottom_container_max_scale_y_distance);
+        this.maxScaleXDistance = resources.getDimension(C0130R.dimen.m3_back_progress_bottom_container_max_scale_x_distance);
+        this.maxScaleYDistance = resources.getDimension(C0130R.dimen.m3_back_progress_bottom_container_max_scale_y_distance);
     }
 
     public final AnimatorSet createResetScaleAnimator() {

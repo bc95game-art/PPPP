@@ -27,8 +27,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.preference.PreferenceManager;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.activities.AboutActivity$$ExternalSyntheticLambda10;
 import com.emanuelef.remote_capture.adapters.PortMappingAdapter;
@@ -38,9 +38,9 @@ import com.emanuelef.remote_capture.model.PortMapping;
 import com.emanuelef.remote_capture.model.Prefs;
 import com.google.android.material.chip.Chip$$ExternalSyntheticLambda0;
 import com.google.android.material.textfield.TextInputEditText;
-import j$.util.Objects;
 import java.util.ArrayList;
 import java.util.Iterator;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class PortMapFragment extends Fragment implements MenuProvider {
     private static final String TAG = "PortMapFragment";
@@ -52,10 +52,10 @@ public class PortMapFragment extends Fragment implements MenuProvider {
 
     public void confirmDelete(ActionMode actionMode) {
         zzbv zzbvVar = new zzbv(requireContext());
-        zzbvVar.setMessage(R.string.items_delete_confirm);
+        zzbvVar.setMessage(C0130R.string.items_delete_confirm);
         ((AlertController.AlertParams) zzbvVar.zza).mCancelable = true;
-        zzbvVar.setPositiveButton(R.string.yes, new FirewallStatus$$ExternalSyntheticLambda2(this, 6, actionMode));
-        zzbvVar.setNegativeButton(R.string.no, new Blocklist$$ExternalSyntheticLambda0(23));
+        zzbvVar.setPositiveButton(C0130R.string.yes, new FirewallStatus$$ExternalSyntheticLambda2(this, 6, actionMode));
+        zzbvVar.setNegativeButton(C0130R.string.no, new Blocklist$$ExternalSyntheticLambda0(23));
         AlertDialog create = zzbvVar.create();
         create.setCanceledOnTouchOutside(true);
         create.show();
@@ -93,7 +93,7 @@ public class PortMapFragment extends Fragment implements MenuProvider {
             } else {
                 str = "disabled";
             }
-            Log.d(TAG, "Port mapping is now ".concat(str));
+            Log.m587d(TAG, "Port mapping is now ".concat(str));
             Prefs.setPortMappingEnabled(defaultSharedPreferences, z);
         }
     }
@@ -108,7 +108,7 @@ public class PortMapFragment extends Fragment implements MenuProvider {
         PortMapping.PortMap validateAddDialog = validateAddDialog(view);
         if (validateAddDialog != null) {
             if (!this.mPortMap.add(validateAddDialog)) {
-                Utils.showToastLong(requireContext(), R.string.port_mapping_exists, new Object[0]);
+                Utils.showToastLong(requireContext(), C0130R.string.port_mapping_exists, new Object[0]);
             } else {
                 this.mPortMap.save();
                 this.mAdapter.add(validateAddDialog);
@@ -120,18 +120,18 @@ public class PortMapFragment extends Fragment implements MenuProvider {
 
     private void openAddDialog() {
         Context requireContext = requireContext();
-        View inflate = LayoutInflater.from(requireContext).inflate(R.layout.add_port_mapping_dialog, (ViewGroup) null);
+        View inflate = LayoutInflater.from(requireContext).inflate(C0130R.layout.add_port_mapping_dialog, (ViewGroup) null);
         String[] strArr = {"TCP", "UDP"};
-        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext, (int) R.layout.dropdown_item, strArr);
-        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) inflate.findViewById(R.id.proto);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext, (int) C0130R.layout.dropdown_item, strArr);
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) inflate.findViewById(C0130R.C0132id.proto);
         autoCompleteTextView.setText(strArr[0]);
         autoCompleteTextView.setAdapter(arrayAdapter);
-        ((TextInputEditText) inflate.findViewById(R.id.redirect_host)).setText("127.0.0.1");
+        ((TextInputEditText) inflate.findViewById(C0130R.C0132id.redirect_host)).setText("127.0.0.1");
         zzbv zzbvVar = new zzbv(requireContext);
         ((AlertController.AlertParams) zzbvVar.zza).mView = inflate;
-        zzbvVar.setTitle(R.string.port_mapping);
-        zzbvVar.setPositiveButton(R.string.add_action, new Blocklist$$ExternalSyntheticLambda0(21));
-        zzbvVar.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(22));
+        zzbvVar.setTitle(C0130R.string.port_mapping);
+        zzbvVar.setPositiveButton(C0130R.string.add_action, new Blocklist$$ExternalSyntheticLambda0(21));
+        zzbvVar.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(22));
         AlertDialog show = zzbvVar.show();
         show.setCanceledOnTouchOutside(false);
         show.getButton(-1).setOnClickListener(new AboutActivity$$ExternalSyntheticLambda10(this, inflate, show, 1));
@@ -171,9 +171,9 @@ public class PortMapFragment extends Fragment implements MenuProvider {
 
     private PortMapping.PortMap validateAddDialog(View view) {
         int i;
-        TextInputEditText textInputEditText = (TextInputEditText) view.findViewById(R.id.orig_port);
-        TextInputEditText textInputEditText2 = (TextInputEditText) view.findViewById(R.id.redirect_host);
-        TextInputEditText textInputEditText3 = (TextInputEditText) view.findViewById(R.id.redirect_port);
+        TextInputEditText textInputEditText = (TextInputEditText) view.findViewById(C0130R.C0132id.orig_port);
+        TextInputEditText textInputEditText2 = (TextInputEditText) view.findViewById(C0130R.C0132id.redirect_host);
+        TextInputEditText textInputEditText3 = (TextInputEditText) view.findViewById(C0130R.C0132id.redirect_port);
         Editable text = textInputEditText.getText();
         Objects.requireNonNull(text);
         String obj = text.toString();
@@ -183,24 +183,24 @@ public class PortMapFragment extends Fragment implements MenuProvider {
         Editable text3 = textInputEditText3.getText();
         Objects.requireNonNull(text3);
         String obj3 = text3.toString();
-        String obj4 = ((AutoCompleteTextView) view.findViewById(R.id.proto)).getText().toString();
+        String obj4 = ((AutoCompleteTextView) view.findViewById(C0130R.C0132id.proto)).getText().toString();
         if (obj.isEmpty()) {
-            textInputEditText.setError(getString(R.string.required));
+            textInputEditText.setError(getString(C0130R.string.required));
             return null;
         } else if (!Utils.validatePort(obj)) {
-            textInputEditText.setError(getString(R.string.invalid));
+            textInputEditText.setError(getString(C0130R.string.invalid));
             return null;
         } else if (obj2.isEmpty()) {
-            textInputEditText2.setError(getString(R.string.required));
+            textInputEditText2.setError(getString(C0130R.string.required));
             return null;
         } else if (!Utils.validateIpAddress(obj2) && !Utils.validateHost(obj2)) {
-            textInputEditText2.setError(getString(R.string.invalid));
+            textInputEditText2.setError(getString(C0130R.string.invalid));
             return null;
         } else if (obj3.isEmpty()) {
-            textInputEditText3.setError(getString(R.string.required));
+            textInputEditText3.setError(getString(C0130R.string.required));
             return null;
         } else if (!Utils.validatePort(obj3)) {
-            textInputEditText3.setError(getString(R.string.invalid));
+            textInputEditText3.setError(getString(C0130R.string.invalid));
             return null;
         } else {
             if (obj4.equals("TCP")) {
@@ -214,8 +214,8 @@ public class PortMapFragment extends Fragment implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.port_mapping_menu, menu);
-        SwitchCompat switchCompat = (SwitchCompat) menu.findItem(R.id.toggle_btn).getActionView();
+        menuInflater.inflate(C0130R.C0134menu.port_mapping_menu, menu);
+        SwitchCompat switchCompat = (SwitchCompat) menu.findItem(C0130R.C0132id.toggle_btn).getActionView();
         switchCompat.setChecked(Prefs.isPortMappingEnabled(PreferenceManager.getDefaultSharedPreferences(requireContext())));
         switchCompat.setOnCheckedChangeListener(new Chip$$ExternalSyntheticLambda0(2, this));
     }
@@ -223,7 +223,7 @@ public class PortMapFragment extends Fragment implements MenuProvider {
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.simple_list, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.simple_list, viewGroup, false);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -232,7 +232,7 @@ public class PortMapFragment extends Fragment implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() != R.id.add_mapping) {
+        if (menuItem.getItemId() != C0130R.C0132id.add_mapping) {
             return false;
         }
         openAddDialog();
@@ -246,8 +246,8 @@ public class PortMapFragment extends Fragment implements MenuProvider {
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(View view, Bundle bundle) {
         view.setFitsSystemWindows(true);
-        this.mListView = (ListView) view.findViewById(R.id.listview);
-        this.mEmptyText = (TextView) view.findViewById(R.id.list_empty);
+        this.mListView = (ListView) view.findViewById(C0130R.C0132id.listview);
+        this.mEmptyText = (TextView) view.findViewById(C0130R.C0132id.list_empty);
         this.mPortMap = new PortMapping(requireContext());
         PortMappingAdapter portMappingAdapter = new PortMappingAdapter(requireContext(), this.mPortMap);
         this.mAdapter = portMappingAdapter;
@@ -261,11 +261,11 @@ public class PortMapFragment extends Fragment implements MenuProvider {
             @Override // android.view.ActionMode.Callback
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
-                if (itemId == R.id.delete_entry) {
+                if (itemId == C0130R.C0132id.delete_entry) {
                     PortMapFragment.this.confirmDelete(actionMode);
                     return true;
                 }
-                if (itemId != R.id.select_all) {
+                if (itemId != C0130R.C0132id.select_all) {
                     return false;
                 }
                 if (PortMapFragment.this.mSelected.size() >= PortMapFragment.this.mAdapter.getCount()) {
@@ -282,7 +282,7 @@ public class PortMapFragment extends Fragment implements MenuProvider {
 
             @Override // android.view.ActionMode.Callback
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                PortMapFragment.this.requireActivity().getMenuInflater().inflate(R.menu.list_edit_cab, menu);
+                PortMapFragment.this.requireActivity().getMenuInflater().inflate(C0130R.C0134menu.list_edit_cab, menu);
                 return true;
             }
 
@@ -300,7 +300,7 @@ public class PortMapFragment extends Fragment implements MenuProvider {
                     PortMapFragment.this.mSelected.remove(portMap);
                 }
                 PortMapFragment portMapFragment = PortMapFragment.this;
-                actionMode.setTitle(portMapFragment.getString(R.string.n_selected, Integer.valueOf(portMapFragment.mSelected.size())));
+                actionMode.setTitle(portMapFragment.getString(C0130R.string.n_selected, Integer.valueOf(portMapFragment.mSelected.size())));
             }
 
             @Override // android.view.ActionMode.Callback

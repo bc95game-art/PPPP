@@ -92,7 +92,7 @@ public class CaptureSettings implements Serializable {
         while (i < length) {
             int codePointAt = string.codePointAt(i);
             if (!Character.isWhitespace(codePointAt)) {
-                return ViewModelProvider.Factory.CC.m("{\"rules\":", string, "}");
+                return ViewModelProvider.Factory.CC.m595m("{\"rules\":", string, "}");
             }
             i += Character.charCount(codePointAt);
         }

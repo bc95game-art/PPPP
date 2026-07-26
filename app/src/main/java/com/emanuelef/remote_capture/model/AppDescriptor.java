@@ -1,5 +1,6 @@
 package com.emanuelef.remote_capture.model;
 
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -58,7 +59,7 @@ public class AppDescriptor implements Comparable<AppDescriptor>, Serializable {
                     try {
                         this.mIcon = this.mPm.getUserBadgedIcon(this.mIcon, UserHandle.getUserHandleForUid(this.mUid));
                     } catch (SecurityException e) {
-                        Log.w(TAG, "getUserBadgedIcon failed, using icons without badges: " + e.getMessage());
+                        Log.m581w(TAG, "getUserBadgedIcon failed, using icons without badges: " + e.getMessage());
                         badgedIconFails = true;
                     }
                 }
@@ -121,34 +122,12 @@ public class AppDescriptor implements Comparable<AppDescriptor>, Serializable {
     /* JADX WARN: Illegal instructions before constructor call */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public AppDescriptor(android.content.pm.PackageManager r8, android.content.pm.PackageInfo r9) {
-        /*
-            r7 = this;
-            android.content.pm.ApplicationInfo r0 = r9.applicationInfo
-            java.lang.CharSequence r0 = r0.loadLabel(r8)
-            java.lang.String r2 = r0.toString()
-            android.content.pm.ApplicationInfo r0 = r9.applicationInfo
-            java.lang.String r4 = r0.packageName
-            int r5 = r0.uid
-            int r0 = r0.flags
-            r1 = 1
-            r0 = r0 & r1
-            if (r0 == 0) goto L18
-            r6 = 1
-            goto L1a
-        L18:
-            r1 = 0
-            r6 = 0
-        L1a:
-            r3 = 0
-            r1 = r7
-            r1.<init>(r2, r3, r4, r5, r6)
-            r1.mPm = r8
-            r1.mPackageInfo = r9
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.model.AppDescriptor.<init>(android.content.pm.PackageManager, android.content.pm.PackageInfo):void");
+    public AppDescriptor(PackageManager packageManager, PackageInfo packageInfo) {
+        this(r2, null, r0.packageName, r0.uid, (r0.flags & 1) != 0);
+        String charSequence = packageInfo.applicationInfo.loadLabel(packageManager).toString();
+        ApplicationInfo applicationInfo = packageInfo.applicationInfo;
+        this.mPm = packageManager;
+        this.mPackageInfo = packageInfo;
     }
 }

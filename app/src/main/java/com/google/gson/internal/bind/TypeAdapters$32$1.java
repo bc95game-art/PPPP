@@ -23,7 +23,7 @@ public final class TypeAdapters$32$1 extends TypeAdapter {
         switch (this.$r8$classId) {
             case 0:
                 Class cls = (Class) this.val$requestedType;
-                Object read = ((TypeAdapters.AnonymousClass29) this.this$0).val$typeAdapter.read(jsonReader);
+                Object read = ((TypeAdapters.C026429) this.this$0).val$typeAdapter.read(jsonReader);
                 if (read == null || cls.isInstance(read)) {
                     return read;
                 }
@@ -47,7 +47,7 @@ public final class TypeAdapters$32$1 extends TypeAdapter {
     public final void write(JsonWriter jsonWriter, Object obj) {
         switch (this.$r8$classId) {
             case 0:
-                ((TypeAdapters.AnonymousClass29) this.this$0).val$typeAdapter.write(jsonWriter, obj);
+                ((TypeAdapters.C026429) this.this$0).val$typeAdapter.write(jsonWriter, obj);
                 return;
             default:
                 Collection<Object> collection = (Collection) obj;
@@ -64,7 +64,7 @@ public final class TypeAdapters$32$1 extends TypeAdapter {
         }
     }
 
-    public TypeAdapters$32$1(TypeAdapters.AnonymousClass29 r2, Class cls) {
+    public TypeAdapters$32$1(TypeAdapters.C026429 r2, Class cls) {
         this.this$0 = r2;
         this.val$requestedType = cls;
     }

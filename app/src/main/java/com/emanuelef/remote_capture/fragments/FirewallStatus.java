@@ -19,17 +19,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.preference.PreferenceManager;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.activities.ConnectionsActivity;
 import com.emanuelef.remote_capture.activities.FirewallActivity;
@@ -69,7 +69,7 @@ public class FirewallStatus extends Fragment implements MenuProvider {
             } else {
                 str = "disabled";
             }
-            Log.d(TAG, "Firwall is now ".concat(str));
+            Log.m587d(TAG, "Firwall is now ".concat(str));
             CaptureService.setFirewallEnabled(z);
             this.mPrefs.edit().putBoolean(Prefs.PREF_FIREWALL, z).apply();
             updateStatus();
@@ -109,21 +109,21 @@ public class FirewallStatus extends Fragment implements MenuProvider {
         boolean isFirewallEnabled = Prefs.isFirewallEnabled(requireContext, this.mPrefs);
         boolean isFirewallWhitelistMode = Prefs.isFirewallWhitelistMode(this.mPrefs);
         if (!isServiceActive) {
-            this.mStatusIcon.setImageResource(R.drawable.ic_shield);
+            this.mStatusIcon.setImageResource(C0130R.C0131drawable.ic_shield);
             this.mStatusIcon.setColorFilter(this.mGrayColor);
-            this.mStatus.setText(R.string.capture_not_running_status);
+            this.mStatus.setText(C0130R.string.capture_not_running_status);
         } else if (CaptureService.isDNSEncrypted()) {
-            this.mStatusIcon.setImageResource(R.drawable.ic_exclamation_triangle_solid);
+            this.mStatusIcon.setImageResource(C0130R.C0131drawable.ic_exclamation_triangle_solid);
             this.mStatusIcon.setColorFilter(this.mWarnColor);
-            this.mStatus.setText(R.string.private_dns_hinders_detection);
+            this.mStatus.setText(C0130R.string.private_dns_hinders_detection);
         } else {
-            this.mStatusIcon.setImageResource(R.drawable.ic_shield);
+            this.mStatusIcon.setImageResource(C0130R.C0131drawable.ic_shield);
             if (isFirewallEnabled) {
                 this.mStatusIcon.setColorFilter(this.mOkColor);
-                this.mStatus.setText(R.string.firewall_is_enabled);
+                this.mStatus.setText(C0130R.string.firewall_is_enabled);
             } else {
                 this.mStatusIcon.setColorFilter(this.mWarnColor);
-                this.mStatus.setText(R.string.firewall_is_disabled);
+                this.mStatus.setText(C0130R.string.firewall_is_disabled);
             }
         }
         SwitchCompat switchCompat = this.mToggle;
@@ -157,20 +157,20 @@ public class FirewallStatus extends Fragment implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.firewall_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.firewall_menu, menu);
         this.mMenu = menu;
-        SwitchCompat switchCompat = (SwitchCompat) menu.findItem(R.id.toggle_btn).getActionView();
+        SwitchCompat switchCompat = (SwitchCompat) menu.findItem(C0130R.C0132id.toggle_btn).getActionView();
         this.mToggle = switchCompat;
         switchCompat.setOnCheckedChangeListener(new Chip$$ExternalSyntheticLambda0(1, this));
-        menu.findItem(R.id.whitelist_mode).setChecked(Prefs.isFirewallWhitelistMode(this.mPrefs));
-        menu.findItem(R.id.block_new_apps).setChecked(Prefs.blockNewApps(this.mPrefs));
+        menu.findItem(C0130R.C0132id.whitelist_mode).setChecked(Prefs.isFirewallWhitelistMode(this.mPrefs));
+        menu.findItem(C0130R.C0132id.block_new_apps).setChecked(Prefs.blockNewApps(this.mPrefs));
         reloadMode(false);
     }
 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.firewall_status, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.firewall_status, viewGroup, false);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -180,15 +180,15 @@ public class FirewallStatus extends Fragment implements MenuProvider {
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.user_guide) {
+        if (itemId == C0130R.C0132id.user_guide) {
             Utils.startActivity(requireContext(), new Intent("android.intent.action.VIEW", Uri.parse(MainActivity.FIREWALL_DOCS_URL)));
             return true;
-        } else if (itemId == R.id.block_new_apps) {
+        } else if (itemId == C0130R.C0132id.block_new_apps) {
             boolean z = !menuItem.isChecked();
             menuItem.setChecked(z);
             this.mPrefs.edit().putBoolean(Prefs.PREF_BLOCK_NEW_APPS, z).apply();
             return true;
-        } else if (itemId != R.id.whitelist_mode) {
+        } else if (itemId != C0130R.C0132id.whitelist_mode) {
             return false;
         } else {
             boolean isChecked = menuItem.isChecked();
@@ -200,10 +200,10 @@ public class FirewallStatus extends Fragment implements MenuProvider {
                 return true;
             }
             zzbv zzbvVar = new zzbv(requireContext());
-            zzbvVar.setTitle(R.string.whitelist_mode);
-            zzbvVar.setMessage(R.string.firewall_whitelist_notice);
-            zzbvVar.setPositiveButton(R.string.ok, new FirewallStatus$$ExternalSyntheticLambda2(this, 0, menuItem));
-            zzbvVar.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(19));
+            zzbvVar.setTitle(C0130R.string.whitelist_mode);
+            zzbvVar.setMessage(C0130R.string.firewall_whitelist_notice);
+            zzbvVar.setPositiveButton(C0130R.string.ok, new FirewallStatus$$ExternalSyntheticLambda2(this, 0, menuItem));
+            zzbvVar.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(19));
             zzbvVar.show().setCanceledOnTouchOutside(false);
             return true;
         }
@@ -231,16 +231,16 @@ public class FirewallStatus extends Fragment implements MenuProvider {
         this.mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mBlocklist = PCAPdroid.getInstance().getBlocklist();
         this.mWhitelist = PCAPdroid.getInstance().getFirewallWhitelist();
-        this.mStatus = (TextView) view.findViewById(R.id.status);
+        this.mStatus = (TextView) view.findViewById(C0130R.C0132id.status);
         this.mHandler = new Handler(Looper.getMainLooper());
-        this.mStatusIcon = (ImageView) view.findViewById(R.id.status_icon);
-        this.mNumBlocked = (TextView) view.findViewById(R.id.num_blocked);
-        this.mNumChecked = (TextView) view.findViewById(R.id.num_checked);
-        this.mNumRules = (TextView) view.findViewById(R.id.num_rules);
-        this.mLastBlock = (TextView) view.findViewById(R.id.last_block);
-        this.mOkColor = BundleKt.getColor(context, R.color.ok);
-        this.mWarnColor = BundleKt.getColor(context, R.color.warning);
-        this.mGrayColor = BundleKt.getColor(context, R.color.lightGray);
-        view.findViewById(R.id.show_connections).setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(4, this));
+        this.mStatusIcon = (ImageView) view.findViewById(C0130R.C0132id.status_icon);
+        this.mNumBlocked = (TextView) view.findViewById(C0130R.C0132id.num_blocked);
+        this.mNumChecked = (TextView) view.findViewById(C0130R.C0132id.num_checked);
+        this.mNumRules = (TextView) view.findViewById(C0130R.C0132id.num_rules);
+        this.mLastBlock = (TextView) view.findViewById(C0130R.C0132id.last_block);
+        this.mOkColor = BundleKt.getColor(context, C0130R.color.ok);
+        this.mWarnColor = BundleKt.getColor(context, C0130R.color.warning);
+        this.mGrayColor = BundleKt.getColor(context, C0130R.color.lightGray);
+        view.findViewById(C0130R.C0132id.show_connections).setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(4, this));
     }
 }

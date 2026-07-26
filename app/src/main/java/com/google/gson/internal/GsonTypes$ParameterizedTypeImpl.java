@@ -1,11 +1,11 @@
 package com.google.gson.internal;
 
-import j$.util.Objects;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class GsonTypes$ParameterizedTypeImpl implements ParameterizedType, Serializable {
     public final Type ownerType;

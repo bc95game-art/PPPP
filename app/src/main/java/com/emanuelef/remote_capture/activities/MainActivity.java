@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureHelper;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
@@ -41,7 +42,6 @@ import com.emanuelef.remote_capture.MitmAddon;
 import com.emanuelef.remote_capture.MitmReceiver;
 import com.emanuelef.remote_capture.PCAPdroid;
 import com.emanuelef.remote_capture.PlayBilling;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.VpnReconnectService;
 import com.emanuelef.remote_capture.activities.prefs.SettingsActivity;
@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         @Override // androidx.viewpager2.adapter.FragmentStateAdapter
         public Fragment createFragment(int i) {
-            Log.d(MainActivity.TAG, "createFragment");
+            Log.m587d(MainActivity.TAG, "createFragment");
             if (i != 1) {
                 return new StatusFragment();
             }
@@ -131,16 +131,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         public int getPageTitle(int i) {
-            return i != 1 ? R.string.status : R.string.connections_view;
+            return i != 1 ? C0130R.string.status : C0130R.string.connections_view;
         }
     }
 
     private void checkDecryptionRulesNotice() {
         if (!this.mDecEmptyRulesNoticeShown && PCAPdroid.getInstance().getDecryptionList().isEmpty()) {
             zzbv zzbvVar = new zzbv(this);
-            zzbvVar.setMessage(R.string.tls_decryption_no_rules_notice);
-            zzbvVar.setPositiveButton(R.string.yes, new MainActivity$$ExternalSyntheticLambda3(this, 2));
-            zzbvVar.setNegativeButton(R.string.no, new Blocklist$$ExternalSyntheticLambda0(6));
+            zzbvVar.setMessage(C0130R.string.tls_decryption_no_rules_notice);
+            zzbvVar.setPositiveButton(C0130R.string.yes, new MainActivity$$ExternalSyntheticLambda3(this, 2));
+            zzbvVar.setNegativeButton(C0130R.string.no, new Blocklist$$ExternalSyntheticLambda0(6));
             zzbvVar.show();
             this.mDecEmptyRulesNoticeShown = true;
         }
@@ -151,11 +151,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (!CaptureService.hasError()) {
             ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
             if (connsRegister == null || connsRegister.getConnCount() <= 0 || CaptureService.hasSeenDumpExtensions() || this.mExtensionsNoticeShown) {
-                Utils.showToastLong(this, R.string.pcap_load_success, new Object[0]);
+                Utils.showToastLong(this, C0130R.string.pcap_load_success, new Object[0]);
             } else {
                 zzbv zzbvVar = new zzbv(this);
-                ((AlertController.AlertParams) zzbvVar.zza).mMessage = getString(R.string.pcapdroid_trailer_notice, getString(R.string.unknown_app), getString(R.string.dump_extensions));
-                zzbvVar.setPositiveButton(R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 7));
+                ((AlertController.AlertParams) zzbvVar.zza).mMessage = getString(C0130R.string.pcapdroid_trailer_notice, getString(C0130R.string.unknown_app), getString(C0130R.string.dump_extensions));
+                zzbvVar.setPositiveButton(C0130R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 7));
                 zzbvVar.show();
             }
             this.mPager.setCurrentItem(1);
@@ -166,8 +166,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         NavigationView navigationView = this.mNavView;
         if (navigationView != null) {
             Menu menu = navigationView.getMenu();
-            menu.findItem(R.id.malware_detection).setVisible(Prefs.isMalwareDetectionEnabled(this, this.mPrefs));
-            menu.findItem(R.id.firewall).setVisible(this.mIab.isFirewallVisible());
+            menu.findItem(C0130R.C0132id.malware_detection).setVisible(Prefs.isMalwareDetectionEnabled(this, this.mPrefs));
+            menu.findItem(C0130R.C0132id.firewall).setVisible(this.mIab.isFirewallVisible());
         }
     }
 
@@ -177,14 +177,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             try {
                 this.requestPermissionLauncher.launch("android.permission.WRITE_EXTERNAL_STORAGE");
             } catch (ActivityNotFoundException unused) {
-                Utils.showToastLong(this, R.string.no_intent_handler_found, new Object[0]);
+                Utils.showToastLong(this, C0130R.string.no_intent_handler_found, new Object[0]);
             }
         }
         if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission("android.permission.POST_NOTIFICATIONS") != 0) {
             if (shouldShowRequestPermissionRationale("android.permission.POST_NOTIFICATIONS")) {
                 zzbv zzbvVar = new zzbv(this);
-                zzbvVar.setMessage(R.string.notifications_notice);
-                zzbvVar.setPositiveButton(R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 0));
+                zzbvVar.setMessage(C0130R.string.notifications_notice);
+                zzbvVar.setPositiveButton(C0130R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 0));
                 zzbvVar.show().setCanceledOnTouchOutside(false);
                 return;
             }
@@ -194,16 +194,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void checkPurchasesAvailable() {
         if (this.mIab.isAvailable("malware_detection")) {
-            ((NavigationView) findViewById(R.id.nav_view)).getMenu().findItem(R.id.paid_features).setVisible(true);
+            ((NavigationView) findViewById(C0130R.C0132id.nav_view)).getMenu().findItem(C0130R.C0132id.paid_features).setVisible(true);
         }
     }
 
     private void checkVpnLockdownNotice() {
         if (!Prefs.lockdownVpnNoticeShown(this.mPrefs) && Prefs.isFirewallEnabled(this, this.mPrefs) && !CaptureService.isLockdownVPN()) {
             zzbv zzbvVar = new zzbv(this);
-            zzbvVar.setMessage(R.string.vpn_lockdown_notice);
-            zzbvVar.setPositiveButton(R.string.yes, new MainActivity$$ExternalSyntheticLambda3(this, 1));
-            zzbvVar.setNegativeButton(R.string.no, new Blocklist$$ExternalSyntheticLambda0(4));
+            zzbvVar.setMessage(C0130R.string.vpn_lockdown_notice);
+            zzbvVar.setPositiveButton(C0130R.string.yes, new MainActivity$$ExternalSyntheticLambda3(this, 1));
+            zzbvVar.setNegativeButton(C0130R.string.no, new Blocklist$$ExternalSyntheticLambda0(4));
             zzbvVar.show().setCanceledOnTouchOutside(false);
             Prefs.setLockdownVpnNoticeShown(this.mPrefs);
         }
@@ -223,14 +223,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         boolean z;
         String uriToFilePath = Utils.uriToFilePath(this, uri);
         if (uriToFilePath != null) {
-            Log.d(TAG, "deletePcapFile: path=".concat(uriToFilePath));
+            Log.m587d(TAG, "deletePcapFile: path=".concat(uriToFilePath));
             try {
                 z = new File(uriToFilePath).delete();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            Log.d(TAG, "deletePcapFile: uri=" + uri);
+            Log.m587d(TAG, "deletePcapFile: uri=" + uri);
             try {
                 if (getContentResolver().delete(uri, null, null) == 1) {
                     z = true;
@@ -241,7 +241,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             z = false;
         }
         if (!z) {
-            Utils.showToast(this, R.string.delete_error, new Object[0]);
+            Utils.showToast(this, C0130R.string.delete_error, new Object[0]);
         }
     }
 
@@ -257,7 +257,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void doStartCaptureService(String str) {
         if (this.mCapHelper == null) {
-            Log.e(TAG, "Activity destroyed, capture cannot start");
+            Log.m585e(TAG, "Activity destroyed, capture cannot start");
             return;
         }
         appStateStarting();
@@ -303,7 +303,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent;
         Uri data;
         if (activityResult.mResultCode == -1 && (intent = activityResult.mData) != null && (data = intent.getData()) != null) {
-            Log.d(TAG, "keylogFileOpenResult: " + data);
+            Log.m587d(TAG, "keylogFileOpenResult: " + data);
             startOpenPcap(this.mPcapUri, data);
         }
     }
@@ -333,7 +333,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public /* synthetic */ void lambda$loadKeylogfile$28() {
-        Utils.showToastLong(this, R.string.keylog_read_error, new Object[0]);
+        Utils.showToastLong(this, C0130R.string.keylog_read_error, new Object[0]);
         dismissPcapLoadDialog();
     }
 
@@ -344,7 +344,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public /* synthetic */ void lambda$loadKeylogfile$30(boolean z, File file, String str) {
         if (!z || !file.exists()) {
-            Utils.showToastLong(this, R.string.keylog_read_error, new Object[0]);
+            Utils.showToastLong(this, C0130R.string.keylog_read_error, new Object[0]);
             dismissPcapLoadDialog();
             return;
         }
@@ -385,18 +385,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             str = "denied";
         }
-        Log.d(TAG, "Write permission ".concat(str));
+        Log.m587d(TAG, "Write permission ".concat(str));
     }
 
     public /* synthetic */ void lambda$onCreate$1(boolean z) {
         if (!z) {
-            Log.w(TAG, "Capture start failed");
+            Log.m581w(TAG, "Capture start failed");
             appStateReady();
         }
     }
 
     public /* synthetic */ void lambda$onCreate$2(CaptureService.ServiceStatus serviceStatus) {
-        Log.d(TAG, "Service status: " + serviceStatus.name());
+        Log.m587d(TAG, "Service status: " + serviceStatus.name());
         boolean z = true;
         if (serviceStatus == CaptureService.ServiceStatus.STARTED) {
             appStateRunning();
@@ -415,7 +415,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 z = false;
             }
             sb.append(z);
-            Log.d(TAG, sb.toString());
+            Log.m587d(TAG, sb.toString());
             CaptureSettings captureSettings = CaptureService.getCaptureSettings();
             if (captureSettings != null && captureSettings.api_capture) {
                 if (this.mKeylogFile != null) {
@@ -433,16 +433,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                 try {
                                     OutputStream openOutputStream = getContentResolver().openOutputStream(downloadsUri, "rwt");
                                     Utils.copy(this.mKeylogFile, openOutputStream);
-                                    Utils.showToast(this, R.string.save_ok, new Object[0]);
+                                    Utils.showToast(this, C0130R.string.save_ok, new Object[0]);
                                     if (openOutputStream != null) {
                                         openOutputStream.close();
                                     }
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                    Utils.showToastLong(this, R.string.export_failed, new Object[0]);
+                                    Utils.showToastLong(this, C0130R.string.export_failed, new Object[0]);
                                 }
                             } else {
-                                Log.e(TAG, "Cannot export keylog to " + captureSettings.sslkeylog_name);
+                                Log.m585e(TAG, "Cannot export keylog to " + captureSettings.sslkeylog_name);
                             }
                         } else {
                             i += Character.charCount(codePointAt);
@@ -515,7 +515,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         intent.putExtra("android.intent.extra.STREAM", uri);
         intent.setClipData(ClipData.newRawUri("", uri));
         intent.setFlags(1);
-        Utils.startActivity(this, Intent.createChooser(intent, getResources().getString(R.string.share)));
+        Utils.startActivity(this, Intent.createChooser(intent, getResources().getString(C0130R.string.share)));
     }
 
     public /* synthetic */ void lambda$showPcapActionDialog$20(Uri uri, DialogInterface dialogInterface, int i) {
@@ -555,7 +555,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public /* synthetic */ void lambda$startOpenPcap$23(DialogInterface dialogInterface) {
-        Log.i(TAG, "Abort PCAP loading");
+        Log.m583i(TAG, "Abort PCAP loading");
         ExecutorService executorService = this.mPcapExecutor;
         if (executorService != null) {
             executorService.shutdownNow();
@@ -564,7 +564,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (CaptureService.isServiceActive()) {
             CaptureService.stopService();
         }
-        Utils.showToastLong(this, R.string.pcap_file_load_aborted, new Object[0]);
+        Utils.showToastLong(this, C0130R.string.pcap_file_load_aborted, new Object[0]);
     }
 
     public /* synthetic */ void lambda$startOpenPcap$24(DialogInterface dialogInterface) {
@@ -572,7 +572,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public /* synthetic */ void lambda$startOpenPcap$25() {
-        Utils.showToastLong(this, R.string.copy_error, new Object[0]);
+        Utils.showToastLong(this, C0130R.string.copy_error, new Object[0]);
         dismissPcapLoadDialog();
     }
 
@@ -616,7 +616,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent;
         Uri data;
         if (activityResult.mResultCode == -1 && (intent = activityResult.mData) != null && (data = intent.getData()) != null) {
-            Log.d(TAG, "pcapFileOpenResult: " + data);
+            Log.m587d(TAG, "pcapFileOpenResult: " + data);
             if (!this.mOpenPcapDecrypt || Utils.isPcapng(this, data)) {
                 startOpenPcap(data, null);
                 return;
@@ -624,9 +624,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             Intent intent2 = new Intent("android.intent.action.GET_CONTENT");
             intent2.addCategory("android.intent.category.OPENABLE");
             intent2.setType("*/*");
-            Log.i(TAG, "separate keylog file needed, launching dialog");
+            Log.m583i(TAG, "separate keylog file needed, launching dialog");
             this.mPcapUri = data;
-            Utils.showToast(this, R.string.select_the_keylog_file, new Object[0]);
+            Utils.showToast(this, C0130R.string.select_the_keylog_file, new Object[0]);
             Utils.launchFileDialog(this, intent2, this.keylogFileOpenLauncher);
         }
     }
@@ -637,14 +637,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             try {
                 HashSet hashSet = (HashSet) Utils.getSerializableExtra(intent, "skus", HashSet.class);
                 if (hashSet != null) {
-                    Log.d(TAG, "Found peer app info");
+                    Log.m587d(TAG, "Found peer app info");
                     this.mIab.handlePeerSkus(hashSet);
                     return;
                 }
             } catch (ClassCastException unused) {
             }
         }
-        Log.d(TAG, "Invalid peer app result");
+        Log.m587d(TAG, "Invalid peer app result");
         this.mIab.clearPeerSkus();
     }
 
@@ -652,7 +652,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         try {
             this.requestPermissionLauncher.launch("android.permission.POST_NOTIFICATIONS");
         } catch (ActivityNotFoundException unused) {
-            Utils.showToastLong(this, R.string.no_intent_handler_found, new Object[0]);
+            Utils.showToastLong(this, C0130R.string.no_intent_handler_found, new Object[0]);
         }
     }
 
@@ -660,10 +660,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.addCategory("android.intent.category.OPENABLE");
         intent.setType("*/*");
-        Log.d(TAG, "selectOpenPcapFile: launching dialog");
+        Log.m587d(TAG, "selectOpenPcapFile: launching dialog");
         this.mOpenPcapDecrypt = z;
         if (z) {
-            Utils.showToast(this, R.string.select_the_pcap_file, new Object[0]);
+            Utils.showToast(this, C0130R.string.select_the_pcap_file, new Object[0]);
         }
         Utils.launchFileDialog(this, intent, this.pcapFileOpenLauncher);
     }
@@ -672,9 +672,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         boolean z;
         boolean z2;
         int i;
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(C0130R.C0132id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(C0130R.C0132id.drawer_layout);
         this.mDrawer = drawerLayout;
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar);
         this.mDrawer.addDrawerListener(actionBarDrawerToggle);
@@ -712,22 +712,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         BaseActivity$$ExternalSyntheticLambda0 baseActivity$$ExternalSyntheticLambda0 = new BaseActivity$$ExternalSyntheticLambda0(25);
         WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
         ViewCompat.Api21Impl.setOnApplyWindowInsetsListener(drawerLayout3, baseActivity$$ExternalSyntheticLambda0);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(C0130R.C0132id.nav_view);
         this.mNavView = navigationView;
         navigationView.setNavigationItemSelectedListener(this);
-        TextView textView = (TextView) this.mNavView.presenter.headerLayout.getChildAt(0).findViewById(R.id.app_version);
+        TextView textView = (TextView) this.mNavView.presenter.headerLayout.getChildAt(0).findViewById(C0130R.C0132id.app_version);
         String appVersion = Utils.getAppVersion(this);
         textView.setText(appVersion);
         textView.setOnClickListener(new MainActivity$$ExternalSyntheticLambda5(this, appVersion, 0));
-        this.mNavView.getMenu().findItem(R.id.action_donate).setVisible(false);
+        this.mNavView.getMenu().findItem(C0130R.C0132id.action_donate).setVisible(false);
         checkPurchasesAvailable();
     }
 
     private void setupTabs() {
         MainStateAdapter mainStateAdapter = new MainStateAdapter(this);
         this.mPager.setAdapter(mainStateAdapter);
-        new zzw((TabLayout) findViewById(R.id.tablayout), this.mPager, new CaptureCtrl$$ExternalSyntheticLambda0(this, mainStateAdapter, 2)).attach();
-        View findViewById = findViewById(R.id.tab_switch_button);
+        new zzw((TabLayout) findViewById(C0130R.C0132id.tablayout), this.mPager, new CaptureCtrl$$ExternalSyntheticLambda0(this, mainStateAdapter, 2)).attach();
+        View findViewById = findViewById(C0130R.C0132id.tab_switch_button);
         if (findViewById != null) {
             findViewById.setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(2, this));
         }
@@ -737,20 +737,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (this.mPrefs.getBoolean(Prefs.PREF_REMOTE_COLLECTOR_ACK, false) || (((Prefs.getDumpMode(this.mPrefs) != Prefs.DumpMode.UDP_EXPORTER && Prefs.getDumpMode(this.mPrefs) != Prefs.DumpMode.TCP_EXPORTER) || Utils.isLocalNetworkAddress(Prefs.getCollectorIp(this.mPrefs))) && (!Prefs.getSocks5Enabled(this.mPrefs) || Utils.isLocalNetworkAddress(Prefs.getSocks5ProxyHost(this.mPrefs))))) {
             return false;
         }
-        Log.i(TAG, "Showing possible scan notice");
+        Log.m583i(TAG, "Showing possible scan notice");
         zzbv zzbvVar = new zzbv(this);
-        zzbvVar.setTitle(R.string.warning);
-        zzbvVar.setMessage(R.string.remote_collector_notice);
-        zzbvVar.setPositiveButton(R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 6));
+        zzbvVar.setTitle(C0130R.string.warning);
+        zzbvVar.setMessage(C0130R.string.remote_collector_notice);
+        zzbvVar.setPositiveButton(C0130R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 6));
         zzbvVar.show().setCanceledOnTouchOutside(false);
         return true;
     }
 
     private void showWhatsNew() {
         zzbv zzbvVar = new zzbv(this);
-        zzbvVar.setTitle(R.string.whats_new);
+        zzbvVar.setTitle(C0130R.string.whats_new);
         ((AlertController.AlertParams) zzbvVar.zza).mMessage = "- New HTTP requests view\n- Export HTTP data in the HAR format\n- Add Portuguese (BR) translation\n- Support the zstd compression\n- Pretty-print JSON in HTTP data\n- Fix HTTP/2 and WebSocket handling\n";
-        zzbvVar.setNeutralButton(R.string.ok, new Blocklist$$ExternalSyntheticLambda0(5));
+        zzbvVar.setNeutralButton(C0130R.string.ok, new Blocklist$$ExternalSyntheticLambda0(5));
         zzbvVar.show();
     }
 
@@ -761,13 +761,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             try {
                 OutputStream openOutputStream = getContentResolver().openOutputStream(intent.getData(), "rwt");
                 Utils.copy(this.mKeylogFile, openOutputStream);
-                Utils.showToast(this, R.string.save_ok, new Object[0]);
+                Utils.showToast(this, C0130R.string.save_ok, new Object[0]);
                 if (openOutputStream != null) {
                     openOutputStream.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Utils.showToastLong(this, R.string.export_failed, new Object[0]);
+                Utils.showToastLong(this, C0130R.string.export_failed, new Object[0]);
             }
         }
         File file = this.mKeylogFile;
@@ -782,7 +782,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         intent.addCategory("android.intent.category.OPENABLE");
         intent.setType("*/*");
         intent.putExtra("android.intent.extra.TITLE", "sslkeylogfile.txt");
-        Log.d(TAG, "startExportSslkeylogfile: launching dialog");
+        Log.m587d(TAG, "startExportSslkeylogfile: launching dialog");
         Utils.launchFileDialog(this, intent, this.sslkeyfileExportLauncher);
     }
 
@@ -800,8 +800,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         this.mPcapExecutor = Executors.newSingleThreadExecutor();
         zzbv zzbvVar = new zzbv(this);
-        zzbvVar.setTitle(R.string.loading);
-        zzbvVar.setMessage(R.string.pcap_load_in_progress);
+        zzbvVar.setTitle(C0130R.string.loading);
+        zzbvVar.setMessage(C0130R.string.pcap_load_in_progress);
         AlertDialog create = zzbvVar.create();
         this.mPcapLoadDialog = create;
         create.setCanceledOnTouchOutside(false);
@@ -815,7 +815,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             this.mPcapExecutor.execute(new MainActivity$$ExternalSyntheticLambda8(this, uri, tmpPcapPath, tmpPcapPath.getAbsolutePath(), uri2));
             return;
         }
-        Log.d(TAG, "pcapFileOpenResult: path: ".concat(uriToFilePath));
+        Log.m587d(TAG, "pcapFileOpenResult: path: ".concat(uriToFilePath));
         lambda$startOpenPcap$26(uriToFilePath, uri2);
     }
 
@@ -828,7 +828,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void updateTabSwitchButton() {
         int i;
-        View findViewById = findViewById(R.id.tab_switch_button);
+        View findViewById = findViewById(C0130R.C0132id.tab_switch_button);
         if (findViewById != null) {
             if (CaptureService.getHttpLog() != null) {
                 i = 0;
@@ -898,9 +898,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
-        setTheme(R.style.AppTheme_NoActionBar);
+        setTheme(C0130R.style.AppTheme_NoActionBar);
         super.onCreate(bundle);
-        setContentView(R.layout.main_activity);
+        setContentView(C0130R.layout.main_activity);
         setTitle(TELEGRAM_GROUP_NAME);
         SharedPreferences sharedPreferences = getSharedPreferences(PreferenceManager.getDefaultSharedPreferencesName(this), 0);
         this.mPrefs = sharedPreferences;
@@ -943,7 +943,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         CaptureHelper captureHelper = new CaptureHelper((ComponentActivity) this);
         this.mCapHelper = captureHelper;
         captureHelper.setListener(new MainActivity$$ExternalSyntheticLambda1(this, 0));
-        ViewPager2 viewPager2 = (ViewPager2) findViewById(R.id.pager);
+        ViewPager2 viewPager2 = (ViewPager2) findViewById(C0130R.C0132id.pager);
         this.mPager = viewPager2;
         Utils.fixViewPager2Insets(viewPager2);
         setupTabs();
@@ -964,14 +964,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         View view;
         if (i == 20) {
             View currentFocus = getCurrentFocus();
-            Log.d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
+            Log.m587d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
             if (currentFocus instanceof TabLayout.TabView) {
                 int currentItem = this.mPager.getCurrentItem();
-                Log.d(TAG, "TabLayout.TabView focus pos " + currentItem);
+                Log.m587d(TAG, "TabLayout.TabView focus pos " + currentItem);
                 if (currentItem == 0) {
-                    view = findViewById(R.id.main_screen);
+                    view = findViewById(C0130R.C0132id.main_screen);
                 } else if (currentItem == 1) {
-                    view = findViewById(R.id.connections_view);
+                    view = findViewById(C0130R.C0132id.connections_view);
                 } else {
                     view = null;
                 }
@@ -981,10 +981,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 }
             }
         } else if (i == 22 && this.mPager.getCurrentItem() == 1) {
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.connections_view);
+            RecyclerView recyclerView = (RecyclerView) findViewById(C0130R.C0132id.connections_view);
             if (recyclerView.getFocusedChild() != null) {
-                Log.d(TAG, "onKeyDown (right) focus " + recyclerView.getFocusedChild());
-                View findViewById = findViewById(R.id.fabDown);
+                Log.m587d(TAG, "onKeyDown (right) focus " + recyclerView.getFocusedChild());
+                View findViewById = findViewById(C0130R.C0132id.fabDown);
                 if (findViewById != null) {
                     findViewById.requestFocus();
                     return true;
@@ -997,45 +997,45 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override // com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.item_apps) {
+        if (itemId == C0130R.C0132id.item_apps) {
             if (CaptureService.getConnsRegister() != null) {
                 startActivity(new Intent(this, AppsActivity.class));
             } else {
-                Utils.showToast(this, R.string.start_capture_first, new Object[0]);
+                Utils.showToast(this, C0130R.string.start_capture_first, new Object[0]);
             }
-        } else if (itemId == R.id.malware_detection) {
+        } else if (itemId == C0130R.C0132id.malware_detection) {
             startActivity(new Intent(this, MalwareDetection.class));
-        } else if (itemId == R.id.tls_decryption) {
+        } else if (itemId == C0130R.C0132id.tls_decryption) {
             Intent intent = new Intent(this, EditListActivity.class);
             intent.putExtra(EditListActivity.LIST_TYPE_EXTRA, ListInfo.Type.DECRYPTION_LIST);
             startActivity(intent);
-        } else if (itemId == R.id.firewall) {
+        } else if (itemId == C0130R.C0132id.firewall) {
             startActivity(new Intent(this, FirewallActivity.class));
-        } else if (itemId == R.id.open_log) {
+        } else if (itemId == C0130R.C0132id.open_log) {
             startActivity(new Intent(this, LogviewActivity.class));
-        } else if (itemId == R.id.action_donate) {
+        } else if (itemId == C0130R.C0132id.action_donate) {
             Utils.startActivity(this, new Intent("android.intent.action.VIEW", Uri.parse(DONATE_URL)));
-        } else if (itemId == R.id.paid_features) {
+        } else if (itemId == C0130R.C0132id.paid_features) {
             startActivity(new Intent(this, IABActivity.class));
-        } else if (itemId == R.id.action_open_telegram) {
+        } else if (itemId == C0130R.C0132id.action_open_telegram) {
             openTelegram();
-        } else if (itemId == R.id.action_open_user_guide) {
+        } else if (itemId == C0130R.C0132id.action_open_user_guide) {
             Utils.startActivity(this, new Intent("android.intent.action.VIEW", Uri.parse(DOCS_URL)));
-        } else if (itemId == R.id.action_stats) {
+        } else if (itemId == C0130R.C0132id.action_stats) {
             if (this.mState == AppState.running) {
                 startActivity(new Intent(this, StatsActivity.class));
             } else {
-                Utils.showToast(this, R.string.start_capture_first, new Object[0]);
+                Utils.showToast(this, C0130R.string.start_capture_first, new Object[0]);
             }
-        } else if (itemId == R.id.action_about) {
+        } else if (itemId == C0130R.C0132id.action_about) {
             startActivity(new Intent(this, AboutActivity.class));
-        } else if (itemId == R.id.action_share_app) {
-            String string = getString(R.string.about_text);
-            String string2 = getString(R.string.get_app);
+        } else if (itemId == C0130R.C0132id.action_share_app) {
+            String string = getString(C0130R.string.about_text);
+            String string2 = getString(C0130R.string.get_app);
             Intent intent2 = new Intent("android.intent.action.SEND");
             intent2.setType("text/plain");
             intent2.putExtra("android.intent.extra.TEXT", string + "\n" + string2 + "\nhttps://play.google.com/store/apps/details?id=com.emanuelef.remote_capture");
-            Utils.startActivity(this, Intent.createChooser(intent2, getResources().getString(R.string.share)));
+            Utils.startActivity(this, Intent.createChooser(intent2, getResources().getString(C0130R.string.share)));
         }
         return false;
     }
@@ -1043,20 +1043,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, android.app.Activity
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.action_start) {
+        if (itemId == C0130R.C0132id.action_start) {
             this.mStartPressed = true;
             startCapture();
             return true;
-        } else if (itemId == R.id.action_stop) {
+        } else if (itemId == C0130R.C0132id.action_stop) {
             stopCapture();
             return true;
-        } else if (itemId == R.id.open_pcap) {
+        } else if (itemId == C0130R.C0132id.open_pcap) {
             selectOpenPcapFile(false);
             return true;
-        } else if (itemId == R.id.decrypt_pcap) {
+        } else if (itemId == C0130R.C0132id.decrypt_pcap) {
             selectOpenPcapFile(true);
             return true;
-        } else if (itemId != R.id.action_settings) {
+        } else if (itemId != C0130R.C0132id.action_settings) {
             return super.onOptionsItemSelected(menuItem);
         } else {
             startActivity(new Intent(this, SettingsActivity.class));
@@ -1083,7 +1083,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         this.mIab.connectBilling();
         NavigationView navigationView = this.mNavView;
         if (navigationView != null) {
-            MenuItem findItem = navigationView.getMenu().findItem(R.id.tls_decryption);
+            MenuItem findItem = navigationView.getMenu().findItem(C0130R.C0132id.tls_decryption);
             if (!Prefs.getTlsDecryptionEnabled(this.mPrefs) || Prefs.isRootCaptureEnabled(this.mPrefs)) {
                 z = false;
             } else {
@@ -1100,10 +1100,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void showPcapActionDialog() {
         final Uri pcapUri;
-        Log.d(TAG, "showPcapActionDialog called");
+        Log.m587d(TAG, "showPcapActionDialog called");
         if (!CaptureService.isUserDefinedPcapUri() && (pcapUri = CaptureService.getPcapUri()) != null) {
             CaptureStats stats = CaptureService.getStats();
-            Log.d(TAG, "Pcap dump size is " + stats.pcap_dump_size);
+            Log.m587d(TAG, "Pcap dump size is " + stats.pcap_dump_size);
             if (stats.pcap_dump_size <= 0) {
                 deletePcapFile(pcapUri);
                 return;
@@ -1112,11 +1112,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if (pcapFname == null) {
                 pcapFname = "unknown";
             }
-            String format = String.format(getResources().getString(R.string.pcap_file_action), pcapFname, Utils.formatBytes(stats.pcap_dump_size));
+            String format = String.format(getResources().getString(C0130R.string.pcap_file_action), pcapFname, Utils.formatBytes(stats.pcap_dump_size));
             zzbv zzbvVar = new zzbv(this);
             AlertController.AlertParams alertParams = (AlertController.AlertParams) zzbvVar.zza;
             alertParams.mMessage = format;
-            zzbvVar.setPositiveButton(R.string.share, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.MainActivity$$ExternalSyntheticLambda9
+            zzbvVar.setPositiveButton(C0130R.string.share, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.MainActivity$$ExternalSyntheticLambda9
                 public final /* synthetic */ MainActivity f$0;
 
                 {
@@ -1135,7 +1135,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 }
             });
-            zzbvVar.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.MainActivity$$ExternalSyntheticLambda9
+            zzbvVar.setNegativeButton(C0130R.string.delete, new DialogInterface.OnClickListener(this) { // from class: com.emanuelef.remote_capture.activities.MainActivity$$ExternalSyntheticLambda9
                 public final /* synthetic */ MainActivity f$0;
 
                 {
@@ -1154,7 +1154,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 }
             });
-            zzbvVar.setNeutralButton(R.string.ok, new Blocklist$$ExternalSyntheticLambda0(3));
+            zzbvVar.setNeutralButton(C0130R.string.ok, new Blocklist$$ExternalSyntheticLambda0(3));
             alertParams.mOnDismissListener = new MainActivity$$ExternalSyntheticLambda7(this, 1);
             AlertDialog create = zzbvVar.create();
             create.setCanceledOnTouchOutside(false);
@@ -1173,11 +1173,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     return;
                 } else if (!MitmAddon.getNewVersionAvailable(this).isEmpty()) {
                     zzbv zzbvVar = new zzbv(this);
-                    zzbvVar.setTitle(R.string.update_available);
-                    zzbvVar.setMessage(R.string.mitm_addon_update_available);
+                    zzbvVar.setTitle(C0130R.string.update_available);
+                    zzbvVar.setMessage(C0130R.string.mitm_addon_update_available);
                     ((AlertController.AlertParams) zzbvVar.zza).mCancelable = false;
-                    zzbvVar.setPositiveButton(R.string.update_action, new MainActivity$$ExternalSyntheticLambda3(this, 3));
-                    zzbvVar.setNegativeButton(R.string.cancel_action, new MainActivity$$ExternalSyntheticLambda3(this, 4));
+                    zzbvVar.setPositiveButton(C0130R.string.update_action, new MainActivity$$ExternalSyntheticLambda3(this, 3));
+                    zzbvVar.setNegativeButton(C0130R.string.cancel_action, new MainActivity$$ExternalSyntheticLambda3(this, 4));
                     zzbvVar.show();
                     return;
                 }
@@ -1187,10 +1187,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 return;
             }
             zzbv zzbvVar2 = new zzbv(this);
-            zzbvVar2.setTitle(R.string.active_vpn_detected);
-            zzbvVar2.setMessage(R.string.disconnect_vpn_confirm);
-            zzbvVar2.setPositiveButton(R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 5));
-            zzbvVar2.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(7));
+            zzbvVar2.setTitle(C0130R.string.active_vpn_detected);
+            zzbvVar2.setMessage(C0130R.string.disconnect_vpn_confirm);
+            zzbvVar2.setPositiveButton(C0130R.string.ok, new MainActivity$$ExternalSyntheticLambda3(this, 5));
+            zzbvVar2.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(7));
             zzbvVar2.show();
         }
     }

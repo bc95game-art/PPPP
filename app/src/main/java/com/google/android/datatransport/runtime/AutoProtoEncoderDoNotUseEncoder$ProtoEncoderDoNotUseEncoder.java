@@ -8,7 +8,7 @@ public final class AutoProtoEncoderDoNotUseEncoder$ProtoEncoderDoNotUseEncoder i
 
     /* JADX WARN: Type inference failed for: r0v0, types: [com.google.android.datatransport.runtime.AutoProtoEncoderDoNotUseEncoder$ProtoEncoderDoNotUseEncoder, java.lang.Object] */
     static {
-        FieldDescriptor.of("clientMetrics");
+        FieldDescriptor.m566of("clientMetrics");
     }
 
     @Override // com.google.firebase.encoders.Encoder

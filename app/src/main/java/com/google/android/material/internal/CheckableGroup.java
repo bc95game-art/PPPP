@@ -10,7 +10,7 @@ import java.util.HashSet;
 public final class CheckableGroup {
     public final HashMap checkables = new HashMap();
     public final HashSet checkedIds = new HashSet();
-    public ChipGroup.AnonymousClass1 onCheckedStateChangeListener;
+    public ChipGroup.C01761 onCheckedStateChangeListener;
     public boolean selectionRequired;
     public boolean singleSelection;
 
@@ -56,7 +56,7 @@ public final class CheckableGroup {
     }
 
     public final void onCheckedStateChanged() {
-        ChipGroup.AnonymousClass1 r0 = this.onCheckedStateChangeListener;
+        ChipGroup.C01761 r0 = this.onCheckedStateChangeListener;
         if (r0 != null) {
             new HashSet(this.checkedIds);
             ChipGroup chipGroup = ChipGroup.this;

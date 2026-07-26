@@ -3,7 +3,8 @@ package com.google.android.gms.internal.play_billing;
 import sun.misc.Unsafe;
 /* loaded from: classes.dex */
 public abstract /* synthetic */ class zzcm$$ExternalSyntheticBackportWithForwarding0 {
-    public static /* synthetic */ boolean m(Unsafe unsafe, Object obj, long j, Object obj2, Object obj3) {
+    /* renamed from: m */
+    public static /* synthetic */ boolean m569m(Unsafe unsafe, Object obj, long j, Object obj2, Object obj3) {
         while (!unsafe.compareAndSwapObject(obj, j, obj2, obj3)) {
             if (unsafe.getObject(obj, j) != obj2) {
                 return false;

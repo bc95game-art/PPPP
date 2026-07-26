@@ -34,8 +34,8 @@ import java.util.concurrent.atomic.AtomicIntegerArray;
 /* loaded from: classes.dex */
 public abstract class TypeAdapters {
     public static final JsonElementTypeAdapter JSON_ELEMENT;
-    public static final AnonymousClass29 JSON_ELEMENT_FACTORY;
-    public static final AnonymousClass29 CLASS_FACTORY = new AnonymousClass29(Class.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.1
+    public static final C026429 JSON_ELEMENT_FACTORY;
+    public static final C026429 CLASS_FACTORY = new C026429(Class.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.1
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             throw new UnsupportedOperationException("Attempted to deserialize a java.lang.Class. Forgot to register a type adapter?\nSee " + "https://github.com/google/gson/blob/main/Troubleshooting.md#".concat("java-lang-class-unsupported"));
@@ -46,7 +46,7 @@ public abstract class TypeAdapters {
             throw new UnsupportedOperationException("Attempted to serialize java.lang.Class: " + ((Class) obj).getName() + ". Forgot to register a type adapter?\nSee " + "https://github.com/google/gson/blob/main/Troubleshooting.md#".concat("java-lang-class-unsupported"));
         }
     }.nullSafe(), 0);
-    public static final AnonymousClass29 BIT_SET_FACTORY = new AnonymousClass29(BitSet.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.2
+    public static final C026429 BIT_SET_FACTORY = new C026429(BitSet.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.2
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             boolean z;
@@ -63,7 +63,7 @@ public abstract class TypeAdapters {
                     } else if (nextInt == 1) {
                         z = true;
                     } else {
-                        StringBuilder m = ViewModelProvider.Factory.CC.m("Invalid bitset value ", nextInt, ", expected 0 or 1; at path ");
+                        StringBuilder m = ViewModelProvider.Factory.CC.m598m("Invalid bitset value ", nextInt, ", expected 0 or 1; at path ");
                         m.append(jsonReader.getPath(true));
                         throw new RuntimeException(m.toString());
                     }
@@ -93,7 +93,7 @@ public abstract class TypeAdapters {
             jsonWriter.endArray();
         }
     }.nullSafe(), 0);
-    public static final AnonymousClass4 BOOLEAN_AS_STRING = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.4
+    public static final C02684 BOOLEAN_AS_STRING = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.4
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() != 9) {
@@ -115,7 +115,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     };
-    public static final AnonymousClass30 BYTE_FACTORY = new AnonymousClass30(Byte.TYPE, Byte.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.5
+    public static final C026630 BYTE_FACTORY = new C026630(Byte.TYPE, Byte.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.5
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -127,7 +127,7 @@ public abstract class TypeAdapters {
                 if (nextInt <= 255 && nextInt >= -128) {
                     return Byte.valueOf((byte) nextInt);
                 }
-                StringBuilder m = ViewModelProvider.Factory.CC.m("Lossy conversion from ", nextInt, " to byte; at path ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m598m("Lossy conversion from ", nextInt, " to byte; at path ");
                 m.append(jsonReader.getPath(true));
                 throw new RuntimeException(m.toString());
             } catch (NumberFormatException e) {
@@ -145,7 +145,7 @@ public abstract class TypeAdapters {
             }
         }
     });
-    public static final AnonymousClass30 SHORT_FACTORY = new AnonymousClass30(Short.TYPE, Short.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.6
+    public static final C026630 SHORT_FACTORY = new C026630(Short.TYPE, Short.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.6
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -157,7 +157,7 @@ public abstract class TypeAdapters {
                 if (nextInt <= 65535 && nextInt >= -32768) {
                     return Short.valueOf((short) nextInt);
                 }
-                StringBuilder m = ViewModelProvider.Factory.CC.m("Lossy conversion from ", nextInt, " to short; at path ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m598m("Lossy conversion from ", nextInt, " to short; at path ");
                 m.append(jsonReader.getPath(true));
                 throw new RuntimeException(m.toString());
             } catch (NumberFormatException e) {
@@ -175,7 +175,7 @@ public abstract class TypeAdapters {
             }
         }
     });
-    public static final AnonymousClass30 INTEGER_FACTORY = new AnonymousClass30(Integer.TYPE, Integer.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.7
+    public static final C026630 INTEGER_FACTORY = new C026630(Integer.TYPE, Integer.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.7
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -199,7 +199,7 @@ public abstract class TypeAdapters {
             }
         }
     });
-    public static final AnonymousClass29 ATOMIC_INTEGER_FACTORY = new AnonymousClass29(AtomicInteger.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.8
+    public static final C026429 ATOMIC_INTEGER_FACTORY = new C026429(AtomicInteger.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.8
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             try {
@@ -214,7 +214,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(((AtomicInteger) obj).get());
         }
     }.nullSafe(), 0);
-    public static final AnonymousClass29 ATOMIC_BOOLEAN_FACTORY = new AnonymousClass29(AtomicBoolean.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.9
+    public static final C026429 ATOMIC_BOOLEAN_FACTORY = new C026429(AtomicBoolean.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.9
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             return new AtomicBoolean(jsonReader.nextBoolean());
@@ -225,7 +225,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(((AtomicBoolean) obj).get());
         }
     }.nullSafe(), 0);
-    public static final AnonymousClass29 ATOMIC_INTEGER_ARRAY_FACTORY = new AnonymousClass29(AtomicIntegerArray.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.10
+    public static final C026429 ATOMIC_INTEGER_ARRAY_FACTORY = new C026429(AtomicIntegerArray.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.10
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             ArrayList arrayList = new ArrayList();
@@ -257,7 +257,7 @@ public abstract class TypeAdapters {
             jsonWriter.endArray();
         }
     }.nullSafe(), 0);
-    public static final AnonymousClass11 LONG = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.11
+    public static final C024611 LONG = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.11
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -281,7 +281,7 @@ public abstract class TypeAdapters {
             }
         }
     };
-    public static final AnonymousClass30 CHARACTER_FACTORY = new AnonymousClass30(Character.TYPE, Character.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.14
+    public static final C026630 CHARACTER_FACTORY = new C026630(Character.TYPE, Character.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.14
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -292,7 +292,7 @@ public abstract class TypeAdapters {
             if (nextString.length() == 1) {
                 return Character.valueOf(nextString.charAt(0));
             }
-            StringBuilder m = ViewModelProvider.Factory.CC.m15m("Expecting character, got: ", nextString, "; at ");
+            StringBuilder m = ViewModelProvider.Factory.CC.m594m("Expecting character, got: ", nextString, "; at ");
             m.append(jsonReader.getPath(true));
             throw new RuntimeException(m.toString());
         }
@@ -309,7 +309,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     });
-    public static final AnonymousClass16 BIG_DECIMAL = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.16
+    public static final C025116 BIG_DECIMAL = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.16
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -320,7 +320,7 @@ public abstract class TypeAdapters {
             try {
                 return Streams.parseBigDecimal(nextString);
             } catch (NumberFormatException e) {
-                StringBuilder m = ViewModelProvider.Factory.CC.m15m("Failed parsing '", nextString, "' as BigDecimal; at path ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m594m("Failed parsing '", nextString, "' as BigDecimal; at path ");
                 m.append(jsonReader.getPath(true));
                 throw new RuntimeException(m.toString(), e);
             }
@@ -331,7 +331,7 @@ public abstract class TypeAdapters {
             jsonWriter.value((BigDecimal) obj);
         }
     };
-    public static final AnonymousClass17 BIG_INTEGER = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.17
+    public static final C025217 BIG_INTEGER = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.17
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -343,7 +343,7 @@ public abstract class TypeAdapters {
                 Streams.checkNumberStringLength(nextString);
                 return new BigInteger(nextString);
             } catch (NumberFormatException e) {
-                StringBuilder m = ViewModelProvider.Factory.CC.m15m("Failed parsing '", nextString, "' as BigInteger; at path ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m594m("Failed parsing '", nextString, "' as BigInteger; at path ");
                 m.append(jsonReader.getPath(true));
                 throw new RuntimeException(m.toString(), e);
             }
@@ -354,7 +354,7 @@ public abstract class TypeAdapters {
             jsonWriter.value((BigInteger) obj);
         }
     };
-    public static final AnonymousClass18 LAZILY_PARSED_NUMBER = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.18
+    public static final C025318 LAZILY_PARSED_NUMBER = new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.18
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() != 9) {
@@ -369,7 +369,7 @@ public abstract class TypeAdapters {
             jsonWriter.value((LazilyParsedNumber) obj);
         }
     };
-    public static final AnonymousClass29 STRING_BUILDER_FACTORY = new AnonymousClass29(StringBuilder.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.19
+    public static final C026429 STRING_BUILDER_FACTORY = new C026429(StringBuilder.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.19
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() != 9) {
@@ -391,7 +391,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     }, 0);
-    public static final AnonymousClass29 STRING_BUFFER_FACTORY = new AnonymousClass29(StringBuffer.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.20
+    public static final C026429 STRING_BUFFER_FACTORY = new C026429(StringBuffer.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.20
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() != 9) {
@@ -413,7 +413,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     }, 0);
-    public static final AnonymousClass29 URL_FACTORY = new AnonymousClass29(URL.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.21
+    public static final C026429 URL_FACTORY = new C026429(URL.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.21
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -439,7 +439,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     }, 0);
-    public static final AnonymousClass29 URI_FACTORY = new AnonymousClass29(URI.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.22
+    public static final C026429 URI_FACTORY = new C026429(URI.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.22
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -469,7 +469,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     }, 0);
-    public static final AnonymousClass29 INET_ADDRESS_FACTORY = new AnonymousClass29(InetAddress.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.23
+    public static final C026429 INET_ADDRESS_FACTORY = new C026429(InetAddress.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.23
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() != 9) {
@@ -491,7 +491,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     }, 1);
-    public static final AnonymousClass29 UUID_FACTORY = new AnonymousClass29(UUID.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.24
+    public static final C026429 UUID_FACTORY = new C026429(UUID.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.24
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             if (jsonReader.peek() == 9) {
@@ -502,7 +502,7 @@ public abstract class TypeAdapters {
             try {
                 return UUID.fromString(nextString);
             } catch (IllegalArgumentException e) {
-                StringBuilder m = ViewModelProvider.Factory.CC.m15m("Failed parsing '", nextString, "' as UUID; at path ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m594m("Failed parsing '", nextString, "' as UUID; at path ");
                 m.append(jsonReader.getPath(true));
                 throw new RuntimeException(m.toString(), e);
             }
@@ -520,14 +520,14 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     }, 0);
-    public static final AnonymousClass29 CURRENCY_FACTORY = new AnonymousClass29(Currency.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.25
+    public static final C026429 CURRENCY_FACTORY = new C026429(Currency.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.25
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             String nextString = jsonReader.nextString();
             try {
                 return Currency.getInstance(nextString);
             } catch (IllegalArgumentException e) {
-                StringBuilder m = ViewModelProvider.Factory.CC.m15m("Failed parsing '", nextString, "' as Currency; at path ");
+                StringBuilder m = ViewModelProvider.Factory.CC.m594m("Failed parsing '", nextString, "' as Currency; at path ");
                 m.append(jsonReader.getPath(true));
                 throw new RuntimeException(m.toString(), e);
             }
@@ -538,7 +538,7 @@ public abstract class TypeAdapters {
             jsonWriter.value(((Currency) obj).getCurrencyCode());
         }
     }.nullSafe(), 0);
-    public static final AnonymousClass31 CALENDAR_FACTORY = new AnonymousClass31(0, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.26
+    public static final C026731 CALENDAR_FACTORY = new C026731(0, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.26
         /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
         /* JADX WARN: Code restructure failed: missing block: B:16:0x0044, code lost:
             if (r1.equals("month") == false) goto L11;
@@ -546,128 +546,92 @@ public abstract class TypeAdapters {
         @Override // com.google.gson.TypeAdapter
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public final java.lang.Object read(com.google.gson.stream.JsonReader r13) {
-            /*
-                r12 = this;
-                int r0 = r13.peek()
-                r1 = 9
-                if (r0 != r1) goto Ld
-                r13.nextNull()
-                r13 = 0
-                return r13
-            Ld:
-                r13.beginObject()
-                r0 = 0
-                r2 = 0
-                r3 = 0
-                r4 = 0
-                r5 = 0
-                r6 = 0
-                r7 = 0
-            L17:
-                int r1 = r13.peek()
-                r8 = 4
-                if (r1 == r8) goto L82
-                java.lang.String r1 = r13.nextName()
-                int r9 = r13.nextInt()
-                r1.getClass()
-                int r10 = r1.hashCode()
-                r11 = -1
-                switch(r10) {
-                    case -1181204563: goto L68;
-                    case -1074026988: goto L5d;
-                    case -906279820: goto L52;
-                    case 3704893: goto L47;
-                    case 104080000: goto L3e;
-                    case 985252545: goto L33;
-                    default: goto L31;
+        public final Object read(JsonReader jsonReader) {
+            if (jsonReader.peek() == 9) {
+                jsonReader.nextNull();
+                return null;
+            }
+            jsonReader.beginObject();
+            int i = 0;
+            int i2 = 0;
+            int i3 = 0;
+            int i4 = 0;
+            int i5 = 0;
+            int i6 = 0;
+            while (true) {
+                char c = 4;
+                if (jsonReader.peek() != 4) {
+                    String nextName = jsonReader.nextName();
+                    int nextInt = jsonReader.nextInt();
+                    nextName.getClass();
+                    switch (nextName.hashCode()) {
+                        case -1181204563:
+                            if (nextName.equals("dayOfMonth")) {
+                                c = 0;
+                                break;
+                            }
+                            c = 65535;
+                            break;
+                        case -1074026988:
+                            if (nextName.equals("minute")) {
+                                c = 1;
+                                break;
+                            }
+                            c = 65535;
+                            break;
+                        case -906279820:
+                            if (nextName.equals("second")) {
+                                c = 2;
+                                break;
+                            }
+                            c = 65535;
+                            break;
+                        case 3704893:
+                            if (nextName.equals("year")) {
+                                c = 3;
+                                break;
+                            }
+                            c = 65535;
+                            break;
+                        case 104080000:
+                            break;
+                        case 985252545:
+                            if (nextName.equals("hourOfDay")) {
+                                c = 5;
+                                break;
+                            }
+                            c = 65535;
+                            break;
+                        default:
+                            c = 65535;
+                            break;
+                    }
+                    switch (c) {
+                        case 0:
+                            i3 = nextInt;
+                            break;
+                        case 1:
+                            i5 = nextInt;
+                            break;
+                        case 2:
+                            i6 = nextInt;
+                            break;
+                        case 3:
+                            i = nextInt;
+                            break;
+                        case 4:
+                            i2 = nextInt;
+                            break;
+                        case 5:
+                            i4 = nextInt;
+                            break;
+                    }
+                } else {
+                    jsonReader.endObject();
+                    return new GregorianCalendar(i, i2, i3, i4, i5, i6);
                 }
-            L31:
-                r8 = -1
-                goto L72
-            L33:
-                java.lang.String r8 = "hourOfDay"
-                boolean r1 = r1.equals(r8)
-                if (r1 != 0) goto L3c
-                goto L31
-            L3c:
-                r8 = 5
-                goto L72
-            L3e:
-                java.lang.String r10 = "month"
-                boolean r1 = r1.equals(r10)
-                if (r1 != 0) goto L72
-                goto L31
-            L47:
-                java.lang.String r8 = "year"
-                boolean r1 = r1.equals(r8)
-                if (r1 != 0) goto L50
-                goto L31
-            L50:
-                r8 = 3
-                goto L72
-            L52:
-                java.lang.String r8 = "second"
-                boolean r1 = r1.equals(r8)
-                if (r1 != 0) goto L5b
-                goto L31
-            L5b:
-                r8 = 2
-                goto L72
-            L5d:
-                java.lang.String r8 = "minute"
-                boolean r1 = r1.equals(r8)
-                if (r1 != 0) goto L66
-                goto L31
-            L66:
-                r8 = 1
-                goto L72
-            L68:
-                java.lang.String r8 = "dayOfMonth"
-                boolean r1 = r1.equals(r8)
-                if (r1 != 0) goto L71
-                goto L31
-            L71:
-                r8 = 0
-            L72:
-                switch(r8) {
-                    case 0: goto L80;
-                    case 1: goto L7e;
-                    case 2: goto L7c;
-                    case 3: goto L7a;
-                    case 4: goto L78;
-                    case 5: goto L76;
-                    default: goto L75;
-                }
-            L75:
-                goto L17
-            L76:
-                r5 = r9
-                goto L17
-            L78:
-                r3 = r9
-                goto L17
-            L7a:
-                r2 = r9
-                goto L17
-            L7c:
-                r7 = r9
-                goto L17
-            L7e:
-                r6 = r9
-                goto L17
-            L80:
-                r4 = r9
-                goto L17
-            L82:
-                r13.endObject()
-                java.util.GregorianCalendar r1 = new java.util.GregorianCalendar
-                r1.<init>(r2, r3, r4, r5, r6, r7)
-                return r1
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.google.gson.internal.bind.TypeAdapters.AnonymousClass26.read(com.google.gson.stream.JsonReader):java.lang.Object");
+            }
         }
 
         @Override // com.google.gson.TypeAdapter
@@ -693,7 +657,7 @@ public abstract class TypeAdapters {
             jsonWriter.endObject();
         }
     });
-    public static final AnonymousClass29 LOCALE_FACTORY = new AnonymousClass29(Locale.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.27
+    public static final C026429 LOCALE_FACTORY = new C026429(Locale.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.27
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             String str;
@@ -738,8 +702,8 @@ public abstract class TypeAdapters {
             jsonWriter.value(str);
         }
     }, 0);
-    public static final EnumTypeAdapter.AnonymousClass1 ENUM_FACTORY = EnumTypeAdapter.FACTORY;
-    public static final AnonymousClass30 BOOLEAN_FACTORY = new AnonymousClass30(Boolean.TYPE, Boolean.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.3
+    public static final EnumTypeAdapter.C02421 ENUM_FACTORY = EnumTypeAdapter.FACTORY;
+    public static final C026630 BOOLEAN_FACTORY = new C026630(Boolean.TYPE, Boolean.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.3
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             int peek = jsonReader.peek();
@@ -772,7 +736,7 @@ public abstract class TypeAdapters {
             writer.write(str);
         }
     });
-    public static final AnonymousClass29 STRING_FACTORY = new AnonymousClass29(String.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.15
+    public static final C026429 STRING_FACTORY = new C026429(String.class, new TypeAdapter() { // from class: com.google.gson.internal.bind.TypeAdapters.15
         @Override // com.google.gson.TypeAdapter
         public final Object read(JsonReader jsonReader) {
             int peek = jsonReader.peek();
@@ -792,14 +756,14 @@ public abstract class TypeAdapters {
         }
     }, 0);
 
-    /* renamed from: com.google.gson.internal.bind.TypeAdapters$29  reason: invalid class name */
+    /* renamed from: com.google.gson.internal.bind.TypeAdapters$29 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass29 implements TypeAdapterFactory {
+    public final class C026429 implements TypeAdapterFactory {
         public final /* synthetic */ int $r8$classId;
         public final /* synthetic */ Object val$type;
         public final /* synthetic */ TypeAdapter val$typeAdapter;
 
-        public /* synthetic */ AnonymousClass29(Object obj, TypeAdapter typeAdapter, int i) {
+        public /* synthetic */ C026429(Object obj, TypeAdapter typeAdapter, int i) {
             this.$r8$classId = i;
             this.val$type = obj;
             this.val$typeAdapter = typeAdapter;
@@ -839,14 +803,14 @@ public abstract class TypeAdapters {
         }
     }
 
-    /* renamed from: com.google.gson.internal.bind.TypeAdapters$30  reason: invalid class name */
+    /* renamed from: com.google.gson.internal.bind.TypeAdapters$30 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass30 implements TypeAdapterFactory {
+    public final class C026630 implements TypeAdapterFactory {
         public final /* synthetic */ Class val$boxed;
         public final /* synthetic */ TypeAdapter val$typeAdapter;
         public final /* synthetic */ Class val$unboxed;
 
-        public AnonymousClass30(Class cls, Class cls2, TypeAdapter typeAdapter) {
+        public C026630(Class cls, Class cls2, TypeAdapter typeAdapter) {
             this.val$unboxed = cls;
             this.val$boxed = cls2;
             this.val$typeAdapter = typeAdapter;
@@ -866,13 +830,13 @@ public abstract class TypeAdapters {
         }
     }
 
-    /* renamed from: com.google.gson.internal.bind.TypeAdapters$31  reason: invalid class name */
+    /* renamed from: com.google.gson.internal.bind.TypeAdapters$31 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass31 implements TypeAdapterFactory {
+    public final class C026731 implements TypeAdapterFactory {
         public final /* synthetic */ int $r8$classId;
         public final /* synthetic */ Object val$typeAdapter;
 
-        public /* synthetic */ AnonymousClass31(int i, Object obj) {
+        public /* synthetic */ C026731(int i, Object obj) {
             this.$r8$classId = i;
             this.val$typeAdapter = obj;
         }
@@ -883,7 +847,7 @@ public abstract class TypeAdapters {
                 case 0:
                     Class rawType = typeToken.getRawType();
                     if (rawType == Calendar.class || rawType == GregorianCalendar.class) {
-                        return (AnonymousClass26) this.val$typeAdapter;
+                        return (C026226) this.val$typeAdapter;
                     }
                     return null;
                 case 1:
@@ -902,7 +866,7 @@ public abstract class TypeAdapters {
         public String toString() {
             switch (this.$r8$classId) {
                 case 0:
-                    return "Factory[type=" + Calendar.class.getName() + "+" + GregorianCalendar.class.getName() + ",adapter=" + ((AnonymousClass26) this.val$typeAdapter) + "]";
+                    return "Factory[type=" + Calendar.class.getName() + "+" + GregorianCalendar.class.getName() + ",adapter=" + ((C026226) this.val$typeAdapter) + "]";
                 default:
                     return super.toString();
             }
@@ -960,6 +924,6 @@ public abstract class TypeAdapters {
         };
         JsonElementTypeAdapter jsonElementTypeAdapter = JsonElementTypeAdapter.ADAPTER;
         JSON_ELEMENT = jsonElementTypeAdapter;
-        JSON_ELEMENT_FACTORY = new AnonymousClass29(JsonElement.class, jsonElementTypeAdapter, 1);
+        JSON_ELEMENT_FACTORY = new C026429(JsonElement.class, jsonElementTypeAdapter, 1);
     }
 }

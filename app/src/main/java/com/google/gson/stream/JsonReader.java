@@ -9,7 +9,9 @@ import java.io.StringReader;
 import java.util.Arrays;
 /* loaded from: classes.dex */
 public class JsonReader implements Closeable {
-    public final StringReader in;
+
+    /* renamed from: in */
+    public final StringReader f38in;
     public long peekedLong;
     public int peekedNumberLength;
     public String peekedString;
@@ -34,7 +36,7 @@ public class JsonReader implements Closeable {
         int[] iArr = new int[32];
         this.stack = iArr;
         iArr[0] = 6;
-        this.in = stringReader;
+        this.f38in = stringReader;
     }
 
     public final void beginArray() {
@@ -76,7 +78,7 @@ public class JsonReader implements Closeable {
         this.peeked = 0;
         this.stack[0] = 8;
         this.stackSize = 1;
-        this.in.close();
+        this.f38in.close();
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:121:0x01a8, code lost:
@@ -140,14 +142,285 @@ public class JsonReader implements Closeable {
     /* JADX WARN: Removed duplicated region for block: B:64:0x00e9  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public final int doPeek() {
-        /*
-            Method dump skipped, instructions count: 791
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.stream.JsonReader.doPeek():int");
+        int nextNonWhitespace;
+        int i;
+        int i2;
+        boolean z;
+        String str;
+        String str2;
+        boolean z2;
+        char c;
+        int nextNonWhitespace2;
+        int[] iArr = this.stack;
+        int i3 = this.stackSize - 1;
+        int i4 = iArr[i3];
+        char[] cArr = this.buffer;
+        if (i4 == 1) {
+            iArr[i3] = 2;
+        } else if (i4 == 2) {
+            int nextNonWhitespace3 = nextNonWhitespace(true);
+            if (nextNonWhitespace3 != 44) {
+                if (nextNonWhitespace3 == 59) {
+                    checkLenient();
+                } else if (nextNonWhitespace3 == 93) {
+                    this.peeked = 4;
+                    return 4;
+                } else {
+                    syntaxError("Unterminated array");
+                    throw null;
+                }
+            }
+        } else if (i4 == 3 || i4 == 5) {
+            iArr[i3] = 4;
+            if (i4 == 5 && (nextNonWhitespace2 = nextNonWhitespace(true)) != 44) {
+                if (nextNonWhitespace2 == 59) {
+                    checkLenient();
+                } else if (nextNonWhitespace2 == 125) {
+                    this.peeked = 2;
+                    return 2;
+                } else {
+                    syntaxError("Unterminated object");
+                    throw null;
+                }
+            }
+            int nextNonWhitespace4 = nextNonWhitespace(true);
+            if (nextNonWhitespace4 == 34) {
+                this.peeked = 13;
+                return 13;
+            } else if (nextNonWhitespace4 == 39) {
+                checkLenient();
+                this.peeked = 12;
+                return 12;
+            } else if (nextNonWhitespace4 != 125) {
+                checkLenient();
+                this.pos--;
+                if (isLiteral((char) nextNonWhitespace4)) {
+                    this.peeked = 14;
+                    return 14;
+                }
+                syntaxError("Expected name");
+                throw null;
+            } else if (i4 != 5) {
+                this.peeked = 2;
+                return 2;
+            } else {
+                syntaxError("Expected name");
+                throw null;
+            }
+        } else if (i4 == 4) {
+            iArr[i3] = 5;
+            int nextNonWhitespace5 = nextNonWhitespace(true);
+            if (nextNonWhitespace5 != 58) {
+                if (nextNonWhitespace5 == 61) {
+                    checkLenient();
+                    if (this.pos < this.limit || fillBuffer(1)) {
+                        int i5 = this.pos;
+                        if (cArr[i5] == '>') {
+                            this.pos = i5 + 1;
+                        }
+                    }
+                } else {
+                    syntaxError("Expected ':'");
+                    throw null;
+                }
+            }
+        } else if (i4 == 6) {
+            if (this.strictness == 1) {
+                nextNonWhitespace(true);
+                int i6 = this.pos;
+                this.pos = i6 - 1;
+                if (i6 + 4 <= this.limit || fillBuffer(5)) {
+                    int i7 = this.pos;
+                    if (cArr[i7] == ')' && cArr[i7 + 1] == ']' && cArr[i7 + 2] == '}' && cArr[i7 + 3] == '\'' && cArr[i7 + 4] == '\n') {
+                        this.pos = i7 + 5;
+                    }
+                }
+            }
+            this.stack[this.stackSize - 1] = 7;
+        } else {
+            if (i4 == 7) {
+                if (nextNonWhitespace(false) == -1) {
+                    this.peeked = 17;
+                    return 17;
+                }
+                checkLenient();
+                this.pos--;
+            } else if (i4 == 8) {
+                throw new IllegalStateException("JsonReader is closed");
+            }
+            nextNonWhitespace = nextNonWhitespace(true);
+            if (nextNonWhitespace != 34) {
+                this.peeked = 9;
+                return 9;
+            } else if (nextNonWhitespace != 39) {
+                if (!(nextNonWhitespace == 44 || nextNonWhitespace == 59)) {
+                    if (nextNonWhitespace == 91) {
+                        this.peeked = 3;
+                        return 3;
+                    } else if (nextNonWhitespace != 93) {
+                        if (nextNonWhitespace != 123) {
+                            int i8 = this.pos - 1;
+                            this.pos = i8;
+                            char c2 = cArr[i8];
+                            if (c2 == 't' || c2 == 'T') {
+                                str2 = "true";
+                                str = "TRUE";
+                                i = 5;
+                            } else if (c2 == 'f' || c2 == 'F') {
+                                str2 = "false";
+                                str = "FALSE";
+                                i = 6;
+                            } else {
+                                if (c2 == 'n' || c2 == 'N') {
+                                    str2 = "null";
+                                    str = "NULL";
+                                    i = 7;
+                                }
+                                i = 0;
+                                if (i == 0) {
+                                    return i;
+                                }
+                                int i9 = this.pos;
+                                int i10 = this.limit;
+                                int i11 = i9;
+                                long j = 0;
+                                char c3 = 0;
+                                int i12 = 0;
+                                boolean z3 = true;
+                                boolean z4 = false;
+                                while (true) {
+                                    if (i11 + i12 == i10) {
+                                        if (i12 == cArr.length) {
+                                            break;
+                                        } else if (!fillBuffer(i12 + 1)) {
+                                            break;
+                                        } else {
+                                            i11 = this.pos;
+                                            i10 = this.limit;
+                                        }
+                                    }
+                                    char c4 = cArr[i11 + i12];
+                                    if (c4 != '+') {
+                                        if (c4 == 'E' || c4 == 'e') {
+                                            if (c3 != 2 && c3 != 4) {
+                                                break;
+                                            }
+                                            c3 = 5;
+                                            i12++;
+                                        } else if (c4 != '-') {
+                                            if (c4 == '.') {
+                                                if (c3 != 2) {
+                                                    break;
+                                                }
+                                                c3 = 3;
+                                                i12++;
+                                            } else if (c4 < '0' || c4 > '9') {
+                                                break;
+                                            } else {
+                                                if (c3 == 1 || c3 == 0) {
+                                                    j = -(c4 - '0');
+                                                    c3 = 2;
+                                                } else if (c3 == 2) {
+                                                    if (j == 0) {
+                                                        break;
+                                                    }
+                                                    long j2 = (10 * j) - (c4 - '0');
+                                                    int i13 = (j > (-922337203685477580L) ? 1 : (j == (-922337203685477580L) ? 0 : -1));
+                                                    if (i13 > 0 || (i13 == 0 && j2 < j)) {
+                                                        z = true;
+                                                    } else {
+                                                        z = false;
+                                                    }
+                                                    z3 &= z;
+                                                    j = j2;
+                                                } else if (c3 == 3) {
+                                                    c3 = 4;
+                                                } else if (c3 == 5 || c3 == 6) {
+                                                    c3 = 7;
+                                                }
+                                                i12++;
+                                            }
+                                        } else if (c3 == 0) {
+                                            c3 = 1;
+                                            z4 = true;
+                                            i12++;
+                                        } else {
+                                            if (c3 != 5) {
+                                                break;
+                                            }
+                                            c3 = 6;
+                                            i12++;
+                                        }
+                                        if (i2 == 0) {
+                                            return i2;
+                                        }
+                                        if (isLiteral(cArr[this.pos])) {
+                                            checkLenient();
+                                            this.peeked = 10;
+                                            return 10;
+                                        }
+                                        syntaxError("Expected value");
+                                        throw null;
+                                    }
+                                    if (c3 != 5) {
+                                        break;
+                                    }
+                                    c3 = 6;
+                                    i12++;
+                                }
+                                i2 = 0;
+                                if (i2 == 0) {
+                                }
+                            }
+                            if (this.strictness != 3) {
+                                z2 = true;
+                            } else {
+                                z2 = false;
+                            }
+                            int length = str2.length();
+                            int i14 = 0;
+                            while (true) {
+                                if (i14 < length) {
+                                    if ((this.pos + i14 >= this.limit && !fillBuffer(i14 + 1)) || ((c = cArr[this.pos + i14]) != str2.charAt(i14) && (!z2 || c != str.charAt(i14)))) {
+                                        break;
+                                    }
+                                    i14++;
+                                } else if ((this.pos + length >= this.limit && !fillBuffer(length + 1)) || !isLiteral(cArr[this.pos + length])) {
+                                    this.pos += length;
+                                    this.peeked = i;
+                                }
+                            }
+                            i = 0;
+                            if (i == 0) {
+                            }
+                        } else {
+                            this.peeked = 1;
+                            return 1;
+                        }
+                    } else if (i4 == 1) {
+                        this.peeked = 4;
+                        return 4;
+                    }
+                }
+                if (i4 == 1 || i4 == 2) {
+                    checkLenient();
+                    this.pos--;
+                    this.peeked = 7;
+                    return 7;
+                }
+                syntaxError("Unexpected value");
+                throw null;
+            } else {
+                checkLenient();
+                this.peeked = 8;
+                return 8;
+            }
+        }
+        nextNonWhitespace = nextNonWhitespace(true);
+        if (nextNonWhitespace != 34) {
+        }
     }
 
     public final void endArray() {
@@ -204,7 +477,7 @@ public class JsonReader implements Closeable {
         this.pos = 0;
         do {
             int i8 = this.limit;
-            int read = this.in.read(cArr, i8, cArr.length - i8);
+            int read = this.f38in.read(cArr, i8, cArr.length - i8);
             if (read == -1) {
                 return false;
             }
@@ -256,7 +529,7 @@ public class JsonReader implements Closeable {
                 case 8:
                     break;
                 default:
-                    throw new AssertionError(ViewModelProvider.Factory.CC.m(i3, "Unknown scope value: "));
+                    throw new AssertionError(ViewModelProvider.Factory.CC.m604m(i3, "Unknown scope value: "));
             }
             i++;
         }
@@ -622,98 +895,53 @@ public class JsonReader implements Closeable {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.String nextQuotedValue(char r12) {
-        /*
-            r11 = this;
-            r0 = 0
-            r1 = r0
-        L2:
-            int r2 = r11.pos
-            int r3 = r11.limit
-        L6:
-            r4 = r3
-            r3 = r2
-        L8:
-            r5 = 16
-            r6 = 1
-            char[] r7 = r11.buffer
-            if (r2 >= r4) goto L6b
-            int r8 = r2 + 1
-            char r2 = r7[r2]
-            int r9 = r11.strictness
-            r10 = 3
-            if (r9 != r10) goto L23
-            r9 = 32
-            if (r2 < r9) goto L1d
-            goto L23
-        L1d:
-            java.lang.String r12 = "Unescaped control characters (\\u0000-\\u001F) are not allowed in strict mode"
-            r11.syntaxError(r12)
-            throw r0
-        L23:
-            if (r2 != r12) goto L39
-            r11.pos = r8
-            int r8 = r8 - r3
-            int r8 = r8 - r6
-            if (r1 != 0) goto L31
-            java.lang.String r12 = new java.lang.String
-            r12.<init>(r7, r3, r8)
-            return r12
-        L31:
-            r1.append(r7, r3, r8)
-            java.lang.String r12 = r1.toString()
-            return r12
-        L39:
-            r9 = 92
-            if (r2 != r9) goto L5e
-            r11.pos = r8
-            int r8 = r8 - r3
-            int r2 = r8 + (-1)
-            if (r1 != 0) goto L4f
-            int r8 = r8 * 2
-            java.lang.StringBuilder r1 = new java.lang.StringBuilder
-            int r4 = java.lang.Math.max(r8, r5)
-            r1.<init>(r4)
-        L4f:
-            r1.append(r7, r3, r2)
-            char r2 = r11.readEscapeCharacter()
-            r1.append(r2)
-            int r2 = r11.pos
-            int r3 = r11.limit
-            goto L6
-        L5e:
-            r5 = 10
-            if (r2 != r5) goto L69
-            int r2 = r11.lineNumber
-            int r2 = r2 + r6
-            r11.lineNumber = r2
-            r11.lineStart = r8
-        L69:
-            r2 = r8
-            goto L8
-        L6b:
-            if (r1 != 0) goto L7b
-            int r1 = r2 - r3
-            int r1 = r1 * 2
-            java.lang.StringBuilder r4 = new java.lang.StringBuilder
-            int r1 = java.lang.Math.max(r1, r5)
-            r4.<init>(r1)
-            r1 = r4
-        L7b:
-            int r4 = r2 - r3
-            r1.append(r7, r3, r4)
-            r11.pos = r2
-            boolean r2 = r11.fillBuffer(r6)
-            if (r2 == 0) goto L8a
-            goto L2
-        L8a:
-            java.lang.String r12 = "Unterminated string"
-            r11.syntaxError(r12)
-            throw r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.stream.JsonReader.nextQuotedValue(char):java.lang.String");
+    public final String nextQuotedValue(char c) {
+        char[] cArr;
+        int i;
+        StringBuilder sb = null;
+        do {
+            int i2 = this.pos;
+            int i3 = this.limit;
+            while (true) {
+                int i4 = i3;
+                int i5 = i2;
+                while (true) {
+                    cArr = this.buffer;
+                    if (i2 >= i4) {
+                        break;
+                    }
+                    int i6 = i2 + 1;
+                    char c2 = cArr[i2];
+                    if (this.strictness == 3 && c2 < ' ') {
+                        syntaxError("Unescaped control characters (\\u0000-\\u001F) are not allowed in strict mode");
+                        throw null;
+                    } else if (c2 == c) {
+                        this.pos = i6;
+                        int i7 = (i6 - i5) - 1;
+                        if (sb == null) {
+                            return new String(cArr, i5, i7);
+                        }
+                        sb.append(cArr, i5, i7);
+                        return sb.toString();
+                    } else if (c2 == '\\') {
+                        break;
+                    } else {
+                        if (c2 == '\n') {
+                            this.lineNumber++;
+                            this.lineStart = i6;
+                        }
+                        i2 = i6;
+                    }
+                }
+                sb.append(cArr, i5, i);
+                sb.append(readEscapeCharacter());
+                i2 = this.pos;
+                i3 = this.limit;
+            }
+        } while (fillBuffer(1));
+        syntaxError("Unterminated string");
+        throw null;
     }
 
     public final String nextString() {
@@ -753,103 +981,65 @@ public class JsonReader implements Closeable {
     /* JADX WARN: Removed duplicated region for block: B:46:0x0084  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.String nextUnquotedValue() {
-        /*
-            r7 = this;
-            r0 = 0
-            r1 = 0
-        L2:
-            r2 = 0
-        L3:
-            int r3 = r7.pos
-            int r4 = r3 + r2
-            int r5 = r7.limit
-            char[] r6 = r7.buffer
-            if (r4 >= r5) goto L4e
-            int r3 = r3 + r2
-            char r3 = r6[r3]
-            r4 = 9
-            if (r3 == r4) goto L5a
-            r4 = 10
-            if (r3 == r4) goto L5a
-            r4 = 12
-            if (r3 == r4) goto L5a
-            r4 = 13
-            if (r3 == r4) goto L5a
-            r4 = 32
-            if (r3 == r4) goto L5a
-            r4 = 35
-            if (r3 == r4) goto L4a
-            r4 = 44
-            if (r3 == r4) goto L5a
-            r4 = 47
-            if (r3 == r4) goto L4a
-            r4 = 61
-            if (r3 == r4) goto L4a
-            r4 = 123(0x7b, float:1.72E-43)
-            if (r3 == r4) goto L5a
-            r4 = 125(0x7d, float:1.75E-43)
-            if (r3 == r4) goto L5a
-            r4 = 58
-            if (r3 == r4) goto L5a
-            r4 = 59
-            if (r3 == r4) goto L4a
-            switch(r3) {
-                case 91: goto L5a;
-                case 92: goto L4a;
-                case 93: goto L5a;
-                default: goto L47;
+    public final String nextUnquotedValue() {
+        char[] cArr;
+        String str;
+        StringBuilder sb = null;
+        int i = 0;
+        do {
+            int i2 = 0;
+            while (true) {
+                int i3 = this.pos;
+                int i4 = i3 + i2;
+                int i5 = this.limit;
+                cArr = this.buffer;
+                if (i4 < i5) {
+                    char c = cArr[i3 + i2];
+                    if (!(c == '\t' || c == '\n' || c == '\f' || c == '\r' || c == ' ')) {
+                        if (c != '#') {
+                            if (c != ',') {
+                                if (!(c == '/' || c == '=')) {
+                                    if (!(c == '{' || c == '}' || c == ':')) {
+                                        if (c != ';') {
+                                            switch (c) {
+                                                case '[':
+                                                case ']':
+                                                    break;
+                                                case '\\':
+                                                    break;
+                                                default:
+                                                    i2++;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (i2 >= cArr.length) {
+                    if (sb == null) {
+                        sb = new StringBuilder(Math.max(i2, 16));
+                    }
+                    sb.append(cArr, this.pos, i2);
+                    this.pos += i2;
+                } else if (fillBuffer(i2 + 1)) {
+                }
             }
-        L47:
-            int r2 = r2 + 1
-            goto L3
-        L4a:
-            r7.checkLenient()
-            goto L5a
-        L4e:
-            int r3 = r6.length
-            if (r2 >= r3) goto L5c
-            int r3 = r2 + 1
-            boolean r3 = r7.fillBuffer(r3)
-            if (r3 == 0) goto L5a
-            goto L3
-        L5a:
-            r1 = r2
-            goto L7a
-        L5c:
-            if (r0 != 0) goto L69
-            java.lang.StringBuilder r0 = new java.lang.StringBuilder
-            r3 = 16
-            int r3 = java.lang.Math.max(r2, r3)
-            r0.<init>(r3)
-        L69:
-            int r3 = r7.pos
-            r0.append(r6, r3, r2)
-            int r3 = r7.pos
-            int r3 = r3 + r2
-            r7.pos = r3
-            r2 = 1
-            boolean r2 = r7.fillBuffer(r2)
-            if (r2 != 0) goto L2
-        L7a:
-            if (r0 != 0) goto L84
-            java.lang.String r0 = new java.lang.String
-            int r2 = r7.pos
-            r0.<init>(r6, r2, r1)
-            goto L8d
-        L84:
-            int r2 = r7.pos
-            r0.append(r6, r2, r1)
-            java.lang.String r0 = r0.toString()
-        L8d:
-            int r2 = r7.pos
-            int r2 = r2 + r1
-            r7.pos = r2
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.stream.JsonReader.nextUnquotedValue():java.lang.String");
+            i = i2;
+            if (sb != null) {
+                str = new String(cArr, this.pos, i);
+            } else {
+                sb.append(cArr, this.pos, i);
+                str = sb.toString();
+            }
+            this.pos += i;
+            return str;
+        } while (fillBuffer(1));
+        if (sb != null) {
+        }
+        this.pos += i;
+        return str;
     }
 
     public final int peek() {
@@ -1047,72 +1237,42 @@ public class JsonReader implements Closeable {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public final void skipUnquotedValue() {
-        /*
-            r4 = this;
-        L0:
-            r0 = 0
-        L1:
-            int r1 = r4.pos
-            int r2 = r1 + r0
-            int r3 = r4.limit
-            if (r2 >= r3) goto L51
-            char[] r2 = r4.buffer
-            int r1 = r1 + r0
-            char r1 = r2[r1]
-            r2 = 9
-            if (r1 == r2) goto L4b
-            r2 = 10
-            if (r1 == r2) goto L4b
-            r2 = 12
-            if (r1 == r2) goto L4b
-            r2 = 13
-            if (r1 == r2) goto L4b
-            r2 = 32
-            if (r1 == r2) goto L4b
-            r2 = 35
-            if (r1 == r2) goto L48
-            r2 = 44
-            if (r1 == r2) goto L4b
-            r2 = 47
-            if (r1 == r2) goto L48
-            r2 = 61
-            if (r1 == r2) goto L48
-            r2 = 123(0x7b, float:1.72E-43)
-            if (r1 == r2) goto L4b
-            r2 = 125(0x7d, float:1.75E-43)
-            if (r1 == r2) goto L4b
-            r2 = 58
-            if (r1 == r2) goto L4b
-            r2 = 59
-            if (r1 == r2) goto L48
-            switch(r1) {
-                case 91: goto L4b;
-                case 92: goto L48;
-                case 93: goto L4b;
-                default: goto L45;
+        do {
+            int i = 0;
+            while (true) {
+                int i2 = this.pos;
+                if (i2 + i < this.limit) {
+                    char c = this.buffer[i2 + i];
+                    if (!(c == '\t' || c == '\n' || c == '\f' || c == '\r' || c == ' ')) {
+                        if (c != '#') {
+                            if (c != ',') {
+                                if (!(c == '/' || c == '=')) {
+                                    if (!(c == '{' || c == '}' || c == ':')) {
+                                        if (c != ';') {
+                                            switch (c) {
+                                                case '[':
+                                                case ']':
+                                                    break;
+                                                case '\\':
+                                                    break;
+                                                default:
+                                                    i++;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    this.pos = i2 + i;
+                }
             }
-        L45:
-            int r0 = r0 + 1
-            goto L1
-        L48:
-            r4.checkLenient()
-        L4b:
-            int r1 = r4.pos
-            int r1 = r1 + r0
-            r4.pos = r1
-            return
-        L51:
-            int r1 = r1 + r0
-            r4.pos = r1
-            r0 = 1
-            boolean r0 = r4.fillBuffer(r0)
-            if (r0 != 0) goto L0
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.stream.JsonReader.skipUnquotedValue():void");
+            this.pos += i;
+            return;
+        } while (fillBuffer(1));
     }
 
     public final void skipValue() {
@@ -1200,7 +1360,7 @@ public class JsonReader implements Closeable {
         } else {
             str2 = "unexpected-json-structure";
         }
-        StringBuilder m = ViewModelProvider.Factory.CC.m15m("Expected ", str, " but was ");
+        StringBuilder m = ViewModelProvider.Factory.CC.m594m("Expected ", str, " but was ");
         m.append(ViewModelProvider.Factory.CC.stringValueOf$4(peek()));
         m.append(locationString());
         m.append("\nSee ");

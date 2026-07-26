@@ -6,8 +6,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
-import androidx.core.os.BundleKt;
-import com.emanuelef.remote_capture.R;
+import androidx.core.p002os.BundleKt;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -22,10 +22,10 @@ public class MaterialDivider extends View {
     public int thickness;
 
     public MaterialDivider(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.materialDividerStyle, R.style.Widget_MaterialComponents_MaterialDivider), attributeSet, R.attr.materialDividerStyle);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.materialDividerStyle, C0130R.style.Widget_MaterialComponents_MaterialDivider), attributeSet, C0130R.attr.materialDividerStyle);
         Context context2 = getContext();
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialDivider, R.attr.materialDividerStyle, R.style.Widget_MaterialComponents_MaterialDivider, new int[0]);
-        this.thickness = obtainStyledAttributes.getDimensionPixelSize(3, getResources().getDimensionPixelSize(R.dimen.material_divider_thickness));
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialDivider, C0130R.attr.materialDividerStyle, C0130R.style.Widget_MaterialComponents_MaterialDivider, new int[0]);
+        this.thickness = obtainStyledAttributes.getDimensionPixelSize(3, getResources().getDimensionPixelSize(C0130R.dimen.material_divider_thickness));
         this.insetStart = obtainStyledAttributes.getDimensionPixelOffset(2, 0);
         this.insetEnd = obtainStyledAttributes.getDimensionPixelOffset(1, 0);
         setDividerColor(LazyKt__LazyJVMKt.getColorStateList(context2, obtainStyledAttributes, 0).getDefaultColor());

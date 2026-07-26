@@ -315,28 +315,22 @@ public abstract class zzgx {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static java.lang.Object zzn(java.lang.Object r2, int r3, int r4, java.lang.Object r5, com.google.android.gms.internal.play_billing.zza r6) {
-        /*
-            if (r5 != 0) goto L13
-            r6.getClass()
-            com.google.android.gms.internal.play_billing.zzfi r2 = (com.google.android.gms.internal.play_billing.zzfi) r2
-            com.google.android.gms.internal.play_billing.zzhi r5 = r2.zzc
-            com.google.android.gms.internal.play_billing.zzhi r6 = com.google.android.gms.internal.play_billing.zzhi.zza
-            if (r5 != r6) goto L13
-            com.google.android.gms.internal.play_billing.zzhi r5 = com.google.android.gms.internal.play_billing.zzhi.zzf()
-            r2.zzc = r5
-        L13:
-            long r0 = (long) r4
-            int r2 = r3 << 3
-            r3 = r5
-            com.google.android.gms.internal.play_billing.zzhi r3 = (com.google.android.gms.internal.play_billing.zzhi) r3
-            java.lang.Long r4 = java.lang.Long.valueOf(r0)
-            r3.zzj(r2, r4)
-            return r5
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzgx.zzn(java.lang.Object, int, int, java.lang.Object, com.google.android.gms.internal.play_billing.zza):java.lang.Object");
+    public static Object zzn(Object obj, int i, int i2, Object obj2, zza zzaVar) {
+        zzhi zzhiVar;
+        if (obj2 == null) {
+            zzaVar.getClass();
+            zzfi zzfiVar = (zzfi) obj;
+            zzhi zzhiVar2 = zzfiVar.zzc;
+            zzhiVar = zzhiVar2;
+            if (zzhiVar2 == zzhi.zza) {
+                zzhi zzf = zzhi.zzf();
+                zzfiVar.zzc = zzf;
+                zzhiVar = zzf;
+            }
+        }
+        ((zzhi) zzhiVar).zzj(i << 3, Long.valueOf(i2));
+        return zzhiVar;
     }
 
     public static void zzp(Object obj, Object obj2) {

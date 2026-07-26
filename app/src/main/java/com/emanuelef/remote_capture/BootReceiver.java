@@ -18,17 +18,17 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String action = intent.getAction();
-        Log.d(TAG, "onReceive: " + action);
+        Log.m587d(TAG, "onReceive: " + action);
         if (!action.equals("android.intent.action.BOOT_COMPLETED") && !action.equals("android.intent.action.QUICKBOOT_POWERON")) {
-            Log.w(TAG, "Unexpected action: ".concat(action));
+            Log.m581w(TAG, "Unexpected action: ".concat(action));
         } else if (Prefs.startAtBoot(defaultSharedPreferences)) {
             if (CaptureService.isServiceActive()) {
-                Log.i(TAG, "Service already active, nothing to do");
+                Log.m583i(TAG, "Service already active, nothing to do");
                 return;
             }
             CaptureSettings captureSettings = new CaptureSettings(context, defaultSharedPreferences);
             if (captureSettings.root_capture || VpnService.prepare(context) == null) {
-                Log.i(TAG, "Starting capture service");
+                Log.m583i(TAG, "Starting capture service");
                 Intent intent2 = new Intent(context, CaptureService.class);
                 intent2.putExtra("settings", captureSettings);
                 if (Build.VERSION.SDK_INT >= 26) {
@@ -37,7 +37,7 @@ public class BootReceiver extends BroadcastReceiver {
                     context.startService(intent2);
                 }
             } else {
-                Utils.showToastLong(context, R.string.vpn_setup_failed, new Object[0]);
+                Utils.showToastLong(context, C0130R.string.vpn_setup_failed, new Object[0]);
             }
         }
     }

@@ -3,7 +3,7 @@ package com.google.android.material.radiobutton;
 import android.content.res.ColorStateList;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.widget.CompoundButtonCompat$Api21Impl;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import kotlin.LazyKt__LazyJVMKt;
 /* loaded from: classes.dex */
 public final class MaterialRadioButton extends AppCompatRadioButton {
@@ -13,9 +13,9 @@ public final class MaterialRadioButton extends AppCompatRadioButton {
 
     private ColorStateList getMaterialThemeColorsTintList() {
         if (this.materialThemeColorsTintList == null) {
-            int color = LazyKt__LazyJVMKt.getColor(R.attr.colorControlActivated, this);
-            int color2 = LazyKt__LazyJVMKt.getColor(R.attr.colorOnSurface, this);
-            int color3 = LazyKt__LazyJVMKt.getColor(R.attr.colorSurface, this);
+            int color = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorControlActivated, this);
+            int color2 = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorOnSurface, this);
+            int color3 = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorSurface, this);
             this.materialThemeColorsTintList = new ColorStateList(ENABLED_CHECKED_STATES, new int[]{LazyKt__LazyJVMKt.layer(color3, 1.0f, color), LazyKt__LazyJVMKt.layer(color3, 0.54f, color2), LazyKt__LazyJVMKt.layer(color3, 0.38f, color2), LazyKt__LazyJVMKt.layer(color3, 0.38f, color2)});
         }
         return this.materialThemeColorsTintList;

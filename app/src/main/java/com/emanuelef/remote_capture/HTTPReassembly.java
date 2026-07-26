@@ -1,7 +1,17 @@
 package com.emanuelef.remote_capture;
 
 import com.emanuelef.remote_capture.model.PayloadChunk;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
+import org.brotli.dec.BrotliInputStream;
 /* loaded from: classes.dex */
 public class HTTPReassembly {
     private static final int MAX_HEADERS_SIZE = 1024;
@@ -51,112 +61,58 @@ public class HTTPReassembly {
     /* JADX WARN: Removed duplicated region for block: B:21:0x0040 A[Catch: all -> 0x0024, TRY_LEAVE, TryCatch #5 {all -> 0x0024, blocks: (B:4:0x0008, B:13:0x001b, B:16:0x0026, B:18:0x002d, B:19:0x0038, B:21:0x0040, B:28:0x005d, B:23:0x0047, B:24:0x0049, B:26:0x0050, B:27:0x0057), top: B:46:0x0008 }] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    private void decodeBody(com.emanuelef.remote_capture.model.PayloadChunk r7) {
-        /*
-            r6 = this;
-            r0 = 0
-            java.io.ByteArrayInputStream r1 = new java.io.ByteArrayInputStream     // Catch: java.lang.Throwable -> L71 java.io.IOException -> L7c
-            byte[] r2 = r7.payload     // Catch: java.lang.Throwable -> L71 java.io.IOException -> L7c
-            r1.<init>(r2)     // Catch: java.lang.Throwable -> L71 java.io.IOException -> L7c
-            com.emanuelef.remote_capture.HTTPReassembly$ContentEncoding r2 = r6.mContentEncoding     // Catch: java.lang.Throwable -> L24
-            int r2 = r2.ordinal()     // Catch: java.lang.Throwable -> L24
-            r3 = 1
-            if (r2 == r3) goto L38
-            r4 = 2
-            if (r2 == r4) goto L2d
-            r3 = 3
-            if (r2 == r3) goto L26
-            r3 = 4
-            if (r2 == r3) goto L1b
-            goto L3e
-        L1b:
-            byte[] r2 = r7.payload     // Catch: java.lang.Throwable -> L24
-            byte[] r2 = com.emanuelef.remote_capture.ZstdDecoder.decompress(r2)     // Catch: java.lang.Throwable -> L24
-            r7.payload = r2     // Catch: java.lang.Throwable -> L24
-            goto L3e
-        L24:
-            r7 = move-exception
-            goto L73
-        L26:
-            org.brotli.dec.BrotliInputStream r2 = new org.brotli.dec.BrotliInputStream     // Catch: java.lang.Throwable -> L24
-            r2.<init>(r1)     // Catch: java.lang.Throwable -> L24
-        L2b:
-            r0 = r2
-            goto L3e
-        L2d:
-            java.util.zip.InflaterInputStream r2 = new java.util.zip.InflaterInputStream     // Catch: java.lang.Throwable -> L24
-            java.util.zip.Inflater r4 = new java.util.zip.Inflater     // Catch: java.lang.Throwable -> L24
-            r4.<init>(r3)     // Catch: java.lang.Throwable -> L24
-            r2.<init>(r1, r4)     // Catch: java.lang.Throwable -> L24
-            goto L2b
-        L38:
-            java.util.zip.GZIPInputStream r2 = new java.util.zip.GZIPInputStream     // Catch: java.lang.Throwable -> L24
-            r2.<init>(r1)     // Catch: java.lang.Throwable -> L24
-            goto L2b
-        L3e:
-            if (r0 == 0) goto L6a
-            java.io.ByteArrayOutputStream r2 = new java.io.ByteArrayOutputStream     // Catch: java.lang.Throwable -> L24
-            r2.<init>()     // Catch: java.lang.Throwable -> L24
-            r3 = 1024(0x400, float:1.435E-42)
-            byte[] r3 = new byte[r3]     // Catch: java.lang.Throwable -> L55
-        L49:
-            int r4 = r0.read(r3)     // Catch: java.lang.Throwable -> L55
-            r5 = -1
-            if (r4 == r5) goto L57
-            r5 = 0
-            r2.write(r3, r5, r4)     // Catch: java.lang.Throwable -> L55
-            goto L49
-        L55:
-            r7 = move-exception
-            goto L61
-        L57:
-            byte[] r3 = r2.toByteArray()     // Catch: java.lang.Throwable -> L55
-            r7.payload = r3     // Catch: java.lang.Throwable -> L55
-            r2.close()     // Catch: java.lang.Throwable -> L24
-            goto L6a
-        L61:
-            r2.close()     // Catch: java.lang.Throwable -> L65
-            goto L69
-        L65:
-            r2 = move-exception
-            r7.addSuppressed(r2)     // Catch: java.lang.Throwable -> L24
-        L69:
-            throw r7     // Catch: java.lang.Throwable -> L24
-        L6a:
-            r1.close()     // Catch: java.lang.Throwable -> L71 java.io.IOException -> L7c
-            com.emanuelef.remote_capture.Utils.safeClose(r0)
-            return
-        L71:
-            r7 = move-exception
-            goto L9e
-        L73:
-            r1.close()     // Catch: java.lang.Throwable -> L77
-            goto L7b
-        L77:
-            r1 = move-exception
-            r7.addSuppressed(r1)     // Catch: java.lang.Throwable -> L71 java.io.IOException -> L7c
-        L7b:
-            throw r7     // Catch: java.lang.Throwable -> L71 java.io.IOException -> L7c
-        L7c:
-            java.lang.StringBuilder r7 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L71
-            r7.<init>()     // Catch: java.lang.Throwable -> L71
-            com.emanuelef.remote_capture.HTTPReassembly$ContentEncoding r1 = r6.mContentEncoding     // Catch: java.lang.Throwable -> L71
-            java.lang.String r1 = r1.name()     // Catch: java.lang.Throwable -> L71
-            java.lang.String r1 = r1.toLowerCase()     // Catch: java.lang.Throwable -> L71
-            r7.append(r1)     // Catch: java.lang.Throwable -> L71
-            java.lang.String r1 = " decoding failed"
-            r7.append(r1)     // Catch: java.lang.Throwable -> L71
-            java.lang.String r7 = r7.toString()     // Catch: java.lang.Throwable -> L71
-            r6.log_d(r7)     // Catch: java.lang.Throwable -> L71
-            com.emanuelef.remote_capture.Utils.safeClose(r0)
-            return
-        L9e:
-            com.emanuelef.remote_capture.Utils.safeClose(r0)
-            throw r7
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.HTTPReassembly.decodeBody(com.emanuelef.remote_capture.model.PayloadChunk):void");
+    private void decodeBody(PayloadChunk payloadChunk) {
+        InputStream gZIPInputStream;
+        InputStream inputStream = null;
+        try {
+            try {
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(payloadChunk.payload);
+                try {
+                    int ordinal = this.mContentEncoding.ordinal();
+                    if (ordinal == 1) {
+                        gZIPInputStream = new GZIPInputStream(byteArrayInputStream);
+                    } else if (ordinal == 2) {
+                        gZIPInputStream = new InflaterInputStream(byteArrayInputStream, new Inflater(true));
+                    } else if (ordinal != 3) {
+                        if (ordinal == 4) {
+                            payloadChunk.payload = ZstdDecoder.decompress(payloadChunk.payload);
+                        }
+                        if (inputStream != null) {
+                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                            byte[] bArr = new byte[MAX_HEADERS_SIZE];
+                            while (true) {
+                                int read = inputStream.read(bArr);
+                                if (read == -1) {
+                                    break;
+                                }
+                                byteArrayOutputStream.write(bArr, 0, read);
+                            }
+                            payloadChunk.payload = byteArrayOutputStream.toByteArray();
+                            byteArrayOutputStream.close();
+                        }
+                        byteArrayInputStream.close();
+                    } else {
+                        gZIPInputStream = new BrotliInputStream(byteArrayInputStream);
+                    }
+                    inputStream = gZIPInputStream;
+                    if (inputStream != null) {
+                    }
+                    byteArrayInputStream.close();
+                } catch (Throwable th) {
+                    try {
+                        byteArrayInputStream.close();
+                    } catch (Throwable th2) {
+                        th.addSuppressed(th2);
+                    }
+                    throw th;
+                }
+            } catch (IOException unused) {
+                log_d(this.mContentEncoding.name().toLowerCase() + " decoding failed");
+            }
+        } finally {
+            Utils.safeClose(null);
+        }
     }
 
     private boolean isTx() {
@@ -184,7 +140,7 @@ public class HTTPReassembly {
         }
         sb.append(str2);
         sb.append(")");
-        Log.d(sb.toString(), str);
+        Log.m587d(sb.toString(), str);
     }
 
     private PayloadChunk reassembleChunks(ArrayList<PayloadChunk> arrayList) {
@@ -238,14 +194,315 @@ public class HTTPReassembly {
     /* JADX WARN: Removed duplicated region for block: B:248:? A[RETURN, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public void handleChunk(com.emanuelef.remote_capture.model.PayloadChunk r13) {
-        /*
-            Method dump skipped, instructions count: 1033
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.HTTPReassembly.handleChunk(com.emanuelef.remote_capture.model.PayloadChunk):void");
+    public void handleChunk(PayloadChunk payloadChunk) {
+        int i;
+        boolean z;
+        int i2;
+        PayloadChunk payloadChunk2;
+        String str;
+        int i3;
+        boolean z2;
+        int indexOf;
+        int i4;
+        if (!this.mSwitchingProtocols) {
+            byte[] bArr = payloadChunk.payload;
+            PayloadChunk payloadChunk3 = null;
+            if (this.mFirstChunk == null) {
+                this.mFirstChunk = payloadChunk.withPayload(null);
+            }
+            boolean z3 = true;
+            if (this.mReadingHeaders) {
+                i = Utils.getEndOfHTTPHeaders(bArr);
+                if (i == 0) {
+                    i3 = bArr.length;
+                } else {
+                    i3 = i;
+                }
+                int i5 = this.mHeadersSize;
+                if (i5 == 0) {
+                    z2 = true;
+                } else {
+                    z2 = false;
+                }
+                this.mHeadersSize = i5 + i3;
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bArr, 0, i3)));
+                    String readLine = bufferedReader.readLine();
+                    if (z2 && readLine != null) {
+                        if (payloadChunk.is_sent) {
+                            int indexOf2 = readLine.indexOf(32);
+                            int i6 = indexOf2 + 1;
+                            int indexOf3 = readLine.indexOf(32, i6);
+                            if (indexOf2 > 0 && indexOf3 > 0) {
+                                this.mFirstChunk.httpMethod = readLine.substring(0, indexOf2).toUpperCase();
+                                this.mFirstChunk.httpVersion = readLine.substring(indexOf3 + 1);
+                                String substring = readLine.substring(i6, indexOf3);
+                                if (!substring.startsWith("/")) {
+                                    int indexOf4 = substring.indexOf("://");
+                                    if (indexOf4 > 0) {
+                                        substring = substring.substring(indexOf4 + 3);
+                                    }
+                                    int indexOf5 = substring.indexOf(47);
+                                    if (indexOf5 > 0) {
+                                        this.mFirstChunk.httpHost = substring.substring(0, indexOf5);
+                                        substring = substring.substring(indexOf5);
+                                    }
+                                }
+                                int indexOf6 = substring.indexOf(63);
+                                if (indexOf6 >= 0) {
+                                    this.mFirstChunk.httpQuery = substring.substring(indexOf6);
+                                    substring = substring.substring(0, indexOf6);
+                                }
+                                this.mFirstChunk.httpPath = substring;
+                            }
+                        } else if (readLine.startsWith("HTTP/") && (indexOf = readLine.indexOf(32)) > 0) {
+                            this.mFirstChunk.httpVersion = readLine.substring(0, indexOf);
+                            int i7 = indexOf + 1;
+                            try {
+                                int indexOf7 = readLine.indexOf(32, i7);
+                                PayloadChunk payloadChunk4 = this.mFirstChunk;
+                                if (indexOf7 > 0) {
+                                    i4 = indexOf7;
+                                } else {
+                                    i4 = readLine.length();
+                                }
+                                payloadChunk4.httpResponseCode = Integer.parseInt(readLine.substring(i7, i4));
+                                if (indexOf7 > 0) {
+                                    this.mFirstChunk.httpResponseStatus = readLine.substring(indexOf7 + 1);
+                                }
+                            } catch (NumberFormatException unused) {
+                            }
+                        }
+                    }
+                    while (readLine != null && !readLine.isEmpty()) {
+                        String lowerCase = readLine.toLowerCase();
+                        if (lowerCase.startsWith("content-encoding: ")) {
+                            String substring2 = lowerCase.substring(18);
+                            log_d("Content-Encoding: " + substring2);
+                            int hashCode = substring2.hashCode();
+                            if (hashCode != 3152) {
+                                if (hashCode != 3189082) {
+                                    if (hashCode != 3748713) {
+                                        if (hashCode == 1545112619 && substring2.equals("deflate")) {
+                                            this.mContentEncoding = ContentEncoding.DEFLATE;
+                                        }
+                                    } else if (substring2.equals("zstd")) {
+                                        this.mContentEncoding = ContentEncoding.ZSTD;
+                                    }
+                                } else if (substring2.equals("gzip")) {
+                                    this.mContentEncoding = ContentEncoding.GZIP;
+                                }
+                            } else if (substring2.equals("br")) {
+                                this.mContentEncoding = ContentEncoding.BROTLI;
+                            }
+                        } else if (lowerCase.startsWith("content-type: ")) {
+                            int indexOf8 = lowerCase.indexOf(";");
+                            PayloadChunk payloadChunk5 = this.mFirstChunk;
+                            if (indexOf8 <= 0) {
+                                indexOf8 = lowerCase.length();
+                            }
+                            payloadChunk5.httpContentType = lowerCase.substring(14, indexOf8);
+                            log_d("Content-Type: " + this.mFirstChunk.httpContentType);
+                        } else if (lowerCase.startsWith("content-length: ")) {
+                            try {
+                                this.mContentLength = Integer.parseInt(lowerCase.substring(16));
+                                log_d("Content-Length: " + this.mContentLength);
+                            } catch (NumberFormatException unused2) {
+                            }
+                        } else if (lowerCase.startsWith("upgrade: ")) {
+                            log_d("Upgrade found, stop parsing");
+                            this.mSwitchingProtocols = true;
+                            this.mReassembleChunks = false;
+                            if (lowerCase.startsWith("upgrade: websocket")) {
+                                log_d("websocket upgrade");
+                                this.mWebsocketUpgrade = true;
+                            }
+                        } else if (lowerCase.equals("transfer-encoding: chunked")) {
+                            log_d("Detected chunked encoding");
+                            this.mChunkedEncoding = true;
+                        } else if (lowerCase.startsWith("host: ")) {
+                            log_d("Detected HTTP host");
+                            this.mFirstChunk.httpHost = lowerCase.substring(6);
+                        }
+                        readLine = bufferedReader.readLine();
+                    }
+                    bufferedReader.close();
+                } catch (IOException unused3) {
+                }
+                if (i > 0) {
+                    this.mReadingHeaders = false;
+                    if (this.mDumpPayload) {
+                        this.mHeaders.add(payloadChunk.subchunk(0, i));
+                    }
+                } else {
+                    if (this.mHeadersSize > MAX_HEADERS_SIZE) {
+                        log_d("Assuming not HTTP");
+                        this.mReadingHeaders = false;
+                        this.mReassembleChunks = false;
+                        this.mInvalidHttp = true;
+                    }
+                    if (this.mDumpPayload) {
+                        this.mHeaders.add(payloadChunk);
+                    }
+                    i = bArr.length;
+                }
+            } else {
+                i = 0;
+            }
+            if (!this.mReassembleChunks) {
+                this.mReadingHeaders = false;
+            }
+            if (!this.mReadingHeaders || !payloadChunk.isHttp2Rst()) {
+                z = false;
+            } else {
+                this.mReadingHeaders = false;
+                z = true;
+            }
+            if (!this.mReadingHeaders) {
+                int length = bArr.length - i;
+                if (this.mChunkedEncoding && this.mContentLength < 0 && length > 0) {
+                    try {
+                        BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bArr, i, length)));
+                        String readLine2 = bufferedReader2.readLine();
+                        if (readLine2 != null) {
+                            try {
+                                this.mContentLength = Integer.parseInt(readLine2, 16);
+                                i += readLine2.length() + 2;
+                                length -= readLine2.length() + 2;
+                                log_d("Chunk length: " + this.mContentLength);
+                            } catch (NumberFormatException unused4) {
+                            }
+                        }
+                        z3 = false;
+                        try {
+                            bufferedReader2.close();
+                        } catch (IOException unused5) {
+                        }
+                    } catch (IOException unused6) {
+                    }
+                    i2 = -1;
+                    if (length > 0) {
+                        int i8 = this.mContentLength;
+                        if (i8 > 0) {
+                            if (length < i8) {
+                                this.mContentLength = i8 - length;
+                            } else {
+                                int i9 = i + i8;
+                                this.mContentLength = -1;
+                                if (this.mChunkedEncoding) {
+                                    i2 = i9 + 2;
+                                } else {
+                                    i2 = i9;
+                                }
+                                length = i8;
+                            }
+                        }
+                        if (this.mDumpPayload) {
+                            if (i == 0 && length == payloadChunk.payload.length) {
+                                this.mBody.add(payloadChunk);
+                            } else {
+                                this.mBody.add(payloadChunk.subchunk(i, length));
+                            }
+                        }
+                        this.mBodySize += length;
+                    }
+                    if (!z3 || !this.mReassembleChunks) {
+                        this.mChunkedEncoding = false;
+                    }
+                    if ((this.mContentLength > 0 || !this.mReassembleChunks) && !this.mChunkedEncoding) {
+                        if (!this.mDumpPayload) {
+                            payloadChunk2 = reassembleChunks(this.mHeaders);
+                            if (!this.mBody.isEmpty()) {
+                                payloadChunk3 = reassembleChunks(this.mBody);
+                            }
+                            if (!(payloadChunk3 == null || this.mContentEncoding == ContentEncoding.UNKNOWN)) {
+                                decodeBody(payloadChunk3);
+                            }
+                            if (payloadChunk3 != null) {
+                                byte[] bArr2 = payloadChunk2.payload;
+                                byte[] bArr3 = new byte[bArr2.length + payloadChunk3.payload.length];
+                                System.arraycopy(bArr2, 0, bArr3, 0, bArr2.length);
+                                byte[] bArr4 = payloadChunk3.payload;
+                                System.arraycopy(bArr4, 0, bArr3, payloadChunk2.payload.length, bArr4.length);
+                                payloadChunk2 = payloadChunk3.withPayload(bArr3);
+                            }
+                        } else {
+                            payloadChunk2 = this.mFirstChunk;
+                        }
+                        if (!this.mInvalidHttp) {
+                            payloadChunk2.type = PayloadChunk.ChunkType.RAW;
+                        } else {
+                            PayloadChunk payloadChunk6 = this.mFirstChunk;
+                            payloadChunk2.httpContentType = payloadChunk6.httpContentType;
+                            payloadChunk2.httpResponseCode = payloadChunk6.httpResponseCode;
+                            payloadChunk2.httpResponseStatus = payloadChunk6.httpResponseStatus;
+                            payloadChunk2.httpMethod = payloadChunk6.httpMethod;
+                            payloadChunk2.httpHost = payloadChunk6.httpHost;
+                            payloadChunk2.httpPath = payloadChunk6.httpPath;
+                            payloadChunk2.httpQuery = payloadChunk6.httpQuery;
+                            payloadChunk2.httpVersion = payloadChunk6.httpVersion;
+                            payloadChunk2.httpBodyLength = this.mBodySize;
+                            if (z) {
+                                payloadChunk2.setHttpRst();
+                            }
+                        }
+                        this.mBodySize = 0;
+                        if (payloadChunk2.type == PayloadChunk.ChunkType.HTTP) {
+                            StringBuilder sb = new StringBuilder("Reassembled HTTP ");
+                            if (payloadChunk2.isHttp2Rst()) {
+                                str = "RST";
+                            } else if (payloadChunk2.is_sent) {
+                                str = "request";
+                            } else {
+                                str = "response";
+                            }
+                            sb.append(str);
+                            Log.m587d(TAG, sb.toString());
+                        }
+                        this.mListener.onChunkReassembled(payloadChunk2);
+                        reset();
+                    }
+                    if (i2 <= 0) {
+                        byte[] bArr5 = payloadChunk.payload;
+                        if (bArr5.length > i2) {
+                            handleChunk(payloadChunk.subchunk(i2, bArr5.length - i2));
+                            return;
+                        }
+                        return;
+                    }
+                    return;
+                }
+                z3 = false;
+                i2 = -1;
+                if (length > 0) {
+                }
+                if (!z3) {
+                }
+                this.mChunkedEncoding = false;
+                if (this.mContentLength > 0) {
+                }
+                if (!this.mDumpPayload) {
+                }
+                if (!this.mInvalidHttp) {
+                }
+                this.mBodySize = 0;
+                if (payloadChunk2.type == PayloadChunk.ChunkType.HTTP) {
+                }
+                this.mListener.onChunkReassembled(payloadChunk2);
+                reset();
+                if (i2 <= 0) {
+                }
+            }
+        } else if (this.mWebsocketUpgrade) {
+            payloadChunk.type = PayloadChunk.ChunkType.WEBSOCKET;
+            if (this.mDumpPayload) {
+                if (this.mWebSocketDecoder == null) {
+                    this.mWebSocketDecoder = new WebSocketDecoder(new PlayBilling$$ExternalSyntheticLambda4(2, this));
+                }
+                this.mWebSocketDecoder.handleChunk(payloadChunk);
+            }
+        }
     }
 
     public HTTPReassembly(boolean z, ReassemblyListener reassemblyListener) {

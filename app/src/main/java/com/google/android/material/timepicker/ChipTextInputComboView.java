@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.internal.TextWatcherAdapter;
 import com.google.android.material.textfield.TextInputLayout;
@@ -48,10 +48,10 @@ class ChipTextInputComboView extends FrameLayout implements Checkable {
     public ChipTextInputComboView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet, 0);
         LayoutInflater from = LayoutInflater.from(context);
-        Chip chip = (Chip) from.inflate(R.layout.material_time_chip, (ViewGroup) this, false);
+        Chip chip = (Chip) from.inflate(C0130R.layout.material_time_chip, (ViewGroup) this, false);
         this.chip = chip;
         chip.setAccessibilityClassName("android.view.View");
-        TextInputLayout textInputLayout = (TextInputLayout) from.inflate(R.layout.material_time_input, (ViewGroup) this, false);
+        TextInputLayout textInputLayout = (TextInputLayout) from.inflate(C0130R.layout.material_time_input, (ViewGroup) this, false);
         EditText editText = textInputLayout.getEditText();
         this.editText = editText;
         editText.setVisibility(4);
@@ -62,7 +62,7 @@ class ChipTextInputComboView extends FrameLayout implements Checkable {
         addView(chip);
         addView(textInputLayout);
         editText.setId(View.generateViewId());
-        ((TextView) findViewById(R.id.material_label)).setLabelFor(editText.getId());
+        ((TextView) findViewById(C0130R.C0132id.material_label)).setLabelFor(editText.getId());
         editText.setSaveEnabled(false);
         editText.setLongClickable(false);
     }

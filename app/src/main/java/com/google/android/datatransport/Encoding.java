@@ -28,6 +28,6 @@ public final class Encoding {
     }
 
     public final String toString() {
-        return ViewModelProvider.Factory.CC.m(new StringBuilder("Encoding{name=\""), this.name, "\"}");
+        return ViewModelProvider.Factory.CC.m593m(new StringBuilder("Encoding{name=\""), this.name, "\"}");
     }
 }

@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Utils;
 import java.util.WeakHashMap;
 /* loaded from: classes.dex */
@@ -75,7 +75,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
     public void setContentView(int i) {
         super.setContentView(i);
-        View findViewById = findViewById(R.id.toolbar);
+        View findViewById = findViewById(C0130R.C0132id.toolbar);
         if (findViewById != null) {
             BaseActivity$$ExternalSyntheticLambda0 baseActivity$$ExternalSyntheticLambda0 = new BaseActivity$$ExternalSyntheticLambda0(0);
             WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;

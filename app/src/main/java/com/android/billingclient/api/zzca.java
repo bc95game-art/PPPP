@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.appcompat.widget.DrawableUtils;
 import androidx.appcompat.widget.TintInfo;
 import androidx.collection.SparseArrayCompat;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.util.Consumer;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.ImageViewCompat$Api21Impl;
@@ -241,7 +241,7 @@ public final class zzca {
     }
 
     public zzca(NavBackStackEntry navBackStackEntry, int i) {
-        this.zza = navBackStackEntry.id;
+        this.zza = navBackStackEntry.f10id;
         this.zzd = i;
         NavBackStackEntryImpl navBackStackEntryImpl = navBackStackEntry.impl;
         this.zzb = navBackStackEntryImpl.getArguments$navigation_common_release();
@@ -260,7 +260,7 @@ public final class zzca {
         String string = state.getString("nav-entry-state:id");
         if (string != null) {
             this.zza = string;
-            this.zzd = Navigation.m20getIntimpl(state, "nav-entry-state:destination-id");
+            this.zzd = Navigation.m650getIntimpl(state, "nav-entry-state:destination-id");
             Bundle bundle = state.getBundle("nav-entry-state:args");
             if (bundle != null) {
                 this.zzb = bundle;

@@ -53,6 +53,6 @@ public final class AutoValue_TransportContext {
         sb.append(", ");
         sb.append(this.priority);
         sb.append(", ");
-        return ViewModelProvider.Factory.CC.m(sb, str, ")");
+        return ViewModelProvider.Factory.CC.m593m(sb, str, ")");
     }
 }

@@ -59,7 +59,7 @@ public final class Status extends AbstractSafeParcelable implements ReflectedPar
                 case 11:
                 case 12:
                 default:
-                    str = ViewModelProvider.Factory.CC.m(i, "unknown status code: ");
+                    str = ViewModelProvider.Factory.CC.m604m(i, "unknown status code: ");
                     break;
                 case 2:
                     str = "SERVICE_VERSION_UPDATE_REQUIRED";

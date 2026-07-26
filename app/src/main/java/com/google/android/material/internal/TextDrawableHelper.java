@@ -12,7 +12,7 @@ public final class TextDrawableHelper {
     public float textHeight;
     public float textWidth;
     public final TextPaint textPaint = new TextPaint(1);
-    public final Chip.AnonymousClass1 fontCallback = new Chip.AnonymousClass1(1, this);
+    public final Chip.C01741 fontCallback = new Chip.C01741(1, this);
     public boolean textSizeDirty = true;
 
     /* loaded from: classes.dex */
@@ -59,7 +59,7 @@ public final class TextDrawableHelper {
             this.textAppearance = textAppearance;
             if (textAppearance != null) {
                 TextPaint textPaint = this.textPaint;
-                Chip.AnonymousClass1 r1 = this.fontCallback;
+                Chip.C01741 r1 = this.fontCallback;
                 textAppearance.updateMeasureState(context, textPaint, r1);
                 TextDrawableDelegate textDrawableDelegate = (TextDrawableDelegate) this.delegate.get();
                 if (textDrawableDelegate != null) {

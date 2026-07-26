@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatTextView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 import java.util.ArrayList;
 import kotlin.LazyKt__LazyJVMKt;
@@ -55,14 +55,14 @@ public final class IndicatorViewController {
         Context context = textInputLayout.getContext();
         this.context = context;
         this.textInputView = textInputLayout;
-        this.captionTranslationYPx = context.getResources().getDimensionPixelSize(R.dimen.design_textinput_caption_translate_y);
-        this.captionTranslationYAnimationDuration = LazyKt__LazyJVMKt.resolveThemeDuration(context, R.attr.motionDurationShort4, 217);
-        this.captionFadeInAnimationDuration = LazyKt__LazyJVMKt.resolveThemeDuration(context, R.attr.motionDurationMedium4, 167);
-        this.captionFadeOutAnimationDuration = LazyKt__LazyJVMKt.resolveThemeDuration(context, R.attr.motionDurationShort4, 167);
-        this.captionTranslationYAnimationInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context, R.attr.motionEasingEmphasizedDecelerateInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
+        this.captionTranslationYPx = context.getResources().getDimensionPixelSize(C0130R.dimen.design_textinput_caption_translate_y);
+        this.captionTranslationYAnimationDuration = LazyKt__LazyJVMKt.resolveThemeDuration(context, C0130R.attr.motionDurationShort4, 217);
+        this.captionFadeInAnimationDuration = LazyKt__LazyJVMKt.resolveThemeDuration(context, C0130R.attr.motionDurationMedium4, 167);
+        this.captionFadeOutAnimationDuration = LazyKt__LazyJVMKt.resolveThemeDuration(context, C0130R.attr.motionDurationShort4, 167);
+        this.captionTranslationYAnimationInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context, C0130R.attr.motionEasingEmphasizedDecelerateInterpolator, AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
         LinearInterpolator linearInterpolator = AnimationUtils.LINEAR_INTERPOLATOR;
-        this.captionFadeInAnimationInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context, R.attr.motionEasingEmphasizedDecelerateInterpolator, linearInterpolator);
-        this.captionFadeOutAnimationInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context, R.attr.motionEasingLinearInterpolator, linearInterpolator);
+        this.captionFadeInAnimationInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context, C0130R.attr.motionEasingEmphasizedDecelerateInterpolator, linearInterpolator);
+        this.captionFadeOutAnimationInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context, C0130R.attr.motionEasingLinearInterpolator, linearInterpolator);
     }
 
     public final void addIndicator(AppCompatTextView appCompatTextView, int i) {
@@ -100,15 +100,15 @@ public final class IndicatorViewController {
                 LinearLayout linearLayout = this.indicatorArea;
                 int paddingStart = editText.getPaddingStart();
                 if (isFontScaleAtLeast1_3) {
-                    paddingStart = context.getResources().getDimensionPixelSize(R.dimen.material_helper_text_font_1_3_padding_horizontal);
+                    paddingStart = context.getResources().getDimensionPixelSize(C0130R.dimen.material_helper_text_font_1_3_padding_horizontal);
                 }
-                int dimensionPixelSize = context.getResources().getDimensionPixelSize(R.dimen.material_helper_text_default_padding_top);
+                int dimensionPixelSize = context.getResources().getDimensionPixelSize(C0130R.dimen.material_helper_text_default_padding_top);
                 if (isFontScaleAtLeast1_3) {
-                    dimensionPixelSize = context.getResources().getDimensionPixelSize(R.dimen.material_helper_text_font_1_3_padding_top);
+                    dimensionPixelSize = context.getResources().getDimensionPixelSize(C0130R.dimen.material_helper_text_font_1_3_padding_top);
                 }
                 int paddingEnd = editText.getPaddingEnd();
                 if (isFontScaleAtLeast1_3) {
-                    paddingEnd = context.getResources().getDimensionPixelSize(R.dimen.material_helper_text_font_1_3_padding_horizontal);
+                    paddingEnd = context.getResources().getDimensionPixelSize(C0130R.dimen.material_helper_text_font_1_3_padding_horizontal);
                 }
                 linearLayout.setPaddingRelative(paddingStart, dimensionPixelSize, paddingEnd, 0);
             }

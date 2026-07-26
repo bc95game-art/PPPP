@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.fragment.app.Fragment;
 import com.github.appintro.internal.LogHelper;
 import com.github.appintro.internal.TypefaceContainer;
@@ -90,10 +90,10 @@ public abstract class AppIntroBaseFragment extends Fragment implements SlideSele
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle bundle) {
         Intrinsics.checkNotNullParameter(inflater, "inflater");
         View inflate = inflater.inflate(getLayoutId(), viewGroup, false);
-        TextView textView = (TextView) inflate.findViewById(R.id.title);
-        TextView textView2 = (TextView) inflate.findViewById(R.id.description);
-        ImageView imageView = (ImageView) inflate.findViewById(R.id.image);
-        ConstraintLayout constraintLayout = (ConstraintLayout) inflate.findViewById(R.id.main);
+        TextView textView = (TextView) inflate.findViewById(C0161R.C0163id.title);
+        TextView textView2 = (TextView) inflate.findViewById(C0161R.C0163id.description);
+        ImageView imageView = (ImageView) inflate.findViewById(C0161R.C0163id.image);
+        ConstraintLayout constraintLayout = (ConstraintLayout) inflate.findViewById(C0161R.C0163id.main);
         textView.setText(this.title);
         textView2.setText(this.description);
         if (this.titleColorRes != 0) {
@@ -146,7 +146,7 @@ public abstract class AppIntroBaseFragment extends Fragment implements SlideSele
         if (view == null) {
             imageView = null;
         } else {
-            imageView = (ImageView) view.findViewById(R.id.image);
+            imageView = (ImageView) view.findViewById(C0161R.C0163id.image);
         }
         if (imageView instanceof Animatable) {
             ((Animatable) imageView).start();
@@ -161,7 +161,7 @@ public abstract class AppIntroBaseFragment extends Fragment implements SlideSele
         if (view == null) {
             imageView = null;
         } else {
-            imageView = (ImageView) view.findViewById(R.id.image);
+            imageView = (ImageView) view.findViewById(C0161R.C0163id.image);
         }
         if (imageView instanceof Animatable) {
             ((Animatable) imageView).start();
@@ -219,20 +219,20 @@ public abstract class AppIntroBaseFragment extends Fragment implements SlideSele
     @Override // com.github.appintro.SlideSelectionListener
     public void onSlideDeselected() {
         String str = this.logTAG;
-        LogHelper.d(str, "Slide " + ((Object) this.title) + " has been deselected.");
+        LogHelper.m577d(str, "Slide " + ((Object) this.title) + " has been deselected.");
     }
 
     @Override // com.github.appintro.SlideSelectionListener
     public void onSlideSelected() {
         String str = this.logTAG;
-        LogHelper.d(str, "Slide " + ((Object) this.title) + " has been selected.");
+        LogHelper.m577d(str, "Slide " + ((Object) this.title) + " has been selected.");
     }
 
     @Override // com.github.appintro.SlideBackgroundColorHolder
     public void setBackgroundColor(int i) {
         ConstraintLayout constraintLayout;
         View view = getView();
-        if (view != null && (constraintLayout = (ConstraintLayout) view.findViewById(R.id.main)) != null) {
+        if (view != null && (constraintLayout = (ConstraintLayout) view.findViewById(C0161R.C0163id.main)) != null) {
             constraintLayout.setBackgroundColor(i);
         }
     }

@@ -32,7 +32,7 @@ public class CaptureHelper {
         if (activityResult.mResultCode == -1) {
             startCaptureOk();
         } else if (this.mListener != null) {
-            Utils.showToastLong(this.mContext, R.string.vpn_setup_failed, new Object[0]);
+            Utils.showToastLong(this.mContext, C0130R.string.vpn_setup_failed, new Object[0]);
             this.mListener.onCaptureStartResult(false);
         }
     }
@@ -41,13 +41,13 @@ public class CaptureHelper {
         try {
             this.mLauncher.launch(intent);
         } catch (ActivityNotFoundException unused) {
-            Utils.showToastLong(this.mContext, R.string.no_intent_handler_found, new Object[0]);
+            Utils.showToastLong(this.mContext, C0130R.string.no_intent_handler_found, new Object[0]);
             this.mListener.onCaptureStartResult(false);
         }
     }
 
     public /* synthetic */ void lambda$startCapture$1(DialogInterface dialogInterface) {
-        Utils.showToastLong(this.mContext, R.string.vpn_setup_failed, new Object[0]);
+        Utils.showToastLong(this.mContext, C0130R.string.vpn_setup_failed, new Object[0]);
         this.mListener.onCaptureStartResult(false);
     }
 
@@ -90,8 +90,8 @@ public class CaptureHelper {
             startCaptureOk();
         } else if (this.mLauncher != null) {
             zzbv zzbvVar = new zzbv(this.mContext);
-            zzbvVar.setMessage(R.string.vpn_setup_msg);
-            zzbvVar.setPositiveButton(R.string.ok, new PlayBilling$$ExternalSyntheticLambda0(this, 3, intent));
+            zzbvVar.setMessage(C0130R.string.vpn_setup_msg);
+            zzbvVar.setPositiveButton(C0130R.string.ok, new PlayBilling$$ExternalSyntheticLambda0(this, 3, intent));
             ((AlertController.AlertParams) zzbvVar.zza).mOnCancelListener = new DialogInterface.OnCancelListener() { // from class: com.emanuelef.remote_capture.CaptureHelper$$ExternalSyntheticLambda1
                 @Override // android.content.DialogInterface.OnCancelListener
                 public final void onCancel(DialogInterface dialogInterface) {

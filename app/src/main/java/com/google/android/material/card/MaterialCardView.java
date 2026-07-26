@@ -16,8 +16,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Checkable;
 import androidx.cardview.widget.CardView;
-import androidx.core.os.BundleKt;
-import com.emanuelef.remote_capture.R;
+import androidx.core.p002os.BundleKt;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -29,7 +29,7 @@ import kotlin.LazyKt__LazyJVMKt;
 public class MaterialCardView extends CardView implements Checkable, Shapeable {
     public static final int[] CHECKABLE_STATE_SET = {16842911};
     public static final int[] CHECKED_STATE_SET = {16842912};
-    public static final int[] DRAGGED_STATE_SET = {R.attr.state_dragged};
+    public static final int[] DRAGGED_STATE_SET = {C0130R.attr.state_dragged};
     public final MaterialCardViewHelper cardViewHelper;
     public boolean checked = false;
     public boolean dragged = false;
@@ -40,8 +40,8 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable {
     }
 
     public MaterialCardView(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.materialCardViewStyle, R.style.Widget_MaterialComponents_CardView), attributeSet);
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(getContext(), attributeSet, R$styleable.MaterialCardView, R.attr.materialCardViewStyle, R.style.Widget_MaterialComponents_CardView, new int[0]);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.materialCardViewStyle, C0130R.style.Widget_MaterialComponents_CardView), attributeSet);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(getContext(), attributeSet, R$styleable.MaterialCardView, C0130R.attr.materialCardViewStyle, C0130R.style.Widget_MaterialComponents_CardView, new int[0]);
         MaterialCardViewHelper materialCardViewHelper = new MaterialCardViewHelper(this, attributeSet);
         this.cardViewHelper = materialCardViewHelper;
         ColorStateList cardBackgroundColor = super.getCardBackgroundColor();
@@ -67,7 +67,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable {
         ColorStateList colorStateList2 = LazyKt__LazyJVMKt.getColorStateList(materialCardView.getContext(), obtainStyledAttributes, 7);
         materialCardViewHelper.rippleColor = colorStateList2;
         if (colorStateList2 == null) {
-            materialCardViewHelper.rippleColor = ColorStateList.valueOf(LazyKt__LazyJVMKt.getColor(R.attr.colorControlHighlight, materialCardView));
+            materialCardViewHelper.rippleColor = ColorStateList.valueOf(LazyKt__LazyJVMKt.getColor(C0130R.attr.colorControlHighlight, materialCardView));
         }
         ColorStateList colorStateList3 = LazyKt__LazyJVMKt.getColorStateList(materialCardView.getContext(), obtainStyledAttributes, 1);
         colorStateList3 = colorStateList3 == null ? ColorStateList.valueOf(0) : colorStateList3;

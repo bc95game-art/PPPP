@@ -6,7 +6,7 @@ import java.util.Locale;
 /* loaded from: classes.dex */
 public abstract class FieldNamingPolicy extends Enum {
     public static final /* synthetic */ FieldNamingPolicy[] $VALUES;
-    public static final AnonymousClass1 IDENTITY;
+    public static final C02201 IDENTITY;
 
     /* JADX WARN: Multi-variable type inference failed */
     /* JADX WARN: Type inference failed for: r0v0, types: [com.google.gson.FieldNamingPolicy$1] */

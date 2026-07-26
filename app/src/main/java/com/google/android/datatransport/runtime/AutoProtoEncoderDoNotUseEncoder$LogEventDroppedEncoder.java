@@ -6,8 +6,8 @@ import com.google.firebase.encoders.ObjectEncoder;
 import com.google.firebase.encoders.ObjectEncoderContext;
 import com.google.firebase.encoders.proto.AtProtobuf$ProtobufImpl;
 import com.google.firebase.encoders.proto.Protobuf;
-import j$.util.DesugarCollections;
 import java.util.HashMap;
+import p004j$.util.DesugarCollections;
 /* loaded from: classes.dex */
 public final class AutoProtoEncoderDoNotUseEncoder$LogEventDroppedEncoder implements ObjectEncoder {
     public static final FieldDescriptor EVENTSDROPPEDCOUNT_DESCRIPTOR;

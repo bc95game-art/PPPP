@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.widget.CompoundButtonCompat$Api21Impl;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -40,9 +40,9 @@ public class MaterialComponentsViewInflater extends AppCompatViewInflater {
     /* JADX WARN: Type inference failed for: r0v0, types: [androidx.appcompat.widget.AppCompatRadioButton, com.google.android.material.radiobutton.MaterialRadioButton, android.widget.CompoundButton, android.view.View] */
     @Override // androidx.appcompat.app.AppCompatViewInflater
     public final AppCompatRadioButton createRadioButton(Context context, AttributeSet attributeSet) {
-        ?? appCompatRadioButton = new AppCompatRadioButton(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.radioButtonStyle, R.style.Widget_MaterialComponents_CompoundButton_RadioButton), attributeSet);
+        ?? appCompatRadioButton = new AppCompatRadioButton(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.radioButtonStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_RadioButton), attributeSet);
         Context context2 = appCompatRadioButton.getContext();
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialRadioButton, R.attr.radioButtonStyle, R.style.Widget_MaterialComponents_CompoundButton_RadioButton, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialRadioButton, C0130R.attr.radioButtonStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_RadioButton, new int[0]);
         if (obtainStyledAttributes.hasValue(0)) {
             CompoundButtonCompat$Api21Impl.setButtonTintList(appCompatRadioButton, LazyKt__LazyJVMKt.getColorStateList(context2, obtainStyledAttributes, 0));
         }
@@ -55,7 +55,7 @@ public class MaterialComponentsViewInflater extends AppCompatViewInflater {
     public final AppCompatTextView createTextView(Context context, AttributeSet attributeSet) {
         AppCompatTextView appCompatTextView = new AppCompatTextView(MaterialThemeOverlay.wrap(context, attributeSet, 16842884, 0), attributeSet, 16842884);
         Context context2 = appCompatTextView.getContext();
-        if (LazyKt__LazyJVMKt.resolveBoolean(context2, R.attr.textAppearanceLineHeightEnabled, true)) {
+        if (LazyKt__LazyJVMKt.resolveBoolean(context2, C0130R.attr.textAppearanceLineHeightEnabled, true)) {
             Resources.Theme theme = context2.getTheme();
             int[] iArr = R$styleable.MaterialTextView;
             TypedArray obtainStyledAttributes = theme.obtainStyledAttributes(attributeSet, iArr, 16842884, 0);

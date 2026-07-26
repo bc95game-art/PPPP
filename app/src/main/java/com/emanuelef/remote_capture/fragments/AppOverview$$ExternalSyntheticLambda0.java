@@ -25,7 +25,7 @@ public final /* synthetic */ class AppOverview$$ExternalSyntheticLambda0 impleme
         Object obj2 = this.f$0;
         switch (i) {
             case 0:
-                AppOverview.m159$r8$lambda$FzT3UFLC8p5Wvysj7yOE85lDs((AppOverview) obj2, (Context) obj, view);
+                AppOverview.m789$r8$lambda$FzT3UFLC8p5Wvysj7yOE85lDs((AppOverview) obj2, (Context) obj, view);
                 return;
             case 1:
                 DefaultErrorActivity defaultErrorActivity = (DefaultErrorActivity) obj2;
@@ -37,7 +37,7 @@ public final /* synthetic */ class AppOverview$$ExternalSyntheticLambda0 impleme
                 ConnectionOverview.$r8$lambda$6FYQi1jKYtYgvlFAAIMQFNTAjQ0((ConnectionOverview) obj2, (CharSequence) obj, view);
                 return;
             default:
-                InstallAddon.m218$r8$lambda$ICwRMro1xkU7JLXdXwpGXdbwlo((InstallAddon) obj2, (String) obj, view);
+                InstallAddon.m848$r8$lambda$ICwRMro1xkU7JLXdXwpGXdbwlo((InstallAddon) obj2, (String) obj, view);
                 return;
         }
     }

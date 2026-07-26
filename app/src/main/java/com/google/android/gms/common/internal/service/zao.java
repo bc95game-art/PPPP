@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.zzr;
 import com.google.android.gms.tasks.zzw;
 /* loaded from: classes.dex */
 public final class zao extends GoogleApi {
-    public static final zzcl zae = new zzcl((zan) new Object(), new Transition.AnonymousClass1(17));
+    public static final zzcl zae = new zzcl((zan) new Object(), new Transition.C01101(17));
 
     public final zzw log(TelemetryData telemetryData) {
         FakeDrag fakeDrag = new FakeDrag(21);

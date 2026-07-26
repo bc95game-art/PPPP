@@ -181,7 +181,7 @@ public final class AppIntroFragment extends AppIntroBaseFragment {
 
     @Override // com.github.appintro.AppIntroBaseFragment
     public int getLayoutId() {
-        return R.layout.appintro_fragment_intro;
+        return C0161R.layout.appintro_fragment_intro;
     }
 
     public static final AppIntroFragment createInstance(SliderPage sliderPage) {

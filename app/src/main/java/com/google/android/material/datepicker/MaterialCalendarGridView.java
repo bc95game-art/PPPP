@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import androidx.core.view.ViewCompat;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.textfield.TextInputLayout;
 /* JADX INFO: Access modifiers changed from: package-private */
 /* loaded from: classes.dex */
@@ -20,11 +20,11 @@ public final class MaterialCalendarGridView extends GridView {
         super(context, attributeSet, 0);
         UtcDates.getUtcCalendarOf(null);
         if (MaterialDatePicker.readMaterialCalendarStyleBoolean(getContext(), 16843277)) {
-            setNextFocusLeftId(R.id.cancel_button);
-            setNextFocusRightId(R.id.confirm_button);
+            setNextFocusLeftId(C0130R.C0132id.cancel_button);
+            setNextFocusRightId(C0130R.C0132id.confirm_button);
         }
-        this.nestedScrollable = MaterialDatePicker.readMaterialCalendarStyleBoolean(getContext(), R.attr.nestedScrollable);
-        ViewCompat.setAccessibilityDelegate(this, new TextInputLayout.AnonymousClass2(5));
+        this.nestedScrollable = MaterialDatePicker.readMaterialCalendarStyleBoolean(getContext(), C0130R.attr.nestedScrollable);
+        ViewCompat.setAccessibilityDelegate(this, new TextInputLayout.C02112(5));
     }
 
     /* JADX WARN: Can't rename method to resolve collision */
@@ -116,7 +116,7 @@ public final class MaterialCalendarGridView extends GridView {
 
     @Override // android.widget.GridView, android.widget.AdapterView
     /* renamed from: getAdapter  reason: collision with other method in class */
-    public final ListAdapter mo251getAdapter() {
+    public final ListAdapter mo881getAdapter() {
         return (MonthAdapter) super.getAdapter();
     }
 }

@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.collection.internal.Lock;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.animation.ChildrenAlphaProperty;
 import com.google.android.material.animation.MotionSpec;
@@ -202,7 +202,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
         arrayList.add(ofFloat);
         arrayList.add(ofFloat2);
         if (view2 instanceof ViewGroup) {
-            View findViewById = view2.findViewById(R.id.mtrl_child_content_container);
+            View findViewById = view2.findViewById(C0130R.C0132id.mtrl_child_content_container);
             if (findViewById == null) {
                 viewGroup = (ViewGroup) view2;
             } else if (findViewById instanceof ViewGroup) {

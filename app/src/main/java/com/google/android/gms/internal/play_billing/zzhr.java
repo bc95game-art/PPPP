@@ -41,14 +41,63 @@ public abstract class zzhr {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static int zzb(java.lang.String r8, byte[] r9, int r10, int r11) {
-        /*
-            Method dump skipped, instructions count: 254
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzhr.zzb(java.lang.String, byte[], int, int):int");
+    public static int zzb(String str, byte[] bArr, int i, int i2) {
+        int i3;
+        int i4;
+        int i5;
+        char charAt;
+        int length = str.length();
+        int i6 = 0;
+        while (true) {
+            i3 = i + i2;
+            if (i6 >= length || (i5 = i6 + i) >= i3 || (charAt = str.charAt(i6)) >= 128) {
+                break;
+            }
+            bArr[i5] = (byte) charAt;
+            i6++;
+        }
+        int i7 = i + i6;
+        while (i6 < length) {
+            char charAt2 = str.charAt(i6);
+            if (charAt2 < 128 && i7 < i3) {
+                bArr[i7] = (byte) charAt2;
+                i7++;
+            } else if (charAt2 < 2048 && i7 <= i3 - 2) {
+                bArr[i7] = (byte) ((charAt2 >>> 6) | 960);
+                bArr[i7 + 1] = (byte) ((charAt2 & '?') | 128);
+                i7 += 2;
+            } else if ((charAt2 < 55296 || charAt2 > 57343) && i7 <= i3 - 3) {
+                bArr[i7] = (byte) ((charAt2 >>> '\f') | 480);
+                bArr[i7 + 1] = (byte) (((charAt2 >>> 6) & 63) | 128);
+                bArr[i7 + 2] = (byte) ((charAt2 & '?') | 128);
+                i7 += 3;
+            } else if (i7 <= i3 - 4) {
+                int i8 = i6 + 1;
+                if (i8 != str.length()) {
+                    char charAt3 = str.charAt(i8);
+                    if (Character.isSurrogatePair(charAt2, charAt3)) {
+                        int i9 = i7 + 3;
+                        int codePoint = Character.toCodePoint(charAt2, charAt3);
+                        bArr[i7] = (byte) ((codePoint >>> 18) | 240);
+                        bArr[i7 + 1] = (byte) (((codePoint >>> 12) & 63) | 128);
+                        bArr[i7 + 2] = (byte) (((codePoint >>> 6) & 63) | 128);
+                        i7 += 4;
+                        bArr[i9] = (byte) ((codePoint & 63) | 128);
+                        i6 = i8;
+                    } else {
+                        i6 = i8;
+                    }
+                }
+                throw new zzhq(i6 - 1, length);
+            } else if (charAt2 < 55296 || charAt2 > 57343 || ((i4 = i6 + 1) != str.length() && Character.isSurrogatePair(charAt2, str.charAt(i4)))) {
+                throw new ArrayIndexOutOfBoundsException("Failed writing " + charAt2 + " at index " + i7);
+            } else {
+                throw new zzhq(i6, length);
+            }
+            i6++;
+        }
+        return i7;
     }
 
     public static int zzc(String str) {
@@ -99,92 +148,78 @@ public abstract class zzhr {
     /* JADX WARN: Removed duplicated region for block: B:46:0x007a A[ORIG_RETURN, RETURN] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static boolean zzd(byte[] r6, int r7, int r8) {
-        /*
-        L0:
-            if (r7 >= r8) goto L9
-            r0 = r6[r7]
-            if (r0 < 0) goto L9
-            int r7 = r7 + 1
-            goto L0
-        L9:
-            if (r7 < r8) goto Ld
-            goto L7a
-        Ld:
-            if (r7 >= r8) goto L7a
-            int r0 = r7 + 1
-            r1 = r6[r7]
-            if (r1 >= 0) goto L78
-            r2 = -32
-            r3 = -65
-            if (r1 >= r2) goto L29
-            if (r0 < r8) goto L1e
-            goto L57
-        L1e:
-            r2 = -62
-            if (r1 < r2) goto L76
-            int r7 = r7 + 2
-            r0 = r6[r0]
-            if (r0 <= r3) goto Ld
-            goto L76
-        L29:
-            r4 = -16
-            if (r1 >= r4) goto L4f
-            int r4 = r8 + (-1)
-            if (r0 < r4) goto L36
-            int r1 = zza(r6, r0, r8)
-            goto L57
-        L36:
-            int r4 = r7 + 2
-            r0 = r6[r0]
-            if (r0 > r3) goto L76
-            r5 = -96
-            if (r1 != r2) goto L42
-            if (r0 < r5) goto L76
-        L42:
-            r2 = -19
-            if (r1 != r2) goto L48
-            if (r0 >= r5) goto L76
-        L48:
-            int r7 = r7 + 3
-            r0 = r6[r4]
-            if (r0 <= r3) goto Ld
-            goto L76
-        L4f:
-            int r2 = r8 + (-2)
-            if (r0 < r2) goto L5a
-            int r1 = zza(r6, r0, r8)
-        L57:
-            if (r1 == 0) goto L7a
-            goto L76
-        L5a:
-            int r2 = r7 + 2
-            r0 = r6[r0]
-            if (r0 > r3) goto L76
-            int r1 = r1 << 28
-            int r0 = r0 + 112
-            int r0 = r0 + r1
-            int r0 = r0 >> 30
-            if (r0 != 0) goto L76
-            int r0 = r7 + 3
-            r1 = r6[r2]
-            if (r1 > r3) goto L76
-            int r7 = r7 + 4
-            r0 = r6[r0]
-            if (r0 > r3) goto L76
-            goto Ld
-        L76:
-            r6 = 0
-            return r6
-        L78:
-            r7 = r0
-            goto Ld
-        L7a:
-            r6 = 1
-            return r6
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzhr.zzd(byte[], int, int):boolean");
+    public static boolean zzd(byte[] bArr, int i, int i2) {
+        while (i < i2 && bArr[i] >= 0) {
+            i++;
+        }
+        if (i >= i2) {
+            return true;
+        }
+        while (i < i2) {
+            int i3 = i + 1;
+            int i4 = bArr[i];
+            if (i4 >= 0) {
+                i = i3;
+            } else if (i4 < -32) {
+                if (i3 >= i2) {
+                    if (i4 != 0) {
+                        return false;
+                    }
+                    return true;
+                } else if (i4 < -62) {
+                    return false;
+                } else {
+                    i += 2;
+                    if (bArr[i3] > -65) {
+                        return false;
+                    }
+                }
+            } else if (i4 < -16) {
+                if (i3 >= i2 - 1) {
+                    i4 = zza(bArr, i3, i2);
+                    if (i4 != 0) {
+                    }
+                } else {
+                    int i5 = i + 2;
+                    char c = bArr[i3];
+                    if (c > -65) {
+                        return false;
+                    }
+                    if (i4 == -32 && c < -96) {
+                        return false;
+                    }
+                    if (i4 == -19 && c >= -96) {
+                        return false;
+                    }
+                    i += 3;
+                    if (bArr[i5] > -65) {
+                        return false;
+                    }
+                }
+            } else if (i3 >= i2 - 2) {
+                i4 = zza(bArr, i3, i2);
+                if (i4 != 0) {
+                }
+            } else {
+                int i6 = i + 2;
+                int i7 = bArr[i3];
+                if (i7 > -65) {
+                    return false;
+                }
+                if ((((i7 + 112) + (i4 << 28)) >> 30) != 0) {
+                    return false;
+                }
+                int i8 = i + 3;
+                if (bArr[i6] > -65) {
+                    return false;
+                }
+                i += 4;
+                if (bArr[i8] > -65) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

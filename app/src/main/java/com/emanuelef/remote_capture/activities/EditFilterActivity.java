@@ -14,11 +14,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.core.view.MenuProvider;
 import androidx.preference.PreferenceManager;
 import com.emanuelef.remote_capture.Billing;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
 import com.emanuelef.remote_capture.PCAPdroid;
 import com.emanuelef.remote_capture.PlayBilling;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.AppsFragment$$ExternalSyntheticLambda2;
 import com.emanuelef.remote_capture.model.ConnectionDescriptor;
@@ -138,8 +138,8 @@ public class EditFilterActivity extends BaseActivity implements MenuProvider {
     public void onCreate(Bundle bundle) {
         FilterDescriptor filterDescriptor;
         super.onCreate(bundle);
-        setContentView(R.layout.edit_filter_activity);
-        setTitle(R.string.edit_filter);
+        setContentView(C0130R.layout.edit_filter_activity);
+        setTitle(C0130R.string.edit_filter);
         addMenuProvider(this);
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
@@ -153,22 +153,22 @@ public class EditFilterActivity extends BaseActivity implements MenuProvider {
         if (this.mFilter == null) {
             this.mFilter = new FilterDescriptor();
         }
-        this.mHideMasked = (CheckBox) findViewById(R.id.not_hidden);
-        this.mOnlyBlacklisted = (CheckBox) findViewById(R.id.only_blacklisted);
-        this.mOnlyCleartext = (CheckBox) findViewById(R.id.only_cleartext);
-        this.mInterfaceGroup = (ChipGroup) findViewById(R.id.interfaces);
-        this.mSizeSider = (Slider) findViewById(R.id.size_slider);
-        findViewById(R.id.edit_mask).setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(1, this));
-        this.mFirewallChips = new ArrayList<>(Arrays.asList(new Pair(ConnectionDescriptor.FilteringStatus.BLOCKED, (Chip) findViewById(R.id.status_blocked)), new Pair(ConnectionDescriptor.FilteringStatus.ALLOWED, (Chip) findViewById(R.id.status_allowed))));
-        this.mStatusChips = new ArrayList<>(Arrays.asList(new Pair(ConnectionDescriptor.Status.STATUS_ACTIVE, (Chip) findViewById(R.id.status_active)), new Pair(ConnectionDescriptor.Status.STATUS_CLOSED, (Chip) findViewById(R.id.status_closed)), new Pair(ConnectionDescriptor.Status.STATUS_UNREACHABLE, (Chip) findViewById(R.id.status_unreachable)), new Pair(ConnectionDescriptor.Status.STATUS_ERROR, (Chip) findViewById(R.id.status_error))));
-        this.mDecChips = new ArrayList<>(Arrays.asList(new Pair(ConnectionDescriptor.DecryptionStatus.DECRYPTED, (Chip) findViewById(R.id.dec_status_decrypted)), new Pair(ConnectionDescriptor.DecryptionStatus.NOT_DECRYPTABLE, (Chip) findViewById(R.id.dec_status_not_decryptable)), new Pair(ConnectionDescriptor.DecryptionStatus.ERROR, (Chip) findViewById(R.id.dec_status_error))));
+        this.mHideMasked = (CheckBox) findViewById(C0130R.C0132id.not_hidden);
+        this.mOnlyBlacklisted = (CheckBox) findViewById(C0130R.C0132id.only_blacklisted);
+        this.mOnlyCleartext = (CheckBox) findViewById(C0130R.C0132id.only_cleartext);
+        this.mInterfaceGroup = (ChipGroup) findViewById(C0130R.C0132id.interfaces);
+        this.mSizeSider = (Slider) findViewById(C0130R.C0132id.size_slider);
+        findViewById(C0130R.C0132id.edit_mask).setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(1, this));
+        this.mFirewallChips = new ArrayList<>(Arrays.asList(new Pair(ConnectionDescriptor.FilteringStatus.BLOCKED, (Chip) findViewById(C0130R.C0132id.status_blocked)), new Pair(ConnectionDescriptor.FilteringStatus.ALLOWED, (Chip) findViewById(C0130R.C0132id.status_allowed))));
+        this.mStatusChips = new ArrayList<>(Arrays.asList(new Pair(ConnectionDescriptor.Status.STATUS_ACTIVE, (Chip) findViewById(C0130R.C0132id.status_active)), new Pair(ConnectionDescriptor.Status.STATUS_CLOSED, (Chip) findViewById(C0130R.C0132id.status_closed)), new Pair(ConnectionDescriptor.Status.STATUS_UNREACHABLE, (Chip) findViewById(C0130R.C0132id.status_unreachable)), new Pair(ConnectionDescriptor.Status.STATUS_ERROR, (Chip) findViewById(C0130R.C0132id.status_error))));
+        this.mDecChips = new ArrayList<>(Arrays.asList(new Pair(ConnectionDescriptor.DecryptionStatus.DECRYPTED, (Chip) findViewById(C0130R.C0132id.dec_status_decrypted)), new Pair(ConnectionDescriptor.DecryptionStatus.NOT_DECRYPTABLE, (Chip) findViewById(C0130R.C0132id.dec_status_not_decryptable)), new Pair(ConnectionDescriptor.DecryptionStatus.ERROR, (Chip) findViewById(C0130R.C0132id.dec_status_error))));
         if (PCAPdroid.getInstance().isDecryptingPcap()) {
-            findViewById(R.id.dec_status_not_decryptable).setVisibility(8);
-            findViewById(R.id.dec_status_error).setVisibility(8);
+            findViewById(C0130R.C0132id.dec_status_not_decryptable).setVisibility(8);
+            findViewById(C0130R.C0132id.dec_status_error).setVisibility(8);
         }
         if (CaptureService.isDecryptingTLS() || PCAPdroid.getInstance().isDecryptingPcap()) {
-            findViewById(R.id.decryption_status_label).setVisibility(0);
-            findViewById(R.id.decryption_status_group).setVisibility(0);
+            findViewById(C0130R.C0132id.decryption_status_label).setVisibility(0);
+            findViewById(C0130R.C0132id.decryption_status_group).setVisibility(0);
             this.mOnlyCleartext.setVisibility(8);
         }
         PlayBilling newInstance = Billing.newInstance(this);
@@ -176,19 +176,19 @@ public class EditFilterActivity extends BaseActivity implements MenuProvider {
             this.mOnlyBlacklisted.setVisibility(8);
         }
         if (newInstance.isFirewallVisible()) {
-            findViewById(R.id.firewall_label).setVisibility(0);
-            findViewById(R.id.firewall_group).setVisibility(0);
+            findViewById(C0130R.C0132id.firewall_label).setVisibility(0);
+            findViewById(C0130R.C0132id.firewall_group).setVisibility(0);
         }
         ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
         if (connsRegister != null && connsRegister.hasSeenMultipleInterfaces()) {
             LayoutInflater layoutInflater = getLayoutInflater();
             for (String str : connsRegister.getSeenInterfaces()) {
-                Chip chip = (Chip) layoutInflater.inflate(R.layout.choice_chip, (ViewGroup) this.mInterfaceGroup, false);
+                Chip chip = (Chip) layoutInflater.inflate(C0130R.layout.choice_chip, (ViewGroup) this.mInterfaceGroup, false);
                 chip.setText(str);
                 this.mInterfaceGroup.addView(chip);
             }
             this.mInterfaceGroup.setVisibility(0);
-            findViewById(R.id.interfaces_label).setVisibility(0);
+            findViewById(C0130R.C0132id.interfaces_label).setVisibility(0);
         }
         if (connsRegister != null) {
             long max = Math.max(connsRegister.getMaxBytes() / 1024, this.mFilter.minSize / 1024);
@@ -196,7 +196,7 @@ public class EditFilterActivity extends BaseActivity implements MenuProvider {
                 this.mSizeSider.setValueTo((float) max);
                 this.mSizeSider.setLabelFormatter(new BaseActivity$$ExternalSyntheticLambda0(21));
                 this.mSizeSider.setVisibility(0);
-                findViewById(R.id.size_slider_label).setVisibility(0);
+                findViewById(C0130R.C0132id.size_slider_label).setVisibility(0);
             }
         }
         model2view();
@@ -204,7 +204,7 @@ public class EditFilterActivity extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.edit_filter_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.edit_filter_menu, menu);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -213,7 +213,7 @@ public class EditFilterActivity extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() != R.id.reset_changes) {
+        if (menuItem.getItemId() != C0130R.C0132id.reset_changes) {
             return false;
         }
         this.mFilter.clear();

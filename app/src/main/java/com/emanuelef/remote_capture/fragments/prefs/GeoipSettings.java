@@ -9,10 +9,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.inputmethod.InputConnectionCompat$$ExternalSyntheticLambda0;
 import androidx.preference.Preference;
 import com.android.billingclient.api.zzbv;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Geolocation;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PlayBilling$$ExternalSyntheticLambda23;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.ConnectionsFragment$$ExternalSyntheticLambda6;
 import com.emanuelef.remote_capture.views.AppSelectDialog$$ExternalSyntheticLambda2;
@@ -31,8 +31,8 @@ public class GeoipSettings extends SettingsSubFragment {
         ExecutorService newSingleThreadExecutor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         zzbv zzbvVar = new zzbv(requireContext());
-        zzbvVar.setTitle(R.string.downloading);
-        zzbvVar.setMessage(R.string.download_in_progress);
+        zzbvVar.setTitle(C0130R.string.downloading);
+        zzbvVar.setMessage(C0130R.string.download_in_progress);
         AlertDialog create = zzbvVar.create();
         this.mAlertDialog = create;
         create.setCanceledOnTouchOutside(false);
@@ -43,7 +43,7 @@ public class GeoipSettings extends SettingsSubFragment {
     }
 
     public static /* synthetic */ void lambda$downloadDatabases$2(ExecutorService executorService, DialogInterface dialogInterface) {
-        Log.i(TAG, "Abort download");
+        Log.m583i(TAG, "Abort download");
         executorService.shutdownNow();
     }
 
@@ -53,7 +53,7 @@ public class GeoipSettings extends SettingsSubFragment {
 
     public /* synthetic */ void lambda$downloadDatabases$4(boolean z, Context context) {
         if (!z) {
-            Utils.showToastLong(context, R.string.download_failed, new Object[0]);
+            Utils.showToastLong(context, C0130R.string.download_failed, new Object[0]);
         }
         AlertDialog alertDialog = this.mAlertDialog;
         if (alertDialog != null) {
@@ -83,7 +83,7 @@ public class GeoipSettings extends SettingsSubFragment {
         if (dbDate != null) {
             String formatEpochFull = Utils.formatEpochFull(context, dbDate.getTime() / 1000);
             Preference preference = this.mStatus;
-            preference.setSummary("DB-IP Lite free\n" + String.format(context.getString(R.string.built_on), formatEpochFull) + "\n" + String.format(context.getString(R.string.size_x), Utils.formatBytes(Geolocation.getDbSize(context))));
+            preference.setSummary("DB-IP Lite free\n" + String.format(context.getString(C0130R.string.built_on), formatEpochFull) + "\n" + String.format(context.getString(C0130R.string.size_x), Utils.formatBytes(Geolocation.getDbSize(context))));
             Preference preference2 = this.mStatus;
             if (!preference2.mEnabled) {
                 preference2.mEnabled = true;
@@ -92,7 +92,7 @@ public class GeoipSettings extends SettingsSubFragment {
             }
         } else {
             Preference preference3 = this.mStatus;
-            preference3.setSummary(preference3.mContext.getString(R.string.geo_db_not_found));
+            preference3.setSummary(preference3.mContext.getString(C0130R.string.geo_db_not_found));
             Preference preference4 = this.mStatus;
             if (preference4.mEnabled) {
                 preference4.mEnabled = false;
@@ -117,7 +117,7 @@ public class GeoipSettings extends SettingsSubFragment {
 
     @Override // androidx.preference.PreferenceFragmentCompat
     public void onCreatePreferences(Bundle bundle, String str) {
-        setPreferencesFromResource(R.xml.geoip_preferences, str);
+        setPreferencesFromResource(C0130R.xml.geoip_preferences, str);
         Context requireContext = requireContext();
         this.mStatus = requirePreference("status");
         this.mDelete = requirePreference("delete");

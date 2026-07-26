@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import androidx.core.provider.FontProvider$$ExternalSyntheticLambda0;
 import com.emanuelef.remote_capture.AppsResolver;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.interfaces.TextAdapter;
 import com.emanuelef.remote_capture.model.AppDescriptor;
 import com.emanuelef.remote_capture.model.CtrlPermissions;
@@ -25,7 +25,7 @@ public class CtrlPermissionsAdapter extends ArrayAdapter<CtrlPermissions.Rule> i
     private final ArrayMap<String, AppDescriptor> mPkgToApp = new ArrayMap<>();
 
     public CtrlPermissionsAdapter(Context context, CtrlPermissions ctrlPermissions) {
-        super(context, R.layout.rule_item);
+        super(context, C0130R.layout.rule_item);
         this.mLayoutInflater = (LayoutInflater) context.getSystemService("layout_inflater");
         this.mPermissions = ctrlPermissions;
         this.mContext = context;
@@ -62,11 +62,11 @@ public class CtrlPermissionsAdapter extends ArrayAdapter<CtrlPermissions.Rule> i
         String str;
         int i2;
         if (view == null) {
-            view = this.mLayoutInflater.inflate(R.layout.rule_item, viewGroup, false);
+            view = this.mLayoutInflater.inflate(C0130R.layout.rule_item, viewGroup, false);
         }
         CtrlPermissions.Rule rule = (CtrlPermissions.Rule) getItem(i);
         AppDescriptor appDescriptor = this.mPkgToApp.get(rule.package_name);
-        String string = this.mContext.getString(R.string.control_permissions_item);
+        String string = this.mContext.getString(C0130R.string.control_permissions_item);
         if (appDescriptor == null) {
             str = rule.package_name;
         } else {
@@ -74,11 +74,11 @@ public class CtrlPermissionsAdapter extends ArrayAdapter<CtrlPermissions.Rule> i
         }
         Context context = this.mContext;
         if (rule.consent == CtrlPermissions.ConsentType.ALLOW) {
-            i2 = R.string.allow;
+            i2 = C0130R.string.allow;
         } else {
-            i2 = R.string.deny;
+            i2 = C0130R.string.deny;
         }
-        ((TextView) view.findViewById(R.id.item_label)).setText(String.format(string, str, context.getString(i2)));
+        ((TextView) view.findViewById(C0130R.C0132id.item_label)).setText(String.format(string, str, context.getString(i2)));
         return view;
     }
 }

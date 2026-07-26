@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 /* loaded from: classes.dex */
 public final class SqlTimestampTypeAdapter extends TypeAdapter {
-    public static final AnonymousClass1 FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.sql.SqlTimestampTypeAdapter.1
+    public static final C02761 FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.sql.SqlTimestampTypeAdapter.1
         @Override // com.google.gson.TypeAdapterFactory
         public final TypeAdapter create(Gson gson, TypeToken typeToken) {
             if (typeToken.getRawType() != Timestamp.class) {

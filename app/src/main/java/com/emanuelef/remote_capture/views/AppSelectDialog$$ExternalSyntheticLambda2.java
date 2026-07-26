@@ -32,7 +32,7 @@ public final /* synthetic */ class AppSelectDialog$$ExternalSyntheticLambda2 imp
                 ((HttpPayloadFragment) this.f$0).lambda$setMenuVisibility$2(dialogInterface);
                 return;
             default:
-                GeoipSettings.m222$r8$lambda$aCWhBkC6hLpHGRwZYSCCJYhLGQ((ExecutorService) this.f$0, dialogInterface);
+                GeoipSettings.m852$r8$lambda$aCWhBkC6hLpHGRwZYSCCJYhLGQ((ExecutorService) this.f$0, dialogInterface);
                 return;
         }
     }

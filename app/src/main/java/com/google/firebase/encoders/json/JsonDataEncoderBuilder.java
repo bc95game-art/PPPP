@@ -4,11 +4,11 @@ import com.google.firebase.encoders.ObjectEncoder;
 import com.google.firebase.encoders.ValueEncoder;
 import com.google.firebase.encoders.ValueEncoderContext;
 import com.google.firebase.encoders.config.EncoderConfig;
-import j$.util.DesugarTimeZone;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import p004j$.util.DesugarTimeZone;
 /* loaded from: classes.dex */
 public final class JsonDataEncoderBuilder implements EncoderConfig {
     public final JsonDataEncoderBuilder$$ExternalSyntheticLambda0 fallbackEncoder = DEFAULT_FALLBACK_ENCODER;

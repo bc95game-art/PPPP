@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavAction;
@@ -19,7 +19,7 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.internal.NavContext;
 import androidx.navigation.internal.NavControllerImpl;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.fragments.ConnectionOverview$$ExternalSyntheticLambda0;
 import java.util.Arrays;
 import kotlin.Pair;
@@ -91,7 +91,7 @@ public class StepFragment extends Fragment {
                     if (action == null) {
                         throw new IllegalArgumentException("Navigation action/destination " + displayName + " cannot be found from the current destination " + navDestination);
                     }
-                    StringBuilder m = ViewModelProvider.Factory.CC.m15m("Navigation destination ", displayName, " referenced from action ");
+                    StringBuilder m = ViewModelProvider.Factory.CC.m594m("Navigation destination ", displayName, " referenced from action ");
                     m.append(Navigation.getDisplayName(navContext, i));
                     m.append(" cannot be found from the current destination ");
                     m.append(navDestination);
@@ -114,15 +114,15 @@ public class StepFragment extends Fragment {
         } else {
             z = false;
         }
-        this.mStepIcon.setImageDrawable(BundleKt.getDrawable(requireContext, R.drawable.ic_check_solid));
+        this.mStepIcon.setImageDrawable(BundleKt.getDrawable(requireContext, C0130R.C0131drawable.ic_check_solid));
         this.mStepIcon.setColorFilter(this.mOkColor);
         this.mSkipButton.setVisibility(8);
         this.mStepButton.setEnabled(true);
         Button button = this.mStepButton;
         if (!z) {
-            i2 = R.string.app_intro_next_button;
+            i2 = C0130R.string.app_intro_next_button;
         } else {
-            i2 = R.string.app_intro_done_button;
+            i2 = C0130R.string.app_intro_done_button;
         }
         button.setText(i2);
         this.mStepButton.setOnClickListener(new ConnectionOverview$$ExternalSyntheticLambda0(i, 1, this));
@@ -130,21 +130,21 @@ public class StepFragment extends Fragment {
 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        return layoutInflater.inflate(R.layout.fragment_mitm_wizard, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.fragment_mitm_wizard, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(View view, Bundle bundle) {
         super.onViewCreated(view, bundle);
         this.mNavController = Navigation.findNavController(view);
-        this.mStepLabel = (TextView) view.findViewById(R.id.step_label);
-        this.mStepIcon = (ImageView) view.findViewById(R.id.step_status);
-        this.mStepButton = (Button) view.findViewById(R.id.step_button);
-        this.mSkipButton = (Button) view.findViewById(R.id.skip_button);
+        this.mStepLabel = (TextView) view.findViewById(C0130R.C0132id.step_label);
+        this.mStepIcon = (ImageView) view.findViewById(C0130R.C0132id.step_status);
+        this.mStepButton = (Button) view.findViewById(C0130R.C0132id.step_button);
+        this.mSkipButton = (Button) view.findViewById(C0130R.C0132id.skip_button);
         Context requireContext = requireContext();
-        this.mOkColor = BundleKt.getColor(requireContext, R.color.ok);
-        this.mWarnColor = BundleKt.getColor(requireContext, R.color.warning);
-        this.mDangerColor = BundleKt.getColor(requireContext, R.color.danger);
+        this.mOkColor = BundleKt.getColor(requireContext, C0130R.color.ok);
+        this.mWarnColor = BundleKt.getColor(requireContext, C0130R.color.warning);
+        this.mDangerColor = BundleKt.getColor(requireContext, C0130R.color.danger);
     }
 
     public void showSkipButton(View.OnClickListener onClickListener) {

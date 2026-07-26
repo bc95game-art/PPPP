@@ -35,7 +35,7 @@ public final /* synthetic */ class zzam implements Runnable {
                 return;
             case 1:
                 try {
-                    obj = ((FontRequestWorker.AnonymousClass1) this.zza).call();
+                    obj = ((FontRequestWorker.CallableC00441) this.zza).call();
                 } catch (Exception unused) {
                     obj = null;
                 }

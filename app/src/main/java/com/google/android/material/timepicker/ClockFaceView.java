@@ -21,11 +21,11 @@ import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.snackbar.SnackbarManager;
 import com.google.android.material.timepicker.ClockHandView;
@@ -46,7 +46,7 @@ class ClockFaceView extends RadialViewGroup implements ClockHandView.OnRotateLis
     public final int minimumWidth;
     public final ColorStateList textColor;
     public final SparseArray textViewPool;
-    public final AnonymousClass2 valueAccessibilityDelegate;
+    public final C02132 valueAccessibilityDelegate;
     public final String[] values;
     public final Rect textViewRect = new Rect();
     public final RectF scratch = new RectF();
@@ -58,18 +58,18 @@ class ClockFaceView extends RadialViewGroup implements ClockHandView.OnRotateLis
         super(context, attributeSet);
         SparseArray sparseArray = new SparseArray();
         this.textViewPool = sparseArray;
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.ClockFaceView, R.attr.materialClockStyle, R.style.Widget_MaterialComponents_TimePicker_Clock);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.ClockFaceView, C0130R.attr.materialClockStyle, C0130R.style.Widget_MaterialComponents_TimePicker_Clock);
         Resources resources = getResources();
         ColorStateList colorStateList = LazyKt__LazyJVMKt.getColorStateList(context, obtainStyledAttributes, 1);
         this.textColor = colorStateList;
-        LayoutInflater.from(context).inflate(R.layout.material_clockface_view, (ViewGroup) this, true);
-        ClockHandView clockHandView = (ClockHandView) findViewById(R.id.material_clock_hand);
+        LayoutInflater.from(context).inflate(C0130R.layout.material_clockface_view, (ViewGroup) this, true);
+        ClockHandView clockHandView = (ClockHandView) findViewById(C0130R.C0132id.material_clock_hand);
         this.clockHandView = clockHandView;
-        this.clockHandPadding = resources.getDimensionPixelSize(R.dimen.material_clock_hand_padding);
+        this.clockHandPadding = resources.getDimensionPixelSize(C0130R.dimen.material_clock_hand_padding);
         int colorForState = colorStateList.getColorForState(new int[]{16842913}, colorStateList.getDefaultColor());
         this.gradientColors = new int[]{colorForState, colorForState, colorStateList.getDefaultColor()};
         clockHandView.listeners.add(this);
-        int defaultColor = BundleKt.getColorStateList(context, R.color.material_timepicker_clockface).getDefaultColor();
+        int defaultColor = BundleKt.getColorStateList(context, C0130R.color.material_timepicker_clockface).getDefaultColor();
         ColorStateList colorStateList2 = LazyKt__LazyJVMKt.getColorStateList(context, obtainStyledAttributes, 0);
         setBackgroundColor(colorStateList2 != null ? colorStateList2.getDefaultColor() : defaultColor);
         getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() { // from class: com.google.android.material.timepicker.ClockFaceView.1
@@ -98,7 +98,7 @@ class ClockFaceView extends RadialViewGroup implements ClockHandView.OnRotateLis
             public final void onInitializeAccessibilityNodeInfo(View view, AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
                 AccessibilityNodeInfo accessibilityNodeInfo = accessibilityNodeInfoCompat.mInfo;
                 this.mOriginalDelegate.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfo);
-                int intValue = ((Integer) view.getTag(R.id.material_value_index)).intValue();
+                int intValue = ((Integer) view.getTag(C0130R.C0132id.material_value_index)).intValue();
                 if (intValue > 0) {
                     accessibilityNodeInfoCompat.setTraversalAfter((View) ClockFaceView.this.textViewPool.get(intValue - 1));
                 }
@@ -135,14 +135,14 @@ class ClockFaceView extends RadialViewGroup implements ClockHandView.OnRotateLis
                 sparseArray.remove(i);
             } else {
                 if (textView == null) {
-                    textView = (TextView) from.inflate(R.layout.material_clockface_textview, (ViewGroup) this, false);
+                    textView = (TextView) from.inflate(C0130R.layout.material_clockface_textview, (ViewGroup) this, false);
                     sparseArray.put(i, textView);
                     addView(textView);
                 }
                 textView.setText(this.values[i]);
-                textView.setTag(R.id.material_value_index, Integer.valueOf(i));
+                textView.setTag(C0130R.C0132id.material_value_index, Integer.valueOf(i));
                 int i2 = (i / 12) + 1;
-                textView.setTag(R.id.material_clock_level, Integer.valueOf(i2));
+                textView.setTag(C0130R.C0132id.material_clock_level, Integer.valueOf(i2));
                 z = i2 > 1 ? true : z;
                 ViewCompat.setAccessibilityDelegate(textView, this.valueAccessibilityDelegate);
                 textView.setTextColor(this.textColor);
@@ -154,9 +154,9 @@ class ClockFaceView extends RadialViewGroup implements ClockHandView.OnRotateLis
         }
         clockHandView2.isMultiLevel = z;
         clockHandView2.invalidate();
-        this.minimumHeight = resources.getDimensionPixelSize(R.dimen.material_time_picker_minimum_screen_height);
-        this.minimumWidth = resources.getDimensionPixelSize(R.dimen.material_time_picker_minimum_screen_width);
-        this.clockSize = resources.getDimensionPixelSize(R.dimen.material_clock_size);
+        this.minimumHeight = resources.getDimensionPixelSize(C0130R.dimen.material_time_picker_minimum_screen_height);
+        this.minimumWidth = resources.getDimensionPixelSize(C0130R.dimen.material_time_picker_minimum_screen_width);
+        this.clockSize = resources.getDimensionPixelSize(C0130R.dimen.material_clock_size);
     }
 
     public final void findIntersectingTextView() {
@@ -244,8 +244,8 @@ class ClockFaceView extends RadialViewGroup implements ClockHandView.OnRotateLis
         HashMap hashMap = new HashMap();
         for (int i2 = 0; i2 < getChildCount(); i2++) {
             View childAt = getChildAt(i2);
-            if (childAt.getId() != R.id.circle_center && !"skip".equals(childAt.getTag())) {
-                int i3 = (Integer) childAt.getTag(R.id.material_clock_level);
+            if (childAt.getId() != C0130R.C0132id.circle_center && !"skip".equals(childAt.getTag())) {
+                int i3 = (Integer) childAt.getTag(C0130R.C0132id.material_clock_level);
                 if (i3 == null) {
                     i3 = 1;
                 }
@@ -271,7 +271,7 @@ class ClockFaceView extends RadialViewGroup implements ClockHandView.OnRotateLis
                     hashMap2.put(Integer.valueOf(id), new ConstraintSet.Constraint());
                 }
                 ConstraintSet.Layout layout = ((ConstraintSet.Constraint) hashMap2.get(Integer.valueOf(id))).layout;
-                layout.circleConstraint = R.id.circle_center;
+                layout.circleConstraint = C0130R.C0132id.circle_center;
                 layout.circleRadius = i;
                 layout.circleAngle = f;
                 f += 360.0f / list.size();

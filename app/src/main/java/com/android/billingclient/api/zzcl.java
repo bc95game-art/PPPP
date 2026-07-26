@@ -1,28 +1,40 @@
 package com.android.billingclient.api;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
+import android.content.res.XmlResourceParser;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
+import android.util.SparseArray;
 import android.util.SparseIntArray;
+import android.util.Xml;
 import android.view.Choreographer;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatDelegateImpl;
 import androidx.appcompat.view.ActionMode;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.core.SolverVariable;
+import androidx.constraintlayout.widget.ConstraintAttribute;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.graphics.Insets;
 import androidx.core.provider.CallbackWithHandler$2;
 import androidx.core.provider.FontRequestWorker;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.emoji2.text.EmojiProcessor$EmojiProcessCallback;
 import androidx.emoji2.text.TypefaceEmojiRasterizer;
@@ -40,14 +52,18 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.FakeDrag;
 import com.google.android.datatransport.Encoding;
 import com.google.android.datatransport.cct.CCTDestination;
+import com.google.android.datatransport.cct.CctBackendFactory;
 import com.google.android.datatransport.runtime.AutoValue_TransportContext;
 import com.google.android.datatransport.runtime.TransportRuntime;
 import com.google.android.datatransport.runtime.backends.MetadataBackendRegistry;
+import com.google.android.datatransport.runtime.backends.TransportBackendDiscovery;
 import com.google.android.datatransport.runtime.dagger.internal.Factory;
 import com.google.android.datatransport.runtime.scheduling.persistence.AutoValue_EventStoreConfig;
 import com.google.android.datatransport.runtime.scheduling.persistence.SQLiteEventStore;
 import com.google.android.datatransport.runtime.scheduling.persistence.SchemaManager;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.common.internal.service.zan;
 import com.google.android.gms.internal.play_billing.zzc;
 import com.google.android.gms.internal.play_billing.zzhv;
@@ -62,15 +78,25 @@ import com.google.android.gms.internal.play_billing.zzjg;
 import com.google.android.gms.internal.play_billing.zzji;
 import com.google.android.gms.internal.play_billing.zzjo;
 import com.google.android.gms.internal.play_billing.zzjs;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.zzi;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.snackbar.SnackbarManager;
-import j$.util.DesugarCollections;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import javax.inject.Provider;
 import kotlin.text.MatcherMatchResult;
+import org.xmlpull.v1.XmlPullParserException;
+import p004j$.util.DesugarCollections;
 /* loaded from: classes.dex */
 public final class zzcl implements NestedScrollView.OnScrollChangeListener, ActionMode.Callback, EmojiProcessor$EmojiProcessCallback, Preference.OnPreferenceClickListener, OnApplyWindowInsetsListener, zzch, Factory {
     public final /* synthetic */ int $r8$classId;
@@ -233,14 +259,121 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
     @Override // androidx.core.view.OnApplyWindowInsetsListener
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public androidx.core.view.WindowInsetsCompat onApplyWindowInsets(android.view.View r20, androidx.core.view.WindowInsetsCompat r21) {
-        /*
-            Method dump skipped, instructions count: 316
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.android.billingclient.api.zzcl.onApplyWindowInsets(android.view.View, androidx.core.view.WindowInsetsCompat):androidx.core.view.WindowInsetsCompat");
+    public WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat windowInsetsCompat) {
+        boolean z;
+        boolean z2;
+        boolean z3;
+        boolean z4;
+        int i;
+        switch (this.$r8$classId) {
+            case 16:
+                ViewPager viewPager = (ViewPager) this.zzc;
+                WindowInsetsCompat onApplyWindowInsets = ViewCompat.onApplyWindowInsets(view, windowInsetsCompat);
+                if (onApplyWindowInsets.mImpl.isConsumed()) {
+                    return onApplyWindowInsets;
+                }
+                Rect rect = (Rect) this.zzb;
+                rect.left = onApplyWindowInsets.getSystemWindowInsetLeft();
+                rect.top = onApplyWindowInsets.getSystemWindowInsetTop();
+                rect.right = onApplyWindowInsets.getSystemWindowInsetRight();
+                rect.bottom = onApplyWindowInsets.getSystemWindowInsetBottom();
+                int childCount = viewPager.getChildCount();
+                for (int i2 = 0; i2 < childCount; i2++) {
+                    WindowInsetsCompat dispatchApplyWindowInsets = ViewCompat.dispatchApplyWindowInsets(viewPager.getChildAt(i2), onApplyWindowInsets);
+                    rect.left = Math.min(dispatchApplyWindowInsets.getSystemWindowInsetLeft(), rect.left);
+                    rect.top = Math.min(dispatchApplyWindowInsets.getSystemWindowInsetTop(), rect.top);
+                    rect.right = Math.min(dispatchApplyWindowInsets.getSystemWindowInsetRight(), rect.right);
+                    rect.bottom = Math.min(dispatchApplyWindowInsets.getSystemWindowInsetBottom(), rect.bottom);
+                }
+                return onApplyWindowInsets.replaceSystemWindowInsets(rect.left, rect.top, rect.right, rect.bottom);
+            default:
+                zzcn zzcnVar = (zzcn) this.zzb;
+                ViewUtils.RelativePadding relativePadding = (ViewUtils.RelativePadding) this.zzc;
+                int i3 = relativePadding.start;
+                int i4 = relativePadding.end;
+                int i5 = relativePadding.bottom;
+                WindowInsetsCompat.Impl impl = windowInsetsCompat.mImpl;
+                Insets insets = impl.getInsets(7);
+                Insets insets2 = impl.getInsets(32);
+                BottomSheetBehavior bottomSheetBehavior = (BottomSheetBehavior) zzcnVar.zzb;
+                int i6 = insets.top;
+                int i7 = insets.right;
+                int i8 = insets.left;
+                bottomSheetBehavior.insetTop = i6;
+                if (view.getLayoutDirection() == 1) {
+                    z = true;
+                } else {
+                    z = false;
+                }
+                int paddingBottom = view.getPaddingBottom();
+                int paddingLeft = view.getPaddingLeft();
+                int paddingRight = view.getPaddingRight();
+                boolean z5 = bottomSheetBehavior.paddingBottomSystemWindowInsets;
+                if (z5) {
+                    int systemWindowInsetBottom = windowInsetsCompat.getSystemWindowInsetBottom();
+                    bottomSheetBehavior.insetBottom = systemWindowInsetBottom;
+                    paddingBottom = systemWindowInsetBottom + i5;
+                }
+                if (bottomSheetBehavior.paddingLeftSystemWindowInsets) {
+                    if (z) {
+                        i = i4;
+                    } else {
+                        i = i3;
+                    }
+                    paddingLeft = i + i8;
+                }
+                int i9 = paddingLeft;
+                if (bottomSheetBehavior.paddingRightSystemWindowInsets) {
+                    if (!z) {
+                        i3 = i4;
+                    }
+                    paddingRight = i3 + i7;
+                }
+                int i10 = paddingRight;
+                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+                if (!bottomSheetBehavior.marginLeftSystemWindowInsets || marginLayoutParams.leftMargin == i8) {
+                    z2 = false;
+                } else {
+                    marginLayoutParams.leftMargin = i8;
+                    z2 = true;
+                }
+                if (bottomSheetBehavior.marginRightSystemWindowInsets && marginLayoutParams.rightMargin != i7) {
+                    marginLayoutParams.rightMargin = i7;
+                    z2 = true;
+                }
+                if (bottomSheetBehavior.marginTopSystemWindowInsets) {
+                    int i11 = marginLayoutParams.topMargin;
+                    int i12 = insets.top;
+                    if (i11 != i12) {
+                        marginLayoutParams.topMargin = i12;
+                        z3 = true;
+                        if (z3) {
+                            view.setLayoutParams(marginLayoutParams);
+                        }
+                        view.setPadding(i9, view.getPaddingTop(), i10, paddingBottom);
+                        z4 = zzcnVar.zza;
+                        if (z4) {
+                            bottomSheetBehavior.gestureInsetBottom = insets2.bottom;
+                        }
+                        if (!z5 || z4) {
+                            bottomSheetBehavior.updatePeekHeight();
+                        }
+                        return windowInsetsCompat;
+                    }
+                }
+                z3 = z2;
+                if (z3) {
+                }
+                view.setPadding(i9, view.getPaddingTop(), i10, paddingBottom);
+                z4 = zzcnVar.zza;
+                if (z4) {
+                }
+                if (!z5) {
+                }
+                bottomSheetBehavior.updatePeekHeight();
+                return windowInsetsCompat;
+        }
     }
 
     @Override // androidx.appcompat.view.ActionMode.Callback
@@ -264,7 +397,7 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
             ViewPropertyAnimatorCompat animate = ViewCompat.animate(appCompatDelegateImpl.mActionModeView);
             animate.alpha(0.0f);
             appCompatDelegateImpl.mFadeAnim = animate;
-            animate.setListener(new AppCompatDelegateImpl.AnonymousClass7(2, this));
+            animate.setListener(new AppCompatDelegateImpl.C00167(2, this));
         }
         appCompatDelegateImpl.mAppCompatCallback.onSupportActionModeFinished(appCompatDelegateImpl.mActionMode);
         appCompatDelegateImpl.mActionMode = null;
@@ -279,7 +412,7 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
         ((PreferenceGroup) this.zzb).mInitialExpandedChildrenCount = Integer.MAX_VALUE;
         PreferenceGroupAdapter preferenceGroupAdapter = (PreferenceGroupAdapter) this.zzc;
         Handler handler = preferenceGroupAdapter.mHandler;
-        PreferenceGroup.AnonymousClass1 r2 = preferenceGroupAdapter.mSyncRunnable;
+        PreferenceGroup.RunnableC00921 r2 = preferenceGroupAdapter.mSyncRunnable;
         handler.removeCallbacks(r2);
         handler.post(r2);
         return true;
@@ -311,14 +444,169 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
     /* JADX WARN: Removed duplicated region for block: B:61:0x0109 A[Catch: IOException -> 0x0091, XmlPullParserException -> 0x0094, TryCatch #2 {IOException -> 0x0091, XmlPullParserException -> 0x0094, blocks: (B:19:0x0062, B:27:0x0074, B:28:0x0082, B:30:0x0087, B:37:0x0097, B:40:0x00a0, B:43:0x00a9, B:45:0x00b1, B:46:0x00bf, B:49:0x00ce, B:51:0x00d6, B:52:0x00e0, B:55:0x00e9, B:57:0x00f1, B:58:0x00ff, B:61:0x0109, B:62:0x0110, B:63:0x0128, B:64:0x0129, B:66:0x0131, B:67:0x013f, B:70:0x0149, B:71:0x0154, B:72:0x016c, B:73:0x016d, B:76:0x0177, B:77:0x0182, B:78:0x019a, B:79:0x019b, B:81:0x01a3, B:82:0x01ac, B:85:0x01b6, B:86:0x01c0, B:87:0x01d8, B:88:0x01d9, B:91:0x01e3, B:92:0x01ed, B:93:0x0205, B:94:0x0206, B:95:0x0209), top: B:102:0x0062 }] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public void parseConstraintSet(android.content.Context r12, android.content.res.XmlResourceParser r13) {
-        /*
-            Method dump skipped, instructions count: 608
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.android.billingclient.api.zzcl.parseConstraintSet(android.content.Context, android.content.res.XmlResourceParser):void");
+    public void parseConstraintSet(Context context, XmlResourceParser xmlResourceParser) {
+        int i;
+        int eventType;
+        ConstraintSet.Constraint constraint;
+        ConstraintSet constraintSet = new ConstraintSet();
+        int attributeCount = xmlResourceParser.getAttributeCount();
+        for (int i2 = 0; i2 < attributeCount; i2++) {
+            String attributeName = xmlResourceParser.getAttributeName(i2);
+            String attributeValue = xmlResourceParser.getAttributeValue(i2);
+            if (attributeName != null && attributeValue != null && "id".equals(attributeName)) {
+                if (attributeValue.contains("/")) {
+                    i = context.getResources().getIdentifier(attributeValue.substring(attributeValue.indexOf(47) + 1), "id", context.getPackageName());
+                } else {
+                    i = -1;
+                }
+                if (i == -1) {
+                    if (attributeValue.length() > 1) {
+                        i = Integer.parseInt(attributeValue.substring(1));
+                    } else {
+                        Log.e("ConstraintLayoutStates", "error in parsing id");
+                    }
+                }
+                try {
+                    eventType = xmlResourceParser.getEventType();
+                    constraint = null;
+                } catch (IOException e) {
+                    Log.e("ConstraintSet", "Error parsing XML resource", e);
+                } catch (XmlPullParserException e2) {
+                    Log.e("ConstraintSet", "Error parsing XML resource", e2);
+                }
+                while (eventType != 1) {
+                    if (eventType != 0) {
+                        if (eventType == 2) {
+                            String name = xmlResourceParser.getName();
+                            switch (name.hashCode()) {
+                                case -2025855158:
+                                    if (!name.equals("Layout")) {
+                                        continue;
+                                    } else if (constraint != null) {
+                                        constraint.layout.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser));
+                                        break;
+                                    } else {
+                                        throw new RuntimeException("XML parser error must be within a Constraint " + xmlResourceParser.getLineNumber());
+                                    }
+                                case -1984451626:
+                                    if (!name.equals("Motion")) {
+                                        continue;
+                                    } else if (constraint != null) {
+                                        constraint.motion.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser));
+                                        break;
+                                    } else {
+                                        throw new RuntimeException("XML parser error must be within a Constraint " + xmlResourceParser.getLineNumber());
+                                    }
+                                case -1962203927:
+                                    if (name.equals("ConstraintOverride")) {
+                                        constraint = ConstraintSet.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser), true);
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                case -1269513683:
+                                    if (!name.equals("PropertySet")) {
+                                        continue;
+                                    } else if (constraint != null) {
+                                        constraint.propertySet.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser));
+                                        break;
+                                    } else {
+                                        throw new RuntimeException("XML parser error must be within a Constraint " + xmlResourceParser.getLineNumber());
+                                    }
+                                case -1238332596:
+                                    if (!name.equals("Transform")) {
+                                        continue;
+                                    } else if (constraint != null) {
+                                        constraint.transform.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser));
+                                        break;
+                                    } else {
+                                        throw new RuntimeException("XML parser error must be within a Constraint " + xmlResourceParser.getLineNumber());
+                                    }
+                                case -71750448:
+                                    if (name.equals("Guideline")) {
+                                        constraint = ConstraintSet.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser), false);
+                                        constraint.layout.mIsGuideline = true;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                case 366511058:
+                                    if (!name.equals("CustomMethod")) {
+                                        continue;
+                                    }
+                                    if (constraint == null) {
+                                        ConstraintAttribute.parse(context, xmlResourceParser, constraint.mCustomConstraints);
+                                        break;
+                                    } else {
+                                        throw new RuntimeException("XML parser error must be within a Constraint " + xmlResourceParser.getLineNumber());
+                                    }
+                                case 1331510167:
+                                    if (name.equals("Barrier")) {
+                                        constraint = ConstraintSet.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser), false);
+                                        constraint.layout.mHelperType = 1;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                case 1791837707:
+                                    if (!name.equals("CustomAttribute")) {
+                                        continue;
+                                    } else if (constraint == null) {
+                                    }
+                                    break;
+                                case 1803088381:
+                                    if (name.equals("Constraint")) {
+                                        constraint = ConstraintSet.fillFromAttributeList(context, Xml.asAttributeSet(xmlResourceParser), false);
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                            }
+                        } else if (eventType == 3) {
+                            String lowerCase = xmlResourceParser.getName().toLowerCase(Locale.ROOT);
+                            switch (lowerCase.hashCode()) {
+                                case -2075718416:
+                                    if (!lowerCase.equals("guideline")) {
+                                        break;
+                                    }
+                                    constraintSet.mConstraints.put(Integer.valueOf(constraint.mViewId), constraint);
+                                    constraint = null;
+                                    break;
+                                case -190376483:
+                                    if (lowerCase.equals("constraint")) {
+                                        constraintSet.mConstraints.put(Integer.valueOf(constraint.mViewId), constraint);
+                                        constraint = null;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                case 426575017:
+                                    if (lowerCase.equals("constraintoverride")) {
+                                        constraintSet.mConstraints.put(Integer.valueOf(constraint.mViewId), constraint);
+                                        constraint = null;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                case 2146106725:
+                                    if (!lowerCase.equals("constraintset")) {
+                                        break;
+                                    } else {
+                                        ((SparseArray) this.zzc).put(i, constraintSet);
+                                        return;
+                                    }
+                            }
+                        }
+                    } else {
+                        xmlResourceParser.getName();
+                    }
+                    eventType = xmlResourceParser.next();
+                }
+                ((SparseArray) this.zzc).put(i, constraintSet);
+                return;
+            }
+        }
     }
 
     public void setShadowPadding(int i, int i2, int i3, int i4) {
@@ -362,79 +650,29 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
     /* JADX WARN: Removed duplicated region for block: B:13:0x002d  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public void zah(boolean r5, com.google.android.gms.common.api.Status r6) {
-        /*
-            r4 = this;
-            java.lang.Object r0 = r4.zzb
-            java.util.Map r0 = (java.util.Map) r0
-            monitor-enter(r0)
-            java.util.HashMap r1 = new java.util.HashMap     // Catch: java.lang.Throwable -> L84
-            java.lang.Object r2 = r4.zzb     // Catch: java.lang.Throwable -> L84
-            java.util.Map r2 = (java.util.Map) r2     // Catch: java.lang.Throwable -> L84
-            r1.<init>(r2)     // Catch: java.lang.Throwable -> L84
-            monitor-exit(r0)     // Catch: java.lang.Throwable -> L84
-            java.lang.Object r0 = r4.zzc
-            r2 = r0
-            java.util.Map r2 = (java.util.Map) r2
-            monitor-enter(r2)
-            java.util.HashMap r0 = new java.util.HashMap     // Catch: java.lang.Throwable -> L81
-            java.lang.Object r3 = r4.zzc     // Catch: java.lang.Throwable -> L81
-            java.util.Map r3 = (java.util.Map) r3     // Catch: java.lang.Throwable -> L81
-            r0.<init>(r3)     // Catch: java.lang.Throwable -> L81
-            monitor-exit(r2)     // Catch: java.lang.Throwable -> L81
-            java.util.Set r1 = r1.entrySet()
-            java.util.Iterator r1 = r1.iterator()
-        L27:
-            boolean r2 = r1.hasNext()
-            if (r2 == 0) goto L4f
-            java.lang.Object r2 = r1.next()
-            java.util.Map$Entry r2 = (java.util.Map.Entry) r2
-            if (r5 != 0) goto L42
-            java.lang.Object r3 = r2.getValue()
-            java.lang.Boolean r3 = (java.lang.Boolean) r3
-            boolean r3 = r3.booleanValue()
-            if (r3 != 0) goto L42
-            goto L27
-        L42:
-            java.lang.Object r5 = r2.getKey()
-            r5.getClass()
-            java.lang.ClassCastException r5 = new java.lang.ClassCastException
-            r5.<init>()
-            throw r5
-        L4f:
-            java.util.Set r0 = r0.entrySet()
-            java.util.Iterator r0 = r0.iterator()
-        L57:
-            boolean r1 = r0.hasNext()
-            if (r1 == 0) goto L80
-            java.lang.Object r1 = r0.next()
-            java.util.Map$Entry r1 = (java.util.Map.Entry) r1
-            if (r5 != 0) goto L71
-            java.lang.Object r2 = r1.getValue()
-            java.lang.Boolean r2 = (java.lang.Boolean) r2
-            boolean r2 = r2.booleanValue()
-            if (r2 == 0) goto L57
-        L71:
-            java.lang.Object r1 = r1.getKey()
-            com.google.android.gms.tasks.TaskCompletionSource r1 = (com.google.android.gms.tasks.TaskCompletionSource) r1
-            com.google.android.gms.common.api.ApiException r2 = new com.google.android.gms.common.api.ApiException
-            r2.<init>(r6)
-            r1.trySetException(r2)
-            goto L57
-        L80:
-            return
-        L81:
-            r5 = move-exception
-            monitor-exit(r2)     // Catch: java.lang.Throwable -> L81
-            throw r5
-        L84:
-            r5 = move-exception
-            monitor-exit(r0)     // Catch: java.lang.Throwable -> L84
-            throw r5
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.android.billingclient.api.zzcl.zah(boolean, com.google.android.gms.common.api.Status):void");
+    public void zah(boolean z, Status status) {
+        HashMap hashMap;
+        HashMap hashMap2;
+        synchronized (((Map) this.zzb)) {
+            hashMap = new HashMap((Map) this.zzb);
+        }
+        synchronized (((Map) this.zzc)) {
+            hashMap2 = new HashMap((Map) this.zzc);
+        }
+        for (Map.Entry entry : hashMap.entrySet()) {
+            if (z || ((Boolean) entry.getValue()).booleanValue()) {
+                entry.getKey().getClass();
+                throw new ClassCastException();
+            }
+            while (r1.hasNext()) {
+            }
+        }
+        for (Map.Entry entry2 : hashMap2.entrySet()) {
+            if (z || ((Boolean) entry2.getValue()).booleanValue()) {
+                ((TaskCompletionSource) entry2.getKey()).trySetException(new ApiException(status));
+            }
+        }
     }
 
     public void zza(zzhx zzhxVar) {
@@ -602,7 +840,7 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
     public zzcl(Context context, zzis zzisVar) {
         MatcherMatchResult newFactory;
         Encoding encoding;
-        Transition.AnonymousClass1 r3;
+        Transition.C01101 r3;
         Set set;
         this.$r8$classId = 0;
         ?? obj = new Object();
@@ -610,7 +848,7 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
             TransportRuntime.initialize(context);
             newFactory = TransportRuntime.getInstance().newFactory(CCTDestination.INSTANCE);
             encoding = new Encoding("proto");
-            r3 = new Transition.AnonymousClass1(15);
+            r3 = new Transition.C01101(15);
             set = (Set) newFactory.matcher;
         } catch (Throwable unused) {
             obj.zza = true;
@@ -628,17 +866,77 @@ public final class zzcl implements NestedScrollView.OnScrollChangeListener, Acti
     /* JADX WARN: Removed duplicated region for block: B:16:0x0046  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public com.google.android.datatransport.cct.CctBackendFactory get(java.lang.String r14) {
-        /*
-            Method dump skipped, instructions count: 273
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.android.billingclient.api.zzcl.get(java.lang.String):com.google.android.datatransport.cct.CctBackendFactory");
+    public CctBackendFactory get(String str) {
+        Bundle bundle;
+        Map map;
+        PackageManager packageManager;
+        if (((Map) this.zzc) == null) {
+            Context context = (Context) this.zzb;
+            try {
+                packageManager = context.getPackageManager();
+            } catch (PackageManager.NameNotFoundException unused) {
+                Log.w("BackendRegistry", "Application info not found.");
+            }
+            if (packageManager == null) {
+                Log.w("BackendRegistry", "Context has no PackageManager.");
+            } else {
+                ServiceInfo serviceInfo = packageManager.getServiceInfo(new ComponentName(context, TransportBackendDiscovery.class), 128);
+                if (serviceInfo == null) {
+                    Log.w("BackendRegistry", "TransportBackendDiscovery has no service info.");
+                } else {
+                    bundle = serviceInfo.metaData;
+                    if (bundle != null) {
+                        Log.w("BackendRegistry", "Could not retrieve metadata, returning empty list of transport backends.");
+                        map = Collections.EMPTY_MAP;
+                    } else {
+                        HashMap hashMap = new HashMap();
+                        for (String str2 : bundle.keySet()) {
+                            Object obj = bundle.get(str2);
+                            if ((obj instanceof String) && str2.startsWith("backend:")) {
+                                for (String str3 : ((String) obj).split(",", -1)) {
+                                    String trim = str3.trim();
+                                    if (!trim.isEmpty()) {
+                                        hashMap.put(trim, str2.substring(8));
+                                    }
+                                }
+                            }
+                        }
+                        map = hashMap;
+                    }
+                    this.zzc = map;
+                }
+            }
+            bundle = null;
+            if (bundle != null) {
+            }
+            this.zzc = map;
+        }
+        String str4 = (String) ((Map) this.zzc).get(str);
+        if (str4 == null) {
+            return null;
+        }
+        try {
+            return (CctBackendFactory) Class.forName(str4).asSubclass(CctBackendFactory.class).getDeclaredConstructor(null).newInstance(null);
+        } catch (ClassNotFoundException e) {
+            Log.w("BackendRegistry", "Class " + str4 + " is not found.", e);
+            return null;
+        } catch (IllegalAccessException e2) {
+            Log.w("BackendRegistry", "Could not instantiate " + str4 + ".", e2);
+            return null;
+        } catch (InstantiationException e3) {
+            Log.w("BackendRegistry", "Could not instantiate " + str4 + ".", e3);
+            return null;
+        } catch (NoSuchMethodException e4) {
+            Log.w("BackendRegistry", "Could not instantiate ".concat(str4), e4);
+            return null;
+        } catch (InvocationTargetException e5) {
+            Log.w("BackendRegistry", "Could not instantiate ".concat(str4), e5);
+            return null;
+        }
     }
 
-    public zzcl(zan zanVar, Transition.AnonymousClass1 r2) {
+    public zzcl(zan zanVar, Transition.C01101 r2) {
         this.$r8$classId = 22;
         this.zzc = "ClientTelemetry.API";
         this.zzb = zanVar;

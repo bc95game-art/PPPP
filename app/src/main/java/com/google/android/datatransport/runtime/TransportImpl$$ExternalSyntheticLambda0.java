@@ -137,7 +137,7 @@ public final /* synthetic */ class TransportImpl$$ExternalSyntheticLambda0 imple
             case 14:
                 return Socks5Settings.$r8$lambda$TKhh3V9pYhHxFZyMOcdvR2EilLs(preference, obj);
             default:
-                return Socks5Settings.m233$r8$lambda$m3C7kkMujGH7YXTu2cYpTAtZXo(preference, obj);
+                return Socks5Settings.m863$r8$lambda$m3C7kkMujGH7YXTu2cYpTAtZXo(preference, obj);
         }
     }
 }

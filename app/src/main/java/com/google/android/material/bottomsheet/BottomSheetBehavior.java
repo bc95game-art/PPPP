@@ -16,11 +16,13 @@ import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.view.AbsSavedState;
 import android.view.MotionEvent;
+import android.view.RoundedCorner;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.WindowInsets;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.PathInterpolator;
 import androidx.activity.BackEventCompat;
@@ -39,7 +41,7 @@ import androidx.transition.Transition;
 import com.android.billingclient.api.zzbv;
 import com.android.billingclient.api.zzcl;
 import com.android.billingclient.api.zzcn;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.motion.MaterialBackHandler;
@@ -61,7 +63,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
     public final ArrayList callbacks;
     public int childHeight;
     public int collapsedOffset;
-    public final SideSheetBehavior.AnonymousClass1 dragCallback;
+    public final SideSheetBehavior.C01991 dragCallback;
     public final boolean draggable;
     public final boolean draggableOnNestedScroll;
     public boolean draggableOnNestedScrollLastDragIgnored;
@@ -130,7 +132,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
         this.callbacks = new ArrayList();
         this.initialY = -1;
         this.expandHalfwayActionIds = new SparseIntArray();
-        this.dragCallback = new SideSheetBehavior.AnonymousClass1(this, 1);
+        this.dragCallback = new SideSheetBehavior.C01991(this, 1);
     }
 
     public static View findScrollingChild(View view) {
@@ -184,73 +186,53 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
     /* JADX WARN: Removed duplicated region for block: B:28:0x0064  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public final float calculateInterpolationWithCornersRemoved() {
-        /*
-            r6 = this;
-            com.google.android.material.shape.MaterialShapeDrawable r0 = r6.materialShapeDrawable
-            r1 = 0
-            if (r0 == 0) goto L78
-            java.lang.ref.WeakReference r0 = r6.viewRef
-            if (r0 == 0) goto L78
-            java.lang.Object r0 = r0.get()
-            if (r0 == 0) goto L78
-            int r0 = android.os.Build.VERSION.SDK_INT
-            r2 = 31
-            if (r0 < r2) goto L78
-            java.lang.ref.WeakReference r0 = r6.viewRef
-            java.lang.Object r0 = r0.get()
-            android.view.View r0 = (android.view.View) r0
-            boolean r2 = r6.isAtTopOfScreen()
-            if (r2 == 0) goto L78
-            android.view.WindowInsets r0 = r0.getRootWindowInsets()
-            if (r0 == 0) goto L78
-            com.google.android.material.shape.MaterialShapeDrawable r2 = r6.materialShapeDrawable
-            float r2 = r2.getTopLeftCornerResolvedSize()
-            r3 = 0
-            android.view.RoundedCorner r4 = r0.getRoundedCorner(r3)
-            if (r4 == 0) goto L45
-            int r4 = r4.getRadius()
-            float r4 = (float) r4
-            int r5 = (r4 > r1 ? 1 : (r4 == r1 ? 0 : -1))
-            if (r5 <= 0) goto L45
-            int r5 = (r2 > r1 ? 1 : (r2 == r1 ? 0 : -1))
-            if (r5 <= 0) goto L45
-            float r4 = r4 / r2
-            goto L46
-        L45:
-            r4 = 0
-        L46:
-            com.google.android.material.shape.MaterialShapeDrawable r2 = r6.materialShapeDrawable
-            float[] r5 = r2.springAnimatedCornerSizes
-            if (r5 == 0) goto L4f
-            r2 = r5[r3]
-            goto L5d
-        L4f:
-            com.google.android.material.shape.MaterialShapeDrawable$MaterialShapeDrawableState r3 = r2.drawableState
-            com.google.android.material.shape.ShapeAppearanceModel r3 = r3.shapeAppearanceModel
-            com.google.android.material.shape.CornerSize r3 = r3.topRightCornerSize
-            android.graphics.RectF r2 = r2.getBoundsAsRectF()
-            float r2 = r3.getCornerSize(r2)
-        L5d:
-            r3 = 1
-            android.view.RoundedCorner r0 = r0.getRoundedCorner(r3)
-            if (r0 == 0) goto L73
-            int r0 = r0.getRadius()
-            float r0 = (float) r0
-            int r3 = (r0 > r1 ? 1 : (r0 == r1 ? 0 : -1))
-            if (r3 <= 0) goto L73
-            int r3 = (r2 > r1 ? 1 : (r2 == r1 ? 0 : -1))
-            if (r3 <= 0) goto L73
-            float r1 = r0 / r2
-        L73:
-            float r0 = java.lang.Math.max(r4, r1)
-            return r0
-        L78:
-            return r1
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.bottomsheet.BottomSheetBehavior.calculateInterpolationWithCornersRemoved():float");
+        WeakReference weakReference;
+        WindowInsets rootWindowInsets;
+        float f;
+        float[] fArr;
+        float f2;
+        RoundedCorner roundedCorner;
+        float f3 = 0.0f;
+        if (!(this.materialShapeDrawable == null || (weakReference = this.viewRef) == null || weakReference.get() == null || Build.VERSION.SDK_INT < 31)) {
+            View view = (View) this.viewRef.get();
+            if (isAtTopOfScreen() && (rootWindowInsets = view.getRootWindowInsets()) != null) {
+                float topLeftCornerResolvedSize = this.materialShapeDrawable.getTopLeftCornerResolvedSize();
+                RoundedCorner roundedCorner2 = rootWindowInsets.getRoundedCorner(0);
+                if (roundedCorner2 != null) {
+                    float radius = roundedCorner2.getRadius();
+                    if (radius > 0.0f && topLeftCornerResolvedSize > 0.0f) {
+                        f = radius / topLeftCornerResolvedSize;
+                        MaterialShapeDrawable materialShapeDrawable = this.materialShapeDrawable;
+                        fArr = materialShapeDrawable.springAnimatedCornerSizes;
+                        if (fArr == null) {
+                            f2 = fArr[0];
+                        } else {
+                            f2 = materialShapeDrawable.drawableState.shapeAppearanceModel.topRightCornerSize.getCornerSize(materialShapeDrawable.getBoundsAsRectF());
+                        }
+                        roundedCorner = rootWindowInsets.getRoundedCorner(1);
+                        if (roundedCorner != null) {
+                            float radius2 = roundedCorner.getRadius();
+                            if (radius2 > 0.0f && f2 > 0.0f) {
+                                f3 = radius2 / f2;
+                            }
+                        }
+                        return Math.max(f, f3);
+                    }
+                }
+                f = 0.0f;
+                MaterialShapeDrawable materialShapeDrawable2 = this.materialShapeDrawable;
+                fArr = materialShapeDrawable2.springAnimatedCornerSizes;
+                if (fArr == null) {
+                }
+                roundedCorner = rootWindowInsets.getRoundedCorner(1);
+                if (roundedCorner != null) {
+                }
+                return Math.max(f, f3);
+            }
+        }
+        return 0.0f;
     }
 
     public final int calculatePeekHeight() {
@@ -323,7 +305,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
         if (i == 6) {
             return this.halfExpandedOffset;
         }
-        throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(i, "Invalid state to get top offset: "));
+        throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m604m(i, "Invalid state to get top offset: "));
     }
 
     @Override // com.google.android.material.motion.MaterialBackHandler
@@ -339,12 +321,12 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
                 float f = backEventCompat.progress;
                 if (Build.VERSION.SDK_INT >= 34) {
                     if (this.hideable) {
-                        Transition.AnonymousClass3 r4 = new Transition.AnonymousClass3(6, this);
+                        Transition.C01123 r4 = new Transition.C01123(6, this);
                         View view = materialBottomContainerBackHelper.view;
                         ObjectAnimator ofFloat = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, view.getScaleY() * view.getHeight());
                         ofFloat.setInterpolator(new FastOutSlowInInterpolator(0));
                         ofFloat.setDuration(AnimationUtils.lerp(i2, f, i));
-                        ofFloat.addListener(new Transition.AnonymousClass3(7, materialBottomContainerBackHelper));
+                        ofFloat.addListener(new Transition.C01123(7, materialBottomContainerBackHelper));
                         ofFloat.addListener(r4);
                         ofFloat.start();
                         return;
@@ -466,7 +448,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
             view.setFitsSystemWindows(true);
         }
         if (this.viewRef == null) {
-            this.peekHeightMin = coordinatorLayout.getResources().getDimensionPixelSize(R.dimen.design_bottom_sheet_peek_height_min);
+            this.peekHeightMin = coordinatorLayout.getResources().getDimensionPixelSize(C0130R.dimen.design_bottom_sheet_peek_height_min);
             int i2 = Build.VERSION.SDK_INT;
             if (i2 < 29 || this.gestureInsetBottomIgnored || this.peekHeightAuto) {
                 z = false;
@@ -498,9 +480,9 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
                 WindowInsetsAnimationCompat.Impl30.setCallback(view, compatImpl);
             } else {
                 PathInterpolator pathInterpolator = WindowInsetsAnimationCompat.Impl21.SHOW_IME_INTERPOLATOR;
-                Object tag = view.getTag(R.id.tag_on_apply_window_listener);
+                Object tag = view.getTag(C0130R.C0132id.tag_on_apply_window_listener);
                 WindowInsetsAnimationCompat.Impl21.Impl21OnApplyWindowInsetsListener impl21OnApplyWindowInsetsListener = new WindowInsetsAnimationCompat.Impl21.Impl21OnApplyWindowInsetsListener(view, compatImpl);
-                view.setTag(R.id.tag_window_insets_animation_callback, impl21OnApplyWindowInsetsListener);
+                view.setTag(C0130R.C0132id.tag_window_insets_animation_callback, impl21OnApplyWindowInsetsListener);
                 if (tag == null) {
                     view.setOnApplyWindowInsetsListener(impl21OnApplyWindowInsetsListener);
                 }
@@ -713,112 +695,53 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final void onStopNestedScroll(androidx.coordinatorlayout.widget.CoordinatorLayout r3, android.view.View r4, android.view.View r5, int r6) {
-        /*
-            r2 = this;
-            int r3 = r4.getTop()
-            int r6 = r2.getExpandedOffset()
-            r0 = 3
-            if (r3 != r6) goto Lf
-            r2.setStateInternal(r0)
-            return
-        Lf:
-            java.lang.ref.WeakReference r3 = r2.nestedScrollingChildRef
-            if (r3 == 0) goto Lb5
-            java.lang.Object r3 = r3.get()
-            if (r5 != r3) goto Lb5
-            boolean r3 = r2.nestedScrolled
-            if (r3 != 0) goto L1f
-            goto Lb5
-        L1f:
-            int r3 = r2.lastNestedScrollDy
-            r5 = 6
-            if (r3 <= 0) goto L34
-            boolean r3 = r2.fitToContents
-            if (r3 == 0) goto L2a
-            goto Laf
-        L2a:
-            int r3 = r4.getTop()
-            int r6 = r2.halfExpandedOffset
-            if (r3 <= r6) goto Laf
-            goto Lae
-        L34:
-            boolean r3 = r2.hideable
-            if (r3 == 0) goto L55
-            android.view.VelocityTracker r3 = r2.velocityTracker
-            if (r3 != 0) goto L3e
-            r3 = 0
-            goto L4d
-        L3e:
-            r6 = 1000(0x3e8, float:1.401E-42)
-            float r1 = r2.maximumVelocity
-            r3.computeCurrentVelocity(r6, r1)
-            android.view.VelocityTracker r3 = r2.velocityTracker
-            int r6 = r2.activePointerId
-            float r3 = r3.getYVelocity(r6)
-        L4d:
-            boolean r3 = r2.shouldHide(r4, r3)
-            if (r3 == 0) goto L55
-            r0 = 5
-            goto Laf
-        L55:
-            int r3 = r2.lastNestedScrollDy
-            r6 = 4
-            if (r3 != 0) goto L93
-            int r3 = r4.getTop()
-            boolean r1 = r2.fitToContents
-            if (r1 == 0) goto L74
-            int r5 = r2.fitToContentsOffset
-            int r5 = r3 - r5
-            int r5 = java.lang.Math.abs(r5)
-            int r1 = r2.collapsedOffset
-            int r3 = r3 - r1
-            int r3 = java.lang.Math.abs(r3)
-            if (r5 >= r3) goto L97
-            goto Laf
-        L74:
-            int r1 = r2.halfExpandedOffset
-            if (r3 >= r1) goto L83
-            int r6 = r2.collapsedOffset
-            int r6 = r3 - r6
-            int r6 = java.lang.Math.abs(r6)
-            if (r3 >= r6) goto Lae
-            goto Laf
-        L83:
-            int r0 = r3 - r1
-            int r0 = java.lang.Math.abs(r0)
-            int r1 = r2.collapsedOffset
-            int r3 = r3 - r1
-            int r3 = java.lang.Math.abs(r3)
-            if (r0 >= r3) goto L97
-            goto Lae
-        L93:
-            boolean r3 = r2.fitToContents
-            if (r3 == 0) goto L99
-        L97:
-            r0 = 4
-            goto Laf
-        L99:
-            int r3 = r4.getTop()
-            int r0 = r2.halfExpandedOffset
-            int r0 = r3 - r0
-            int r0 = java.lang.Math.abs(r0)
-            int r1 = r2.collapsedOffset
-            int r3 = r3 - r1
-            int r3 = java.lang.Math.abs(r3)
-            if (r0 >= r3) goto L97
-        Lae:
-            r0 = 6
-        Laf:
-            r3 = 0
-            r2.startSettling(r4, r0, r3)
-            r2.nestedScrolled = r3
-        Lb5:
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.bottomsheet.BottomSheetBehavior.onStopNestedScroll(androidx.coordinatorlayout.widget.CoordinatorLayout, android.view.View, android.view.View, int):void");
+    public final void onStopNestedScroll(CoordinatorLayout coordinatorLayout, View view, View view2, int i) {
+        float f;
+        int i2 = 3;
+        if (view.getTop() == getExpandedOffset()) {
+            setStateInternal(3);
+            return;
+        }
+        WeakReference weakReference = this.nestedScrollingChildRef;
+        if (weakReference != null && view2 == weakReference.get() && this.nestedScrolled) {
+            if (this.lastNestedScrollDy > 0) {
+                if (!this.fitToContents) {
+                }
+                startSettling(view, i2, false);
+                this.nestedScrolled = false;
+            }
+            if (this.hideable) {
+                VelocityTracker velocityTracker = this.velocityTracker;
+                if (velocityTracker == null) {
+                    f = 0.0f;
+                } else {
+                    velocityTracker.computeCurrentVelocity(1000, this.maximumVelocity);
+                    f = this.velocityTracker.getYVelocity(this.activePointerId);
+                }
+                if (shouldHide(view, f)) {
+                    i2 = 5;
+                    startSettling(view, i2, false);
+                    this.nestedScrolled = false;
+                }
+            }
+            if (this.lastNestedScrollDy == 0) {
+                int top = view.getTop();
+                if (!this.fitToContents) {
+                    int i3 = this.halfExpandedOffset;
+                    if (top < i3) {
+                    }
+                    i2 = 6;
+                }
+            } else {
+                if (!this.fitToContents) {
+                    int top2 = view.getTop();
+                }
+                i2 = 4;
+            }
+            startSettling(view, i2, false);
+            this.nestedScrolled = false;
+        }
     }
 
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
@@ -884,7 +807,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
             } else {
                 str = "SETTLING";
             }
-            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(sb, str, " should not be set externally."));
+            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m593m(sb, str, " should not be set externally."));
         } else if (this.hideable || i != 5) {
             if (i != 6 || !this.fitToContents || getTopOffsetForState(i) > this.fitToContentsOffset) {
                 i2 = i;
@@ -897,7 +820,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
                 return;
             }
             View view = (View) this.viewRef.get();
-            ActivityCompat.AnonymousClass1 r1 = new ActivityCompat.AnonymousClass1(this, view, i2);
+            ActivityCompat.RunnableC00421 r1 = new ActivityCompat.RunnableC00421(this, view, i2);
             ViewParent parent = view.getParent();
             if (parent == null || !parent.isLayoutRequested() || !view.isAttachedToWindow()) {
                 r1.run();
@@ -990,7 +913,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
             }
             int i3 = 6;
             if (!this.fitToContents && this.state != 6) {
-                String string = view.getResources().getString(R.string.bottomsheet_action_expand_halfway);
+                String string = view.getResources().getString(C0130R.string.bottomsheet_action_expand_halfway);
                 zzbv zzbvVar = new zzbv(6, this);
                 ArrayList actionList = ViewCompat.getActionList(view);
                 int i4 = 0;
@@ -1156,7 +1079,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
 
     /* loaded from: classes.dex */
     public final class SavedState extends androidx.customview.view.AbsSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.AnonymousClass2(9);
+        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.C00522(9);
         public final boolean fitToContents;
         public final boolean hideable;
         public final int peekHeight;
@@ -1209,15 +1132,15 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
         this.callbacks = new ArrayList();
         this.initialY = -1;
         this.expandHalfwayActionIds = new SparseIntArray();
-        this.dragCallback = new SideSheetBehavior.AnonymousClass1(this, 1);
-        this.peekHeightGestureInsetBuffer = context.getResources().getDimensionPixelSize(R.dimen.mtrl_min_touch_target_size);
+        this.dragCallback = new SideSheetBehavior.C01991(this, 1);
+        this.peekHeightGestureInsetBuffer = context.getResources().getDimensionPixelSize(C0130R.dimen.mtrl_min_touch_target_size);
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.BottomSheetBehavior_Layout);
         int i2 = 3;
         if (obtainStyledAttributes.hasValue(3)) {
             this.backgroundTint = LazyKt__LazyJVMKt.getColorStateList(context, obtainStyledAttributes, 3);
         }
         if (obtainStyledAttributes.hasValue(22)) {
-            this.shapeAppearanceModelDefault = ShapeAppearanceModel.builder(context, attributeSet, (int) R.attr.bottomSheetStyle, (int) R.style.Widget_Design_BottomSheet_Modal).build();
+            this.shapeAppearanceModelDefault = ShapeAppearanceModel.builder(context, attributeSet, (int) C0130R.attr.bottomSheetStyle, (int) C0130R.style.Widget_Design_BottomSheet_Modal).build();
         }
         ShapeAppearanceModel shapeAppearanceModel = this.shapeAppearanceModelDefault;
         if (shapeAppearanceModel != null) {
@@ -1236,7 +1159,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
         ValueAnimator ofFloat = ValueAnimator.ofFloat(calculateInterpolationWithCornersRemoved(), 1.0f);
         this.interpolatorAnimator = ofFloat;
         ofFloat.setDuration(500L);
-        this.interpolatorAnimator.addUpdateListener(new TabLayout.AnonymousClass1(1, this));
+        this.interpolatorAnimator.addUpdateListener(new TabLayout.C02021(1, this));
         this.elevation = obtainStyledAttributes.getDimension(2, -1.0f);
         if (obtainStyledAttributes.hasValue(0)) {
             this.maxWidth = obtainStyledAttributes.getDimensionPixelSize(0, -1);

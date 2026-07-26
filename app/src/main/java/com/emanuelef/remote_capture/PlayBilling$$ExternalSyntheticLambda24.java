@@ -29,7 +29,7 @@ public final /* synthetic */ class PlayBilling$$ExternalSyntheticLambda24 implem
                 this.f$0.lambda$performQrActivation$31((PlayBilling.QrActivationRequest) this.f$1, (Activity) this.f$2, dialogInterface, i);
                 return;
             default:
-                AboutActivity.m90$r8$lambda$f21u9Ah6RxqJyya9mLvjPPKrOA((AboutActivity) this.f$1, this.f$0, (EditText) this.f$2, dialogInterface, i);
+                AboutActivity.m720$r8$lambda$f21u9Ah6RxqJyya9mLvjPPKrOA((AboutActivity) this.f$1, this.f$0, (EditText) this.f$2, dialogInterface, i);
                 return;
         }
     }

@@ -29,7 +29,7 @@ public final /* synthetic */ class PlayBilling$$ExternalSyntheticLambda4 impleme
                 ((CaptureHelper) this.f$0).captureServiceResult((ActivityResult) obj);
                 return;
             default:
-                PersistableUriPermission.m55$r8$lambda$CFSqVagE681JiZhc8dLTW5sLoI((PersistableUriPermission) this.f$0, (ActivityResult) obj);
+                PersistableUriPermission.m685$r8$lambda$CFSqVagE681JiZhc8dLTW5sLoI((PersistableUriPermission) this.f$0, (ActivityResult) obj);
                 return;
         }
     }

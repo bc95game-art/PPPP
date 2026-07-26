@@ -24,11 +24,11 @@ import android.view.ViewParent;
 import android.widget.ImageView;
 import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.FastScroller;
 import com.android.billingclient.api.zzca;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.animation.MotionSpec;
 import com.google.android.material.appbar.AppBarLayout;
@@ -82,13 +82,13 @@ public class FloatingActionButton extends VisibilityAwareImageButton implements 
 
     /* JADX WARN: Type inference failed for: r5v2, types: [com.google.android.material.floatingactionbutton.FloatingActionButtonImpl$AlwaysStatefulMaterialShapeDrawable, com.google.android.material.shape.MaterialShapeDrawable] */
     public FloatingActionButton(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.floatingActionButtonStyle, R.style.Widget_Design_FloatingActionButton), attributeSet, R.attr.floatingActionButtonStyle);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.floatingActionButtonStyle, C0130R.style.Widget_Design_FloatingActionButton), attributeSet, C0130R.attr.floatingActionButtonStyle);
         ColorStateList colorStateList;
         Drawable drawable;
         Drawable drawable2;
         this.userSetVisibility = getVisibility();
         Context context2 = getContext();
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.FloatingActionButton, R.attr.floatingActionButtonStyle, R.style.Widget_Design_FloatingActionButton, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.FloatingActionButton, C0130R.attr.floatingActionButtonStyle, C0130R.style.Widget_Design_FloatingActionButton, new int[0]);
         this.backgroundTint = LazyKt__LazyJVMKt.getColorStateList(context2, obtainStyledAttributes, 1);
         this.backgroundTintMode = ViewUtils.parseTintMode(obtainStyledAttributes.getInt(2, -1), null);
         this.rippleColor = LazyKt__LazyJVMKt.getColorStateList(context2, obtainStyledAttributes, 12);
@@ -99,11 +99,11 @@ public class FloatingActionButton extends VisibilityAwareImageButton implements 
         float dimension2 = obtainStyledAttributes.getDimension(9, 0.0f);
         float dimension3 = obtainStyledAttributes.getDimension(11, 0.0f);
         this.compatPadding = obtainStyledAttributes.getBoolean(16, false);
-        int dimensionPixelSize2 = getResources().getDimensionPixelSize(R.dimen.mtrl_fab_min_touch_target);
+        int dimensionPixelSize2 = getResources().getDimensionPixelSize(C0130R.dimen.mtrl_fab_min_touch_target);
         setMaxImageSize(obtainStyledAttributes.getDimensionPixelSize(10, 0));
         MotionSpec createFromAttribute = MotionSpec.createFromAttribute(context2, obtainStyledAttributes, 15);
         MotionSpec createFromAttribute2 = MotionSpec.createFromAttribute(context2, obtainStyledAttributes, 8);
-        TypedArray obtainStyledAttributes2 = context2.obtainStyledAttributes(attributeSet, R$styleable.MaterialShape, R.attr.floatingActionButtonStyle, R.style.Widget_Design_FloatingActionButton);
+        TypedArray obtainStyledAttributes2 = context2.obtainStyledAttributes(attributeSet, R$styleable.MaterialShape, C0130R.attr.floatingActionButtonStyle, C0130R.style.Widget_Design_FloatingActionButton);
         int resourceId = obtainStyledAttributes2.getResourceId(0, 0);
         int resourceId2 = obtainStyledAttributes2.getResourceId(1, 0);
         obtainStyledAttributes2.recycle();
@@ -113,7 +113,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton implements 
         obtainStyledAttributes.recycle();
         zzca zzcaVar = new zzca(this);
         this.imageHelper = zzcaVar;
-        zzcaVar.loadFromAttributes(attributeSet, R.attr.floatingActionButtonStyle);
+        zzcaVar.loadFromAttributes(attributeSet, C0130R.attr.floatingActionButtonStyle);
         getImpl().setShapeAppearance(build);
         FloatingActionButtonImpl impl = getImpl();
         ColorStateList colorStateList2 = this.backgroundTint;
@@ -134,11 +134,11 @@ public class FloatingActionButton extends VisibilityAwareImageButton implements 
             ShapeAppearanceModel shapeAppearanceModel2 = impl.shapeAppearance;
             shapeAppearanceModel2.getClass();
             BorderDrawable borderDrawable = new BorderDrawable(shapeAppearanceModel2);
-            int color = BundleKt.getColor(context3, R.color.design_fab_stroke_top_outer_color);
-            int color2 = BundleKt.getColor(context3, R.color.design_fab_stroke_top_inner_color);
+            int color = BundleKt.getColor(context3, C0130R.color.design_fab_stroke_top_outer_color);
+            int color2 = BundleKt.getColor(context3, C0130R.color.design_fab_stroke_top_inner_color);
             colorStateList = colorStateList3;
-            int color3 = BundleKt.getColor(context3, R.color.design_fab_stroke_end_inner_color);
-            int color4 = BundleKt.getColor(context3, R.color.design_fab_stroke_end_outer_color);
+            int color3 = BundleKt.getColor(context3, C0130R.color.design_fab_stroke_end_inner_color);
+            int color4 = BundleKt.getColor(context3, C0130R.color.design_fab_stroke_end_outer_color);
             borderDrawable.topOuterStrokeColor = color;
             borderDrawable.topInnerStrokeColor = color2;
             borderDrawable.bottomOuterStrokeColor = color3;
@@ -1021,9 +1021,9 @@ public class FloatingActionButton extends VisibilityAwareImageButton implements 
         Resources resources = getResources();
         if (i != -1) {
             if (i != 1) {
-                return resources.getDimensionPixelSize(R.dimen.design_fab_size_normal);
+                return resources.getDimensionPixelSize(C0130R.dimen.design_fab_size_normal);
             }
-            return resources.getDimensionPixelSize(R.dimen.design_fab_size_mini);
+            return resources.getDimensionPixelSize(C0130R.dimen.design_fab_size_mini);
         } else if (Math.max(resources.getConfiguration().screenWidthDp, resources.getConfiguration().screenHeightDp) < 470) {
             return getSizeDimension(1);
         } else {

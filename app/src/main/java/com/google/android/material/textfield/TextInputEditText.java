@@ -14,7 +14,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import androidx.appcompat.widget.AppCompatEditText;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.theme.overlay.MaterialThemeOverlay;
@@ -25,11 +25,11 @@ public class TextInputEditText extends AppCompatEditText {
     public boolean textInputLayoutFocusedRectEnabled;
 
     public TextInputEditText(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.editTextStyle, 0), attributeSet);
-        ViewUtils.checkCompatibleTheme(context, attributeSet, R.attr.editTextStyle, R.style.Widget_Design_TextInputEditText);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.editTextStyle, 0), attributeSet);
+        ViewUtils.checkCompatibleTheme(context, attributeSet, C0130R.attr.editTextStyle, C0130R.style.Widget_Design_TextInputEditText);
         int[] iArr = R$styleable.TextInputEditText;
-        ViewUtils.checkTextAppearance(context, attributeSet, iArr, R.attr.editTextStyle, R.style.Widget_Design_TextInputEditText, new int[0]);
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, iArr, R.attr.editTextStyle, R.style.Widget_Design_TextInputEditText);
+        ViewUtils.checkTextAppearance(context, attributeSet, iArr, C0130R.attr.editTextStyle, C0130R.style.Widget_Design_TextInputEditText, new int[0]);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, iArr, C0130R.attr.editTextStyle, C0130R.style.Widget_Design_TextInputEditText);
         setTextInputLayoutFocusedRectEnabled(obtainStyledAttributes.getBoolean(0, false));
         obtainStyledAttributes.recycle();
     }

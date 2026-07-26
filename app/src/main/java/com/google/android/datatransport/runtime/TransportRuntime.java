@@ -8,12 +8,12 @@ import com.google.android.datatransport.cct.CCTDestination;
 import com.google.android.datatransport.runtime.scheduling.Scheduler;
 import com.google.android.datatransport.runtime.scheduling.jobscheduling.Uploader;
 import com.google.android.datatransport.runtime.time.Clock;
-import j$.util.DesugarCollections;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import kotlin.text.MatcherMatchResult;
+import p004j$.util.DesugarCollections;
 /* loaded from: classes.dex */
 public final class TransportRuntime {
     public static volatile DaggerTransportRuntimeComponent instance;

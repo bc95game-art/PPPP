@@ -41,10 +41,10 @@ public class AppsLoader implements LoaderManager.LoaderCallbacks {
         PackageManager packageManager = this.mContext.getPackageManager();
         ArrayList<AppDescriptor> arrayList = new ArrayList<>();
         ArrayMap arrayMap = new ArrayMap();
-        Log.d(TAG, "Loading APPs...");
+        Log.m587d(TAG, "Loading APPs...");
         List<PackageInfo> installedPackages = Utils.getInstalledPackages(packageManager, 0);
         String packageName = this.mContext.getApplicationContext().getPackageName();
-        Log.d(TAG, "num apps (system+user): " + installedPackages.size());
+        Log.m587d(TAG, "num apps (system+user): " + installedPackages.size());
         long now = Utils.now();
         PackageInfo packageInfo = null;
         for (int i = 0; i < installedPackages.size(); i++) {
@@ -65,7 +65,7 @@ public class AppsLoader implements LoaderManager.LoaderCallbacks {
             arrayList.add(new AppDescriptor(packageManager, packageInfo));
         }
         Collections.sort(arrayList);
-        Log.d(TAG, installedPackages.size() + " apps loaded in " + (Utils.now() - now) + " seconds");
+        Log.m587d(TAG, installedPackages.size() + " apps loaded in " + (Utils.now() - now) + " seconds");
         return arrayList;
     }
 
@@ -112,14 +112,14 @@ public class AppsLoader implements LoaderManager.LoaderCallbacks {
             }
             Bundle bundle = new Bundle();
             bundle.putSerializable("apps", arrayList);
-            StringBuilder m = ViewModelProvider.Factory.CC.m("Existing loader ", i, "? ");
+            StringBuilder m = ViewModelProvider.Factory.CC.m598m("Existing loader ", i, "? ");
             if (loader != null) {
                 z = true;
             } else {
                 z = false;
             }
             m.append(z);
-            Log.d(TAG, m.toString());
+            Log.m587d(TAG, m.toString());
             LifecycleOwner lifecycleOwner = loaderManager.mLifecycleOwner;
             if (loaderViewModel.mCreatingLoader) {
                 throw new IllegalStateException("Called while creating a loader");
@@ -190,7 +190,7 @@ public class AppsLoader implements LoaderManager.LoaderCallbacks {
                 if (i == 23) {
                     return AppsLoader.this.asyncLoadAppsInfo();
                 }
-                Log.e(AppsLoader.TAG, "unknown loader op: " + i);
+                Log.m585e(AppsLoader.TAG, "unknown loader op: " + i);
                 return arrayList;
             }
         };
@@ -198,7 +198,7 @@ public class AppsLoader implements LoaderManager.LoaderCallbacks {
 
     @Override // androidx.loader.app.LoaderManager.LoaderCallbacks
     public void onLoaderReset(Loader loader) {
-        Log.d(TAG, "onLoaderReset");
+        Log.m587d(TAG, "onLoaderReset");
     }
 
     public AppsLoader setAppsLoadListener(AppsLoadListener appsLoadListener) {

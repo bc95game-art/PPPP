@@ -7,7 +7,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.reflect.TypeToken;
-import j$.util.concurrent.ConcurrentHashMap;
+import p004j$.util.concurrent.ConcurrentHashMap;
 /* loaded from: classes.dex */
 public final class JsonAdapterAnnotationTypeAdapterFactory implements TypeAdapterFactory {
     public static final DummyTypeAdapterFactory TREE_TYPE_CLASS_DUMMY_FACTORY = new DummyTypeAdapterFactory(0);

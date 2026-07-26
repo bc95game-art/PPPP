@@ -8,9 +8,9 @@ import androidx.collection.ArrayMap;
 import androidx.collection.ArraySet;
 import androidx.preference.PreferenceManager;
 import com.emanuelef.remote_capture.AppsResolver;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Cidr;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.google.gson.FormattingStyle;
 import com.google.gson.GsonBuilder;
@@ -22,7 +22,6 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.internal.LinkedTreeMap;
-import j$.util.Objects;
 import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -30,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import kotlin.LazyKt__LazyJVMKt;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class MatchList {
     private static final String TAG = "MatchList";
@@ -218,7 +218,7 @@ public class MatchList {
                         ruleType = RuleType.valueOf(asString);
                     } catch (IllegalArgumentException e2) {
                         if (asString.equals("ROOT_DOMAIN")) {
-                            Log.i(TAG, "ROOT_DOMAIN " + asString2 + " migrated");
+                            Log.m583i(TAG, "ROOT_DOMAIN " + asString2 + " migrated");
                             ruleType = RuleType.HOST;
                             this.mMigration = true;
                         } else {
@@ -233,16 +233,16 @@ public class MatchList {
                         }
                         if (appByUid != null) {
                             asString2 = appByUid.getPackageName();
-                            Log.i(TAG, String.format("UID %d resolved to package %s", Integer.valueOf(parseInt), asString2));
+                            Log.m583i(TAG, String.format("UID %d resolved to package %s", Integer.valueOf(parseInt), asString2));
                             this.mMigration = true;
                             AppDescriptor appByPackage = this.mResolver.getAppByPackage(asString2, 0);
                             if (appByPackage != null && !appByPackage.getPackageName().equals(asString2)) {
-                                Log.i(TAG, "The UID " + appByPackage.getUid() + " mapping has changed from " + asString2 + " to " + appByPackage.getPackageName());
+                                Log.m583i(TAG, "The UID " + appByPackage.getUid() + " mapping has changed from " + asString2 + " to " + appByPackage.getPackageName());
                                 asString2 = appByPackage.getPackageName();
                                 this.mMigration = true;
                             }
                         } else {
-                            Log.w(TAG, "Ignoring unknown UID " + parseInt);
+                            Log.m581w(TAG, "Ignoring unknown UID " + parseInt);
                         }
                     }
                     if (addRule(new Rule(this, ruleType, asString2), false)) {
@@ -269,24 +269,24 @@ public class MatchList {
     }
 
     public static String getCidrLabel(Context context, Cidr cidr) {
-        return Utils.formatTextValue(context, null, italic, R.string.cidr_val, cidr.toString()).toString();
+        return Utils.formatTextValue(context, null, italic, C0130R.string.cidr_val, cidr.toString()).toString();
     }
 
     public static String getRuleLabel(Context context, RuleType ruleType, String str) {
         int i;
         int ordinal = ruleType.ordinal();
         if (ordinal == 0) {
-            i = R.string.app_val;
+            i = C0130R.string.app_val;
         } else if (ordinal == 1) {
-            i = R.string.ip_address_val;
+            i = C0130R.string.ip_address_val;
         } else if (ordinal == 2) {
-            i = R.string.host_val;
+            i = C0130R.string.host_val;
         } else if (ordinal == 3) {
-            i = R.string.protocol_val;
+            i = C0130R.string.protocol_val;
         } else if (ordinal != 4) {
             return "";
         } else {
-            i = R.string.country_val;
+            i = C0130R.string.country_val;
         }
         if (ruleType == RuleType.APP) {
             AppDescriptor resolveInstalledApp = AppsResolver.resolveInstalledApp(context.getPackageManager(), str, 0, false);
@@ -481,7 +481,7 @@ public class MatchList {
         if (!string.isEmpty()) {
             fromJson(string);
             if (this.mMigration) {
-                Log.i(TAG, "Migration completed");
+                Log.m583i(TAG, "Migration completed");
                 save();
                 this.mMigration = false;
                 return;
@@ -526,10 +526,10 @@ public class MatchList {
                 this.mPackageToUid.remove(obj);
                 this.mUids.remove(Integer.valueOf(uid));
             } else {
-                Log.w(TAG, "removeRule: no uid found for package " + obj);
+                Log.m581w(TAG, "removeRule: no uid found for package " + obj);
             }
         } else if (rule.getType() == RuleType.IP && obj.indexOf(47) >= 0 && !removeCidr(obj)) {
-            Log.w(TAG, "removeRule: removing CIDR failed for ".concat(obj));
+            Log.m581w(TAG, "removeRule: removing CIDR failed for ".concat(obj));
         }
         if (remove) {
             notifyListeners();
@@ -565,7 +565,7 @@ public class MatchList {
             } else if (type.equals(RuleType.COUNTRY)) {
                 listDescriptor.countries.add(obj);
             } else if (!type.equals(RuleType.APP)) {
-                Log.w(TAG, "ListDescriptor does not support RuleType " + type.name());
+                Log.m581w(TAG, "ListDescriptor does not support RuleType " + type.name());
             }
         }
         ArraySet arraySet = this.mUids;
@@ -588,7 +588,7 @@ public class MatchList {
         Integer num = this.mPackageToUid.get(str);
         AppDescriptor appByPackage = this.mResolver.getAppByPackage(str, 0);
         if (num != null && (appByPackage == null || appByPackage.getUid() != num.intValue())) {
-            Log.i(TAG, "Remove old UID mapping of " + str + ": " + num);
+            Log.m583i(TAG, "Remove old UID mapping of " + str + ": " + num);
             this.mPackageToUid.remove(str);
             this.mUids.remove(num);
             num = null;
@@ -598,7 +598,7 @@ public class MatchList {
             return z;
         }
         int uid = appByPackage.getUid();
-        Log.i(TAG, "Add UID mapping of " + str + ": " + uid);
+        Log.m583i(TAG, "Add UID mapping of " + str + ": " + uid);
         this.mPackageToUid.put(str, Integer.valueOf(uid));
         this.mUids.add(Integer.valueOf(uid));
         return true;
@@ -609,14 +609,14 @@ public class MatchList {
         if (appByUid != null) {
             return addApp(appByUid.getPackageName());
         }
-        Log.e(TAG, "could not resolve UID " + i);
+        Log.m585e(TAG, "could not resolve UID " + i);
         return false;
     }
 
     public void removeApp(int i) {
         AppDescriptor appByUid = this.mResolver.getAppByUid(i, 0);
         if (appByUid == null) {
-            Log.e(TAG, "could not resolve UID " + i);
+            Log.m585e(TAG, "could not resolve UID " + i);
             return;
         }
         removeApp(appByUid.getPackageName());

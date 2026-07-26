@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Checkable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.chip.Chip;
 /* JADX INFO: Access modifiers changed from: package-private */
@@ -26,13 +26,13 @@ public class TimePickerView extends ConstraintLayout {
                 TimePickerView.this.getClass();
             }
         };
-        LayoutInflater.from(context).inflate(R.layout.material_timepicker, this);
-        ClockFaceView clockFaceView = (ClockFaceView) findViewById(R.id.material_clock_face);
-        ((MaterialButtonToggleGroup) findViewById(R.id.material_clock_period_toggle)).onButtonCheckedListeners.add(new Object());
-        Chip chip = (Chip) findViewById(R.id.material_minute_tv);
-        Chip chip2 = (Chip) findViewById(R.id.material_hour_tv);
+        LayoutInflater.from(context).inflate(C0130R.layout.material_timepicker, this);
+        ClockFaceView clockFaceView = (ClockFaceView) findViewById(C0130R.C0132id.material_clock_face);
+        ((MaterialButtonToggleGroup) findViewById(C0130R.C0132id.material_clock_period_toggle)).onButtonCheckedListeners.add(new Object());
+        Chip chip = (Chip) findViewById(C0130R.C0132id.material_minute_tv);
+        Chip chip2 = (Chip) findViewById(C0130R.C0132id.material_hour_tv);
         this.hourView = chip2;
-        ClockHandView clockHandView = (ClockHandView) findViewById(R.id.material_clock_hand);
+        ClockHandView clockHandView = (ClockHandView) findViewById(C0130R.C0132id.material_clock_hand);
         final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() { // from class: com.google.android.material.timepicker.TimePickerView.2
             @Override // android.view.GestureDetector.SimpleOnGestureListener, android.view.GestureDetector.OnDoubleTapListener
             public final boolean onDoubleTap(MotionEvent motionEvent) {
@@ -52,8 +52,8 @@ public class TimePickerView extends ConstraintLayout {
         };
         chip.setOnTouchListener(onTouchListener);
         chip2.setOnTouchListener(onTouchListener);
-        chip.setTag(R.id.selection_type, 12);
-        chip2.setTag(R.id.selection_type, 10);
+        chip.setTag(C0130R.C0132id.selection_type, 12);
+        chip2.setTag(C0130R.C0132id.selection_type, 10);
         chip.setOnClickListener(onClickListener);
         chip2.setOnClickListener(onClickListener);
         chip.setAccessibilityClassName("android.view.View");

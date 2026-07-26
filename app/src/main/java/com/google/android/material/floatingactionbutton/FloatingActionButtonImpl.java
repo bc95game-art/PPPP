@@ -17,10 +17,10 @@ import android.os.Build;
 import android.util.Property;
 import android.view.View;
 import androidx.core.graphics.PathParser$PathDataNode;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.util.TimeUtils;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.animation.ImageMatrixProperty;
 import com.google.android.material.animation.MotionSpec;
@@ -50,10 +50,10 @@ public final class FloatingActionButtonImpl {
     public StateListAnimator stateListAnimator;
     public final FloatingActionButton view;
     public static final FastOutSlowInInterpolator ELEVATION_ANIM_INTERPOLATOR = AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR;
-    public static final int SHOW_ANIM_DURATION_ATTR = R.attr.motionDurationLong2;
-    public static final int SHOW_ANIM_EASING_ATTR = R.attr.motionEasingEmphasizedInterpolator;
-    public static final int HIDE_ANIM_DURATION_ATTR = R.attr.motionDurationMedium1;
-    public static final int HIDE_ANIM_EASING_ATTR = R.attr.motionEasingEmphasizedAccelerateInterpolator;
+    public static final int SHOW_ANIM_DURATION_ATTR = C0130R.attr.motionDurationLong2;
+    public static final int SHOW_ANIM_EASING_ATTR = C0130R.attr.motionEasingEmphasizedInterpolator;
+    public static final int HIDE_ANIM_DURATION_ATTR = C0130R.attr.motionDurationMedium1;
+    public static final int HIDE_ANIM_EASING_ATTR = C0130R.attr.motionEasingEmphasizedAccelerateInterpolator;
     public static final int[] PRESSED_ENABLED_STATE_SET = {16842919, 16842910};
     public static final int[] HOVERED_FOCUSED_ENABLED_STATE_SET = {16843623, 16842908, 16842910};
     public static final int[] FOCUSED_ENABLED_STATE_SET = {16842908, 16842910};
@@ -68,13 +68,13 @@ public final class FloatingActionButtonImpl {
     public final RectF tmpRectF2 = new RectF();
     public final Matrix tmpMatrix = new Matrix();
 
-    /* renamed from: com.google.android.material.floatingactionbutton.FloatingActionButtonImpl$4  reason: invalid class name */
+    /* renamed from: com.google.android.material.floatingactionbutton.FloatingActionButtonImpl$4 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass4 implements TypeEvaluator {
+    public final class C01874 implements TypeEvaluator {
         public final /* synthetic */ int $r8$classId;
         public Object floatEvaluator;
 
-        public AnonymousClass4(int i) {
+        public C01874(int i) {
             this.$r8$classId = i;
             switch (i) {
                 case 1:
@@ -163,13 +163,13 @@ public final class FloatingActionButtonImpl {
         motionSpec.getTiming("scale").apply(ofFloat2);
         int i = Build.VERSION.SDK_INT;
         if (i == 26) {
-            ofFloat2.setEvaluator(new AnonymousClass4(0));
+            ofFloat2.setEvaluator(new C01874(0));
         }
         arrayList.add(ofFloat2);
         ObjectAnimator ofFloat3 = ObjectAnimator.ofFloat(floatingActionButton, View.SCALE_Y, f2);
         motionSpec.getTiming("scale").apply(ofFloat3);
         if (i == 26) {
-            ofFloat3.setEvaluator(new AnonymousClass4(0));
+            ofFloat3.setEvaluator(new C01874(0));
         }
         arrayList.add(ofFloat3);
         Matrix matrix = this.tmpMatrix;
@@ -236,7 +236,7 @@ public final class FloatingActionButtonImpl {
         });
         arrayList.add(ofFloat);
         LazyKt__LazyJVMKt.playTogether(animatorSet, arrayList);
-        animatorSet.setDuration(LazyKt__LazyJVMKt.resolveThemeDuration(floatingActionButton.getContext(), i, floatingActionButton.getContext().getResources().getInteger(R.integer.material_motion_duration_long_1)));
+        animatorSet.setDuration(LazyKt__LazyJVMKt.resolveThemeDuration(floatingActionButton.getContext(), i, floatingActionButton.getContext().getResources().getInteger(C0130R.integer.material_motion_duration_long_1)));
         animatorSet.setInterpolator(LazyKt__LazyJVMKt.resolveThemeInterpolator(floatingActionButton.getContext(), i2, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR));
         return animatorSet;
     }

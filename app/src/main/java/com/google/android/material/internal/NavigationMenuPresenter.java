@@ -25,7 +25,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import java.util.ArrayList;
 /* loaded from: classes.dex */
 public final class NavigationMenuPresenter implements MenuPresenter {
@@ -35,7 +35,9 @@ public final class NavigationMenuPresenter implements MenuPresenter {
     public boolean hasCustomItemIconSize;
     public LinearLayout headerLayout;
     public ColorStateList iconTintList;
-    public int id;
+
+    /* renamed from: id */
+    public int f35id;
     public Drawable itemBackground;
     public RippleDrawable itemForeground;
     public int itemHorizontalPadding;
@@ -57,7 +59,7 @@ public final class NavigationMenuPresenter implements MenuPresenter {
     public boolean textAppearanceActiveBoldEnabled = true;
     public boolean isBehindStatusBar = true;
     public int overScrollMode = -1;
-    public final Toolbar.AnonymousClass4 onClickListener = new Toolbar.AnonymousClass4(5, this);
+    public final Toolbar.View$OnClickListenerC00394 onClickListener = new Toolbar.View$OnClickListenerC00394(5, this);
 
     /* loaded from: classes.dex */
     public final class HeaderViewHolder extends ViewHolder {
@@ -190,15 +192,15 @@ public final class NavigationMenuPresenter implements MenuPresenter {
             NavigationMenuPresenter navigationMenuPresenter = NavigationMenuPresenter.this;
             if (i == 0) {
                 LayoutInflater layoutInflater = navigationMenuPresenter.layoutInflater;
-                Toolbar.AnonymousClass4 r1 = navigationMenuPresenter.onClickListener;
-                RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.design_navigation_item, viewGroup, false));
+                Toolbar.View$OnClickListenerC00394 r1 = navigationMenuPresenter.onClickListener;
+                RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(layoutInflater.inflate(C0130R.layout.design_navigation_item, viewGroup, false));
                 viewHolder.itemView.setOnClickListener(r1);
                 return viewHolder;
             } else if (i == 1) {
-                return new RecyclerView.ViewHolder(navigationMenuPresenter.layoutInflater.inflate(R.layout.design_navigation_item_subheader, viewGroup, false));
+                return new RecyclerView.ViewHolder(navigationMenuPresenter.layoutInflater.inflate(C0130R.layout.design_navigation_item_subheader, viewGroup, false));
             } else {
                 if (i == 2) {
-                    return new RecyclerView.ViewHolder(navigationMenuPresenter.layoutInflater.inflate(R.layout.design_navigation_item_separator, viewGroup, false));
+                    return new RecyclerView.ViewHolder(navigationMenuPresenter.layoutInflater.inflate(C0130R.layout.design_navigation_item_separator, viewGroup, false));
                 }
                 if (i != 3) {
                     return null;
@@ -400,14 +402,14 @@ public final class NavigationMenuPresenter implements MenuPresenter {
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
     public final int getId() {
-        return this.id;
+        return this.f35id;
     }
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
     public final void initForMenu(Context context, MenuBuilder menuBuilder) {
         this.layoutInflater = LayoutInflater.from(context);
         this.menu = menuBuilder;
-        this.paddingSeparator = context.getResources().getDimensionPixelOffset(R.dimen.design_navigation_separator_vertical_padding);
+        this.paddingSeparator = context.getResources().getDimensionPixelOffset(C0130R.dimen.design_navigation_separator_vertical_padding);
     }
 
     @Override // androidx.appcompat.view.menu.MenuPresenter

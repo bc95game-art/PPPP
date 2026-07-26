@@ -9,7 +9,7 @@ import android.widget.Checkable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.view.ViewCompat;
 import androidx.customview.view.AbsSavedState;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.datepicker.MaterialCalendar;
 /* loaded from: classes.dex */
 public class CheckableImageButton extends AppCompatImageButton implements Checkable {
@@ -20,7 +20,7 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
 
     /* loaded from: classes.dex */
     public final class SavedState extends AbsSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.AnonymousClass2(11);
+        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.C00522(11);
         public boolean checked;
 
         public SavedState(Parcel parcel, ClassLoader classLoader) {
@@ -36,8 +36,8 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
     }
 
     public CheckableImageButton(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet, R.attr.imageButtonStyle);
-        ViewCompat.setAccessibilityDelegate(this, new MaterialCalendar.AnonymousClass6(3, this));
+        super(context, attributeSet, C0130R.attr.imageButtonStyle);
+        ViewCompat.setAccessibilityDelegate(this, new MaterialCalendar.C01796(3, this));
     }
 
     @Override // android.widget.Checkable

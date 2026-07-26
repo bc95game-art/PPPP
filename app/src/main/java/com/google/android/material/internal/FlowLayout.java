@@ -2,7 +2,7 @@ package com.google.android.material.internal;
 
 import android.view.View;
 import android.view.ViewGroup;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.chip.ChipGroup;
 /* loaded from: classes.dex */
 public abstract class FlowLayout extends ViewGroup {
@@ -56,7 +56,7 @@ public abstract class FlowLayout extends ViewGroup {
         for (int i11 = 0; i11 < getChildCount(); i11++) {
             View childAt = getChildAt(i11);
             if (childAt.getVisibility() == 8) {
-                childAt.setTag(R.id.row_index_key, -1);
+                childAt.setTag(C0130R.C0132id.row_index_key, -1);
             } else {
                 ViewGroup.LayoutParams layoutParams = childAt.getLayoutParams();
                 if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
@@ -76,7 +76,7 @@ public abstract class FlowLayout extends ViewGroup {
                     this.rowCount++;
                     i9 = i5;
                 }
-                childAt.setTag(R.id.row_index_key, Integer.valueOf(this.rowCount - 1));
+                childAt.setTag(C0130R.C0132id.row_index_key, Integer.valueOf(this.rowCount - 1));
                 int measuredHeight = childAt.getMeasuredHeight() + i10;
                 if (z2) {
                     childAt.layout(i12 - measuredWidth, i10, (i12 - i9) - i7, measuredHeight);

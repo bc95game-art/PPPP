@@ -1,7 +1,6 @@
 package com.google.android.gms.internal.play_billing;
 
 import androidx.navigation.Navigation;
-import j$.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -11,8 +10,9 @@ import java.util.ListIterator;
 import java.util.RandomAccess;
 import java.util.function.UnaryOperator;
 import kotlin.LazyKt__LazyJVMKt;
+import p004j$.util.List;
 /* loaded from: classes.dex */
-public abstract class zzbt extends zzbq implements List, RandomAccess, j$.util.List {
+public abstract class zzbt extends zzbq implements List, RandomAccess, p004j$.util.List {
     public static final zzbr zza = new zzbr(zzca.zza, 0);
 
     public static zzca zzi(int i, Object[] objArr) {
@@ -135,7 +135,7 @@ public abstract class zzbt extends zzbq implements List, RandomAccess, j$.util.L
         throw new UnsupportedOperationException();
     }
 
-    @Override // java.util.List, j$.util.List
+    @Override // java.util.List, p004j$.util.List
     public /* synthetic */ void replaceAll(UnaryOperator unaryOperator) {
         List.CC.$default$replaceAll(this, unaryOperator);
     }
@@ -145,7 +145,7 @@ public abstract class zzbt extends zzbq implements List, RandomAccess, j$.util.L
         throw new UnsupportedOperationException();
     }
 
-    @Override // java.util.List, j$.util.List
+    @Override // java.util.List, p004j$.util.List
     public /* synthetic */ void sort(Comparator comparator) {
         List.CC.$default$sort(this, comparator);
     }

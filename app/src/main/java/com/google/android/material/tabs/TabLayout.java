@@ -17,6 +17,7 @@ import android.os.Build;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.StateSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.collection.internal.Lock;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.util.Pools$SimplePool;
 import androidx.core.util.Pools$SynchronizedPool;
 import androidx.core.view.PointerIconCompat$Api24Impl;
@@ -43,7 +44,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.FakeDrag;
 import androidx.viewpager2.widget.ViewPager2;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.badge.BadgeDrawable;
@@ -112,13 +113,13 @@ public class TabLayout extends HorizontalScrollView {
     public final ArrayList selectedListeners = new ArrayList();
     public final Pools$SimplePool tabViewPool = new Pools$SimplePool(12);
 
-    /* renamed from: com.google.android.material.tabs.TabLayout$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.tabs.TabLayout$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 implements ValueAnimator.AnimatorUpdateListener {
+    public final class C02021 implements ValueAnimator.AnimatorUpdateListener {
         public final /* synthetic */ int $r8$classId;
         public final /* synthetic */ Object this$0;
 
-        public /* synthetic */ AnonymousClass1(int i, Object obj) {
+        public /* synthetic */ C02021(int i, Object obj) {
             this.$r8$classId = i;
             this.this$0 = obj;
         }
@@ -562,7 +563,7 @@ public class TabLayout extends HorizontalScrollView {
                 accessibilityNodeInfo.setClickable(false);
                 accessibilityNodeInfo.removeAction((AccessibilityNodeInfo.AccessibilityAction) AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK.mAction);
             }
-            accessibilityNodeInfo.getExtras().putCharSequence("AccessibilityNodeInfo.roleDescription", getResources().getString(R.string.item_view_role_description));
+            accessibilityNodeInfo.getExtras().putCharSequence("AccessibilityNodeInfo.roleDescription", getResources().getString(C0130R.string.item_view_role_description));
         }
 
         @Override // android.widget.LinearLayout, android.view.View
@@ -836,12 +837,12 @@ public class TabLayout extends HorizontalScrollView {
             }
             if (this.customView == null) {
                 if (this.iconView == null) {
-                    ImageView imageView2 = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.design_layout_tab_icon, (ViewGroup) this, false);
+                    ImageView imageView2 = (ImageView) LayoutInflater.from(getContext()).inflate(C0130R.layout.design_layout_tab_icon, (ViewGroup) this, false);
                     this.iconView = imageView2;
                     addView(imageView2, 0);
                 }
                 if (this.textView == null) {
-                    TextView textView3 = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.design_layout_tab_text, (ViewGroup) this, false);
+                    TextView textView3 = (TextView) LayoutInflater.from(getContext()).inflate(C0130R.layout.design_layout_tab_text, (ViewGroup) this, false);
                     this.textView = textView3;
                     addView(textView3);
                     this.defaultMaxLines = this.textView.getMaxLines();
@@ -992,7 +993,7 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     public TabLayout(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.tabStyle, R.style.Widget_Design_TabLayout), attributeSet, R.attr.tabStyle);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.tabStyle, C0130R.style.Widget_Design_TabLayout), attributeSet, C0130R.attr.tabStyle);
         float f;
         this.selectedTabTextAppearance = -1;
         Context context2 = getContext();
@@ -1000,7 +1001,7 @@ public class TabLayout extends HorizontalScrollView {
         SlidingTabIndicator slidingTabIndicator = new SlidingTabIndicator(context2);
         this.slidingTabIndicator = slidingTabIndicator;
         super.addView(slidingTabIndicator, 0, new FrameLayout.LayoutParams(-2, -1));
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.TabLayout, R.attr.tabStyle, R.style.Widget_Design_TabLayout, 24);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.TabLayout, C0130R.attr.tabStyle, C0130R.style.Widget_Design_TabLayout, 24);
         ColorStateList colorStateListOrNull = Trace.getColorStateListOrNull(getBackground());
         if (colorStateListOrNull != null) {
             MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
@@ -1024,12 +1025,12 @@ public class TabLayout extends HorizontalScrollView {
         this.tabPaddingTop = obtainStyledAttributes.getDimensionPixelSize(20, dimensionPixelSize);
         this.tabPaddingEnd = obtainStyledAttributes.getDimensionPixelSize(18, dimensionPixelSize);
         this.tabPaddingBottom = obtainStyledAttributes.getDimensionPixelSize(17, dimensionPixelSize);
-        if (LazyKt__LazyJVMKt.resolveBoolean(context2, R.attr.isMaterial3Theme, false)) {
-            this.defaultTabTextAppearance = R.attr.textAppearanceTitleSmall;
+        if (LazyKt__LazyJVMKt.resolveBoolean(context2, C0130R.attr.isMaterial3Theme, false)) {
+            this.defaultTabTextAppearance = C0130R.attr.textAppearanceTitleSmall;
         } else {
-            this.defaultTabTextAppearance = R.attr.textAppearanceButton;
+            this.defaultTabTextAppearance = C0130R.attr.textAppearanceButton;
         }
-        int resourceId = obtainStyledAttributes.getResourceId(24, R.style.TextAppearance_Design_Tab);
+        int resourceId = obtainStyledAttributes.getResourceId(24, C0130R.style.TextAppearance_Design_Tab);
         this.tabTextAppearance = resourceId;
         int[] iArr = androidx.appcompat.R$styleable.TextAppearance;
         TypedArray obtainStyledAttributes2 = context2.obtainStyledAttributes(resourceId, iArr);
@@ -1064,7 +1065,7 @@ public class TabLayout extends HorizontalScrollView {
             ViewUtils.parseTintMode(obtainStyledAttributes.getInt(4, -1), null);
             this.tabRippleColorStateList = LazyKt__LazyJVMKt.getColorStateList(context2, obtainStyledAttributes, 21);
             this.tabIndicatorAnimationDuration = obtainStyledAttributes.getInt(6, 300);
-            this.tabIndicatorTimeInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context2, R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
+            this.tabIndicatorTimeInterpolator = LazyKt__LazyJVMKt.resolveThemeInterpolator(context2, C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
             this.requestedTabMinWidth = obtainStyledAttributes.getDimensionPixelSize(14, -1);
             this.requestedTabMaxWidth = obtainStyledAttributes.getDimensionPixelSize(13, -1);
             this.tabBackgroundResId = obtainStyledAttributes.getResourceId(0, 0);
@@ -1075,8 +1076,8 @@ public class TabLayout extends HorizontalScrollView {
             this.unboundedRipple = obtainStyledAttributes.getBoolean(26, false);
             obtainStyledAttributes.recycle();
             Resources resources = getResources();
-            this.tabTextMultiLineSize = resources.getDimensionPixelSize(R.dimen.design_tab_text_size_2line);
-            this.scrollableTabMinWidth = resources.getDimensionPixelSize(R.dimen.design_tab_scrollable_min_width);
+            this.tabTextMultiLineSize = resources.getDimensionPixelSize(C0130R.dimen.design_tab_text_size_2line);
+            this.scrollableTabMinWidth = resources.getDimensionPixelSize(C0130R.dimen.design_tab_scrollable_min_width);
             applyModeAndGravity();
         } finally {
         }
@@ -1224,63 +1225,33 @@ public class TabLayout extends HorizontalScrollView {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
     public final void applyModeAndGravity() {
-        /*
-            r5 = this;
-            int r0 = r5.mode
-            r1 = 2
-            r2 = 0
-            if (r0 == 0) goto Lb
-            if (r0 != r1) goto L9
-            goto Lb
-        L9:
-            r0 = 0
-            goto L14
-        Lb:
-            int r0 = r5.contentInsetStart
-            int r3 = r5.tabPaddingStart
-            int r0 = r0 - r3
-            int r0 = java.lang.Math.max(r2, r0)
-        L14:
-            com.google.android.material.tabs.TabLayout$SlidingTabIndicator r3 = r5.slidingTabIndicator
-            r3.setPaddingRelative(r0, r2, r2, r2)
-            int r0 = r5.mode
-            java.lang.String r2 = "TabLayout"
-            r4 = 1
-            if (r0 == 0) goto L32
-            if (r0 == r4) goto L25
-            if (r0 == r1) goto L25
-            goto L4a
-        L25:
-            int r0 = r5.tabGravity
-            if (r0 != r1) goto L2e
-            java.lang.String r0 = "GRAVITY_START is not supported with the current tab mode, GRAVITY_CENTER will be used instead"
-            android.util.Log.w(r2, r0)
-        L2e:
-            r3.setGravity(r4)
-            goto L4a
-        L32:
-            int r0 = r5.tabGravity
-            if (r0 == 0) goto L3f
-            if (r0 == r4) goto L3b
-            if (r0 == r1) goto L44
-            goto L4a
-        L3b:
-            r3.setGravity(r4)
-            goto L4a
-        L3f:
-            java.lang.String r0 = "MODE_SCROLLABLE + GRAVITY_FILL is not supported, GRAVITY_START will be used instead"
-            android.util.Log.w(r2, r0)
-        L44:
-            r0 = 8388611(0x800003, float:1.1754948E-38)
-            r3.setGravity(r0)
-        L4a:
-            r5.updateTabViews(r4)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.tabs.TabLayout.applyModeAndGravity():void");
+        int i;
+        int i2 = this.mode;
+        if (i2 == 0 || i2 == 2) {
+            i = Math.max(0, this.contentInsetStart - this.tabPaddingStart);
+        } else {
+            i = 0;
+        }
+        SlidingTabIndicator slidingTabIndicator = this.slidingTabIndicator;
+        slidingTabIndicator.setPaddingRelative(i, 0, 0, 0);
+        int i3 = this.mode;
+        if (i3 == 0) {
+            int i4 = this.tabGravity;
+            if (i4 == 0) {
+                Log.w("TabLayout", "MODE_SCROLLABLE + GRAVITY_FILL is not supported, GRAVITY_START will be used instead");
+            } else if (i4 == 1) {
+                slidingTabIndicator.setGravity(1);
+            }
+            slidingTabIndicator.setGravity(8388611);
+        } else if (i3 == 1 || i3 == 2) {
+            if (this.tabGravity == 2) {
+                Log.w("TabLayout", "GRAVITY_START is not supported with the current tab mode, GRAVITY_CENTER will be used instead");
+            }
+            slidingTabIndicator.setGravity(1);
+        }
+        updateTabViews(true);
     }
 
     public final int calculateScrollXForTab(int i, float f) {
@@ -1316,7 +1287,7 @@ public class TabLayout extends HorizontalScrollView {
             this.scrollAnimator = valueAnimator;
             valueAnimator.setInterpolator(this.tabIndicatorTimeInterpolator);
             this.scrollAnimator.setDuration(this.tabIndicatorAnimationDuration);
-            this.scrollAnimator.addUpdateListener(new AnonymousClass1(0, this));
+            this.scrollAnimator.addUpdateListener(new C02021(0, this));
         }
     }
 
@@ -1918,7 +1889,7 @@ public class TabLayout extends HorizontalScrollView {
 
     @Override // android.widget.FrameLayout, android.view.ViewGroup
     /* renamed from: generateLayoutParams  reason: collision with other method in class */
-    public final FrameLayout.LayoutParams mo252generateLayoutParams(AttributeSet attributeSet) {
+    public final FrameLayout.LayoutParams mo882generateLayoutParams(AttributeSet attributeSet) {
         return generateDefaultLayoutParams();
     }
 

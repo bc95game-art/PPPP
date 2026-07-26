@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import java.util.Calendar;
 import java.util.Locale;
 /* loaded from: classes.dex */
@@ -60,7 +60,7 @@ public final class DaysOfWeekAdapter extends BaseAdapter {
     public final View getView(int i, View view, ViewGroup viewGroup) {
         TextView textView = (TextView) view;
         if (view == null) {
-            textView = (TextView) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.mtrl_calendar_day_of_week, viewGroup, false);
+            textView = (TextView) LayoutInflater.from(viewGroup.getContext()).inflate(C0130R.layout.mtrl_calendar_day_of_week, viewGroup, false);
         }
         int i2 = i + this.firstDayOfWeek;
         int i3 = this.daysInWeek;
@@ -70,7 +70,7 @@ public final class DaysOfWeekAdapter extends BaseAdapter {
         Calendar calendar = this.calendar;
         calendar.set(7, i2);
         textView.setText(calendar.getDisplayName(7, CALENDAR_DAY_STYLE, textView.getResources().getConfiguration().locale));
-        textView.setContentDescription(String.format(viewGroup.getContext().getString(R.string.mtrl_picker_day_of_week_column_header), calendar.getDisplayName(7, 2, Locale.getDefault())));
+        textView.setContentDescription(String.format(viewGroup.getContext().getString(C0130R.string.mtrl_picker_day_of_week_column_header), calendar.getDisplayName(7, 2, Locale.getDefault())));
         return textView;
     }
 

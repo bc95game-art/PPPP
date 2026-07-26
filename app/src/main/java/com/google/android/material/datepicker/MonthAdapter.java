@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import java.util.Calendar;
 /* loaded from: classes.dex */
 public final class MonthAdapter extends BaseAdapter {
@@ -55,7 +55,7 @@ public final class MonthAdapter extends BaseAdapter {
         }
         TextView textView = (TextView) view;
         if (view == null) {
-            textView = (TextView) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.mtrl_calendar_day, viewGroup, false);
+            textView = (TextView) LayoutInflater.from(viewGroup.getContext()).inflate(C0130R.layout.mtrl_calendar_day, viewGroup, false);
         }
         int firstPositionInMonth = i - firstPositionInMonth();
         if (firstPositionInMonth >= 0) {

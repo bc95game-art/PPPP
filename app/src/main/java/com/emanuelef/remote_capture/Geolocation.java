@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.lifecycle.ViewModelProvider;
 import com.emanuelef.remote_capture.model.Geomodel;
-import com.maxmind.db.Reader;
+import com.maxmind.p003db.Reader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,13 +32,13 @@ public class Geolocation {
     private static boolean downloadAndUnzip(Context context, String str, String str2, File file) {
         File file2 = new File(context.getCacheDir() + "/geoip_db.zip");
         if (!Utils.downloadFile(str2, file2.getAbsolutePath())) {
-            Log.w(TAG, "Could not download " + str + " db from " + str2);
+            Log.m581w(TAG, "Could not download " + str + " db from " + str2);
             return false;
         }
         try {
             FileInputStream fileInputStream = new FileInputStream(file2.getAbsolutePath());
             if (!Utils.ungzip(fileInputStream, file.getAbsolutePath())) {
-                Log.w(TAG, "ungzip of " + file2 + " failed");
+                Log.m581w(TAG, "ungzip of " + file2 + " failed");
                 fileInputStream.close();
                 return false;
             }
@@ -54,8 +54,8 @@ public class Geolocation {
     @SuppressLint({"SimpleDateFormat"})
     public static boolean downloadDb(Context context) {
         String format = new SimpleDateFormat("yyyy-MM", Locale.US).format(new Date());
-        String m = ViewModelProvider.Factory.CC.m("https://download.db-ip.com/free/dbip-country-lite-", format, ".mmdb.gz");
-        String m2 = ViewModelProvider.Factory.CC.m("https://download.db-ip.com/free/dbip-asn-lite-", format, ".mmdb.gz");
+        String m = ViewModelProvider.Factory.CC.m595m("https://download.db-ip.com/free/dbip-country-lite-", format, ".mmdb.gz");
+        String m2 = ViewModelProvider.Factory.CC.m595m("https://download.db-ip.com/free/dbip-asn-lite-", format, ".mmdb.gz");
         try {
             if (downloadAndUnzip(context, "country", m, getCountryFile(context))) {
                 if (downloadAndUnzip(context, "asn", m2, getAsnFile(context))) {
@@ -100,11 +100,11 @@ public class Geolocation {
     private void openDb() {
         try {
             this.mCountryReader = new Reader(getCountryFile(this.mContext));
-            Log.d(TAG, "Country DB loaded: " + this.mCountryReader.getMetadata());
+            Log.m587d(TAG, "Country DB loaded: " + this.mCountryReader.getMetadata());
             this.mAsnReader = new Reader(getAsnFile(this.mContext));
-            Log.d(TAG, "ASN DB loaded: " + this.mAsnReader.getMetadata());
+            Log.m587d(TAG, "ASN DB loaded: " + this.mAsnReader.getMetadata());
         } catch (IOException unused) {
-            Log.i(TAG, "Geolocation is not available");
+            Log.m583i(TAG, "Geolocation is not available");
         }
     }
 

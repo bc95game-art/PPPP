@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -22,7 +23,7 @@ import androidx.activity.BackEventCompat;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat$$ExternalSyntheticLambda0;
 import androidx.core.content.res.ResourcesCompat$FontCallback$$ExternalSyntheticLambda1;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityViewCommand;
@@ -31,7 +32,7 @@ import androidx.customview.widget.ViewDragHelper;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Transition;
 import com.android.billingclient.api.zzab;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -51,7 +52,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
     public int childWidth;
     public final int coplanarSiblingViewId;
     public WeakReference coplanarSiblingViewRef;
-    public final AnonymousClass1 dragCallback;
+    public final C01991 dragCallback;
     public final boolean draggable;
     public final float elevation;
     public final float hideFriction;
@@ -70,18 +71,18 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
     public ViewDragHelper viewDragHelper;
     public WeakReference viewRef;
 
-    /* renamed from: com.google.android.material.sidesheet.SideSheetBehavior$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.sidesheet.SideSheetBehavior$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 extends BundleKt {
+    public final class C01991 extends BundleKt {
         public final /* synthetic */ int $r8$classId;
         public final /* synthetic */ CoordinatorLayout.Behavior this$0;
 
-        public /* synthetic */ AnonymousClass1(CoordinatorLayout.Behavior behavior, int i) {
+        public /* synthetic */ C01991(CoordinatorLayout.Behavior behavior, int i) {
             this.$r8$classId = i;
             this.this$0 = behavior;
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public final int clampViewPositionHorizontal(int i, View view) {
             switch (this.$r8$classId) {
                 case 0:
@@ -92,7 +93,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
             }
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public final int clampViewPositionVertical(int i, View view) {
             switch (this.$r8$classId) {
                 case 0:
@@ -102,7 +103,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
             }
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public int getViewHorizontalDragRange(View view) {
             switch (this.$r8$classId) {
                 case 0:
@@ -113,7 +114,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
             }
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public int getViewVerticalDragRange() {
             switch (this.$r8$classId) {
                 case 1:
@@ -127,7 +128,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
             }
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public final void onViewDragStateChanged(int i) {
             switch (this.$r8$classId) {
                 case 0:
@@ -153,7 +154,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
             }
         }
 
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         public final void onViewPositionChanged(View view, int i, int i2) {
             View view2;
             ViewGroup.MarginLayoutParams marginLayoutParams;
@@ -175,7 +176,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
                         sideSheetBehavior.sheetDelegate.calculateSlideOffset(i);
                         Iterator it = linkedHashSet.iterator();
                         if (it.hasNext()) {
-                            throw ViewModelProvider.Factory.CC.m(it);
+                            throw ViewModelProvider.Factory.CC.m592m(it);
                         }
                         return;
                     }
@@ -201,93 +202,143 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
         /* JADX WARN: Code restructure failed: missing block: B:63:0x0143, code lost:
             if (java.lang.Math.abs(r7 - r0.sheetDelegate.getExpandedOffset()) < java.lang.Math.abs(r7 - r0.sheetDelegate.getHiddenOffset())) goto L64;
          */
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public final void onViewReleased(android.view.View r6, float r7, float r8) {
-            /*
-                Method dump skipped, instructions count: 340
-                To view this dump add '--comments-level debug' option
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.sidesheet.SideSheetBehavior.AnonymousClass1.onViewReleased(android.view.View, float, float):void");
+        public final void onViewReleased(View view, float f, float f2) {
+            int i;
+            switch (this.$r8$classId) {
+                case 0:
+                    SideSheetBehavior sideSheetBehavior = (SideSheetBehavior) this.this$0;
+                    if (!sideSheetBehavior.sheetDelegate.isExpandingOutwards(f)) {
+                        if (sideSheetBehavior.sheetDelegate.shouldHide(view, f)) {
+                            if (!sideSheetBehavior.sheetDelegate.isSwipeSignificant(f, f2)) {
+                                break;
+                            }
+                            i = 5;
+                        } else {
+                            if (f == 0.0f || Math.abs(f) <= Math.abs(f2)) {
+                                int left = view.getLeft();
+                                break;
+                            }
+                            i = 5;
+                        }
+                        sideSheetBehavior.startSettling$1(view, i, true);
+                        return;
+                    }
+                    i = 3;
+                    sideSheetBehavior.startSettling$1(view, i, true);
+                    return;
+                default:
+                    BottomSheetBehavior bottomSheetBehavior = (BottomSheetBehavior) this.this$0;
+                    int i2 = 6;
+                    if (f2 < 0.0f) {
+                        if (!bottomSheetBehavior.fitToContents) {
+                            int top = view.getTop();
+                            SystemClock.uptimeMillis();
+                            bottomSheetBehavior.getClass();
+                            break;
+                        }
+                        i2 = 3;
+                        bottomSheetBehavior.getClass();
+                        bottomSheetBehavior.startSettling(view, i2, true);
+                        return;
+                    } else if (bottomSheetBehavior.hideable && bottomSheetBehavior.shouldHide(view, f2)) {
+                        if (Math.abs(f) >= Math.abs(f2) || f2 <= bottomSheetBehavior.significantVelocityThreshold) {
+                            if (view.getTop() <= (bottomSheetBehavior.getExpandedOffset() + bottomSheetBehavior.parentHeight) / 2) {
+                                if (!bottomSheetBehavior.fitToContents) {
+                                    break;
+                                }
+                                i2 = 3;
+                                bottomSheetBehavior.getClass();
+                                bottomSheetBehavior.startSettling(view, i2, true);
+                                return;
+                            }
+                        }
+                        i2 = 5;
+                        bottomSheetBehavior.getClass();
+                        bottomSheetBehavior.startSettling(view, i2, true);
+                        return;
+                    } else if (f2 == 0.0f || Math.abs(f) > Math.abs(f2)) {
+                        int top2 = view.getTop();
+                        if (bottomSheetBehavior.fitToContents) {
+                            break;
+                        } else {
+                            int i3 = bottomSheetBehavior.halfExpandedOffset;
+                            if (top2 < i3) {
+                                if (top2 >= Math.abs(top2 - bottomSheetBehavior.collapsedOffset)) {
+                                    bottomSheetBehavior.getClass();
+                                }
+                                i2 = 3;
+                            } else {
+                                if (Math.abs(top2 - i3) < Math.abs(top2 - bottomSheetBehavior.collapsedOffset)) {
+                                    bottomSheetBehavior.getClass();
+                                }
+                                i2 = 4;
+                            }
+                        }
+                        bottomSheetBehavior.getClass();
+                        bottomSheetBehavior.startSettling(view, i2, true);
+                        return;
+                    } else {
+                        if (!bottomSheetBehavior.fitToContents) {
+                            int top3 = view.getTop();
+                            if (Math.abs(top3 - bottomSheetBehavior.halfExpandedOffset) < Math.abs(top3 - bottomSheetBehavior.collapsedOffset)) {
+                                bottomSheetBehavior.getClass();
+                                bottomSheetBehavior.getClass();
+                                bottomSheetBehavior.startSettling(view, i2, true);
+                                return;
+                            }
+                        }
+                        i2 = 4;
+                        bottomSheetBehavior.getClass();
+                        bottomSheetBehavior.startSettling(view, i2, true);
+                        return;
+                    }
+            }
         }
 
         /* JADX WARN: Code restructure failed: missing block: B:18:0x002e, code lost:
             if (r5.canScrollVertically(-1) != false) goto L23;
          */
-        @Override // androidx.core.os.BundleKt
+        @Override // androidx.core.p002os.BundleKt
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public final boolean tryCaptureView(int r5, android.view.View r6) {
-            /*
-                r4 = this;
-                int r0 = r4.$r8$classId
-                switch(r0) {
-                    case 0: goto L41;
-                    default: goto L5;
-                }
-            L5:
-                androidx.coordinatorlayout.widget.CoordinatorLayout$Behavior r0 = r4.this$0
-                com.google.android.material.bottomsheet.BottomSheetBehavior r0 = (com.google.android.material.bottomsheet.BottomSheetBehavior) r0
-                int r1 = r0.state
-                r2 = 1
-                if (r1 != r2) goto Lf
-                goto L3f
-            Lf:
-                boolean r3 = r0.touchingScrollingChild
-                if (r3 == 0) goto L14
-                goto L3f
-            L14:
-                r3 = 3
-                if (r1 != r3) goto L31
-                int r1 = r0.activePointerId
-                if (r1 != r5) goto L31
-                java.lang.ref.WeakReference r5 = r0.nestedScrollingChildRef
-                if (r5 == 0) goto L26
-                java.lang.Object r5 = r5.get()
-                android.view.View r5 = (android.view.View) r5
-                goto L27
-            L26:
-                r5 = 0
-            L27:
-                if (r5 == 0) goto L31
-                r1 = -1
-                boolean r5 = r5.canScrollVertically(r1)
-                if (r5 == 0) goto L31
-                goto L3f
-            L31:
-                android.os.SystemClock.uptimeMillis()
-                java.lang.ref.WeakReference r5 = r0.viewRef
-                if (r5 == 0) goto L3f
-                java.lang.Object r5 = r5.get()
-                if (r5 != r6) goto L3f
-                goto L40
-            L3f:
-                r2 = 0
-            L40:
-                return r2
-            L41:
-                androidx.coordinatorlayout.widget.CoordinatorLayout$Behavior r5 = r4.this$0
-                com.google.android.material.sidesheet.SideSheetBehavior r5 = (com.google.android.material.sidesheet.SideSheetBehavior) r5
-                int r0 = r5.state
-                r1 = 0
-                r2 = 1
-                if (r0 != r2) goto L4c
-                goto L57
-            L4c:
-                java.lang.ref.WeakReference r5 = r5.viewRef
-                if (r5 == 0) goto L57
-                java.lang.Object r5 = r5.get()
-                if (r5 != r6) goto L57
-                r1 = 1
-            L57:
-                return r1
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.sidesheet.SideSheetBehavior.AnonymousClass1.tryCaptureView(int, android.view.View):boolean");
+        public final boolean tryCaptureView(int i, View view) {
+            WeakReference weakReference;
+            View view2;
+            switch (this.$r8$classId) {
+                case 0:
+                    SideSheetBehavior sideSheetBehavior = (SideSheetBehavior) this.this$0;
+                    if (sideSheetBehavior.state == 1 || (weakReference = sideSheetBehavior.viewRef) == null || weakReference.get() != view) {
+                        return false;
+                    }
+                    return true;
+                default:
+                    BottomSheetBehavior bottomSheetBehavior = (BottomSheetBehavior) this.this$0;
+                    int i2 = bottomSheetBehavior.state;
+                    if (i2 != 1 && !bottomSheetBehavior.touchingScrollingChild) {
+                        if (i2 == 3 && bottomSheetBehavior.activePointerId == i) {
+                            WeakReference weakReference2 = bottomSheetBehavior.nestedScrollingChildRef;
+                            if (weakReference2 != null) {
+                                view2 = (View) weakReference2.get();
+                            } else {
+                                view2 = null;
+                            }
+                            if (view2 != null) {
+                                break;
+                            }
+                        }
+                        SystemClock.uptimeMillis();
+                        WeakReference weakReference3 = bottomSheetBehavior.viewRef;
+                        if (weakReference3 != null && weakReference3.get() == view) {
+                            return true;
+                        }
+                    }
+                    return false;
+            }
         }
     }
 
@@ -298,7 +349,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
         this.hideFriction = 0.1f;
         this.coplanarSiblingViewId = -1;
         this.callbacks = new LinkedHashSet();
-        this.dragCallback = new AnonymousClass1(this, 0);
+        this.dragCallback = new C01991(this, 0);
     }
 
     @Override // com.google.android.material.motion.MaterialBackHandler
@@ -327,7 +378,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
             if (!(lazyKt__LazyJVMKt == null || lazyKt__LazyJVMKt.getSheetEdge() == 0)) {
                 i = 3;
             }
-            Transition.AnonymousClass3 r4 = new Transition.AnonymousClass3(8, this);
+            Transition.C01123 r4 = new Transition.C01123(8, this);
             WeakReference weakReference = this.coplanarSiblingViewRef;
             if (weakReference != null) {
                 view = (View) weakReference.get();
@@ -434,7 +485,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
                 view.setImportantForAccessibility(1);
             }
             if (ViewCompat.getAccessibilityPaneTitle(view) == null) {
-                ViewCompat.setAccessibilityPaneTitle(view, view.getResources().getString(R.string.side_sheet_accessibility_pane_title));
+                ViewCompat.setAccessibilityPaneTitle(view, view.getResources().getString(C0130R.string.side_sheet_accessibility_pane_title));
             }
         }
         if (Gravity.getAbsoluteGravity(((CoordinatorLayout.LayoutParams) view.getLayoutParams()).gravity, i) == 3) {
@@ -585,7 +636,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
             } else {
                 str = "SETTLING";
             }
-            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(sb, str, " should not be set externally."));
+            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m593m(sb, str, " should not be set externally."));
         }
         WeakReference weakReference = this.viewRef;
         if (weakReference == null || weakReference.get() == null) {
@@ -622,7 +673,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
                     updateAccessibilityActions$1();
                     return;
                 }
-                throw ViewModelProvider.Factory.CC.m(it);
+                throw ViewModelProvider.Factory.CC.m592m(it);
             }
         }
     }
@@ -652,7 +703,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
         } else if (i == 5) {
             i2 = this.sheetDelegate.getHiddenOffset();
         } else {
-            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(i, "Invalid state to get outer edge offset: "));
+            throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m604m(i, "Invalid state to get outer edge offset: "));
         }
         ViewDragHelper viewDragHelper = this.viewDragHelper;
         if (viewDragHelper == null || (!z ? !viewDragHelper.smoothSlideViewTo(view, i2, view.getTop()) : !viewDragHelper.settleCapturedViewAt(i2, view.getTop()))) {
@@ -738,7 +789,7 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
 
     /* loaded from: classes.dex */
     public final class SavedState extends androidx.customview.view.AbsSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.AnonymousClass2(14);
+        public static final Parcelable.Creator<SavedState> CREATOR = new AbsSavedState.C00522(14);
         public final int state;
 
         public SavedState(Parcel parcel, ClassLoader classLoader) {
@@ -817,13 +868,13 @@ public class SideSheetBehavior<V extends View> extends CoordinatorLayout.Behavio
         this.hideFriction = 0.1f;
         this.coplanarSiblingViewId = -1;
         this.callbacks = new LinkedHashSet();
-        this.dragCallback = new AnonymousClass1(this, 0);
+        this.dragCallback = new C01991(this, 0);
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.SideSheetBehavior_Layout);
         if (obtainStyledAttributes.hasValue(3)) {
             this.backgroundTint = LazyKt__LazyJVMKt.getColorStateList(context, obtainStyledAttributes, 3);
         }
         if (obtainStyledAttributes.hasValue(6)) {
-            this.shapeAppearanceModel = ShapeAppearanceModel.builder(context, attributeSet, 0, (int) R.style.Widget_Material3_SideSheet).build();
+            this.shapeAppearanceModel = ShapeAppearanceModel.builder(context, attributeSet, 0, (int) C0130R.style.Widget_Material3_SideSheet).build();
         }
         if (obtainStyledAttributes.hasValue(5)) {
             int resourceId = obtainStyledAttributes.getResourceId(5, -1);

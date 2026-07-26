@@ -1,7 +1,6 @@
 package com.google.gson.stream;
 
 import com.google.gson.FormattingStyle;
-import j$.util.Objects;
 import java.io.Closeable;
 import java.io.Flushable;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public class JsonWriter implements Closeable, Flushable {
     public static final String[] HTML_SAFE_REPLACEMENT_CHARS;
@@ -245,60 +245,46 @@ public class JsonWriter implements Closeable, Flushable {
     /* JADX WARN: Removed duplicated region for block: B:19:0x0034  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final void string(java.lang.String r9) {
-        /*
-            r8 = this;
-            boolean r0 = r8.htmlSafe
-            if (r0 == 0) goto L7
-            java.lang.String[] r0 = com.google.gson.stream.JsonWriter.HTML_SAFE_REPLACEMENT_CHARS
-            goto L9
-        L7:
-            java.lang.String[] r0 = com.google.gson.stream.JsonWriter.REPLACEMENT_CHARS
-        L9:
-            java.io.Writer r1 = r8.out
-            r2 = 34
-            r1.write(r2)
-            int r3 = r9.length()
-            r4 = 0
-            r5 = 0
-        L16:
-            if (r4 >= r3) goto L41
-            char r6 = r9.charAt(r4)
-            r7 = 128(0x80, float:1.794E-43)
-            if (r6 >= r7) goto L25
-            r6 = r0[r6]
-            if (r6 != 0) goto L32
-            goto L3e
-        L25:
-            r7 = 8232(0x2028, float:1.1535E-41)
-            if (r6 != r7) goto L2c
-            java.lang.String r6 = "\\u2028"
-            goto L32
-        L2c:
-            r7 = 8233(0x2029, float:1.1537E-41)
-            if (r6 != r7) goto L3e
-            java.lang.String r6 = "\\u2029"
-        L32:
-            if (r5 >= r4) goto L39
-            int r7 = r4 - r5
-            r1.write(r9, r5, r7)
-        L39:
-            r1.write(r6)
-            int r5 = r4 + 1
-        L3e:
-            int r4 = r4 + 1
-            goto L16
-        L41:
-            if (r5 >= r3) goto L47
-            int r3 = r3 - r5
-            r1.write(r9, r5, r3)
-        L47:
-            r1.write(r2)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.stream.JsonWriter.string(java.lang.String):void");
+    public final void string(String str) {
+        String[] strArr;
+        String str2;
+        if (this.htmlSafe) {
+            strArr = HTML_SAFE_REPLACEMENT_CHARS;
+        } else {
+            strArr = REPLACEMENT_CHARS;
+        }
+        Writer writer = this.out;
+        writer.write(34);
+        int length = str.length();
+        int i = 0;
+        for (int i2 = 0; i2 < length; i2++) {
+            char charAt = str.charAt(i2);
+            if (charAt < 128) {
+                str2 = strArr[charAt];
+                if (str2 == null) {
+                }
+                if (i < i2) {
+                    writer.write(str, i, i2 - i);
+                }
+                writer.write(str2);
+                i = i2 + 1;
+            } else {
+                if (charAt == 8232) {
+                    str2 = "\\u2028";
+                } else if (charAt == 8233) {
+                    str2 = "\\u2029";
+                }
+                if (i < i2) {
+                }
+                writer.write(str2);
+                i = i2 + 1;
+            }
+        }
+        if (i < length) {
+            writer.write(str, i, length - i);
+        }
+        writer.write(34);
     }
 
     public void value(String str) {

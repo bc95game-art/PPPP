@@ -49,8 +49,8 @@ public class PersistableUriPermission {
             } catch (ActivityNotFoundException unused) {
             }
         }
-        Log.w(TAG, "No app found to handle file selection");
-        Utils.showToastLong(this.mCtx, R.string.no_activity_file_selection, new Object[0]);
+        Log.m581w(TAG, "No app found to handle file selection");
+        Utils.showToastLong(this.mCtx, C0130R.string.no_activity_file_selection, new Object[0]);
         this.mListener.onUriChecked(null);
     }
 
@@ -69,7 +69,7 @@ public class PersistableUriPermission {
                 this.key = this.mNewKey;
                 save();
             } catch (SecurityException e) {
-                Log.e(TAG, "Could not get PersistableUriPermission");
+                Log.m585e(TAG, "Could not get PersistableUriPermission");
                 e.printStackTrace();
             }
         }
@@ -83,7 +83,7 @@ public class PersistableUriPermission {
         boolean z2 = false;
         for (UriPermission uriPermission : this.mCtx.getContentResolver().getPersistedUriPermissions()) {
             if (!equals || !uriPermission.getUri().equals(this.persistableUri)) {
-                Log.d(TAG, "Releasing URI permission: " + uriPermission.getUri().toString());
+                Log.m587d(TAG, "Releasing URI permission: " + uriPermission.getUri().toString());
                 this.mCtx.getContentResolver().releasePersistableUriPermission(uriPermission.getUri(), PERSIST_MODE);
             } else {
                 z2 = true;

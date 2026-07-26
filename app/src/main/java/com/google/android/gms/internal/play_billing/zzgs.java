@@ -1,7 +1,7 @@
 package com.google.android.gms.internal.play_billing;
 
-import j$.util.concurrent.ConcurrentHashMap;
 import java.nio.charset.Charset;
+import p004j$.util.concurrent.ConcurrentHashMap;
 /* loaded from: classes.dex */
 public final class zzgs {
     public static final zzgs zzb = new zzgs();

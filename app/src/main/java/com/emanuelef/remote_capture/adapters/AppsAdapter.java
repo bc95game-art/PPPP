@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.model.AppDescriptor;
 import java.util.List;
 /* loaded from: classes.dex */
@@ -24,9 +24,9 @@ public class AppsAdapter extends RecyclerView.Adapter {
 
         public AppViewHolder(View view) {
             super(view);
-            this.textInListView = (TextView) view.findViewById(R.id.app_name);
-            this.imageInListView = (ImageView) view.findViewById(R.id.app_icon);
-            this.packageInListView = (TextView) view.findViewById(R.id.app_package);
+            this.textInListView = (TextView) view.findViewById(C0130R.C0132id.app_name);
+            this.imageInListView = (ImageView) view.findViewById(C0130R.C0132id.app_icon);
+            this.packageInListView = (TextView) view.findViewById(C0130R.C0132id.app_package);
         }
     }
 
@@ -67,7 +67,7 @@ public class AppsAdapter extends RecyclerView.Adapter {
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public AppViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View inflate = this.mLayoutInflater.inflate(R.layout.app_installed_item, viewGroup, false);
+        View inflate = this.mLayoutInflater.inflate(C0130R.layout.app_installed_item, viewGroup, false);
         AppViewHolder appViewHolder = new AppViewHolder(inflate);
         View.OnClickListener onClickListener = this.mListener;
         if (onClickListener != null) {

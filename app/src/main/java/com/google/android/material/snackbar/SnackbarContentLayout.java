@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.animation.AnimationUtils;
 import kotlin.LazyKt__LazyJVMKt;
 /* loaded from: classes.dex */
@@ -17,7 +17,7 @@ public class SnackbarContentLayout extends LinearLayout {
 
     public SnackbarContentLayout(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        LazyKt__LazyJVMKt.resolveThemeInterpolator(context, R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
+        LazyKt__LazyJVMKt.resolveThemeInterpolator(context, C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
     }
 
     public Button getActionView() {
@@ -31,8 +31,8 @@ public class SnackbarContentLayout extends LinearLayout {
     @Override // android.view.View
     public final void onFinishInflate() {
         super.onFinishInflate();
-        this.messageView = (TextView) findViewById(R.id.snackbar_text);
-        this.actionView = (Button) findViewById(R.id.snackbar_action);
+        this.messageView = (TextView) findViewById(C0130R.C0132id.snackbar_text);
+        this.actionView = (Button) findViewById(C0130R.C0132id.snackbar_action);
     }
 
     @Override // android.widget.LinearLayout, android.view.View
@@ -40,8 +40,8 @@ public class SnackbarContentLayout extends LinearLayout {
         boolean z;
         super.onMeasure(i, i2);
         if (getOrientation() != 1) {
-            int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.design_snackbar_padding_vertical_2lines);
-            int dimensionPixelSize2 = getResources().getDimensionPixelSize(R.dimen.design_snackbar_padding_vertical);
+            int dimensionPixelSize = getResources().getDimensionPixelSize(C0130R.dimen.design_snackbar_padding_vertical_2lines);
+            int dimensionPixelSize2 = getResources().getDimensionPixelSize(C0130R.dimen.design_snackbar_padding_vertical);
             Layout layout = this.messageView.getLayout();
             if (layout == null || layout.getLineCount() <= 1) {
                 z = false;

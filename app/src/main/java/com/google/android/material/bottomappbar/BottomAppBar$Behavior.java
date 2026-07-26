@@ -10,7 +10,7 @@ import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 /* loaded from: classes.dex */
 public class BottomAppBar$Behavior extends HideBottomViewOnScrollBehavior<Object> {
     public BottomAppBar$Behavior() {
-        new SearchView.AnonymousClass4(1, this);
+        new SearchView.View$OnLayoutChangeListenerC00314(1, this);
         new Rect();
     }
 
@@ -26,7 +26,7 @@ public class BottomAppBar$Behavior extends HideBottomViewOnScrollBehavior<Object
 
     public BottomAppBar$Behavior(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        new SearchView.AnonymousClass4(1, this);
+        new SearchView.View$OnLayoutChangeListenerC00314(1, this);
         new Rect();
     }
 }

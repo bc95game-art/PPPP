@@ -34,10 +34,10 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreference;
 import com.android.billingclient.api.zzbv;
 import com.emanuelef.remote_capture.Billing;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.MitmAddon;
 import com.emanuelef.remote_capture.PlayBilling;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.VpnReconnectService;
 import com.emanuelef.remote_capture.activities.BaseActivity;
@@ -93,8 +93,8 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
                 return true;
             }
             zzbv zzbvVar = new zzbv(requireContext());
-            zzbvVar.setMessage(R.string.tls_decryption_with_root_msg);
-            zzbvVar.setPositiveButton(R.string.ok, new AppsFragment$$ExternalSyntheticLambda0(3, this));
+            zzbvVar.setMessage(C0130R.string.tls_decryption_with_root_msg);
+            zzbvVar.setPositiveButton(C0130R.string.ok, new AppsFragment$$ExternalSyntheticLambda0(3, this));
             zzbvVar.show();
             return false;
         }
@@ -189,7 +189,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
             boolean booleanValue = bool.booleanValue();
             Context requireContext = requireContext();
             if (booleanValue && Os.sysconf(OsConstants._SC_PAGE_SIZE) == 16384) {
-                Utils.showToastLong(requireContext, R.string.tls_decryption_not_supported_16KB, new Object[0]);
+                Utils.showToastLong(requireContext, C0130R.string.tls_decryption_not_supported_16KB, new Object[0]);
                 return false;
             } else if (!checkDecrpytionWithRoot(rootCaptureEnabled(), bool.booleanValue())) {
                 return false;
@@ -218,9 +218,9 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         private void refreshInterfaces() {
             ArrayList arrayList = new ArrayList();
             ArrayList arrayList2 = new ArrayList();
-            arrayList.add(getString(R.string.internet));
+            arrayList.add(getString(C0130R.string.internet));
             arrayList2.add("@inet");
-            arrayList.add(getString(R.string.all_interfaces));
+            arrayList.add(getString(C0130R.string.all_interfaces));
             arrayList2.add("any");
             try {
                 Enumeration<NetworkInterface> networkInterfaces = Utils.getNetworkInterfaces();
@@ -291,7 +291,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
                 requirePreference.setVisible(true);
                 LocaleList applicationLocales = ((LocaleManager) requireContext().getSystemService(LocaleManager.class)).getApplicationLocales();
                 if (applicationLocales.equals(LocaleList.getEmptyLocaleList())) {
-                    requirePreference.setSummary(getString(R.string.system_default));
+                    requirePreference.setSummary(getString(C0130R.string.system_default));
                 } else if (!applicationLocales.isEmpty()) {
                     requirePreference.setSummary(applicationLocales.get(0).getDisplayName());
                 }
@@ -302,7 +302,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
             String[] strArr = new String[supportedLocales.length + 1];
             CharSequence[] charSequenceArr = new CharSequence[supportedLocales.length + 1];
             strArr[0] = "system";
-            charSequenceArr[0] = getString(R.string.system_default);
+            charSequenceArr[0] = getString(C0130R.string.system_default);
             int i = 0;
             while (i < supportedLocales.length) {
                 Locale forLanguageTag = Locale.forLanguageTag(supportedLocales[i]);
@@ -396,7 +396,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
                 PreferenceGroupAdapter preferenceGroupAdapter = preferenceScreen.mListener;
                 if (preferenceGroupAdapter != null) {
                     Handler handler = preferenceGroupAdapter.mHandler;
-                    PreferenceGroup.AnonymousClass1 r0 = preferenceGroupAdapter.mSyncRunnable;
+                    PreferenceGroup.RunnableC00921 r0 = preferenceGroupAdapter.mSyncRunnable;
                     handler.removeCallbacks(r0);
                     handler.post(r0);
                     return;
@@ -457,7 +457,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         @Override // androidx.preference.PreferenceFragmentCompat
         public void onCreatePreferences(Bundle bundle, String str) {
             String stringExtra;
-            setPreferencesFromResource(R.xml.root_preferences, str);
+            setPreferencesFromResource(C0130R.xml.root_preferences, str);
             setupExporterPrefs();
             setupHttpServerPrefs();
             setupTrafficInspectionPrefs();
@@ -483,7 +483,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         public void onResume() {
             super.onResume();
             if (this.mHasStartedMitmWizard && !MitmAddon.needsSetup(requireContext())) {
-                Log.d(SettingsActivity.TAG, "mitm setup complete, enabling");
+                Log.m587d(SettingsActivity.TAG, "mitm setup complete, enabling");
                 this.mTlsDecryption.setChecked(true);
                 this.mFullPayloadEnabled.setChecked(true);
             }
@@ -507,7 +507,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
     @Override // androidx.activity.ComponentActivity, android.app.Activity
     public void onBackPressed() {
         Intent intent;
-        if (!(getSupportFragmentManager().findFragmentById(R.id.fragment) instanceof SettingsFragment) || (intent = getIntent()) == null || !ACTION_LANG_RESTART.equals(intent.getAction())) {
+        if (!(getSupportFragmentManager().findFragmentById(C0130R.C0132id.fragment) instanceof SettingsFragment) || (intent = getIntent()) == null || !ACTION_LANG_RESTART.equals(intent.getAction())) {
             super.onBackPressed();
             return;
         }
@@ -535,9 +535,9 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 
     @Override // androidx.fragment.app.FragmentManager.OnBackStackChangedListener
     public void onBackStackChanged() {
-        Fragment findFragmentById = getSupportFragmentManager().findFragmentById(R.id.fragment);
+        Fragment findFragmentById = getSupportFragmentManager().findFragmentById(C0130R.C0132id.fragment);
         if (findFragmentById instanceof SettingsFragment) {
-            setTitle(R.string.title_activity_settings);
+            setTitle(C0130R.string.title_activity_settings);
             View view = findFragmentById.getView();
             WindowInsetsCompat windowInsetsCompat = this.mInsets;
             if (windowInsetsCompat != null && view != null) {
@@ -549,13 +549,13 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.title_activity_settings);
+        setTitle(C0130R.string.title_activity_settings);
         displayBackAction();
-        setContentView(R.layout.fragment_activity);
+        setContentView(C0130R.layout.fragment_activity);
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.getClass();
         BackStackRecord backStackRecord = new BackStackRecord(supportFragmentManager);
-        backStackRecord.replace(R.id.fragment, new SettingsFragment(), "root");
+        backStackRecord.replace(C0130R.C0132id.fragment, new SettingsFragment(), "root");
         backStackRecord.commit();
         getSupportFragmentManager().mBackStackChangeListeners.add(this);
     }
@@ -583,16 +583,16 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
     public boolean onPreferenceStartFragment(PreferenceFragmentCompat preferenceFragmentCompat, Preference preference) {
         Fragment fragment;
         String str = preference.mKey;
-        Log.d(TAG, "startFragment: " + str);
+        Log.m587d(TAG, "startFragment: " + str);
         if (str.equals("geolocation")) {
             fragment = new GeoipSettings();
-            setTitle(R.string.geolocation);
+            setTitle(C0130R.string.geolocation);
         } else if (str.equals("dns_settings")) {
             fragment = new DnsSettings();
-            setTitle(R.string.dns_servers);
+            setTitle(C0130R.string.dns_servers);
         } else if (str.equals("socks5_settings")) {
             fragment = new Socks5Settings();
-            setTitle(R.string.socks5_proxy);
+            setTitle(C0130R.string.socks5_proxy);
         } else {
             fragment = null;
         }
@@ -602,7 +602,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.getClass();
         BackStackRecord backStackRecord = new BackStackRecord(supportFragmentManager);
-        backStackRecord.replace(R.id.fragment, fragment, str);
+        backStackRecord.replace(C0130R.C0132id.fragment, fragment, str);
         backStackRecord.mTransition = 4097;
         backStackRecord.addToBackStack(str);
         backStackRecord.commit();

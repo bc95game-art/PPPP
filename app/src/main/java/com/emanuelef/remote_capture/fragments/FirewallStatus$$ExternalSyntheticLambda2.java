@@ -22,10 +22,10 @@ public final /* synthetic */ class FirewallStatus$$ExternalSyntheticLambda2 impl
     public final void onClick(DialogInterface dialogInterface, int i) {
         switch (this.$r8$classId) {
             case 0:
-                FirewallStatus.m193$r8$lambda$2DYPzqRsLZXWDwgb1FRTrNJqlw((FirewallStatus) this.f$0, (MenuItem) this.f$1, dialogInterface, i);
+                FirewallStatus.m823$r8$lambda$2DYPzqRsLZXWDwgb1FRTrNJqlw((FirewallStatus) this.f$0, (MenuItem) this.f$1, dialogInterface, i);
                 return;
             case 1:
-                EditCtrlPermissions.m123$r8$lambda$HrYrgNtxbzyo9Sv_KNxSBy7INs((EditCtrlPermissions) this.f$0, (String) this.f$1, dialogInterface, i);
+                EditCtrlPermissions.m753$r8$lambda$HrYrgNtxbzyo9Sv_KNxSBy7INs((EditCtrlPermissions) this.f$0, (String) this.f$1, dialogInterface, i);
                 return;
             case 2:
                 ConnectionPayload.$r8$lambda$QHvExettGGJNvFI9t6fS0VcsXhg((ConnectionPayload) this.f$0, (SharedPreferences) this.f$1, dialogInterface, i);
@@ -40,7 +40,7 @@ public final /* synthetic */ class FirewallStatus$$ExternalSyntheticLambda2 impl
                 HttpPayloadFragment.$r8$lambda$nidoN_jkwUUZFCT5zeVDqNNoaKY((HttpPayloadFragment) this.f$0, (SharedPreferences) this.f$1, dialogInterface, i);
                 return;
             default:
-                PortMapFragment.m226$r8$lambda$zX4SySFKr0E1Y1OS_i0IpquZ38((PortMapFragment) this.f$0, (ActionMode) this.f$1, dialogInterface, i);
+                PortMapFragment.m856$r8$lambda$zX4SySFKr0E1Y1OS_i0IpquZ38((PortMapFragment) this.f$0, (ActionMode) this.f$1, dialogInterface, i);
                 return;
         }
     }

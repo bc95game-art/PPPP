@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.FakeDrag;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import java.util.Calendar;
 import java.util.WeakHashMap;
 /* loaded from: classes.dex */
@@ -19,21 +19,21 @@ public final class MonthsPagerAdapter extends RecyclerView.Adapter {
     public final int itemHeight;
     public final FakeDrag onDayClickListener;
 
-    /* renamed from: com.google.android.material.datepicker.MonthsPagerAdapter$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.datepicker.MonthsPagerAdapter$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 implements AdapterView.OnItemClickListener {
+    public final class C01831 implements AdapterView.OnItemClickListener {
         public final /* synthetic */ MaterialCalendarGridView val$monthGrid;
 
-        public AnonymousClass1(MaterialCalendarGridView materialCalendarGridView) {
+        public C01831(MaterialCalendarGridView materialCalendarGridView) {
             this.val$monthGrid = materialCalendarGridView;
         }
 
         @Override // android.widget.AdapterView.OnItemClickListener
         public final void onItemClick(AdapterView adapterView, View view, int i, long j) {
             MaterialCalendarGridView materialCalendarGridView = this.val$monthGrid;
-            MonthAdapter adapter = materialCalendarGridView.mo251getAdapter();
+            MonthAdapter adapter = materialCalendarGridView.mo881getAdapter();
             if (i >= adapter.firstPositionInMonth() && i <= adapter.lastPositionInMonth()) {
-                if (materialCalendarGridView.mo251getAdapter().getItem(i).longValue() >= ((MaterialCalendar) MonthsPagerAdapter.this.onDayClickListener.mScrollEventAdapter).calendarConstraints.validator.point) {
+                if (materialCalendarGridView.mo881getAdapter().getItem(i).longValue() >= ((MaterialCalendar) MonthsPagerAdapter.this.onDayClickListener.mScrollEventAdapter).calendarConstraints.validator.point) {
                     throw null;
                 }
             }
@@ -47,11 +47,11 @@ public final class MonthsPagerAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(LinearLayout linearLayout, boolean z) {
             super(linearLayout);
-            TextView textView = (TextView) linearLayout.findViewById(R.id.month_title);
+            TextView textView = (TextView) linearLayout.findViewById(C0130R.C0132id.month_title);
             this.monthTitle = textView;
             WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
-            new ViewCompat.AnonymousClass1(R.id.tag_accessibility_heading, Boolean.class, 0, 28, 3).set(textView, Boolean.TRUE);
-            this.monthGrid = (MaterialCalendarGridView) linearLayout.findViewById(R.id.month_grid);
+            new ViewCompat.C00461(C0130R.C0132id.tag_accessibility_heading, Boolean.class, 0, 28, 3).set(textView, Boolean.TRUE);
+            this.monthGrid = (MaterialCalendarGridView) linearLayout.findViewById(C0130R.C0132id.month_grid);
             if (!z) {
                 textView.setVisibility(8);
             }
@@ -66,9 +66,9 @@ public final class MonthsPagerAdapter extends RecyclerView.Adapter {
         if (month.firstOfMonth.compareTo(month3.firstOfMonth) > 0) {
             throw new IllegalArgumentException("firstPage cannot be after currentPage");
         } else if (month3.firstOfMonth.compareTo(month2.firstOfMonth) <= 0) {
-            int dimensionPixelSize = contextThemeWrapper.getResources().getDimensionPixelSize(R.dimen.mtrl_calendar_day_height) * MonthAdapter.MAXIMUM_WEEKS;
+            int dimensionPixelSize = contextThemeWrapper.getResources().getDimensionPixelSize(C0130R.dimen.mtrl_calendar_day_height) * MonthAdapter.MAXIMUM_WEEKS;
             if (MaterialDatePicker.readMaterialCalendarStyleBoolean(contextThemeWrapper, 16843277)) {
-                i = contextThemeWrapper.getResources().getDimensionPixelSize(R.dimen.mtrl_calendar_day_height);
+                i = contextThemeWrapper.getResources().getDimensionPixelSize(C0130R.dimen.mtrl_calendar_day_height);
             } else {
                 i = 0;
             }
@@ -108,19 +108,19 @@ public final class MonthsPagerAdapter extends RecyclerView.Adapter {
         dayCopy.add(2, i);
         Month month = new Month(dayCopy);
         viewHolder2.monthTitle.setText(month.getLongName());
-        MaterialCalendarGridView materialCalendarGridView = (MaterialCalendarGridView) viewHolder2.monthGrid.findViewById(R.id.month_grid);
-        if (materialCalendarGridView.mo251getAdapter() == null || !month.equals(materialCalendarGridView.mo251getAdapter().month)) {
+        MaterialCalendarGridView materialCalendarGridView = (MaterialCalendarGridView) viewHolder2.monthGrid.findViewById(C0130R.C0132id.month_grid);
+        if (materialCalendarGridView.mo881getAdapter() == null || !month.equals(materialCalendarGridView.mo881getAdapter().month)) {
             new MonthAdapter(month, calendarConstraints);
             throw null;
         }
         materialCalendarGridView.invalidate();
-        materialCalendarGridView.mo251getAdapter().getClass();
+        materialCalendarGridView.mo881getAdapter().getClass();
         throw null;
     }
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.mtrl_calendar_month_labeled, viewGroup, false);
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(viewGroup.getContext()).inflate(C0130R.layout.mtrl_calendar_month_labeled, viewGroup, false);
         if (!MaterialDatePicker.readMaterialCalendarStyleBoolean(viewGroup.getContext(), 16843277)) {
             return new ViewHolder(linearLayout, false);
         }

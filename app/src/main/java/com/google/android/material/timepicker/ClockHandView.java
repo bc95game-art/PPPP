@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.internal.ViewUtils;
@@ -37,9 +37,9 @@ public class ClockHandView extends View {
     public final RectF selectorBox = new RectF();
     public int currentLevel = 1;
 
-    /* renamed from: com.google.android.material.timepicker.ClockHandView$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.timepicker.ClockHandView$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 extends AnimatorListenerAdapter {
+    public final class C02141 extends AnimatorListenerAdapter {
         @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
         public final void onAnimationCancel(Animator animator) {
             animator.end();
@@ -51,19 +51,19 @@ public class ClockHandView extends View {
     }
 
     public ClockHandView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet, R.attr.materialClockStyle);
+        super(context, attributeSet, C0130R.attr.materialClockStyle);
         ValueAnimator valueAnimator = new ValueAnimator();
         this.rotationAnimator = valueAnimator;
         Paint paint = new Paint();
         this.paint = paint;
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.ClockHandView, R.attr.materialClockStyle, R.style.Widget_MaterialComponents_TimePicker_Clock);
-        LazyKt__LazyJVMKt.resolveThemeDuration(context, R.attr.motionDurationLong2, 200);
-        LazyKt__LazyJVMKt.resolveThemeInterpolator(context, R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.ClockHandView, C0130R.attr.materialClockStyle, C0130R.style.Widget_MaterialComponents_TimePicker_Clock);
+        LazyKt__LazyJVMKt.resolveThemeDuration(context, C0130R.attr.motionDurationLong2, 200);
+        LazyKt__LazyJVMKt.resolveThemeInterpolator(context, C0130R.attr.motionEasingEmphasizedInterpolator, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
         this.circleRadius = obtainStyledAttributes.getDimensionPixelSize(1, 0);
         this.selectorRadius = obtainStyledAttributes.getDimensionPixelSize(2, 0);
         Resources resources = getResources();
-        this.selectorStrokeWidth = resources.getDimensionPixelSize(R.dimen.material_clock_hand_stroke_width);
-        this.centerDotRadius = resources.getDimensionPixelSize(R.dimen.material_clock_hand_center_dot_radius);
+        this.selectorStrokeWidth = resources.getDimensionPixelSize(C0130R.dimen.material_clock_hand_stroke_width);
+        this.centerDotRadius = resources.getDimensionPixelSize(C0130R.dimen.material_clock_hand_center_dot_radius);
         int color = obtainStyledAttributes.getColor(0, 0);
         paint.setAntiAlias(true);
         paint.setColor(color);

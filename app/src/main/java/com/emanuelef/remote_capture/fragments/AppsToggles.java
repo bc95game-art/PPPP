@@ -14,8 +14,8 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import com.emanuelef.remote_capture.AppsLoader;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.adapters.AppsTogglesAdapter;
 import com.emanuelef.remote_capture.interfaces.AppsLoadListener;
@@ -39,27 +39,27 @@ public abstract class AppsToggles extends Fragment implements AppsLoadListener, 
     @Override // com.emanuelef.remote_capture.interfaces.AppsLoadListener
     public void onAppsInfoLoaded(List<AppDescriptor> list) {
         this.mAdapter.setApps(list);
-        this.mEmptyText.setText(R.string.no_matches_found);
+        this.mEmptyText.setText(C0130R.string.no_matches_found);
     }
 
     public boolean onBackPressed() {
-        Log.d(TAG, "onBackPressed");
+        Log.m587d(TAG, "onBackPressed");
         return Utils.backHandleSearchview(this.mSearchView);
     }
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.search_menu, menu);
-        MenuItem findItem = menu.findItem(R.id.search);
+        menuInflater.inflate(C0130R.C0134menu.search_menu, menu);
+        MenuItem findItem = menu.findItem(C0130R.C0132id.search);
         SearchView searchView = (SearchView) findItem.getActionView();
         this.mSearchView = searchView;
         searchView.setOnQueryTextListener(this);
         String str = this.mQueryToApply;
         if (str != null && !str.isEmpty()) {
-            Log.d(TAG, "Initial filter: " + this.mQueryToApply);
+            Log.m587d(TAG, "Initial filter: " + this.mQueryToApply);
             Utils.setSearchQuery(this.mSearchView, findItem, this.mQueryToApply);
         }
-        MenuItem findItem2 = menu.findItem(R.id.show_system_apps);
+        MenuItem findItem2 = menu.findItem(C0130R.C0132id.show_system_apps);
         if (findItem2 != null) {
             findItem2.setChecked(sShowSystemApps);
         }
@@ -68,7 +68,7 @@ public abstract class AppsToggles extends Fragment implements AppsLoadListener, 
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        return layoutInflater.inflate(R.layout.apps_stats, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.apps_stats, viewGroup, false);
     }
 
     public /* bridge */ /* synthetic */ void onMenuClosed(Menu menu) {
@@ -76,7 +76,7 @@ public abstract class AppsToggles extends Fragment implements AppsLoadListener, 
 
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() != R.id.show_system_apps) {
+        if (menuItem.getItemId() != C0130R.C0132id.show_system_apps) {
             return false;
         }
         boolean z = !sShowSystemApps;
@@ -115,7 +115,7 @@ public abstract class AppsToggles extends Fragment implements AppsLoadListener, 
         SearchView searchView = this.mSearchView;
         if (searchView != null) {
             String charSequence = searchView.getQuery().toString();
-            Log.d(TAG, "Saving filter: " + charSequence);
+            Log.m587d(TAG, "Saving filter: " + charSequence);
             bundle.putString("filter", charSequence);
         }
     }
@@ -123,21 +123,21 @@ public abstract class AppsToggles extends Fragment implements AppsLoadListener, 
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(View view, Bundle bundle) {
         String string;
-        EmptyRecyclerView emptyRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.recycler_view);
+        EmptyRecyclerView emptyRecyclerView = (EmptyRecyclerView) view.findViewById(C0130R.C0132id.recycler_view);
         emptyRecyclerView.setLayoutManager(new EmptyRecyclerView.MyLinearLayoutManager(getContext()));
         AppsTogglesAdapter appsTogglesAdapter = new AppsTogglesAdapter(requireContext(), getCheckedApps());
         this.mAdapter = appsTogglesAdapter;
         emptyRecyclerView.setAdapter(appsTogglesAdapter);
         this.mAdapter.setAppToggleListener(this);
-        TextView textView = (TextView) view.findViewById(R.id.no_apps);
+        TextView textView = (TextView) view.findViewById(C0130R.C0132id.no_apps);
         this.mEmptyText = textView;
-        textView.setText(R.string.loading_apps);
+        textView.setText(C0130R.string.loading_apps);
         emptyRecyclerView.setEmptyView(this.mEmptyText);
         if (!(bundle == null || (string = bundle.getString("filter")) == null || string.isEmpty())) {
             this.mQueryToApply = string;
         }
         this.mAdapter.setShowSystemApps(sShowSystemApps);
-        Log.d(TAG, "mQueryToApply: " + this.mQueryToApply);
+        Log.m587d(TAG, "mQueryToApply: " + this.mQueryToApply);
         new AppsLoader((AppCompatActivity) requireActivity()).setAppsLoadListener(this).loadAllApps();
     }
 }

@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.viewpager.widget.ViewPager;
 import com.github.appintro.AppIntroPageTransformerType;
-import com.github.appintro.R;
+import com.github.appintro.C0161R;
 import com.github.appintro.internal.LogHelper;
 import kotlin.jvm.internal.DefaultConstructorMarker;
 import kotlin.jvm.internal.Intrinsics;
@@ -35,9 +35,9 @@ public final class ViewPagerTransformer implements ViewPager.PageTransformer {
     }
 
     private final void applyParallax(View view, float f) {
-        ((TextView) view.findViewById(R.id.title)).setTranslationX(computeParallax(view, f, this.titlePF));
-        ((ImageView) view.findViewById(R.id.image)).setTranslationX(computeParallax(view, f, this.imagePF));
-        ((TextView) view.findViewById(R.id.description)).setTranslationX(computeParallax(view, f, this.descriptionPF));
+        ((TextView) view.findViewById(C0161R.C0163id.title)).setTranslationX(computeParallax(view, f, this.titlePF));
+        ((ImageView) view.findViewById(C0161R.C0163id.image)).setTranslationX(computeParallax(view, f, this.imagePF));
+        ((TextView) view.findViewById(C0161R.C0163id.description)).setTranslationX(computeParallax(view, f, this.descriptionPF));
     }
 
     private final float computeParallax(View view, float f, double d) {
@@ -75,7 +75,7 @@ public final class ViewPagerTransformer implements ViewPager.PageTransformer {
             try {
                 applyParallax(view, f);
             } catch (IllegalStateException e) {
-                LogHelper.e(TAG, "Failed to apply parallax effect", e);
+                LogHelper.m575e(TAG, "Failed to apply parallax effect", e);
             }
         }
     }

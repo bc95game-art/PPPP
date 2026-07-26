@@ -11,7 +11,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.gms.common.zzc;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
@@ -177,20 +177,20 @@ public final class BadgeState {
             i = 0;
         }
         if (i == 0) {
-            i2 = R.style.Widget_MaterialComponents_Badge;
+            i2 = C0130R.style.Widget_MaterialComponents_Badge;
         } else {
             i2 = i;
         }
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context, attributeSet, R$styleable.Badge, R.attr.badgeStyle, i2, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context, attributeSet, R$styleable.Badge, C0130R.attr.badgeStyle, i2, new int[0]);
         Resources resources = context.getResources();
         this.badgeRadius = obtainStyledAttributes.getDimensionPixelSize(5, -1);
-        this.horizontalInset = context.getResources().getDimensionPixelSize(R.dimen.mtrl_badge_horizontal_edge_offset);
-        this.horizontalInsetWithText = context.getResources().getDimensionPixelSize(R.dimen.mtrl_badge_text_horizontal_edge_offset);
+        this.horizontalInset = context.getResources().getDimensionPixelSize(C0130R.dimen.mtrl_badge_horizontal_edge_offset);
+        this.horizontalInsetWithText = context.getResources().getDimensionPixelSize(C0130R.dimen.mtrl_badge_text_horizontal_edge_offset);
         this.badgeWithTextRadius = obtainStyledAttributes.getDimensionPixelSize(15, -1);
-        this.badgeWidth = obtainStyledAttributes.getDimension(13, resources.getDimension(R.dimen.m3_badge_size));
-        this.badgeWithTextWidth = obtainStyledAttributes.getDimension(18, resources.getDimension(R.dimen.m3_badge_with_text_size));
-        this.badgeHeight = obtainStyledAttributes.getDimension(4, resources.getDimension(R.dimen.m3_badge_size));
-        this.badgeWithTextHeight = obtainStyledAttributes.getDimension(14, resources.getDimension(R.dimen.m3_badge_with_text_size));
+        this.badgeWidth = obtainStyledAttributes.getDimension(13, resources.getDimension(C0130R.dimen.m3_badge_size));
+        this.badgeWithTextWidth = obtainStyledAttributes.getDimension(18, resources.getDimension(C0130R.dimen.m3_badge_with_text_size));
+        this.badgeHeight = obtainStyledAttributes.getDimension(4, resources.getDimension(C0130R.dimen.m3_badge_size));
+        this.badgeWithTextHeight = obtainStyledAttributes.getDimension(14, resources.getDimension(C0130R.dimen.m3_badge_with_text_size));
         this.offsetAlignmentMode = obtainStyledAttributes.getInt(25, 1);
         this.badgeFixedEdge = obtainStyledAttributes.getInt(2, 0);
         State state2 = this.currentState;
@@ -213,12 +213,12 @@ public final class BadgeState {
         State state3 = this.currentState;
         state3.contentDescriptionForText = state.contentDescriptionForText;
         CharSequence charSequence = state.contentDescriptionNumberless;
-        state3.contentDescriptionNumberless = charSequence == null ? context.getString(R.string.mtrl_badge_numberless_content_description) : charSequence;
+        state3.contentDescriptionNumberless = charSequence == null ? context.getString(C0130R.string.mtrl_badge_numberless_content_description) : charSequence;
         State state4 = this.currentState;
         int i24 = state.contentDescriptionQuantityStrings;
-        state4.contentDescriptionQuantityStrings = i24 == 0 ? R.plurals.mtrl_badge_content_description : i24;
+        state4.contentDescriptionQuantityStrings = i24 == 0 ? C0130R.plurals.mtrl_badge_content_description : i24;
         int i25 = state.contentDescriptionExceedsMaxBadgeNumberRes;
-        state4.contentDescriptionExceedsMaxBadgeNumberRes = i25 == 0 ? R.string.mtrl_exceed_max_badge_number_content_description : i25;
+        state4.contentDescriptionExceedsMaxBadgeNumberRes = i25 == 0 ? C0130R.string.mtrl_exceed_max_badge_number_content_description : i25;
         Boolean bool = state.isVisible;
         if (bool == null || bool.booleanValue()) {
             z = true;
@@ -235,7 +235,7 @@ public final class BadgeState {
         State state7 = this.currentState;
         Integer num = state.badgeShapeAppearanceResId;
         if (num == null) {
-            i3 = obtainStyledAttributes.getResourceId(6, R.style.ShapeAppearance_M3_Sys_Shape_Corner_Full);
+            i3 = obtainStyledAttributes.getResourceId(6, C0130R.style.ShapeAppearance_M3_Sys_Shape_Corner_Full);
         } else {
             i3 = num.intValue();
         }
@@ -251,7 +251,7 @@ public final class BadgeState {
         State state9 = this.currentState;
         Integer num3 = state.badgeWithTextShapeAppearanceResId;
         if (num3 == null) {
-            i5 = obtainStyledAttributes.getResourceId(16, R.style.ShapeAppearance_M3_Sys_Shape_Corner_Full);
+            i5 = obtainStyledAttributes.getResourceId(16, C0130R.style.ShapeAppearance_M3_Sys_Shape_Corner_Full);
         } else {
             i5 = num3.intValue();
         }
@@ -275,7 +275,7 @@ public final class BadgeState {
         State state12 = this.currentState;
         Integer num6 = state.badgeTextAppearanceResId;
         if (num6 == null) {
-            i8 = obtainStyledAttributes.getResourceId(9, R.style.TextAppearance_MaterialComponents_Badge);
+            i8 = obtainStyledAttributes.getResourceId(9, C0130R.style.TextAppearance_MaterialComponents_Badge);
         } else {
             i8 = num6.intValue();
         }
@@ -327,7 +327,7 @@ public final class BadgeState {
         State state14 = this.currentState;
         Integer num9 = state.badgeHorizontalPadding;
         if (num9 == null) {
-            i10 = obtainStyledAttributes.getDimensionPixelSize(12, resources.getDimensionPixelSize(R.dimen.mtrl_badge_long_text_horizontal_padding));
+            i10 = obtainStyledAttributes.getDimensionPixelSize(12, resources.getDimensionPixelSize(C0130R.dimen.mtrl_badge_long_text_horizontal_padding));
         } else {
             i10 = num9.intValue();
         }
@@ -335,7 +335,7 @@ public final class BadgeState {
         State state15 = this.currentState;
         Integer num10 = state.badgeVerticalPadding;
         if (num10 == null) {
-            i11 = obtainStyledAttributes.getDimensionPixelSize(11, resources.getDimensionPixelSize(R.dimen.m3_badge_with_text_vertical_padding));
+            i11 = obtainStyledAttributes.getDimensionPixelSize(11, resources.getDimensionPixelSize(C0130R.dimen.m3_badge_with_text_vertical_padding));
         } else {
             i11 = num10.intValue();
         }

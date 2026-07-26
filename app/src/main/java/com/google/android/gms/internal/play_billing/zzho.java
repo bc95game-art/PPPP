@@ -2,8 +2,11 @@ package com.google.android.gms.internal.play_billing;
 
 import java.lang.reflect.Field;
 import java.nio.Buffer;
+import java.nio.ByteOrder;
 import java.security.AccessController;
 import java.security.PrivilegedExceptionAction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import libcore.io.Memory;
 import sun.misc.Unsafe;
 /* loaded from: classes.dex */
@@ -18,11 +21,133 @@ public abstract class zzho {
 
     /* JADX WARN: Removed duplicated region for block: B:32:0x015b  */
     static {
-        /*
-            Method dump skipped, instructions count: 351
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.gms.internal.play_billing.zzho.<clinit>():void");
+        char c;
+        boolean z;
+        Field zzB;
+        zzhn zzhnVar;
+        Unsafe zzg2 = zzg();
+        zzc = zzg2;
+        int i = zzdv.$r8$clinit;
+        Class<?> cls = Long.TYPE;
+        boolean zzv = zzv(cls);
+        Class<?> cls2 = Integer.TYPE;
+        boolean zzv2 = zzv(cls2);
+        zzhn zzhnVar2 = null;
+        if (zzg2 != null) {
+            if (zzv) {
+                zzhnVar2 = new zzhn(zzg2);
+            } else if (zzv2) {
+                zzhnVar2 = new zzhn(zzg2);
+            }
+        }
+        zzf = zzhnVar2;
+        boolean z2 = true;
+        boolean z3 = false;
+        if (zzhnVar2 != null) {
+            try {
+                Class<?> cls3 = zzhnVar2.zza.getClass();
+                cls3.getMethod("objectFieldOffset", Field.class);
+                cls3.getMethod("getLong", Object.class, cls);
+                if (zzB() != null) {
+                    z3 = true;
+                }
+            } catch (Throwable th) {
+                c = 0;
+                Logger.getLogger(zzho.class.getName()).logp(Level.WARNING, "com.google.protobuf.UnsafeUtil", "logMissingMethod", "platform method missing - proto runtime falling back to safer methods: ".concat(th.toString()));
+                z3 = false;
+            }
+        }
+        c = 0;
+        zzg = z3;
+        zzhn zzhnVar3 = zzf;
+        if (zzhnVar3 != null) {
+            try {
+                Class<?> cls4 = zzhnVar3.zza.getClass();
+                Class<?>[] clsArr = new Class[1];
+                clsArr[c] = Field.class;
+                cls4.getMethod("objectFieldOffset", clsArr);
+                Class<?>[] clsArr2 = new Class[1];
+                clsArr2[c] = Class.class;
+                cls4.getMethod("arrayBaseOffset", clsArr2);
+                Class<?>[] clsArr3 = new Class[1];
+                clsArr3[c] = Class.class;
+                cls4.getMethod("arrayIndexScale", clsArr3);
+                Class<?>[] clsArr4 = new Class[2];
+                clsArr4[c] = Object.class;
+                clsArr4[1] = cls;
+                cls4.getMethod("getInt", clsArr4);
+                Class<?>[] clsArr5 = new Class[3];
+                clsArr5[c] = Object.class;
+                clsArr5[1] = cls;
+                clsArr5[2] = cls2;
+                cls4.getMethod("putInt", clsArr5);
+                Class<?>[] clsArr6 = new Class[2];
+                clsArr6[c] = Object.class;
+                clsArr6[1] = cls;
+                cls4.getMethod("getLong", clsArr6);
+                Class<?>[] clsArr7 = new Class[3];
+                clsArr7[c] = Object.class;
+                clsArr7[1] = cls;
+                clsArr7[2] = cls;
+                cls4.getMethod("putLong", clsArr7);
+                Class<?>[] clsArr8 = new Class[2];
+                clsArr8[c] = Object.class;
+                clsArr8[1] = cls;
+                cls4.getMethod("getObject", clsArr8);
+                Class<?>[] clsArr9 = new Class[3];
+                clsArr9[c] = Object.class;
+                clsArr9[1] = cls;
+                clsArr9[2] = Object.class;
+                cls4.getMethod("putObject", clsArr9);
+                z = true;
+            } catch (Throwable th2) {
+                Logger.getLogger(zzho.class.getName()).logp(Level.WARNING, "com.google.protobuf.UnsafeUtil", "logMissingMethod", "platform method missing - proto runtime falling back to safer methods: ".concat(th2.toString()));
+            }
+            zzh = z;
+            zza = zzz(byte[].class);
+            zzz(boolean[].class);
+            zzA(boolean[].class);
+            zzz(int[].class);
+            zzA(int[].class);
+            zzz(long[].class);
+            zzA(long[].class);
+            zzz(float[].class);
+            zzA(float[].class);
+            zzz(double[].class);
+            zzA(double[].class);
+            zzz(Object[].class);
+            zzA(Object[].class);
+            zzB = zzB();
+            if (!(zzB == null || (zzhnVar = zzf) == null)) {
+                zzhnVar.zza.objectFieldOffset(zzB);
+            }
+            if (ByteOrder.nativeOrder() != ByteOrder.BIG_ENDIAN) {
+                z2 = false;
+            }
+            zzb = z2;
+        }
+        z = false;
+        zzh = z;
+        zza = zzz(byte[].class);
+        zzz(boolean[].class);
+        zzA(boolean[].class);
+        zzz(int[].class);
+        zzA(int[].class);
+        zzz(long[].class);
+        zzA(long[].class);
+        zzz(float[].class);
+        zzA(float[].class);
+        zzz(double[].class);
+        zzA(double[].class);
+        zzz(Object[].class);
+        zzA(Object[].class);
+        zzB = zzB();
+        if (zzB == null) {
+            zzhnVar.zza.objectFieldOffset(zzB);
+        }
+        if (ByteOrder.nativeOrder() != ByteOrder.BIG_ENDIAN) {
+        }
+        zzb = z2;
     }
 
     public static void zzA(Class cls) {

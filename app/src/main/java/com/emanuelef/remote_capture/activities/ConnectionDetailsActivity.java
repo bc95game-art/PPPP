@@ -15,10 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.ConnectionOverview;
 import com.emanuelef.remote_capture.fragments.ConnectionPayload;
@@ -91,15 +91,15 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
         public int getPageTitle(int i) {
             int i2 = getVisibleTabsPositions()[i];
             if (i2 == 1) {
-                return R.string.websocket;
+                return C0130R.string.websocket;
             }
             if (i2 == 2) {
-                return R.string.http;
+                return C0130R.string.http;
             }
             if (i2 != 3) {
-                return R.string.overview;
+                return C0130R.string.overview;
             }
-            return R.string.payload;
+            return C0130R.string.payload;
         }
 
         public int[] getVisibleTabsPositions() {
@@ -174,7 +174,7 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
             ConnectionDescriptor connById = connsRegister.getConnById(this.mConnId);
             this.mConn = connById;
             if (connById != null) {
-                setTitle(String.format(getString(R.string.connection_number), Integer.valueOf(this.mConnId + 1)));
+                setTitle(String.format(getString(C0130R.string.connection_number), Integer.valueOf(this.mConnId + 1)));
                 unregisterConnsListener();
                 int currentItem = this.mPager.getCurrentItem();
                 this.mHasPayload = false;
@@ -194,7 +194,7 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
                 updateMenuVisibility();
                 return;
             }
-            Log.w(TAG, "Connection with ID " + this.mConnId + " not found");
+            Log.m581w(TAG, "Connection with ID " + this.mConnId + " not found");
         }
     }
 
@@ -262,7 +262,7 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
     private void registerConnsListener() {
         ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
         if (connsRegister != null && !this.mListenerSet && this.mConn.status < 3) {
-            Log.d(TAG, "Adding connections listener");
+            Log.m587d(TAG, "Adding connections listener");
             connsRegister.addListener(this);
             this.mListenerSet = true;
         }
@@ -273,7 +273,7 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
         StateAdapter stateAdapter = new StateAdapter(this);
         this.mPagerAdapter = stateAdapter;
         this.mPager.setAdapter(stateAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        TabLayout tabLayout = (TabLayout) findViewById(C0130R.C0132id.tablayout);
         Utils.fixScrollableTabLayoutInsets(tabLayout);
         new zzw(tabLayout, this.mPager, new InputConnectionCompat$$ExternalSyntheticLambda0(2, this)).attach();
         ViewPager2 viewPager2 = this.mPager;
@@ -295,7 +295,7 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
         if (this.mListenerSet) {
             ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
             if (connsRegister != null) {
-                Log.d(TAG, "Removing connections listener");
+                Log.m587d(TAG, "Removing connections listener");
                 connsRegister.removeListener(this);
             }
             this.mListenerSet = false;
@@ -384,7 +384,7 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         displayBackAction();
-        setContentView(R.layout.tabs_activity_fixed);
+        setContentView(C0130R.layout.tabs_activity_fixed);
         this.mConnId = getIntent().getIntExtra(CONN_ID_KEY, -1);
         ArrayList<Integer> integerArrayListExtra = getIntent().getIntegerArrayListExtra(FILTERED_IDS_KEY);
         this.mFilteredIds = integerArrayListExtra;
@@ -401,24 +401,24 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
                     i++;
                 }
             }
-            Log.d(TAG, "Using filtered navigation: " + this.mFilteredIds.size() + " items, index=" + this.mFilteredIndex);
+            Log.m587d(TAG, "Using filtered navigation: " + this.mFilteredIds.size() + " items, index=" + this.mFilteredIndex);
         }
         if (this.mConnId != -1) {
             ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
             if (connsRegister != null) {
                 this.mConn = connsRegister.getConnById(this.mConnId);
-                setTitle(String.format(getString(R.string.connection_number), Integer.valueOf(this.mConnId + 1)));
+                setTitle(String.format(getString(C0130R.string.connection_number), Integer.valueOf(this.mConnId + 1)));
             }
         } else {
-            setTitle(R.string.connection_details);
+            setTitle(C0130R.string.connection_details);
         }
         if (this.mConn == null) {
-            Log.w(TAG, "Connection with ID " + this.mConnId + " not found");
+            Log.m581w(TAG, "Connection with ID " + this.mConnId + " not found");
             finish();
             return;
         }
         this.mHandler = new Handler(Looper.getMainLooper());
-        ViewPager2 viewPager2 = (ViewPager2) findViewById(R.id.pager);
+        ViewPager2 viewPager2 = (ViewPager2) findViewById(C0130R.C0132id.pager);
         this.mPager = viewPager2;
         Utils.fixViewPager2Insets(viewPager2);
         setupTabs();
@@ -426,12 +426,12 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
 
     @Override // android.app.Activity
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.connection_details_menu, menu);
-        this.mMenuPrev = menu.findItem(R.id.navigate_before);
-        this.mMenuNext = menu.findItem(R.id.navigate_next);
-        this.mMenuCopy = menu.findItem(R.id.copy_to_clipboard);
-        this.mMenuShare = menu.findItem(R.id.share);
-        this.mMenuDisplayAs = menu.findItem(R.id.display_as);
+        getMenuInflater().inflate(C0130R.C0134menu.connection_details_menu, menu);
+        this.mMenuPrev = menu.findItem(C0130R.C0132id.navigate_before);
+        this.mMenuNext = menu.findItem(C0130R.C0132id.navigate_next);
+        this.mMenuCopy = menu.findItem(C0130R.C0132id.copy_to_clipboard);
+        this.mMenuShare = menu.findItem(C0130R.C0132id.share);
+        this.mMenuDisplayAs = menu.findItem(C0130R.C0132id.display_as);
         updateNavigationButtons();
         updateMenuVisibility();
         return true;
@@ -442,14 +442,14 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
         View view;
         if (i == 20) {
             View currentFocus = getCurrentFocus();
-            Log.d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
+            Log.m587d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
             if (currentFocus instanceof TabLayout.TabView) {
                 int currentItem = this.mPager.getCurrentItem();
-                Log.d(TAG, "TabLayout.TabView focus pos " + currentItem);
+                Log.m587d(TAG, "TabLayout.TabView focus pos " + currentItem);
                 if (currentItem == 0) {
-                    view = findViewById(R.id.connection_overview);
+                    view = findViewById(C0130R.C0132id.connection_overview);
                 } else {
-                    view = findViewById(R.id.payload);
+                    view = findViewById(C0130R.C0132id.payload);
                 }
                 if (view != null) {
                     view.requestFocus();
@@ -463,13 +463,13 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, android.app.Activity
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.navigate_before) {
+        if (itemId == C0130R.C0132id.navigate_before) {
             navigateToPrevious();
             return true;
-        } else if (itemId == R.id.navigate_next) {
+        } else if (itemId == C0130R.C0132id.navigate_next) {
             navigateToNext();
             return true;
-        } else if (itemId != R.id.display_as) {
+        } else if (itemId != C0130R.C0132id.display_as) {
             return super.onOptionsItemSelected(menuItem);
         } else {
             Boolean bool = this.mDisplayMode;
@@ -531,9 +531,9 @@ public class ConnectionDetailsActivity extends PayloadExportActivity implements 
                     }
                     connectionPayload.setDisplayMode(this.mDisplayMode.booleanValue());
                     if (this.mDisplayMode.booleanValue()) {
-                        this.mMenuDisplayAs.setTitle(R.string.display_as_hexdump);
+                        this.mMenuDisplayAs.setTitle(C0130R.string.display_as_hexdump);
                     } else {
-                        this.mMenuDisplayAs.setTitle(R.string.display_as_text);
+                        this.mMenuDisplayAs.setTitle(C0130R.string.display_as_text);
                     }
                 }
             }

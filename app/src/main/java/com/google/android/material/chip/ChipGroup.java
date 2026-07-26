@@ -1,14 +1,20 @@
 package com.google.android.material.chip;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityNodeInfo;
+import com.emanuelef.remote_capture.C0130R;
+import com.google.android.material.R$styleable;
 import com.google.android.material.internal.CheckableGroup;
 import com.google.android.material.internal.FlowLayout;
 import com.google.android.material.internal.MaterialCheckable;
+import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.snackbar.SnackbarManager;
+import com.google.android.material.theme.overlay.MaterialThemeOverlay;
 import java.util.ArrayList;
 import java.util.List;
 import kotlinx.coroutines.flow.ReadonlyStateFlow;
@@ -21,10 +27,10 @@ public class ChipGroup extends FlowLayout {
     public OnCheckedStateChangeListener onCheckedStateChangeListener;
     public final PassThroughHierarchyChangeListener passThroughListener;
 
-    /* renamed from: com.google.android.material.chip.ChipGroup$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.chip.ChipGroup$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 implements OnCheckedStateChangeListener {
-        public /* synthetic */ AnonymousClass1() {
+    public final class C01761 implements OnCheckedStateChangeListener {
+        public /* synthetic */ C01761() {
         }
 
         @Override // com.google.android.material.chip.ChipGroup.OnCheckedStateChangeListener
@@ -99,66 +105,31 @@ public class ChipGroup extends FlowLayout {
     /* JADX WARN: Illegal instructions before constructor call */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public ChipGroup(android.content.Context r10, android.util.AttributeSet r11) {
-        /*
-            r9 = this;
-            r0 = 2132083881(0x7f1504a9, float:1.9807917E38)
-            r4 = 2130968784(0x7f0400d0, float:1.7546231E38)
-            android.content.Context r10 = com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap(r10, r11, r4, r0)
-            r9.<init>(r10, r11, r4)
-            r0 = 0
-            r9.singleLine = r0
-            android.content.res.Resources$Theme r10 = r10.getTheme()
-            int[] r1 = com.google.android.material.R$styleable.FlowLayout
-            android.content.res.TypedArray r10 = r10.obtainStyledAttributes(r11, r1, r0, r0)
-            r7 = 1
-            int r1 = r10.getDimensionPixelSize(r7, r0)
-            r9.lineSpacing = r1
-            int r1 = r10.getDimensionPixelSize(r0, r0)
-            r9.itemSpacing = r1
-            r10.recycle()
-            com.google.android.material.internal.CheckableGroup r10 = new com.google.android.material.internal.CheckableGroup
-            r10.<init>()
-            r9.checkableGroup = r10
-            com.google.android.material.chip.ChipGroup$PassThroughHierarchyChangeListener r8 = new com.google.android.material.chip.ChipGroup$PassThroughHierarchyChangeListener
-            r8.<init>()
-            r9.passThroughListener = r8
-            android.content.Context r1 = r9.getContext()
-            r5 = 2132083881(0x7f1504a9, float:1.9807917E38)
-            int[] r6 = new int[r0]
-            int[] r3 = com.google.android.material.R$styleable.ChipGroup
-            r2 = r11
-            android.content.res.TypedArray r11 = com.google.android.material.internal.ViewUtils.obtainStyledAttributes(r1, r2, r3, r4, r5, r6)
-            int r1 = r11.getDimensionPixelOffset(r7, r0)
-            r2 = 2
-            int r2 = r11.getDimensionPixelOffset(r2, r1)
-            r9.setChipSpacingHorizontal(r2)
-            r2 = 3
-            int r1 = r11.getDimensionPixelOffset(r2, r1)
-            r9.setChipSpacingVertical(r1)
-            r1 = 5
-            boolean r1 = r11.getBoolean(r1, r0)
-            r9.setSingleLine(r1)
-            r1 = 6
-            boolean r1 = r11.getBoolean(r1, r0)
-            r9.setSingleSelection(r1)
-            r1 = 4
-            boolean r1 = r11.getBoolean(r1, r0)
-            r9.setSelectionRequired(r1)
-            r1 = -1
-            int r0 = r11.getResourceId(r0, r1)
-            r9.defaultCheckedId = r0
-            r11.recycle()
-            com.google.android.material.chip.ChipGroup$1 r11 = new com.google.android.material.chip.ChipGroup$1
-            r11.<init>()
-            r10.onCheckedStateChangeListener = r11
-            super.setOnHierarchyChangeListener(r8)
-            r9.setImportantForAccessibility(r7)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.chip.ChipGroup.<init>(android.content.Context, android.util.AttributeSet):void");
+    public ChipGroup(Context context, AttributeSet attributeSet) {
+        super(r10, attributeSet, C0130R.attr.chipGroupStyle);
+        Context wrap = MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.chipGroupStyle, C0130R.style.Widget_MaterialComponents_ChipGroup);
+        this.singleLine = false;
+        TypedArray obtainStyledAttributes = wrap.getTheme().obtainStyledAttributes(attributeSet, R$styleable.FlowLayout, 0, 0);
+        this.lineSpacing = obtainStyledAttributes.getDimensionPixelSize(1, 0);
+        this.itemSpacing = obtainStyledAttributes.getDimensionPixelSize(0, 0);
+        obtainStyledAttributes.recycle();
+        CheckableGroup checkableGroup = new CheckableGroup();
+        this.checkableGroup = checkableGroup;
+        PassThroughHierarchyChangeListener passThroughHierarchyChangeListener = new PassThroughHierarchyChangeListener();
+        this.passThroughListener = passThroughHierarchyChangeListener;
+        TypedArray obtainStyledAttributes2 = ViewUtils.obtainStyledAttributes(getContext(), attributeSet, R$styleable.ChipGroup, C0130R.attr.chipGroupStyle, C0130R.style.Widget_MaterialComponents_ChipGroup, new int[0]);
+        int dimensionPixelOffset = obtainStyledAttributes2.getDimensionPixelOffset(1, 0);
+        setChipSpacingHorizontal(obtainStyledAttributes2.getDimensionPixelOffset(2, dimensionPixelOffset));
+        setChipSpacingVertical(obtainStyledAttributes2.getDimensionPixelOffset(3, dimensionPixelOffset));
+        setSingleLine(obtainStyledAttributes2.getBoolean(5, false));
+        setSingleSelection(obtainStyledAttributes2.getBoolean(6, false));
+        setSelectionRequired(obtainStyledAttributes2.getBoolean(4, false));
+        this.defaultCheckedId = obtainStyledAttributes2.getResourceId(0, -1);
+        obtainStyledAttributes2.recycle();
+        checkableGroup.onCheckedStateChangeListener = new C01761();
+        super.setOnHierarchyChangeListener(passThroughHierarchyChangeListener);
+        setImportantForAccessibility(1);
     }
 
     private int getVisibleChipCount() {
@@ -290,7 +261,7 @@ public class ChipGroup extends FlowLayout {
         if (onCheckedChangeListener == null) {
             setOnCheckedStateChangeListener(null);
         } else {
-            setOnCheckedStateChangeListener(new AnonymousClass1());
+            setOnCheckedStateChangeListener(new C01761());
         }
     }
 

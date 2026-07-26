@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -31,7 +31,7 @@ import androidx.core.view.WindowInsetsControllerCompat$Impl30;
 import androidx.fragment.app.DialogFragment;
 import androidx.tracing.Trace;
 import androidx.transition.Transition;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.fragments.AppsFragment$$ExternalSyntheticLambda2;
 import com.google.android.material.R$styleable;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -77,7 +77,7 @@ public class MaterialDatePicker<S> extends DialogFragment {
 
     public static int getPaddedPickerWidth(Context context) {
         Resources resources = context.getResources();
-        int dimensionPixelOffset = resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_content_padding);
+        int dimensionPixelOffset = resources.getDimensionPixelOffset(C0130R.dimen.mtrl_calendar_content_padding);
         Calendar todayCalendar = UtcDates.getTodayCalendar();
         todayCalendar.set(5, 1);
         Calendar dayCopy = UtcDates.getDayCopy(todayCalendar);
@@ -86,12 +86,12 @@ public class MaterialDatePicker<S> extends DialogFragment {
         int maximum = dayCopy.getMaximum(7);
         dayCopy.getActualMaximum(5);
         dayCopy.getTimeInMillis();
-        int dimensionPixelSize = resources.getDimensionPixelSize(R.dimen.mtrl_calendar_day_width) * maximum;
-        return ((maximum - 1) * resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_month_horizontal_padding)) + dimensionPixelSize + (dimensionPixelOffset * 2);
+        int dimensionPixelSize = resources.getDimensionPixelSize(C0130R.dimen.mtrl_calendar_day_width) * maximum;
+        return ((maximum - 1) * resources.getDimensionPixelOffset(C0130R.dimen.mtrl_calendar_month_horizontal_padding)) + dimensionPixelSize + (dimensionPixelOffset * 2);
     }
 
     public static boolean readMaterialCalendarStyleBoolean(Context context, int i) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(LazyKt__LazyJVMKt.resolveTypedValueOrThrow(R.attr.materialCalendarStyle, context, MaterialCalendar.class.getCanonicalName()).data, new int[]{i});
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(LazyKt__LazyJVMKt.resolveTypedValueOrThrow(C0130R.attr.materialCalendarStyle, context, MaterialCalendar.class.getCanonicalName()).data, new int[]{i});
         boolean z = obtainStyledAttributes.getBoolean(0, false);
         obtainStyledAttributes.recycle();
         return z;
@@ -162,8 +162,8 @@ public class MaterialDatePicker<S> extends DialogFragment {
             Dialog dialog = new Dialog(requireContext, i);
             Context context = dialog.getContext();
             this.fullscreen = readMaterialCalendarStyleBoolean(context, 16843277);
-            this.background = new MaterialShapeDrawable(context, null, R.attr.materialCalendarStyle, R.style.Widget_MaterialComponents_MaterialCalendar);
-            TypedArray obtainStyledAttributes = context.obtainStyledAttributes(null, R$styleable.MaterialCalendar, R.attr.materialCalendarStyle, R.style.Widget_MaterialComponents_MaterialCalendar);
+            this.background = new MaterialShapeDrawable(context, null, C0130R.attr.materialCalendarStyle, C0130R.style.Widget_MaterialComponents_MaterialCalendar);
+            TypedArray obtainStyledAttributes = context.obtainStyledAttributes(null, R$styleable.MaterialCalendar, C0130R.attr.materialCalendarStyle, C0130R.style.Widget_MaterialComponents_MaterialCalendar);
             int color = obtainStyledAttributes.getColor(1, 0);
             obtainStyledAttributes.recycle();
             this.background.initializeElevationOverlay(context);
@@ -180,26 +180,26 @@ public class MaterialDatePicker<S> extends DialogFragment {
         int i;
         String str;
         if (this.fullscreen) {
-            i = R.layout.mtrl_picker_fullscreen;
+            i = C0130R.layout.mtrl_picker_fullscreen;
         } else {
-            i = R.layout.mtrl_picker_dialog;
+            i = C0130R.layout.mtrl_picker_dialog;
         }
         View inflate = layoutInflater.inflate(i, viewGroup);
         Context context = inflate.getContext();
         if (this.fullscreen) {
-            inflate.findViewById(R.id.mtrl_calendar_frame).setLayoutParams(new LinearLayout.LayoutParams(getPaddedPickerWidth(context), -2));
+            inflate.findViewById(C0130R.C0132id.mtrl_calendar_frame).setLayoutParams(new LinearLayout.LayoutParams(getPaddedPickerWidth(context), -2));
         } else {
-            inflate.findViewById(R.id.mtrl_calendar_main_pane).setLayoutParams(new LinearLayout.LayoutParams(getPaddedPickerWidth(context), -1));
+            inflate.findViewById(C0130R.C0132id.mtrl_calendar_main_pane).setLayoutParams(new LinearLayout.LayoutParams(getPaddedPickerWidth(context), -1));
         }
-        ((TextView) inflate.findViewById(R.id.mtrl_picker_header_selection_text)).setAccessibilityLiveRegion(1);
-        this.headerToggleButton = (CheckableImageButton) inflate.findViewById(R.id.mtrl_picker_header_toggle);
-        this.headerTitleTextView = (TextView) inflate.findViewById(R.id.mtrl_picker_title_text);
+        ((TextView) inflate.findViewById(C0130R.C0132id.mtrl_picker_header_selection_text)).setAccessibilityLiveRegion(1);
+        this.headerToggleButton = (CheckableImageButton) inflate.findViewById(C0130R.C0132id.mtrl_picker_header_toggle);
+        this.headerTitleTextView = (TextView) inflate.findViewById(C0130R.C0132id.mtrl_picker_title_text);
         this.headerToggleButton.setTag("TOGGLE_BUTTON_TAG");
         CheckableImageButton checkableImageButton = this.headerToggleButton;
         StateListDrawable stateListDrawable = new StateListDrawable();
-        stateListDrawable.addState(new int[]{16842912}, BundleKt.getDrawable(context, R.drawable.material_ic_calendar_black_24dp));
+        stateListDrawable.addState(new int[]{16842912}, BundleKt.getDrawable(context, C0130R.C0131drawable.material_ic_calendar_black_24dp));
         boolean z = false;
-        stateListDrawable.addState(new int[0], BundleKt.getDrawable(context, R.drawable.material_ic_edit_black_24dp));
+        stateListDrawable.addState(new int[0], BundleKt.getDrawable(context, C0130R.C0131drawable.material_ic_edit_black_24dp));
         checkableImageButton.setImageDrawable(stateListDrawable);
         CheckableImageButton checkableImageButton2 = this.headerToggleButton;
         if (this.inputMode != 0) {
@@ -209,13 +209,13 @@ public class MaterialDatePicker<S> extends DialogFragment {
         ViewCompat.setAccessibilityDelegate(this.headerToggleButton, null);
         CheckableImageButton checkableImageButton3 = this.headerToggleButton;
         if (this.inputMode == 1) {
-            str = checkableImageButton3.getContext().getString(R.string.mtrl_picker_toggle_to_calendar_input_mode);
+            str = checkableImageButton3.getContext().getString(C0130R.string.mtrl_picker_toggle_to_calendar_input_mode);
         } else {
-            str = checkableImageButton3.getContext().getString(R.string.mtrl_picker_toggle_to_text_input_mode);
+            str = checkableImageButton3.getContext().getString(C0130R.string.mtrl_picker_toggle_to_text_input_mode);
         }
         this.headerToggleButton.setContentDescription(str);
         this.headerToggleButton.setOnClickListener(new AppsFragment$$ExternalSyntheticLambda2(8, this));
-        Button button = (Button) inflate.findViewById(R.id.confirm_button);
+        Button button = (Button) inflate.findViewById(C0130R.C0132id.confirm_button);
         getDateSelector();
         throw null;
     }
@@ -301,7 +301,7 @@ public class MaterialDatePicker<S> extends DialogFragment {
             window.setLayout(-1, -1);
             window.setBackgroundDrawable(this.background);
             if (!this.edgeToEdgeEnabled) {
-                final View findViewById = requireView().findViewById(R.id.fullscreen_header);
+                final View findViewById = requireView().findViewById(C0130R.C0132id.fullscreen_header);
                 ColorStateList colorStateListOrNull = Trace.getColorStateListOrNull(findViewById.getBackground());
                 if (colorStateListOrNull != null) {
                     num = Integer.valueOf(colorStateListOrNull.getDefaultColor());
@@ -340,7 +340,7 @@ public class MaterialDatePicker<S> extends DialogFragment {
                 } else {
                     z2 = false;
                 }
-                Transition.AnonymousClass1 r9 = new Transition.AnonymousClass1(window.getDecorView());
+                Transition.C01101 r9 = new Transition.C01101(window.getDecorView());
                 int i4 = Build.VERSION.SDK_INT;
                 if (i4 >= 30) {
                     bundleKt = new WindowInsetsControllerCompat$Impl30(window, r9);
@@ -356,7 +356,7 @@ public class MaterialDatePicker<S> extends DialogFragment {
                 if (LazyKt__LazyJVMKt.isColorLight(i2) || (i2 == 0 && isColorLight2)) {
                     z3 = true;
                 }
-                Transition.AnonymousClass1 r5 = new Transition.AnonymousClass1(window.getDecorView());
+                Transition.C01101 r5 = new Transition.C01101(window.getDecorView());
                 int i5 = Build.VERSION.SDK_INT;
                 if (i5 >= 30) {
                     bundleKt2 = new WindowInsetsControllerCompat$Impl30(window, r5);
@@ -392,7 +392,7 @@ public class MaterialDatePicker<S> extends DialogFragment {
             }
         } else {
             window.setLayout(-2, -2);
-            int dimensionPixelOffset = getResources().getDimensionPixelOffset(R.dimen.mtrl_calendar_dialog_background_inset);
+            int dimensionPixelOffset = getResources().getDimensionPixelOffset(C0130R.dimen.mtrl_calendar_dialog_background_inset);
             Rect rect = new Rect(dimensionPixelOffset, dimensionPixelOffset, dimensionPixelOffset, dimensionPixelOffset);
             window.setBackgroundDrawable(new InsetDrawable((Drawable) this.background, dimensionPixelOffset, dimensionPixelOffset, dimensionPixelOffset, dimensionPixelOffset));
             window.getDecorView().setOnTouchListener(new InsetDialogOnTouchListener(requireDialog(), rect));

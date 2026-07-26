@@ -18,9 +18,9 @@ import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.transition.ViewUtilsApi21;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.behavior.SwipeDismissBehavior;
@@ -33,9 +33,9 @@ import kotlin.LazyKt__LazyJVMKt;
 public abstract class BaseTransientBottomBar {
     public static final /* synthetic */ int $r8$clinit = 0;
 
-    /* renamed from: com.google.android.material.snackbar.BaseTransientBottomBar$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.snackbar.BaseTransientBottomBar$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 implements Handler.Callback {
+    public final class C02001 implements Handler.Callback {
         @Override // android.os.Handler.Callback
         public final boolean handleMessage(Message message) {
             int i = message.what;
@@ -94,7 +94,7 @@ public abstract class BaseTransientBottomBar {
 
     /* loaded from: classes.dex */
     public abstract class SnackbarBaseLayout extends FrameLayout {
-        public static final AnonymousClass1 consumeAllTouchListener = new Object();
+        public static final View$OnTouchListenerC02011 consumeAllTouchListener = new Object();
         public final float actionTextColorAlpha;
         public int animationMode;
         public final float backgroundOverlayColorAlpha;
@@ -104,9 +104,9 @@ public abstract class BaseTransientBottomBar {
         public final int maxWidth;
         public final ShapeAppearanceModel shapeAppearanceModel;
 
-        /* renamed from: com.google.android.material.snackbar.BaseTransientBottomBar$SnackbarBaseLayout$1  reason: invalid class name */
+        /* renamed from: com.google.android.material.snackbar.BaseTransientBottomBar$SnackbarBaseLayout$1 */
         /* loaded from: classes.dex */
-        public final class AnonymousClass1 implements View.OnTouchListener {
+        public final class View$OnTouchListenerC02011 implements View.OnTouchListener {
             @Override // android.view.View.OnTouchListener
             public final boolean onTouch(View view, MotionEvent motionEvent) {
                 return true;
@@ -137,7 +137,7 @@ public abstract class BaseTransientBottomBar {
             setOnTouchListener(consumeAllTouchListener);
             setFocusable(true);
             if (getBackground() == null) {
-                int layer = LazyKt__LazyJVMKt.layer(LazyKt__LazyJVMKt.getColor(R.attr.colorSurface, this), getBackgroundOverlayColorAlpha(), LazyKt__LazyJVMKt.getColor(R.attr.colorOnSurface, this));
+                int layer = LazyKt__LazyJVMKt.layer(LazyKt__LazyJVMKt.getColor(C0130R.attr.colorSurface, this), getBackgroundOverlayColorAlpha(), LazyKt__LazyJVMKt.getColor(C0130R.attr.colorOnSurface, this));
                 ShapeAppearanceModel shapeAppearanceModel = this.shapeAppearanceModel;
                 if (shapeAppearanceModel != null) {
                     int i = BaseTransientBottomBar.$r8$clinit;
@@ -147,7 +147,7 @@ public abstract class BaseTransientBottomBar {
                 } else {
                     Resources resources = getResources();
                     int i2 = BaseTransientBottomBar.$r8$clinit;
-                    float dimension = resources.getDimension(R.dimen.mtrl_snackbar_background_corner_radius);
+                    float dimension = resources.getDimension(C0130R.dimen.mtrl_snackbar_background_corner_radius);
                     GradientDrawable gradientDrawable2 = new GradientDrawable();
                     gradientDrawable2.setShape(0);
                     gradientDrawable2.setCornerRadius(dimension);
@@ -267,7 +267,7 @@ public abstract class BaseTransientBottomBar {
 
         @Override // android.view.View
         public void setOnClickListener(View.OnClickListener onClickListener) {
-            AnonymousClass1 r0;
+            View$OnTouchListenerC02011 r0;
             if (onClickListener != null) {
                 r0 = null;
             } else {

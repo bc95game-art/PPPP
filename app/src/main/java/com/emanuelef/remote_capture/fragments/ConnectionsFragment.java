@@ -40,14 +40,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.billingclient.api.zzbv;
 import com.emanuelef.remote_capture.AppsResolver;
 import com.emanuelef.remote_capture.Billing;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.Cidr;
 import com.emanuelef.remote_capture.ConnectionsRegister;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
 import com.emanuelef.remote_capture.PlayBilling;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
+import com.emanuelef.remote_capture.activities.AppDetailsActivity;
 import com.emanuelef.remote_capture.activities.ConnectionDetailsActivity;
 import com.emanuelef.remote_capture.activities.EditFilterActivity;
 import com.emanuelef.remote_capture.activities.IABActivity;
@@ -69,6 +70,9 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.BaseOnSliderTouchListener;
 import com.google.android.material.slider.Slider;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -115,7 +119,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
         @Override // androidx.appcompat.view.ActionMode.Callback
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
             int itemId = menuItem.getItemId();
-            if (itemId == R.id.select_all) {
+            if (itemId == C0130R.C0132id.select_all) {
                 if (ConnectionsFragment.this.mAdapter.getSelectedCount() == ConnectionsFragment.this.mAdapter.getItemCount()) {
                     actionMode.finish();
                     return true;
@@ -123,7 +127,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
                 ConnectionsFragment.this.mAdapter.selectAll();
                 ConnectionsFragment.this.updateActionModeTitle();
                 return true;
-            } else if (itemId != R.id.save) {
+            } else if (itemId != C0130R.C0132id.save) {
                 return false;
             } else {
                 ConnectionsFragment.this.openFileSelector();
@@ -133,7 +137,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
 
         @Override // androidx.appcompat.view.ActionMode.Callback
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            actionMode.getMenuInflater().inflate(R.menu.connections_cab, menu);
+            actionMode.getMenuInflater().inflate(C0130R.C0134menu.connections_cab, menu);
             return true;
         }
 
@@ -162,7 +166,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     private void dumpCsv() {
         boolean z;
         if (this.mCsvFname != null) {
-            Log.d(TAG, "Writing CSV file: " + this.mCsvFname);
+            Log.m587d(TAG, "Writing CSV file: " + this.mCsvFname);
             ConnectionsAdapter connectionsAdapter = this.mAdapter;
             if (this.mActionMode != null) {
                 z = true;
@@ -174,8 +178,8 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             Handler handler = new Handler(Looper.getMainLooper());
             boolean[] zArr = {false};
             zzbv zzbvVar = new zzbv(requireContext());
-            zzbvVar.setTitle(R.string.exporting);
-            zzbvVar.setMessage(R.string.export_in_progress);
+            zzbvVar.setTitle(C0130R.string.exporting);
+            zzbvVar.setMessage(C0130R.string.export_in_progress);
             zzbvVar.setNegativeButton(17039360, new HttpLogFragment$$ExternalSyntheticLambda4(zArr, newSingleThreadExecutor, 1));
             AlertDialog create = zzbvVar.create();
             this.mAlertDialog = create;
@@ -201,7 +205,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     }
 
     public /* synthetic */ void lambda$connectionsAdded$13(ConnectionDescriptor[] connectionDescriptorArr, int i) {
-        Log.d(TAG, "Add " + connectionDescriptorArr.length + " connections at " + i);
+        Log.m587d(TAG, "Add " + connectionDescriptorArr.length + " connections at " + i);
         this.mAdapter.connectionsAdded(i, connectionDescriptorArr);
         if (this.autoScroll) {
             scrollToBottom();
@@ -211,7 +215,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     }
 
     public /* synthetic */ void lambda$connectionsChanges$12(int i) {
-        Log.d(TAG, "New connections size: " + i);
+        Log.m587d(TAG, "New connections size: " + i);
         this.mAdapter.connectionsChanges(i);
         recheckScroll();
         if (this.autoScroll) {
@@ -221,7 +225,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     }
 
     public /* synthetic */ void lambda$connectionsRemoved$14(ConnectionDescriptor[] connectionDescriptorArr, int i) {
-        Log.d(TAG, "Remove " + connectionDescriptorArr.length + " connections at " + i);
+        Log.m587d(TAG, "Remove " + connectionDescriptorArr.length + " connections at " + i);
         this.mAdapter.connectionsRemoved(i, connectionDescriptorArr);
     }
 
@@ -231,13 +235,13 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     }
 
     public static /* synthetic */ void lambda$dumpCsv$16(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface, int i) {
-        Log.i(TAG, "Abort CSV export");
+        Log.m583i(TAG, "Abort CSV export");
         zArr[0] = true;
         executorService.shutdownNow();
     }
 
     public static /* synthetic */ void lambda$dumpCsv$17(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface) {
-        Log.i(TAG, "Abort CSV export (back button)");
+        Log.m583i(TAG, "Abort CSV export (back button)");
         zArr[0] = true;
         executorService.shutdownNow();
     }
@@ -252,11 +256,11 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             alertDialog.dismiss();
         }
         if (!z) {
-            Utils.showToast(requireContext(), R.string.cannot_write_file, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.cannot_write_file, new Object[0]);
         } else if (uriStat != null) {
-            Toast.makeText(requireContext(), String.format(getString(R.string.file_saved_with_name), uriStat.name), 0).show();
+            Toast.makeText(requireContext(), String.format(getString(C0130R.string.file_saved_with_name), uriStat.name), 0).show();
         } else {
-            Utils.showToast(requireContext(), R.string.save_ok, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.save_ok, new Object[0]);
         }
         ActionMode actionMode = this.mActionMode;
         if (actionMode != null) {
@@ -268,49 +272,36 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     /* JADX WARN: Removed duplicated region for block: B:15:0x002d  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public /* synthetic */ void lambda$dumpCsv$20(android.net.Uri r4, java.lang.String r5, boolean[] r6, android.os.Handler r7) {
-        /*
-            r3 = this;
-            r0 = 0
-            androidx.fragment.app.FragmentActivity r1 = r3.requireActivity()     // Catch: java.io.IOException -> L1f
-            android.content.ContentResolver r1 = r1.getContentResolver()     // Catch: java.io.IOException -> L1f
-            java.lang.String r2 = "rwt"
-            java.io.OutputStream r1 = r1.openOutputStream(r4, r2)     // Catch: java.io.IOException -> L1f
-            if (r1 == 0) goto L27
-            java.nio.charset.Charset r2 = java.nio.charset.StandardCharsets.UTF_8     // Catch: java.io.IOException -> L1f
-            byte[] r5 = r5.getBytes(r2)     // Catch: java.io.IOException -> L1f
-            r1.write(r5)     // Catch: java.io.IOException -> L1f
-            r1.close()     // Catch: java.io.IOException -> L1f
-            r5 = 1
-            goto L28
-        L1f:
-            r5 = move-exception
-            boolean r1 = r6[r0]
-            if (r1 != 0) goto L27
-            r5.printStackTrace()
-        L27:
-            r5 = 0
-        L28:
-            boolean r6 = r6[r0]
-            if (r6 == 0) goto L2d
-            return
-        L2d:
-            if (r5 == 0) goto L38
-            android.content.Context r6 = r3.requireContext()
-            com.emanuelef.remote_capture.Utils$UriStat r4 = com.emanuelef.remote_capture.Utils.getUriStat(r6, r4)
-            goto L39
-        L38:
-            r4 = 0
-        L39:
-            com.emanuelef.remote_capture.fragments.ConnectionsFragment$$ExternalSyntheticLambda6 r6 = new com.emanuelef.remote_capture.fragments.ConnectionsFragment$$ExternalSyntheticLambda6
-            r0 = 0
-            r6.<init>(r0, r3, r4, r5)
-            r7.post(r6)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.fragments.ConnectionsFragment.lambda$dumpCsv$20(android.net.Uri, java.lang.String, boolean[], android.os.Handler):void");
+    public /* synthetic */ void lambda$dumpCsv$20(Uri uri, String str, boolean[] zArr, Handler handler) {
+        boolean z;
+        Utils.UriStat uriStat;
+        OutputStream openOutputStream;
+        try {
+            openOutputStream = requireActivity().getContentResolver().openOutputStream(uri, "rwt");
+        } catch (IOException e) {
+            if (!zArr[0]) {
+                e.printStackTrace();
+            }
+        }
+        if (openOutputStream != null) {
+            openOutputStream.write(str.getBytes(StandardCharsets.UTF_8));
+            openOutputStream.close();
+            z = true;
+            if (zArr[0]) {
+                if (z) {
+                    uriStat = Utils.getUriStat(requireContext(), uri);
+                } else {
+                    uriStat = null;
+                }
+                handler.post(new ConnectionsFragment$$ExternalSyntheticLambda6(0, this, uriStat, z));
+                return;
+            }
+            return;
+        }
+        z = false;
+        if (zArr[0]) {
+        }
     }
 
     public static /* synthetic */ String lambda$onViewCreated$0(float f) {
@@ -397,7 +388,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             this.autoScroll = true;
             showFabDown(false);
             this.mOldConnectionsText.setVisibility(8);
-            this.mEmptyText.setText(R.string.no_connections);
+            this.mEmptyText.setText(C0130R.string.no_connections);
             this.mApps.clear();
         }
         refreshMenuIcons();
@@ -443,7 +434,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     private void recheckUntrackedConnections() {
         ConnectionsRegister requireConnsRegister = CaptureService.requireConnsRegister();
         if (requireConnsRegister.getUntrackedConnCount() > 0) {
-            this.mOldConnectionsText.setText(String.format(getString(R.string.older_connections_notice), Integer.valueOf(requireConnsRegister.getUntrackedConnCount())));
+            this.mOldConnectionsText.setText(String.format(getString(C0130R.string.older_connections_notice), Integer.valueOf(requireConnsRegister.getUntrackedConnCount())));
             this.mOldConnectionsText.setVisibility(0);
             return;
         }
@@ -475,14 +466,14 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
         if (CaptureService.getConnsRegister() != null || CaptureService.isServiceActive()) {
             TextView textView = this.mEmptyText;
             if (this.mAdapter.hasFilter()) {
-                i = R.string.no_matches_found;
+                i = C0130R.string.no_matches_found;
             } else {
-                i = R.string.no_connections;
+                i = C0130R.string.no_connections;
             }
             textView.setText(i);
             return;
         }
-        this.mEmptyText.setText(R.string.capture_not_running_status);
+        this.mEmptyText.setText(C0130R.string.capture_not_running_status);
     }
 
     private void refreshFilteredConnections() {
@@ -532,10 +523,10 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
 
     private void showFirewallPurchaseDialog() {
         zzbv zzbvVar = new zzbv(requireContext());
-        zzbvVar.setTitle(R.string.paid_feature);
-        ((AlertController.AlertParams) zzbvVar.zza).mMessage = Utils.getText(requireContext(), R.string.firewall_purchase_msg, getString(R.string.no_root_firewall));
-        zzbvVar.setPositiveButton(R.string.show_me, new AppsFragment$$ExternalSyntheticLambda0(5, this));
-        zzbvVar.setNegativeButton(R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(15));
+        zzbvVar.setTitle(C0130R.string.paid_feature);
+        ((AlertController.AlertParams) zzbvVar.zza).mMessage = Utils.getText(requireContext(), C0130R.string.firewall_purchase_msg, getString(C0130R.string.no_root_firewall));
+        zzbvVar.setPositiveButton(C0130R.string.show_me, new AppsFragment$$ExternalSyntheticLambda0(5, this));
+        zzbvVar.setNegativeButton(C0130R.string.cancel_action, new Blocklist$$ExternalSyntheticLambda0(15));
         zzbvVar.show();
     }
 
@@ -585,7 +576,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     public void updateActionModeTitle() {
         ActionMode actionMode = this.mActionMode;
         if (actionMode != null) {
-            actionMode.setTitle(getString(R.string.n_selected, Integer.valueOf(this.mAdapter.getSelectedCount())));
+            actionMode.setTitle(getString(C0130R.string.n_selected, Integer.valueOf(this.mAdapter.getSelectedCount())));
         }
     }
 
@@ -632,14 +623,224 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     @Override // androidx.fragment.app.Fragment
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public boolean onContextItemSelected(android.view.MenuItem r12) {
-        /*
-            Method dump skipped, instructions count: 743
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.fragments.ConnectionsFragment.onContextItemSelected(android.view.MenuItem):boolean");
+    public boolean onContextItemSelected(MenuItem menuItem) {
+        boolean z;
+        boolean z2;
+        boolean z3;
+        boolean z4;
+        boolean z5;
+        Context requireContext = requireContext();
+        ConnectionDescriptor selectedItem = this.mAdapter.getSelectedItem();
+        MatchList malwareWhitelist = PCAPdroid.getInstance().getMalwareWhitelist();
+        MatchList firewallWhitelist = PCAPdroid.getInstance().getFirewallWhitelist();
+        MatchList decryptionList = PCAPdroid.getInstance().getDecryptionList();
+        Blocklist blocklist = PCAPdroid.getInstance().getBlocklist();
+        boolean isPurchased = Billing.newInstance(requireContext).isPurchased(Billing.FIREWALL_SKU);
+        if (selectedItem == null) {
+            return super.onContextItemSelected(menuItem);
+        }
+        int itemId = menuItem.getItemId();
+        if (itemId == C0130R.C0132id.select_connection) {
+            startSelectionMode(selectedItem);
+            return true;
+        }
+        if (itemId == C0130R.C0132id.hide_app) {
+            this.mAdapter.mMask.addApp(selectedItem.uid);
+        } else if (itemId == C0130R.C0132id.hide_host) {
+            this.mAdapter.mMask.addHost(selectedItem.info);
+        } else if (itemId == C0130R.C0132id.hide_ip) {
+            this.mAdapter.mMask.addIp(selectedItem.dst_ip);
+        } else if (itemId == C0130R.C0132id.hide_proto) {
+            this.mAdapter.mMask.addProto(selectedItem.l7proto);
+        } else if (itemId == C0130R.C0132id.hide_domain) {
+            this.mAdapter.mMask.addHost(Utils.getSecondLevelDomain(selectedItem.info));
+        } else if (itemId == C0130R.C0132id.hide_country) {
+            this.mAdapter.mMask.addCountry(selectedItem.country);
+        } else {
+            if (itemId == C0130R.C0132id.search_app) {
+                AppDescriptor appByUid = this.mApps.getAppByUid(selectedItem.uid, 0);
+                if (appByUid == null) {
+                    return super.onContextItemSelected(menuItem);
+                }
+                setQuery(appByUid.getPackageName());
+            } else if (itemId == C0130R.C0132id.search_host) {
+                setQuery(selectedItem.info);
+            } else if (itemId == C0130R.C0132id.search_ip) {
+                setQuery(selectedItem.dst_ip);
+            } else if (itemId == C0130R.C0132id.search_proto) {
+                setQuery(selectedItem.l7proto);
+            } else {
+                if (itemId == C0130R.C0132id.mw_whitelist_app) {
+                    malwareWhitelist.addApp(selectedItem.uid);
+                } else if (itemId == C0130R.C0132id.mw_whitelist_ip) {
+                    malwareWhitelist.addIp(selectedItem.dst_ip);
+                } else if (itemId == C0130R.C0132id.mw_whitelist_host) {
+                    malwareWhitelist.addHost(selectedItem.info);
+                } else {
+                    if (itemId == C0130R.C0132id.dec_add_app) {
+                        decryptionList.addApp(selectedItem.uid);
+                    } else if (itemId == C0130R.C0132id.dec_add_ip) {
+                        decryptionList.addIp(selectedItem.dst_ip);
+                    } else if (itemId == C0130R.C0132id.dec_add_host) {
+                        decryptionList.addHost(selectedItem.info);
+                    } else if (itemId == C0130R.C0132id.dec_rem_app) {
+                        decryptionList.removeApp(selectedItem.uid);
+                    } else if (itemId == C0130R.C0132id.dec_rem_ip) {
+                        String str = this.mDecRemoveCidr;
+                        if (str == null) {
+                            str = selectedItem.dst_ip;
+                        }
+                        decryptionList.removeIp(str);
+                    } else if (itemId == C0130R.C0132id.dec_rem_host) {
+                        decryptionList.removeHost(selectedItem.info);
+                    } else {
+                        if (itemId == C0130R.C0132id.block_app) {
+                            if (isPurchased) {
+                                blocklist.addApp(selectedItem.uid);
+                                z = true;
+                            } else {
+                                showFirewallPurchaseDialog();
+                            }
+                        } else if (itemId == C0130R.C0132id.block_ip) {
+                            if (isPurchased) {
+                                blocklist.addIp(selectedItem.dst_ip);
+                                z = true;
+                            } else {
+                                showFirewallPurchaseDialog();
+                            }
+                        } else if (itemId == C0130R.C0132id.block_host) {
+                            if (isPurchased) {
+                                blocklist.addHost(selectedItem.info);
+                                z = true;
+                            } else {
+                                showFirewallPurchaseDialog();
+                            }
+                        } else if (itemId == C0130R.C0132id.block_domain) {
+                            if (isPurchased) {
+                                blocklist.addHost(Utils.getSecondLevelDomain(selectedItem.info));
+                                z = true;
+                            } else {
+                                showFirewallPurchaseDialog();
+                            }
+                        } else if (itemId != C0130R.C0132id.block_country) {
+                            if (itemId == C0130R.C0132id.unblock_app_permanently) {
+                                blocklist.removeApp(selectedItem.uid);
+                            } else if (itemId == C0130R.C0132id.unblock_app_10m) {
+                                z = blocklist.unblockAppForMinutes(selectedItem.uid, 10);
+                            } else if (itemId == C0130R.C0132id.unblock_app_1h) {
+                                z = blocklist.unblockAppForMinutes(selectedItem.uid, 60);
+                            } else if (itemId == C0130R.C0132id.unblock_app_8h) {
+                                z = blocklist.unblockAppForMinutes(selectedItem.uid, 480);
+                            } else if (itemId == C0130R.C0132id.unblock_ip) {
+                                String str2 = this.mUnblockCidr;
+                                if (str2 == null) {
+                                    str2 = selectedItem.dst_ip;
+                                }
+                                blocklist.removeIp(str2);
+                            } else if (itemId == C0130R.C0132id.unblock_host) {
+                                blocklist.removeHost(selectedItem.info);
+                            } else if (itemId == C0130R.C0132id.unblock_domain) {
+                                blocklist.removeHost(Utils.getSecondLevelDomain(selectedItem.info));
+                            } else if (itemId == C0130R.C0132id.unblock_country) {
+                                blocklist.removeCountry(selectedItem.country);
+                            } else {
+                                if (itemId == C0130R.C0132id.add_to_fw_whitelist) {
+                                    firewallWhitelist.addApp(selectedItem.uid);
+                                } else if (itemId == C0130R.C0132id.remove_from_fw_whitelist) {
+                                    firewallWhitelist.removeApp(selectedItem.uid);
+                                } else if (itemId == C0130R.C0132id.open_app_details) {
+                                    Intent intent = new Intent(requireContext(), AppDetailsActivity.class);
+                                    intent.putExtra(AppDetailsActivity.APP_UID_EXTRA, selectedItem.uid);
+                                    startActivity(intent);
+                                } else if (itemId == C0130R.C0132id.copy_ip) {
+                                    Utils.copyToClipboard(requireContext, selectedItem.dst_ip);
+                                } else if (itemId == C0130R.C0132id.copy_host) {
+                                    Utils.copyToClipboard(requireContext, selectedItem.info);
+                                } else if (itemId == C0130R.C0132id.copy_url) {
+                                    Utils.copyToClipboard(requireContext, selectedItem.url);
+                                } else if (itemId == C0130R.C0132id.copy_http_request) {
+                                    Utils.copyToClipboard(requireContext, selectedItem.getHttpRequest());
+                                } else if (itemId != C0130R.C0132id.copy_http_response) {
+                                    return super.onContextItemSelected(menuItem);
+                                } else {
+                                    Utils.copyToClipboard(requireContext, selectedItem.getHttpResponse());
+                                }
+                                z = false;
+                                z5 = false;
+                                z4 = false;
+                                z3 = true;
+                                z2 = false;
+                                if (!z5) {
+                                    this.mAdapter.mMask.save();
+                                    this.mAdapter.mFilter.showMasked = false;
+                                    refreshFilteredConnections();
+                                } else if (z4) {
+                                    malwareWhitelist.save();
+                                    CaptureService.reloadMalwareWhitelist();
+                                } else if (z3) {
+                                    firewallWhitelist.save();
+                                    if (CaptureService.isServiceActive()) {
+                                        CaptureService.requireInstance().reloadFirewallWhitelist();
+                                    }
+                                } else if (z2) {
+                                    decryptionList.save();
+                                    CaptureService.reloadDecryptionList();
+                                } else if (z) {
+                                    blocklist.saveAndReload();
+                                }
+                                return true;
+                            }
+                            z = true;
+                        } else if (isPurchased) {
+                            blocklist.addCountry(selectedItem.country);
+                            z = true;
+                        } else {
+                            showFirewallPurchaseDialog();
+                        }
+                        z5 = false;
+                        z4 = false;
+                        z3 = false;
+                        z2 = false;
+                        if (!z5) {
+                        }
+                        return true;
+                    }
+                    z = false;
+                    z5 = false;
+                    z4 = false;
+                    z3 = false;
+                    z2 = true;
+                    if (!z5) {
+                    }
+                    return true;
+                }
+                z = false;
+                z5 = false;
+                z4 = true;
+                z3 = false;
+                z2 = false;
+                if (!z5) {
+                }
+                return true;
+            }
+            z = false;
+            z5 = false;
+            z4 = false;
+            z3 = false;
+            z2 = false;
+            if (!z5) {
+            }
+            return true;
+        }
+        z = false;
+        z5 = true;
+        z4 = false;
+        z3 = false;
+        z2 = false;
+        if (!z5) {
+        }
+        return true;
     }
 
     @Override // androidx.fragment.app.Fragment, android.view.View.OnCreateContextMenuListener
@@ -663,7 +864,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
         Cidr matchesCidr;
         Cidr matchesCidr2;
         super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
-        requireActivity().getMenuInflater().inflate(R.menu.connection_context_menu, contextMenu);
+        requireActivity().getMenuInflater().inflate(C0130R.C0134menu.connection_context_menu, contextMenu);
         ConnectionDescriptor selectedItem = this.mAdapter.getSelectedItem();
         if (selectedItem != null) {
             AppDescriptor appByUid = this.mApps.getAppByUid(selectedItem.uid, 0);
@@ -686,38 +887,38 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
                 c = 0;
                 boolean matchesApp = decryptionList.matchesApp(appByUid.getUid());
                 z3 = !matchesApp;
-                MenuItem findItem = contextMenu.findItem(R.id.hide_app);
+                MenuItem findItem = contextMenu.findItem(C0130R.C0132id.hide_app);
                 String shorten = Utils.shorten(MatchList.getRuleLabel(requireContext, MatchList.RuleType.APP, appByUid.getPackageName()), 32);
                 findItem.setTitle(shorten);
                 findItem.setVisible(true);
-                MenuItem findItem2 = contextMenu.findItem(R.id.search_app);
+                MenuItem findItem2 = contextMenu.findItem(C0130R.C0132id.search_app);
                 findItem2.setTitle(shorten);
                 findItem2.setVisible(true);
-                MenuItem findItem3 = contextMenu.findItem(R.id.block_app);
+                MenuItem findItem3 = contextMenu.findItem(C0130R.C0132id.block_app);
                 findItem3.setTitle(shorten);
                 findItem3.setVisible(!z5);
-                MenuItem findItem4 = contextMenu.findItem(R.id.unblock_app);
+                MenuItem findItem4 = contextMenu.findItem(C0130R.C0132id.unblock_app);
                 findItem4.setTitle(shorten);
                 findItem4.setVisible(z5);
-                MenuItem findItem5 = contextMenu.findItem(R.id.dec_add_app);
+                MenuItem findItem5 = contextMenu.findItem(C0130R.C0132id.dec_add_app);
                 findItem5.setTitle(shorten);
                 findItem5.setVisible(!matchesApp);
-                MenuItem findItem6 = contextMenu.findItem(R.id.dec_rem_app);
+                MenuItem findItem6 = contextMenu.findItem(C0130R.C0132id.dec_rem_app);
                 findItem6.setTitle(shorten);
                 findItem6.setVisible(matchesApp);
                 z2 = z;
-                contextMenu.findItem(R.id.unblock_app_10m).setTitle(getString(R.string.unblock_for_n_minutes, 10));
-                contextMenu.findItem(R.id.unblock_app_1h).setTitle(getString(R.string.unblock_for_n_hours, 1));
-                contextMenu.findItem(R.id.unblock_app_8h).setTitle(getString(R.string.unblock_for_n_hours, 8));
+                contextMenu.findItem(C0130R.C0132id.unblock_app_10m).setTitle(getString(C0130R.string.unblock_for_n_minutes, 10));
+                contextMenu.findItem(C0130R.C0132id.unblock_app_1h).setTitle(getString(C0130R.string.unblock_for_n_hours, 1));
+                contextMenu.findItem(C0130R.C0132id.unblock_app_8h).setTitle(getString(C0130R.string.unblock_for_n_hours, 8));
                 if (selectedItem.isBlacklisted()) {
-                    MenuItem findItem7 = contextMenu.findItem(R.id.mw_whitelist_app);
+                    MenuItem findItem7 = contextMenu.findItem(C0130R.C0132id.mw_whitelist_app);
                     findItem7.setTitle(shorten);
                     findItem7.setVisible(true);
                 }
                 if (isFirewallVisible && isFirewallWhitelistMode) {
                     boolean matchesApp2 = firewallWhitelist.matchesApp(appByUid.getUid());
-                    contextMenu.findItem(R.id.add_to_fw_whitelist).setVisible(!matchesApp2);
-                    contextMenu.findItem(R.id.remove_from_fw_whitelist).setVisible(matchesApp2);
+                    contextMenu.findItem(C0130R.C0132id.add_to_fw_whitelist).setVisible(!matchesApp2);
+                    contextMenu.findItem(C0130R.C0132id.remove_from_fw_whitelist).setVisible(matchesApp2);
                 }
                 z6 = matchesApp;
             } else {
@@ -738,25 +939,25 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
                 boolean matchesExactHost2 = decryptionList.matchesExactHost(selectedItem.info);
                 z3 |= !matchesExactHost2;
                 z6 |= matchesExactHost2;
-                MenuItem findItem8 = contextMenu.findItem(R.id.hide_host);
+                MenuItem findItem8 = contextMenu.findItem(C0130R.C0132id.hide_host);
                 findItem8.setTitle(shorten2);
                 findItem8.setVisible(true);
-                MenuItem findItem9 = contextMenu.findItem(R.id.block_host);
+                MenuItem findItem9 = contextMenu.findItem(C0130R.C0132id.block_host);
                 findItem9.setTitle(shorten2);
                 findItem9.setVisible(!matchesExactHost);
-                MenuItem findItem10 = contextMenu.findItem(R.id.unblock_host);
+                MenuItem findItem10 = contextMenu.findItem(C0130R.C0132id.unblock_host);
                 findItem10.setTitle(shorten2);
                 findItem10.setVisible(matchesExactHost);
-                MenuItem findItem11 = contextMenu.findItem(R.id.search_host);
+                MenuItem findItem11 = contextMenu.findItem(C0130R.C0132id.search_host);
                 findItem11.setTitle(shorten2);
                 findItem11.setVisible(true);
-                MenuItem findItem12 = contextMenu.findItem(R.id.copy_host);
+                MenuItem findItem12 = contextMenu.findItem(C0130R.C0132id.copy_host);
                 findItem12.setTitle(shorten2);
                 findItem12.setVisible(true);
-                MenuItem findItem13 = contextMenu.findItem(R.id.dec_add_host);
+                MenuItem findItem13 = contextMenu.findItem(C0130R.C0132id.dec_add_host);
                 findItem13.setTitle(shorten2);
                 findItem13.setVisible(!matchesExactHost2);
-                MenuItem findItem14 = contextMenu.findItem(R.id.dec_rem_host);
+                MenuItem findItem14 = contextMenu.findItem(C0130R.C0132id.dec_rem_host);
                 findItem14.setTitle(shorten2);
                 findItem14.setVisible(matchesExactHost2);
                 String cleanDomain = Utils.cleanDomain(selectedItem.info);
@@ -766,13 +967,13 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
                     shorten2 = Utils.shorten(MatchList.getRuleLabel(requireContext, ruleType, secondLevelDomain), 32);
                     boolean z16 = (!matchesExactHost3) | z14;
                     boolean z17 = z15 | matchesExactHost3;
-                    MenuItem findItem15 = contextMenu.findItem(R.id.hide_domain);
+                    MenuItem findItem15 = contextMenu.findItem(C0130R.C0132id.hide_domain);
                     findItem15.setTitle(shorten2);
                     findItem15.setVisible(true);
-                    MenuItem findItem16 = contextMenu.findItem(R.id.block_domain);
+                    MenuItem findItem16 = contextMenu.findItem(C0130R.C0132id.block_domain);
                     findItem16.setTitle(shorten2);
                     findItem16.setVisible(!matchesExactHost3);
-                    MenuItem findItem17 = contextMenu.findItem(R.id.unblock_domain);
+                    MenuItem findItem17 = contextMenu.findItem(C0130R.C0132id.unblock_domain);
                     findItem17.setTitle(shorten2);
                     findItem17.setVisible(matchesExactHost3);
                     z4 = z16;
@@ -782,15 +983,15 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
                     z5 = z15;
                 }
                 if (selectedItem.isBlacklistedHost()) {
-                    MenuItem findItem18 = contextMenu.findItem(R.id.mw_whitelist_host);
+                    MenuItem findItem18 = contextMenu.findItem(C0130R.C0132id.mw_whitelist_host);
                     findItem18.setTitle(shorten2);
                     findItem18.setVisible(true);
                 }
             }
             String str4 = selectedItem.url;
             if (str4 != null && !str4.isEmpty()) {
-                MenuItem findItem19 = contextMenu.findItem(R.id.copy_url);
-                String string = getString(R.string.url_val);
+                MenuItem findItem19 = contextMenu.findItem(C0130R.C0132id.copy_url);
+                String string = getString(C0130R.string.url_val);
                 Object[] objArr = new Object[1];
                 objArr[c] = selectedItem.url;
                 findItem19.setTitle(Utils.shorten(String.format(string, objArr), 32));
@@ -798,26 +999,26 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             }
             if (!selectedItem.country.isEmpty()) {
                 boolean matchesCountry = blocklist.matchesCountry(selectedItem.country);
-                String string2 = getString(R.string.country_val);
+                String string2 = getString(C0130R.string.country_val);
                 Object[] objArr2 = new Object[1];
                 objArr2[c] = Utils.getCountryName(requireContext, selectedItem.country);
                 String shorten3 = Utils.shorten(String.format(string2, objArr2), 32);
                 z4 |= !matchesCountry;
                 z5 |= matchesCountry;
-                MenuItem findItem20 = contextMenu.findItem(R.id.block_country);
+                MenuItem findItem20 = contextMenu.findItem(C0130R.C0132id.block_country);
                 findItem20.setTitle(shorten3);
                 findItem20.setVisible(!matchesCountry);
-                MenuItem findItem21 = contextMenu.findItem(R.id.unblock_country);
+                MenuItem findItem21 = contextMenu.findItem(C0130R.C0132id.unblock_country);
                 findItem21.setTitle(shorten3);
                 findItem21.setVisible(matchesCountry);
-                MenuItem findItem22 = contextMenu.findItem(R.id.hide_country);
+                MenuItem findItem22 = contextMenu.findItem(C0130R.C0132id.hide_country);
                 findItem22.setTitle(shorten3);
                 findItem22.setVisible(true);
             }
             String ruleLabel = MatchList.getRuleLabel(requireContext, MatchList.RuleType.IP, selectedItem.dst_ip);
-            contextMenu.findItem(R.id.hide_ip).setTitle(ruleLabel);
-            contextMenu.findItem(R.id.copy_ip).setTitle(ruleLabel);
-            contextMenu.findItem(R.id.search_ip).setTitle(ruleLabel);
+            contextMenu.findItem(C0130R.C0132id.hide_ip).setTitle(ruleLabel);
+            contextMenu.findItem(C0130R.C0132id.copy_ip).setTitle(ruleLabel);
+            contextMenu.findItem(C0130R.C0132id.search_ip).setTitle(ruleLabel);
             this.mUnblockCidr = null;
             this.mDecRemoveCidr = null;
             boolean matchesExactIP = blocklist.matchesExactIP(selectedItem.dst_ip);
@@ -841,33 +1042,33 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             }
             boolean z20 = z3 | (!z7);
             boolean z21 = z6 | z7;
-            contextMenu.findItem(R.id.block_ip).setTitle(ruleLabel).setVisible(!matchesExactIP);
-            contextMenu.findItem(R.id.unblock_ip).setTitle(str).setVisible(matchesExactIP);
-            contextMenu.findItem(R.id.dec_add_ip).setTitle(ruleLabel).setVisible(!z7);
-            contextMenu.findItem(R.id.dec_rem_ip).setTitle(str2).setVisible(z7);
+            contextMenu.findItem(C0130R.C0132id.block_ip).setTitle(ruleLabel).setVisible(!matchesExactIP);
+            contextMenu.findItem(C0130R.C0132id.unblock_ip).setTitle(str).setVisible(matchesExactIP);
+            contextMenu.findItem(C0130R.C0132id.dec_add_ip).setTitle(ruleLabel).setVisible(!z7);
+            contextMenu.findItem(C0130R.C0132id.dec_rem_ip).setTitle(str2).setVisible(z7);
             if (selectedItem.isBlacklistedIp()) {
                 z8 = true;
-                contextMenu.findItem(R.id.mw_whitelist_ip).setTitle(ruleLabel).setVisible(true);
+                contextMenu.findItem(C0130R.C0132id.mw_whitelist_ip).setTitle(ruleLabel).setVisible(true);
             } else {
                 z8 = true;
             }
             if (selectedItem.hasHttpRequest()) {
-                contextMenu.findItem(R.id.copy_http_request).setVisible(z8);
+                contextMenu.findItem(C0130R.C0132id.copy_http_request).setVisible(z8);
             }
             if (selectedItem.hasHttpResponse()) {
-                contextMenu.findItem(R.id.copy_http_response).setVisible(z8);
+                contextMenu.findItem(C0130R.C0132id.copy_http_response).setVisible(z8);
             }
             String ruleLabel2 = MatchList.getRuleLabel(requireContext, MatchList.RuleType.PROTOCOL, selectedItem.l7proto);
-            contextMenu.findItem(R.id.hide_proto).setTitle(ruleLabel2);
-            contextMenu.findItem(R.id.search_proto).setTitle(ruleLabel2);
-            MenuItem findItem23 = contextMenu.findItem(R.id.block_menu);
+            contextMenu.findItem(C0130R.C0132id.hide_proto).setTitle(ruleLabel2);
+            contextMenu.findItem(C0130R.C0132id.search_proto).setTitle(ruleLabel2);
+            MenuItem findItem23 = contextMenu.findItem(C0130R.C0132id.block_menu);
             if ((isFirewallVisible || z2) && z18) {
                 z9 = true;
             } else {
                 z9 = false;
             }
             findItem23.setVisible(z9);
-            MenuItem findItem24 = contextMenu.findItem(R.id.unblock_menu);
+            MenuItem findItem24 = contextMenu.findItem(C0130R.C0132id.unblock_menu);
             if (!isFirewallVisible || !z19) {
                 z10 = false;
             } else {
@@ -875,7 +1076,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             }
             findItem24.setVisible(z10);
             if (!selectedItem.isBlacklisted()) {
-                contextMenu.findItem(R.id.mw_whitelist_menu).setVisible(false);
+                contextMenu.findItem(C0130R.C0132id.mw_whitelist_menu).setVisible(false);
             }
             boolean isDecryptionListEnabled = CaptureService.isDecryptionListEnabled();
             if (selectedItem.isNotDecryptable() || selectedItem.isCleartext()) {
@@ -883,14 +1084,14 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             } else {
                 z11 = true;
             }
-            MenuItem findItem25 = contextMenu.findItem(R.id.decrypt_menu);
+            MenuItem findItem25 = contextMenu.findItem(C0130R.C0132id.decrypt_menu);
             if (!isDecryptionListEnabled || !z11 || !z20) {
                 z12 = false;
             } else {
                 z12 = true;
             }
             findItem25.setVisible(z12);
-            MenuItem findItem26 = contextMenu.findItem(R.id.dont_decrypt_menu);
+            MenuItem findItem26 = contextMenu.findItem(C0130R.C0132id.dont_decrypt_menu);
             if (!isDecryptionListEnabled || !z11 || !z21) {
                 z13 = false;
             } else {
@@ -902,10 +1103,10 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.connections_menu, menu);
-        this.mSave = menu.findItem(R.id.save);
-        this.mMenuFilter = menu.findItem(R.id.edit_filter);
-        MenuItem findItem = menu.findItem(R.id.search);
+        menuInflater.inflate(C0130R.C0134menu.connections_menu, menu);
+        this.mSave = menu.findItem(C0130R.C0132id.save);
+        this.mMenuFilter = menu.findItem(C0130R.C0132id.edit_filter);
+        MenuItem findItem = menu.findItem(C0130R.C0132id.search);
         this.mMenuItemSearch = findItem;
         SearchView searchView = (SearchView) findItem.getActionView();
         this.mSearchView = searchView;
@@ -924,7 +1125,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
         if (!(getParentFragment() instanceof DataViewContainerFragment)) {
             requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
         }
-        return layoutInflater.inflate(R.layout.connections, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.connections, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -960,10 +1161,10 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.save) {
+        if (itemId == C0130R.C0132id.save) {
             openFileSelector();
             return true;
-        } else if (itemId != R.id.edit_filter) {
+        } else if (itemId != C0130R.C0132id.edit_filter) {
             return false;
         } else {
             Intent intent = new Intent(requireContext(), EditFilterActivity.class);
@@ -1050,14 +1251,14 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
     public void onViewCreated(View view, Bundle bundle) {
         String str;
         this.mHandler = new Handler(Looper.getMainLooper());
-        this.mFabDown = (FloatingActionButton) view.findViewById(R.id.fabDown);
-        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.connections_view);
-        this.mOldConnectionsText = (TextView) view.findViewById(R.id.old_connections_notice);
+        this.mFabDown = (FloatingActionButton) view.findViewById(C0130R.C0132id.fabDown);
+        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(C0130R.C0132id.connections_view);
+        this.mOldConnectionsText = (TextView) view.findViewById(C0130R.C0132id.old_connections_notice);
         EmptyRecyclerView.MyLinearLayoutManager myLinearLayoutManager = new EmptyRecyclerView.MyLinearLayoutManager(requireContext());
         this.mRecyclerView.setLayoutManager(myLinearLayoutManager);
         this.mApps = new AppsResolver(requireContext());
-        this.mEmptyText = (TextView) view.findViewById(R.id.no_connections);
-        Slider slider = (Slider) view.findViewById(R.id.size_slider);
+        this.mEmptyText = (TextView) view.findViewById(C0130R.C0132id.no_connections);
+        Slider slider = (Slider) view.findViewById(C0130R.C0132id.size_slider);
         this.mSizeSlider = slider;
         slider.setLabelFormatter(new TransportImpl$$ExternalSyntheticLambda0(6));
         Slider slider2 = this.mSizeSlider;
@@ -1082,7 +1283,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
                 ConnectionsFragment.this.recheckMaxConnectionSize();
             }
         });
-        ChipGroup chipGroup = (ChipGroup) view.findViewById(R.id.active_filter);
+        ChipGroup chipGroup = (ChipGroup) view.findViewById(C0130R.C0132id.active_filter);
         this.mActiveFilter = chipGroup;
         chipGroup.setOnCheckedStateChangeListener(new ConnectionsFragment$$ExternalSyntheticLambda3(this, 1));
         ConnectionsAdapter connectionsAdapter = new ConnectionsAdapter(requireContext(), this.mApps);
@@ -1114,7 +1315,7 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
         this.mAdapter.setSelectionLongClickListener(new HttpLogAdapter$$ExternalSyntheticLambda0(1, this));
         this.autoScroll = true;
         showFabDown(false);
-        View findViewById = view.findViewById(R.id.linearlayout);
+        View findViewById = view.findViewById(C0130R.C0132id.linearlayout);
         TransportImpl$$ExternalSyntheticLambda0 transportImpl$$ExternalSyntheticLambda0 = new TransportImpl$$ExternalSyntheticLambda0(7);
         WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
         ViewCompat.Api21Impl.setOnApplyWindowInsetsListener(findViewById, transportImpl$$ExternalSyntheticLambda0);
@@ -1156,9 +1357,9 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
                 this.mAdapter.mFilter = filterDescriptor;
                 if (filterDescriptor.onlyBlacklisted && !maliciousWarningShown) {
                     zzbv zzbvVar = new zzbv(requireContext());
-                    zzbvVar.setTitle(R.string.malicious_connections);
-                    zzbvVar.setMessage(R.string.malicious_connections_notice);
-                    zzbvVar.setPositiveButton(R.string.ok, new Blocklist$$ExternalSyntheticLambda0(16));
+                    zzbvVar.setTitle(C0130R.string.malicious_connections);
+                    zzbvVar.setMessage(C0130R.string.malicious_connections_notice);
+                    zzbvVar.setPositiveButton(C0130R.string.ok, new Blocklist$$ExternalSyntheticLambda0(16));
                     zzbvVar.show();
                     maliciousWarningShown = true;
                 }
@@ -1202,13 +1403,13 @@ public class ConnectionsFragment extends Fragment implements ConnectionsListener
             } catch (ActivityNotFoundException unused) {
             }
         }
-        Log.w(TAG, "No app found to handle file selection");
+        Log.m581w(TAG, "No app found to handle file selection");
         Uri downloadsUri = Utils.getDownloadsUri(requireContext(), exportFileName);
         if (downloadsUri != null) {
             this.mCsvFname = downloadsUri;
             dumpCsv();
             return;
         }
-        Utils.showToastLong(requireContext(), R.string.no_activity_file_selection, new Object[0]);
+        Utils.showToastLong(requireContext(), C0130R.string.no_activity_file_selection, new Object[0]);
     }
 }

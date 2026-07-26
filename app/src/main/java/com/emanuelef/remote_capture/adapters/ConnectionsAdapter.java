@@ -13,16 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.collection.ArraySet;
 import androidx.core.content.ContextCompat$Api21Impl;
-import androidx.core.os.BundleKt;
+import androidx.core.p002os.BundleKt;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.emanuelef.remote_capture.AppsResolver;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
 import com.emanuelef.remote_capture.ConnectionsRegister;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.interfaces.ConnectionsListener;
 import com.emanuelef.remote_capture.model.AppDescriptor;
@@ -71,19 +71,19 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
 
         public ViewHolder(View view) {
             super(view);
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.remote = (TextView) view.findViewById(R.id.remote);
-            this.l7proto = (TextView) view.findViewById(R.id.l7proto);
-            this.traffic = (TextView) view.findViewById(R.id.traffic);
-            this.statusInd = (TextView) view.findViewById(R.id.status_ind);
-            this.decryptionInd = (ImageView) view.findViewById(R.id.decryption_status);
-            this.appName = (TextView) view.findViewById(R.id.app_name);
-            this.lastSeen = (TextView) view.findViewById(R.id.last_seen);
-            this.jsInjectorInd = (ImageView) view.findViewById(R.id.js_injector);
-            this.blacklistedInd = (ImageView) view.findViewById(R.id.blacklisted);
-            this.blockedInd = (ImageView) view.findViewById(R.id.blocked);
-            this.redirectedInd = (ImageView) view.findViewById(R.id.redirected);
-            this.mProtoAndPort = view.getContext().getString(R.string.proto_and_port);
+            this.icon = (ImageView) view.findViewById(C0130R.C0132id.icon);
+            this.remote = (TextView) view.findViewById(C0130R.C0132id.remote);
+            this.l7proto = (TextView) view.findViewById(C0130R.C0132id.l7proto);
+            this.traffic = (TextView) view.findViewById(C0130R.C0132id.traffic);
+            this.statusInd = (TextView) view.findViewById(C0130R.C0132id.status_ind);
+            this.decryptionInd = (ImageView) view.findViewById(C0130R.C0132id.decryption_status);
+            this.appName = (TextView) view.findViewById(C0130R.C0132id.app_name);
+            this.lastSeen = (TextView) view.findViewById(C0130R.C0132id.last_seen);
+            this.jsInjectorInd = (ImageView) view.findViewById(C0130R.C0132id.js_injector);
+            this.blacklistedInd = (ImageView) view.findViewById(C0130R.C0132id.blacklisted);
+            this.blockedInd = (ImageView) view.findViewById(C0130R.C0132id.blocked);
+            this.redirectedInd = (ImageView) view.findViewById(C0130R.C0132id.redirected);
+            this.mProtoAndPort = view.getContext().getString(C0130R.string.proto_and_port);
         }
 
         public void bindConn(Context context, ConnectionDescriptor connectionDescriptor, AppsResolver appsResolver, Drawable drawable) {
@@ -112,7 +112,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
                 str = connectionDescriptor.l7proto;
             }
             if (connectionDescriptor.ipver == 6) {
-                str = ViewModelProvider.Factory.CC.m(str, ", IPv6");
+                str = ViewModelProvider.Factory.CC.m596m(str, ", IPv6");
             }
             this.l7proto.setText(str);
             if (appByUid != null) {
@@ -126,13 +126,13 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
             this.statusInd.setText(connectionDescriptor.getStatusLabel(context));
             int i7 = connectionDescriptor.status;
             if (i7 < 3) {
-                i = R.color.statusOpen;
+                i = C0130R.color.statusOpen;
             } else if (i7 == 3 || i7 == 7) {
-                i = R.color.statusClosed;
+                i = C0130R.color.statusClosed;
             } else if (i7 == 4 || i7 == 5 || i7 == 8) {
-                i = R.color.warning;
+                i = C0130R.color.warning;
             } else {
-                i = R.color.statusError;
+                i = C0130R.color.statusError;
             }
             this.statusInd.setTextColor(BundleKt.getColor(context, i));
             ImageView imageView = this.jsInjectorInd;
@@ -177,7 +177,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
         this.mContext = context;
         this.mAppsResolver = appsResolver;
         this.mLayoutInflater = (LayoutInflater) context.getSystemService("layout_inflater");
-        this.mUnknownIcon = ContextCompat$Api21Impl.getDrawable(context, R.drawable.ic_image);
+        this.mUnknownIcon = ContextCompat$Api21Impl.getDrawable(context, C0130R.C0131drawable.ic_image);
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(new int[]{16843820});
         this.mSelectedColor = obtainStyledAttributes.getColor(0, 1082163328);
         obtainStyledAttributes.recycle();
@@ -306,14 +306,14 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
             if (!(conn == null || (filteredItemPos = getFilteredItemPos(conn.incr_id)) == -1)) {
                 int i4 = filteredItemPos - i2;
                 if (matches(conn)) {
-                    StringBuilder m = ViewModelProvider.Factory.CC.m("Changed item ", i4, ", dataset size: ");
+                    StringBuilder m = ViewModelProvider.Factory.CC.m598m("Changed item ", i4, ", dataset size: ");
                     m.append(getItemCount());
-                    Log.d(TAG, m.toString());
+                    Log.m587d(TAG, m.toString());
                     notifyItemChanged(i4);
                 } else {
-                    StringBuilder m2 = ViewModelProvider.Factory.CC.m("Unmatch item ", i4, ": ");
+                    StringBuilder m2 = ViewModelProvider.Factory.CC.m598m("Unmatch item ", i4, ": ");
                     m2.append(conn.toString());
-                    Log.d(TAG, m2.toString());
+                    Log.m587d(TAG, m2.toString());
                     removeFilteredItemAt(i4);
                     i2++;
                     if (i3 == -1) {
@@ -335,7 +335,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
         AppsResolver appsResolver = new AppsResolver(this.mContext);
         Context context = this.mContext;
         boolean isMalwareDetectionEnabled = Prefs.isMalwareDetectionEnabled(context, PreferenceManager.getDefaultSharedPreferences(context));
-        sb.append(this.mContext.getString(R.string.connections_csv_fields));
+        sb.append(this.mContext.getString(C0130R.string.connections_csv_fields));
         if (isMalwareDetectionEnabled) {
             sb.append(",Malicious");
         }
@@ -427,12 +427,12 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
             if (i >= 0 && i < this.mUnfilteredItemsCount && connsRegister != null) {
                 return connsRegister.getConn(i);
             }
-            Log.w(TAG, "getItem: bad position: " + i);
+            Log.m581w(TAG, "getItem: bad position: " + i);
             return null;
         } else if (i >= 0 && i < arrayList.size()) {
             return this.mFilteredConn.get(i);
         } else {
-            Log.w(TAG, "getItem(filtered): bad position: " + i);
+            Log.m581w(TAG, "getItem(filtered): bad position: " + i);
             return null;
         }
     }
@@ -477,7 +477,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
     public void refreshFilteredConnections() {
         ConnectionsRegister connsRegister = CaptureService.getConnsRegister();
         if (connsRegister != null) {
-            Log.d(TAG, "refreshFilteredConn (" + this.mUnfilteredItemsCount + ") unfiltered");
+            Log.m587d(TAG, "refreshFilteredConn (" + this.mUnfilteredItemsCount + ") unfiltered");
             this.mIdToFilteredPos.clear();
             this.mNumRemovedItems = 0;
             if (hasFilter()) {
@@ -497,7 +497,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
                         }
                     }
                 }
-                Log.d(TAG, "refreshFilteredConn: " + this.mFilteredConn.size() + " connections matched");
+                Log.m587d(TAG, "refreshFilteredConn: " + this.mFilteredConn.size() + " connections matched");
             } else {
                 this.mFilteredConn = null;
             }
@@ -550,7 +550,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         ConnectionDescriptor item = getItem(i);
         if (item == null) {
-            Log.w(TAG, "bad position: " + i);
+            Log.m581w(TAG, "bad position: " + i);
             return;
         }
         viewHolder.bindConn(this.mContext, item, this.mAppsResolver, this.mUnknownIcon);
@@ -563,7 +563,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter implements Connecti
 
     @Override // androidx.recyclerview.widget.RecyclerView.Adapter
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View inflate = this.mLayoutInflater.inflate(R.layout.connection_item, viewGroup, false);
+        View inflate = this.mLayoutInflater.inflate(C0130R.layout.connection_item, viewGroup, false);
         inflate.setLongClickable(true);
         View.OnClickListener onClickListener = this.mListener;
         if (onClickListener != null) {

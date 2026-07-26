@@ -23,7 +23,7 @@ import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.ListPopupWindow;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.ColorUtils;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.internal.ViewUtils;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -97,28 +97,28 @@ public final class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTex
     }
 
     public MaterialAutoCompleteTextView(Context context, AttributeSet attributeSet) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, R.attr.autoCompleteTextViewStyle, 0), attributeSet, 0);
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.autoCompleteTextViewStyle, 0), attributeSet, 0);
         Context context2 = getContext();
-        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialAutoCompleteTextView, R.attr.autoCompleteTextViewStyle, 2132083566, new int[0]);
+        TypedArray obtainStyledAttributes = ViewUtils.obtainStyledAttributes(context2, attributeSet, R$styleable.MaterialAutoCompleteTextView, C0130R.attr.autoCompleteTextViewStyle, 2132083566, new int[0]);
         if (obtainStyledAttributes.hasValue(0) && obtainStyledAttributes.getInt(0, 0) == 0) {
             setKeyListener(null);
         }
-        this.simpleItemLayout = obtainStyledAttributes.getResourceId(3, R.layout.mtrl_auto_complete_simple_item);
-        this.popupElevation = obtainStyledAttributes.getDimensionPixelOffset(1, R.dimen.mtrl_exposed_dropdown_menu_popup_elevation);
+        this.simpleItemLayout = obtainStyledAttributes.getResourceId(3, C0130R.layout.mtrl_auto_complete_simple_item);
+        this.popupElevation = obtainStyledAttributes.getDimensionPixelOffset(1, C0130R.dimen.mtrl_exposed_dropdown_menu_popup_elevation);
         if (obtainStyledAttributes.hasValue(2)) {
             this.dropDownBackgroundTint = ColorStateList.valueOf(obtainStyledAttributes.getColor(2, 0));
         }
         this.simpleItemSelectedColor = obtainStyledAttributes.getColor(4, 0);
         this.simpleItemSelectedRippleColor = LazyKt__LazyJVMKt.getColorStateList(context2, obtainStyledAttributes, 5);
         this.accessibilityManager = (AccessibilityManager) context2.getSystemService("accessibility");
-        ListPopupWindow listPopupWindow = new ListPopupWindow(context2, null, R.attr.listPopupWindowStyle, 0);
+        ListPopupWindow listPopupWindow = new ListPopupWindow(context2, null, C0130R.attr.listPopupWindowStyle, 0);
         this.modalListPopup = listPopupWindow;
         listPopupWindow.mModal = true;
         listPopupWindow.mPopup.setFocusable(true);
         listPopupWindow.mDropDownAnchorView = this;
         listPopupWindow.mPopup.setInputMethodMode(2);
         listPopupWindow.setAdapter(getAdapter());
-        listPopupWindow.mItemClickListener = new SearchView.AnonymousClass8(2, this);
+        listPopupWindow.mItemClickListener = new SearchView.C00358(2, this);
         if (obtainStyledAttributes.hasValue(6)) {
             setSimpleItems(obtainStyledAttributes.getResourceId(6, 0));
         }

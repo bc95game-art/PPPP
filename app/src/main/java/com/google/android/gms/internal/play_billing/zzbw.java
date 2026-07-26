@@ -1,7 +1,6 @@
 package com.google.android.gms.internal.play_billing;
 
 import androidx.lifecycle.ViewModelProvider;
-import j$.util.Map;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
@@ -10,8 +9,9 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import p004j$.util.Map;
 /* loaded from: classes.dex */
-public abstract class zzbw implements Map, Serializable, j$.util.Map {
+public abstract class zzbw implements Map, Serializable, p004j$.util.Map {
     public transient zzcc zza;
     public transient zzcd zzb;
     public transient zzce zzc;
@@ -21,17 +21,17 @@ public abstract class zzbw implements Map, Serializable, j$.util.Map {
         throw new UnsupportedOperationException();
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ Object compute(Object obj, BiFunction biFunction) {
         return Map.CC.$default$compute(this, obj, biFunction);
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ Object computeIfAbsent(Object obj, Function function) {
         return Map.CC.$default$computeIfAbsent(this, obj, function);
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ Object computeIfPresent(Object obj, BiFunction biFunction) {
         return Map.CC.$default$computeIfPresent(this, obj, biFunction);
     }
@@ -79,7 +79,7 @@ public abstract class zzbw implements Map, Serializable, j$.util.Map {
         return entrySet().equals(((java.util.Map) obj).entrySet());
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ void forEach(BiConsumer biConsumer) {
         Map.CC.$default$forEach(this, biConsumer);
     }
@@ -87,7 +87,7 @@ public abstract class zzbw implements Map, Serializable, j$.util.Map {
     @Override // java.util.Map
     public abstract Object get(Object obj);
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public final Object getOrDefault(Object obj, Object obj2) {
         Object obj3 = get(obj);
         if (obj3 != null) {
@@ -135,7 +135,7 @@ public abstract class zzbw implements Map, Serializable, j$.util.Map {
         return zzcdVar2;
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ Object merge(Object obj, Object obj2, BiFunction biFunction) {
         return Map.CC.$default$merge(this, obj, obj2, biFunction);
     }
@@ -150,22 +150,22 @@ public abstract class zzbw implements Map, Serializable, j$.util.Map {
         throw new UnsupportedOperationException();
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ Object putIfAbsent(Object obj, Object obj2) {
         return get(obj);
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ boolean remove(Object obj, Object obj2) {
         return Map.CC.$default$remove(this, obj, obj2);
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ Object replace(Object obj, Object obj2) {
         return get(obj);
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ void replaceAll(BiFunction biFunction) {
         Map.CC.$default$replaceAll(this, biFunction);
     }
@@ -190,7 +190,7 @@ public abstract class zzbw implements Map, Serializable, j$.util.Map {
             sb.append('}');
             return sb.toString();
         }
-        throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(i, "size cannot be negative but was: "));
+        throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m604m(i, "size cannot be negative but was: "));
     }
 
     @Override // java.util.Map
@@ -210,7 +210,7 @@ public abstract class zzbw implements Map, Serializable, j$.util.Map {
         throw new UnsupportedOperationException();
     }
 
-    @Override // java.util.Map, j$.util.Map
+    @Override // java.util.Map, p004j$.util.Map
     public /* synthetic */ boolean replace(Object obj, Object obj2, Object obj3) {
         return Map.CC.$default$replace(this, obj, obj2, obj3);
     }

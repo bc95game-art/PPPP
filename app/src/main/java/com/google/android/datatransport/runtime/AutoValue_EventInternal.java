@@ -67,7 +67,7 @@ public final class AutoValue_EventInternal {
     }
 
     /* JADX WARN: Type inference failed for: r0v0, types: [java.lang.Object, androidx.appcompat.widget.AppCompatDrawableManager$1] */
-    public final AppCompatDrawableManager.AnonymousClass1 toBuilder() {
+    public final AppCompatDrawableManager.C00231 toBuilder() {
         ?? obj = new Object();
         String str = this.transportName;
         if (str != null) {

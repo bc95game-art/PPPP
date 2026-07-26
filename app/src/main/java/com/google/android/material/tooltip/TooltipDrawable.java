@@ -24,7 +24,7 @@ public final class TooltipDrawable extends MaterialShapeDrawable implements Text
     public CharSequence text;
     public final TextDrawableHelper textDrawableHelper;
     public final Paint.FontMetrics fontMetrics = new Paint.FontMetrics();
-    public final SearchView.AnonymousClass4 attachedViewLayoutChangeListener = new SearchView.AnonymousClass4(2, this);
+    public final SearchView.View$OnLayoutChangeListenerC00314 attachedViewLayoutChangeListener = new SearchView.View$OnLayoutChangeListenerC00314(2, this);
     public final Rect displayFrame = new Rect();
     public float tooltipScaleX = 1.0f;
     public float tooltipScaleY = 1.0f;

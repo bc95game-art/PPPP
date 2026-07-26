@@ -28,7 +28,7 @@ public final class zzgt extends zzdu implements RandomAccess {
         int i2;
         zza();
         if (i < 0 || i > (i2 = this.zzd)) {
-            throw new IndexOutOfBoundsException(ViewModelProvider.Factory.CC.m(i, this.zzd, "Index:", ", Size:"));
+            throw new IndexOutOfBoundsException(ViewModelProvider.Factory.CC.m605m(i, this.zzd, "Index:", ", Size:"));
         }
         int i3 = i + 1;
         Object[] objArr = this.zzc;
@@ -99,7 +99,7 @@ public final class zzgt extends zzdu implements RandomAccess {
 
     public final void zzi(int i) {
         if (i < 0 || i >= this.zzd) {
-            throw new IndexOutOfBoundsException(ViewModelProvider.Factory.CC.m(i, this.zzd, "Index:", ", Size:"));
+            throw new IndexOutOfBoundsException(ViewModelProvider.Factory.CC.m605m(i, this.zzd, "Index:", ", Size:"));
         }
     }
 

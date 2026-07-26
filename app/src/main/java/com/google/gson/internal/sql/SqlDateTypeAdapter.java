@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 /* loaded from: classes.dex */
 public final class SqlDateTypeAdapter extends TypeAdapter {
-    public static final AnonymousClass1 FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.sql.SqlDateTypeAdapter.1
+    public static final C02741 FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.sql.SqlDateTypeAdapter.1
         @Override // com.google.gson.TypeAdapterFactory
         public final TypeAdapter create(Gson gson, TypeToken typeToken) {
             if (typeToken.getRawType() == Date.class) {

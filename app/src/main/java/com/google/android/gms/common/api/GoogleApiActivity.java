@@ -83,7 +83,7 @@ public class GoogleApiActivity extends Activity implements DialogInterface.OnCan
                         if (extras.getBoolean("notify_manager", true)) {
                             GoogleApiManager.zak(this).zax(new ConnectionResult(22, null), getIntent().getIntExtra("failing_client_id", -1));
                         } else {
-                            String m = ViewModelProvider.Factory.CC.m("Activity not found while launching ", pendingIntent.toString(), ".");
+                            String m = ViewModelProvider.Factory.CC.m595m("Activity not found while launching ", pendingIntent.toString(), ".");
                             if (Build.FINGERPRINT.contains("generic")) {
                                 m = m.concat(" This may occur when resolving Google Play services connection issues on emulators with Google APIs but not Google Play Store.");
                             }

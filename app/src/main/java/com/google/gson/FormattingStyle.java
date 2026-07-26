@@ -1,6 +1,6 @@
 package com.google.gson;
 
-import j$.util.Objects;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public final class FormattingStyle {
     public static final FormattingStyle COMPACT = new FormattingStyle("", "", false);

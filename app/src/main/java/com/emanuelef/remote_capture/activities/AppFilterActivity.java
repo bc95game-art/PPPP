@@ -12,8 +12,8 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.BackStackRecord;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.AppsToggles;
 import com.emanuelef.remote_capture.model.AppDescriptor;
@@ -44,7 +44,7 @@ public class AppFilterActivity extends BaseActivity implements MenuProvider {
                 } else {
                     this.mSelectedApps.remove(packageName);
                 }
-                Log.d(AppFilterActivity.TAG, "Saving " + this.mSelectedApps.size() + " target apps");
+                Log.m587d(AppFilterActivity.TAG, "Saving " + this.mSelectedApps.size() + " target apps");
                 SharedPreferences sharedPreferences = this.mPrefs;
                 if (sharedPreferences != null) {
                     sharedPreferences.edit().putStringSet(Prefs.PREF_APP_FILTER, this.mSelectedApps).apply();
@@ -59,7 +59,7 @@ public class AppFilterActivity extends BaseActivity implements MenuProvider {
             this.mSelectedApps.clear();
             Set<String> stringSet = Prefs.getStringSet(this.mPrefs, Prefs.PREF_APP_FILTER);
             if (!stringSet.isEmpty()) {
-                Log.d(AppFilterActivity.TAG, "Loading " + stringSet.size() + " target apps");
+                Log.m587d(AppFilterActivity.TAG, "Loading " + stringSet.size() + " target apps");
                 this.mSelectedApps.addAll(stringSet);
             }
         }
@@ -94,8 +94,8 @@ public class AppFilterActivity extends BaseActivity implements MenuProvider {
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.target_apps);
-        setContentView(R.layout.fragment_activity);
+        setTitle(C0130R.string.target_apps);
+        setContentView(C0130R.layout.fragment_activity);
         addMenuProvider(this);
         displayBackAction();
         if (bundle != null) {
@@ -107,7 +107,7 @@ public class AppFilterActivity extends BaseActivity implements MenuProvider {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.getClass();
         BackStackRecord backStackRecord = new BackStackRecord(supportFragmentManager);
-        backStackRecord.replace(R.id.fragment, this.mFragment, null);
+        backStackRecord.replace(C0130R.C0132id.fragment, this.mFragment, null);
         backStackRecord.commit();
         if (Build.VERSION.SDK_INT >= 34) {
             overrideActivityTransition(0, 0, 0);
@@ -118,7 +118,7 @@ public class AppFilterActivity extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.hint_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.hint_menu, menu);
     }
 
     @Override // androidx.core.view.MenuProvider
@@ -127,10 +127,10 @@ public class AppFilterActivity extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() != R.id.show_hint) {
+        if (menuItem.getItemId() != C0130R.C0132id.show_hint) {
             return false;
         }
-        Utils.showHelpDialog(this, (int) R.string.target_apps_help);
+        Utils.showHelpDialog(this, (int) C0130R.string.target_apps_help);
         return true;
     }
 

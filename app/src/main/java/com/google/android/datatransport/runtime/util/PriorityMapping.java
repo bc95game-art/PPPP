@@ -33,6 +33,6 @@ public abstract class PriorityMapping {
         if (priority != null) {
             return priority;
         }
-        throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m(i, "Unknown Priority for value "));
+        throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m604m(i, "Unknown Priority for value "));
     }
 }

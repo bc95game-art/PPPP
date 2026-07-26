@@ -29,7 +29,7 @@ public abstract class ExpandableTransformationBehavior extends ExpandableBehavio
         }
         AnimatorSet onCreateExpandedStateChangeAnimation = onCreateExpandedStateChangeAnimation(view, view2, z, z3);
         this.currentAnimation = onCreateExpandedStateChangeAnimation;
-        onCreateExpandedStateChangeAnimation.addListener(new Transition.AnonymousClass3(11, this));
+        onCreateExpandedStateChangeAnimation.addListener(new Transition.C01123(11, this));
         this.currentAnimation.start();
         if (!z2) {
             this.currentAnimation.end();

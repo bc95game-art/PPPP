@@ -33,11 +33,12 @@ public final class LinkedTreeMap$KeySet$1 implements Iterator {
             case 0:
                 return nextNode().key;
             default:
-                return next$com$google$gson$internal$LinkedTreeMap$LinkedTreeMapIterator();
+                return m565x1f94beef();
         }
     }
 
-    public final Object next$com$google$gson$internal$LinkedTreeMap$LinkedTreeMapIterator() {
+    /* renamed from: next$com$google$gson$internal$LinkedTreeMap$LinkedTreeMapIterator */
+    public final Object m565x1f94beef() {
         return nextNode();
     }
 

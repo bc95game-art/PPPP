@@ -64,7 +64,7 @@ public final /* synthetic */ class GeoipSettings$$ExternalSyntheticLambda3 imple
         HashMap hashMap = new HashMap();
         StringBuilder sb = new StringBuilder("event_id IN (");
         for (int i = 0; i < loadEvents.size(); i++) {
-            sb.append(((AutoValue_PersistedEvent) loadEvents.get(i)).id);
+            sb.append(((AutoValue_PersistedEvent) loadEvents.get(i)).f34id);
             if (i < loadEvents.size() - 1) {
                 sb.append(',');
             }
@@ -89,9 +89,9 @@ public final /* synthetic */ class GeoipSettings$$ExternalSyntheticLambda3 imple
         ListIterator listIterator = loadEvents.listIterator();
         while (listIterator.hasNext()) {
             AutoValue_PersistedEvent autoValue_PersistedEvent = (AutoValue_PersistedEvent) listIterator.next();
-            long j2 = autoValue_PersistedEvent.id;
+            long j2 = autoValue_PersistedEvent.f34id;
             if (hashMap.containsKey(Long.valueOf(j2))) {
-                AppCompatDrawableManager.AnonymousClass1 builder2 = autoValue_PersistedEvent.event.toBuilder();
+                AppCompatDrawableManager.C00231 builder2 = autoValue_PersistedEvent.event.toBuilder();
                 for (SQLiteEventStore.Metadata metadata : (Set) hashMap.get(Long.valueOf(j2))) {
                     builder2.addMetadata(metadata.key, metadata.value);
                 }

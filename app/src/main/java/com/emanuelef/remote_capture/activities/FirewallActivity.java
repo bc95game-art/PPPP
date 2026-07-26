@@ -11,8 +11,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.EditListFragment;
 import com.emanuelef.remote_capture.fragments.FirewallStatus;
@@ -42,7 +42,7 @@ public class FirewallActivity extends BaseActivity {
 
         @Override // androidx.viewpager2.adapter.FragmentStateAdapter
         public Fragment createFragment(int i) {
-            Log.d(FirewallActivity.TAG, "createFragment");
+            Log.m587d(FirewallActivity.TAG, "createFragment");
             if (i == 1) {
                 return EditListFragment.newInstance(ListInfo.Type.BLOCKLIST);
             }
@@ -61,7 +61,7 @@ public class FirewallActivity extends BaseActivity {
         }
 
         public int getPageTitle(int i) {
-            return i != 1 ? i != 2 ? R.string.status : R.string.whitelist : R.string.blocklist;
+            return i != 1 ? i != 2 ? C0130R.string.status : C0130R.string.whitelist : C0130R.string.blocklist;
         }
     }
 
@@ -73,17 +73,17 @@ public class FirewallActivity extends BaseActivity {
         StateAdapter stateAdapter = new StateAdapter(this);
         this.mPagerAdapter = stateAdapter;
         this.mPager.setAdapter(stateAdapter);
-        new zzw((TabLayout) findViewById(R.id.tablayout), this.mPager, new InputConnectionCompat$$ExternalSyntheticLambda0(3, this)).attach();
+        new zzw((TabLayout) findViewById(C0130R.C0132id.tablayout), this.mPager, new InputConnectionCompat$$ExternalSyntheticLambda0(3, this)).attach();
         recheckTabs();
     }
 
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.firewall);
-        setContentView(R.layout.tabs_activity);
+        setTitle(C0130R.string.firewall);
+        setContentView(C0130R.layout.tabs_activity);
         this.mPrefs = getSharedPreferences(PreferenceManager.getDefaultSharedPreferencesName(this), 0);
-        ViewPager2 viewPager2 = (ViewPager2) findViewById(R.id.pager);
+        ViewPager2 viewPager2 = (ViewPager2) findViewById(C0130R.C0132id.pager);
         this.mPager = viewPager2;
         Utils.fixViewPager2Insets(viewPager2);
         setupTabs();
@@ -94,14 +94,14 @@ public class FirewallActivity extends BaseActivity {
         View view;
         if (i == 20) {
             View currentFocus = getCurrentFocus();
-            Log.d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
+            Log.m587d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
             if (currentFocus instanceof TabLayout.TabView) {
                 int currentItem = this.mPager.getCurrentItem();
-                Log.d(TAG, "TabLayout.TabView focus pos " + currentItem);
+                Log.m587d(TAG, "TabLayout.TabView focus pos " + currentItem);
                 if (currentItem == 0) {
-                    view = findViewById(R.id.firewall_status);
+                    view = findViewById(C0130R.C0132id.firewall_status);
                 } else if (currentItem == 1 || currentItem == 2) {
-                    view = findViewById(R.id.listview);
+                    view = findViewById(C0130R.C0132id.listview);
                 } else {
                     view = null;
                 }

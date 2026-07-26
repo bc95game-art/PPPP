@@ -1,7 +1,10 @@
 package com.google.android.material.checkbox;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -11,24 +14,35 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.util.Xml;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.autofill.AutofillManager;
 import android.widget.CompoundButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.core.os.BundleKt;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.p002os.BundleKt;
 import androidx.core.widget.CompoundButtonCompat$Api21Impl;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.tracing.Trace;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat$AnimationCallback$1;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.github.appintro.AppIntroBaseFragmentKt;
 import com.google.android.gms.common.zzc;
+import com.google.android.material.R$styleable;
+import com.google.android.material.floatingactionbutton.BorderDrawable;
+import com.google.android.material.internal.ViewUtils;
+import com.google.android.material.theme.overlay.MaterialThemeOverlay;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import kotlin.LazyKt__LazyJVMKt;
+import kotlin.text.MatcherMatchResult;
+import org.xmlpull.v1.XmlPullParserException;
 /* loaded from: classes.dex */
 public final class MaterialCheckBox extends AppCompatCheckBox {
     public boolean broadcasting;
@@ -46,22 +60,22 @@ public final class MaterialCheckBox extends AppCompatCheckBox {
     public ColorStateList materialThemeColorsTintList;
     public CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
     public final AnimatedVectorDrawableCompat transitionToUnchecked;
-    public final AnonymousClass1 transitionToUncheckedCallback;
+    public final C01731 transitionToUncheckedCallback;
     public boolean useMaterialThemeColors;
     public boolean usingMaterialButtonDrawable;
-    public static final int[] INDETERMINATE_STATE_SET = {R.attr.state_indeterminate};
-    public static final int[] ERROR_STATE_SET = {R.attr.state_error};
-    public static final int[][] CHECKBOX_STATES = {new int[]{16842910, R.attr.state_error}, new int[]{16842910, 16842912}, new int[]{16842910, -16842912}, new int[]{-16842910, 16842912}, new int[]{-16842910, -16842912}};
+    public static final int[] INDETERMINATE_STATE_SET = {C0130R.attr.state_indeterminate};
+    public static final int[] ERROR_STATE_SET = {C0130R.attr.state_error};
+    public static final int[][] CHECKBOX_STATES = {new int[]{16842910, C0130R.attr.state_error}, new int[]{16842910, 16842912}, new int[]{16842910, -16842912}, new int[]{-16842910, 16842912}, new int[]{-16842910, -16842912}};
     public static final int FRAMEWORK_BUTTON_DRAWABLE_RES_ID = Resources.getSystem().getIdentifier("btn_check_material_anim", AppIntroBaseFragmentKt.ARG_DRAWABLE, "android");
     public final LinkedHashSet onErrorChangedListeners = new LinkedHashSet();
     public final LinkedHashSet onCheckedStateChangedListeners = new LinkedHashSet();
 
-    /* renamed from: com.google.android.material.checkbox.MaterialCheckBox$1  reason: invalid class name */
+    /* renamed from: com.google.android.material.checkbox.MaterialCheckBox$1 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass1 {
+    public final class C01731 {
         public Animatable2Compat$AnimationCallback$1 mPlatformCallback;
 
-        public AnonymousClass1() {
+        public C01731() {
         }
     }
 
@@ -83,7 +97,7 @@ public final class MaterialCheckBox extends AppCompatCheckBox {
             } else {
                 str = "indeterminate";
             }
-            return ViewModelProvider.Factory.CC.m(sb, str, "}");
+            return ViewModelProvider.Factory.CC.m593m(sb, str, "}");
         }
 
         @Override // android.view.View.BaseSavedState, android.view.AbsSavedState, android.os.Parcelable
@@ -98,33 +112,163 @@ public final class MaterialCheckBox extends AppCompatCheckBox {
     /* JADX WARN: Removed duplicated region for block: B:34:0x0141  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public MaterialCheckBox(android.content.Context r13, android.util.AttributeSet r14) {
-        /*
-            Method dump skipped, instructions count: 335
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.checkbox.MaterialCheckBox.<init>(android.content.Context, android.util.AttributeSet):void");
+    public MaterialCheckBox(Context context, AttributeSet attributeSet) {
+        super(MaterialThemeOverlay.wrap(context, attributeSet, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox), attributeSet, C0130R.attr.checkboxStyle);
+        AnimatedVectorDrawableCompat animatedVectorDrawableCompat;
+        Context context2;
+        TypedArray obtainStyledAttributes;
+        int resourceId;
+        int next;
+        Context context3 = getContext();
+        if (Build.VERSION.SDK_INT >= 24) {
+            animatedVectorDrawableCompat = new AnimatedVectorDrawableCompat(context3, 0);
+            Resources resources = context3.getResources();
+            Resources.Theme theme = context3.getTheme();
+            ThreadLocal threadLocal = ResourcesCompat.sTempTypedValue;
+            Drawable drawable = ResourcesCompat.Api21Impl.getDrawable(resources, C0130R.C0131drawable.mtrl_checkbox_button_checked_unchecked, theme);
+            animatedVectorDrawableCompat.mDelegateDrawable = drawable;
+            drawable.setCallback(animatedVectorDrawableCompat.mCallback);
+            new BorderDrawable.BorderState(animatedVectorDrawableCompat.mDelegateDrawable.getConstantState());
+        } else {
+            int i = AnimatedVectorDrawableCompat.$r8$clinit;
+            try {
+                XmlResourceParser xml = context3.getResources().getXml(C0130R.C0131drawable.mtrl_checkbox_button_checked_unchecked);
+                AttributeSet asAttributeSet = Xml.asAttributeSet(xml);
+                while (true) {
+                    next = xml.next();
+                    if (next == 2 || next == 1) {
+                        break;
+                    }
+                }
+                if (next == 2) {
+                    Resources resources2 = context3.getResources();
+                    Resources.Theme theme2 = context3.getTheme();
+                    AnimatedVectorDrawableCompat animatedVectorDrawableCompat2 = new AnimatedVectorDrawableCompat(context3, 0);
+                    animatedVectorDrawableCompat2.inflate(resources2, xml, asAttributeSet, theme2);
+                    animatedVectorDrawableCompat = animatedVectorDrawableCompat2;
+                } else {
+                    throw new XmlPullParserException("No start tag found");
+                }
+            } catch (IOException e) {
+                Log.e("AnimatedVDCompat", "parser error", e);
+                animatedVectorDrawableCompat = null;
+                this.transitionToUnchecked = animatedVectorDrawableCompat;
+                this.transitionToUncheckedCallback = new C01731();
+                context2 = getContext();
+                this.buttonDrawable = BundleKt.getButtonDrawable(this);
+                this.buttonTintList = getSuperButtonTintList();
+                setSupportButtonTintList(null);
+                ViewUtils.checkCompatibleTheme(context2, attributeSet, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox);
+                int[] iArr = R$styleable.MaterialCheckBox;
+                ViewUtils.checkTextAppearance(context2, attributeSet, iArr, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox, new int[0]);
+                obtainStyledAttributes = context2.obtainStyledAttributes(attributeSet, iArr, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox);
+                MatcherMatchResult matcherMatchResult = new MatcherMatchResult(context2, obtainStyledAttributes);
+                this.buttonIconDrawable = matcherMatchResult.getDrawable(2);
+                if (this.buttonDrawable != null) {
+                    resourceId = obtainStyledAttributes.getResourceId(0, 0);
+                    int resourceId2 = obtainStyledAttributes.getResourceId(1, 0);
+                    if (resourceId == FRAMEWORK_BUTTON_DRAWABLE_RES_ID) {
+                        super.setButtonDrawable((Drawable) null);
+                        this.buttonDrawable = BundleKt.getDrawable(context2, C0130R.C0131drawable.mtrl_checkbox_button);
+                        this.usingMaterialButtonDrawable = true;
+                        if (this.buttonIconDrawable == null) {
+                        }
+                    }
+                }
+                this.buttonIconTintList = LazyKt__LazyJVMKt.getColorStateList(context2, matcherMatchResult, 3);
+                this.buttonIconTintMode = ViewUtils.parseTintMode(obtainStyledAttributes.getInt(4, -1), PorterDuff.Mode.SRC_IN);
+                this.useMaterialThemeColors = obtainStyledAttributes.getBoolean(10, false);
+                this.centerIfNoTextEnabled = obtainStyledAttributes.getBoolean(6, true);
+                this.errorShown = obtainStyledAttributes.getBoolean(9, false);
+                this.errorAccessibilityLabel = obtainStyledAttributes.getText(8);
+                if (obtainStyledAttributes.hasValue(7)) {
+                }
+                matcherMatchResult.recycle();
+                refreshButtonDrawable();
+            } catch (XmlPullParserException e2) {
+                Log.e("AnimatedVDCompat", "parser error", e2);
+                animatedVectorDrawableCompat = null;
+                this.transitionToUnchecked = animatedVectorDrawableCompat;
+                this.transitionToUncheckedCallback = new C01731();
+                context2 = getContext();
+                this.buttonDrawable = BundleKt.getButtonDrawable(this);
+                this.buttonTintList = getSuperButtonTintList();
+                setSupportButtonTintList(null);
+                ViewUtils.checkCompatibleTheme(context2, attributeSet, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox);
+                int[] iArr2 = R$styleable.MaterialCheckBox;
+                ViewUtils.checkTextAppearance(context2, attributeSet, iArr2, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox, new int[0]);
+                obtainStyledAttributes = context2.obtainStyledAttributes(attributeSet, iArr2, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox);
+                MatcherMatchResult matcherMatchResult2 = new MatcherMatchResult(context2, obtainStyledAttributes);
+                this.buttonIconDrawable = matcherMatchResult2.getDrawable(2);
+                if (this.buttonDrawable != null) {
+                }
+                this.buttonIconTintList = LazyKt__LazyJVMKt.getColorStateList(context2, matcherMatchResult2, 3);
+                this.buttonIconTintMode = ViewUtils.parseTintMode(obtainStyledAttributes.getInt(4, -1), PorterDuff.Mode.SRC_IN);
+                this.useMaterialThemeColors = obtainStyledAttributes.getBoolean(10, false);
+                this.centerIfNoTextEnabled = obtainStyledAttributes.getBoolean(6, true);
+                this.errorShown = obtainStyledAttributes.getBoolean(9, false);
+                this.errorAccessibilityLabel = obtainStyledAttributes.getText(8);
+                if (obtainStyledAttributes.hasValue(7)) {
+                }
+                matcherMatchResult2.recycle();
+                refreshButtonDrawable();
+            }
+        }
+        this.transitionToUnchecked = animatedVectorDrawableCompat;
+        this.transitionToUncheckedCallback = new C01731();
+        context2 = getContext();
+        this.buttonDrawable = BundleKt.getButtonDrawable(this);
+        this.buttonTintList = getSuperButtonTintList();
+        setSupportButtonTintList(null);
+        ViewUtils.checkCompatibleTheme(context2, attributeSet, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox);
+        int[] iArr22 = R$styleable.MaterialCheckBox;
+        ViewUtils.checkTextAppearance(context2, attributeSet, iArr22, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox, new int[0]);
+        obtainStyledAttributes = context2.obtainStyledAttributes(attributeSet, iArr22, C0130R.attr.checkboxStyle, C0130R.style.Widget_MaterialComponents_CompoundButton_CheckBox);
+        MatcherMatchResult matcherMatchResult22 = new MatcherMatchResult(context2, obtainStyledAttributes);
+        this.buttonIconDrawable = matcherMatchResult22.getDrawable(2);
+        if (this.buttonDrawable != null && LazyKt__LazyJVMKt.resolveBoolean(context2, C0130R.attr.isMaterial3Theme, false)) {
+            resourceId = obtainStyledAttributes.getResourceId(0, 0);
+            int resourceId22 = obtainStyledAttributes.getResourceId(1, 0);
+            if (resourceId == FRAMEWORK_BUTTON_DRAWABLE_RES_ID && resourceId22 == 0) {
+                super.setButtonDrawable((Drawable) null);
+                this.buttonDrawable = BundleKt.getDrawable(context2, C0130R.C0131drawable.mtrl_checkbox_button);
+                this.usingMaterialButtonDrawable = true;
+                if (this.buttonIconDrawable == null) {
+                    this.buttonIconDrawable = BundleKt.getDrawable(context2, C0130R.C0131drawable.mtrl_checkbox_button_icon);
+                }
+            }
+        }
+        this.buttonIconTintList = LazyKt__LazyJVMKt.getColorStateList(context2, matcherMatchResult22, 3);
+        this.buttonIconTintMode = ViewUtils.parseTintMode(obtainStyledAttributes.getInt(4, -1), PorterDuff.Mode.SRC_IN);
+        this.useMaterialThemeColors = obtainStyledAttributes.getBoolean(10, false);
+        this.centerIfNoTextEnabled = obtainStyledAttributes.getBoolean(6, true);
+        this.errorShown = obtainStyledAttributes.getBoolean(9, false);
+        this.errorAccessibilityLabel = obtainStyledAttributes.getText(8);
+        if (obtainStyledAttributes.hasValue(7)) {
+            setCheckedState(obtainStyledAttributes.getInt(7, 0));
+        }
+        matcherMatchResult22.recycle();
+        refreshButtonDrawable();
     }
 
     private String getButtonStateDescription() {
         int i = this.checkedState;
         if (i == 1) {
-            return getResources().getString(R.string.mtrl_checkbox_state_description_checked);
+            return getResources().getString(C0130R.string.mtrl_checkbox_state_description_checked);
         }
         if (i == 0) {
-            return getResources().getString(R.string.mtrl_checkbox_state_description_unchecked);
+            return getResources().getString(C0130R.string.mtrl_checkbox_state_description_unchecked);
         }
-        return getResources().getString(R.string.mtrl_checkbox_state_description_indeterminate);
+        return getResources().getString(C0130R.string.mtrl_checkbox_state_description_indeterminate);
     }
 
     private ColorStateList getMaterialThemeColorsTintList() {
         if (this.materialThemeColorsTintList == null) {
-            int color = LazyKt__LazyJVMKt.getColor(R.attr.colorControlActivated, this);
-            int color2 = LazyKt__LazyJVMKt.getColor(R.attr.colorError, this);
-            int color3 = LazyKt__LazyJVMKt.getColor(R.attr.colorSurface, this);
-            int color4 = LazyKt__LazyJVMKt.getColor(R.attr.colorOnSurface, this);
+            int color = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorControlActivated, this);
+            int color2 = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorError, this);
+            int color3 = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorSurface, this);
+            int color4 = LazyKt__LazyJVMKt.getColor(C0130R.attr.colorOnSurface, this);
             this.materialThemeColorsTintList = new ColorStateList(CHECKBOX_STATES, new int[]{LazyKt__LazyJVMKt.layer(color3, 1.0f, color2), LazyKt__LazyJVMKt.layer(color3, 1.0f, color), LazyKt__LazyJVMKt.layer(color3, 0.54f, color4), LazyKt__LazyJVMKt.layer(color3, 0.38f, color4), LazyKt__LazyJVMKt.layer(color3, 0.38f, color4)});
         }
         return this.materialThemeColorsTintList;
@@ -277,15 +421,15 @@ public final class MaterialCheckBox extends AppCompatCheckBox {
         if (this.usingMaterialButtonDrawable) {
             AnimatedVectorDrawableCompat animatedVectorDrawableCompat = this.transitionToUnchecked;
             if (animatedVectorDrawableCompat != null) {
-                AnonymousClass1 r1 = this.transitionToUncheckedCallback;
+                C01731 r1 = this.transitionToUncheckedCallback;
                 animatedVectorDrawableCompat.unregisterAnimationCallback(r1);
                 animatedVectorDrawableCompat.registerAnimationCallback(r1);
             }
             if (Build.VERSION.SDK_INT >= 24) {
                 Drawable drawable = this.buttonDrawable;
                 if ((drawable instanceof AnimatedStateListDrawable) && animatedVectorDrawableCompat != null) {
-                    ((AnimatedStateListDrawable) drawable).addTransition(R.id.checked, R.id.unchecked, animatedVectorDrawableCompat, false);
-                    ((AnimatedStateListDrawable) this.buttonDrawable).addTransition(R.id.indeterminate, R.id.unchecked, animatedVectorDrawableCompat, false);
+                    ((AnimatedStateListDrawable) drawable).addTransition(C0130R.C0132id.checked, C0130R.C0132id.unchecked, animatedVectorDrawableCompat, false);
+                    ((AnimatedStateListDrawable) this.buttonDrawable).addTransition(C0130R.C0132id.indeterminate, C0130R.C0132id.unchecked, animatedVectorDrawableCompat, false);
                 }
             }
         }
@@ -375,7 +519,7 @@ public final class MaterialCheckBox extends AppCompatCheckBox {
                 if (linkedHashSet != null) {
                     Iterator it = linkedHashSet.iterator();
                     if (it.hasNext()) {
-                        throw ViewModelProvider.Factory.CC.m(it);
+                        throw ViewModelProvider.Factory.CC.m592m(it);
                     }
                 }
                 if (!(this.checkedState == 2 || (onCheckedChangeListener = this.onCheckedChangeListener) == null)) {
@@ -409,7 +553,7 @@ public final class MaterialCheckBox extends AppCompatCheckBox {
             refreshDrawableState();
             Iterator it = this.onErrorChangedListeners.iterator();
             if (it.hasNext()) {
-                throw ViewModelProvider.Factory.CC.m(it);
+                throw ViewModelProvider.Factory.CC.m592m(it);
             }
         }
     }

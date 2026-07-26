@@ -21,7 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import com.android.billingclient.api.zzcl;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.android.gms.common.api.internal.LifecycleFragment;
 import com.google.android.gms.common.internal.zac;
@@ -52,13 +52,13 @@ public final class GoogleApiAvailability extends GoogleApiAvailabilityLight {
         }
         Resources resources = activity.getResources();
         if (i == 1) {
-            str = resources.getString(R.string.common_google_play_services_install_button);
+            str = resources.getString(C0130R.string.common_google_play_services_install_button);
         } else if (i == 2) {
-            str = resources.getString(R.string.common_google_play_services_update_button);
+            str = resources.getString(C0130R.string.common_google_play_services_update_button);
         } else if (i != 3) {
             str = resources.getString(17039370);
         } else {
-            str = resources.getString(R.string.common_google_play_services_enable_button);
+            str = resources.getString(C0130R.string.common_google_play_services_enable_button);
         }
         if (str != null) {
             builder.setPositiveButton(str, zadVar);
@@ -67,7 +67,7 @@ public final class GoogleApiAvailability extends GoogleApiAvailabilityLight {
         if (zaf != null) {
             builder.setTitle(zaf);
         }
-        Log.w("GoogleApiAvailability", ViewModelProvider.Factory.CC.m(i, "Creating dialog for Google Play services availability issue. ConnectionResult="), new IllegalArgumentException());
+        Log.w("GoogleApiAvailability", ViewModelProvider.Factory.CC.m604m(i, "Creating dialog for Google Play services availability issue. ConnectionResult="), new IllegalArgumentException());
         return builder.create();
     }
 
@@ -122,7 +122,7 @@ public final class GoogleApiAvailability extends GoogleApiAvailabilityLight {
                 str = zac.zaf(context, i);
             }
             if (str == null) {
-                str = context.getResources().getString(R.string.common_google_play_services_notification_ticker);
+                str = context.getResources().getString(C0130R.string.common_google_play_services_notification_ticker);
             }
             if (i == 6 || i == 19) {
                 str2 = zac.zag(context, "common_google_play_services_resolution_required_text", zac.zaa(context));
@@ -148,13 +148,13 @@ public final class GoogleApiAvailability extends GoogleApiAvailabilityLight {
                 notificationCompat$Builder.mNotification.icon = context.getApplicationInfo().icon;
                 notificationCompat$Builder.mPriority = 2;
                 if (Navigation.isWearableWithoutPlayStore(context)) {
-                    notificationCompat$Builder.mActions.add(new NotificationCompat$Action(R.drawable.common_full_open_on_phone, resources.getString(R.string.common_open_on_phone), pendingIntent));
+                    notificationCompat$Builder.mActions.add(new NotificationCompat$Action(C0130R.C0131drawable.common_full_open_on_phone, resources.getString(C0130R.string.common_open_on_phone), pendingIntent));
                 } else {
                     notificationCompat$Builder.mContentIntent = pendingIntent;
                 }
             } else {
                 notificationCompat$Builder.mNotification.icon = 17301642;
-                String string = resources.getString(R.string.common_google_play_services_notification_ticker);
+                String string = resources.getString(C0130R.string.common_google_play_services_notification_ticker);
                 notificationCompat$Builder.mNotification.tickerText = NotificationCompat$Builder.limitCharSequenceLength(string);
                 notificationCompat$Builder.mNotification.when = System.currentTimeMillis();
                 notificationCompat$Builder.mContentIntent = pendingIntent;
@@ -166,7 +166,7 @@ public final class GoogleApiAvailability extends GoogleApiAvailabilityLight {
                     synchronized (zaa) {
                     }
                     NotificationChannel notificationChannel = notificationManager.getNotificationChannel("com.google.android.gms.availability");
-                    String string2 = context.getResources().getString(R.string.common_google_play_services_notification_channel_name);
+                    String string2 = context.getResources().getString(C0130R.string.common_google_play_services_notification_channel_name);
                     if (notificationChannel == null) {
                         notificationManager.createNotificationChannel(new NotificationChannel("com.google.android.gms.availability", string2, 4));
                     } else if (!string2.contentEquals(notificationChannel.getName())) {

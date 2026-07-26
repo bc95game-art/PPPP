@@ -11,20 +11,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
-import com.emanuelef.remote_capture.R;
+import com.emanuelef.remote_capture.C0130R;
 import com.google.android.material.R$styleable;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.slider.BaseSlider;
 import java.util.ArrayList;
 /* loaded from: classes.dex */
 public abstract class ViewUtils {
-    public static final int[] APPCOMPAT_CHECK_ATTRS = {R.attr.colorPrimary};
-    public static final int[] MATERIAL_CHECK_ATTRS = {R.attr.colorPrimaryVariant};
-    public static final ViewPager.AnonymousClass1 VIEW_TOP_COMPARATOR = new ViewPager.AnonymousClass1(5);
+    public static final int[] APPCOMPAT_CHECK_ATTRS = {C0130R.attr.colorPrimary};
+    public static final int[] MATERIAL_CHECK_ATTRS = {C0130R.attr.colorPrimaryVariant};
+    public static final ViewPager.C01171 VIEW_TOP_COMPARATOR = new ViewPager.C01171(5);
 
-    /* renamed from: com.google.android.material.internal.ViewUtils$3  reason: invalid class name */
+    /* renamed from: com.google.android.material.internal.ViewUtils$3 */
     /* loaded from: classes.dex */
-    public final class AnonymousClass3 implements View.OnAttachStateChangeListener {
+    public final class View$OnAttachStateChangeListenerC01893 implements View.OnAttachStateChangeListener {
         @Override // android.view.View.OnAttachStateChangeListener
         public final void onViewAttachedToWindow(View view) {
             view.removeOnAttachStateChangeListener(this);
@@ -49,7 +49,7 @@ public abstract class ViewUtils {
         obtainStyledAttributes.recycle();
         if (z) {
             TypedValue typedValue = new TypedValue();
-            if (!context.getTheme().resolveAttribute(R.attr.isMaterialTheme, typedValue, true) || (typedValue.type == 18 && typedValue.data == 0)) {
+            if (!context.getTheme().resolveAttribute(C0130R.attr.isMaterialTheme, typedValue, true) || (typedValue.type == 18 && typedValue.data == 0)) {
                 checkTheme(context, MATERIAL_CHECK_ATTRS, "Theme.MaterialComponents");
             }
         }
@@ -61,56 +61,27 @@ public abstract class ViewUtils {
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static void checkTextAppearance(android.content.Context r5, android.util.AttributeSet r6, int[] r7, int r8, int r9, int... r10) {
-        /*
-            int[] r0 = com.google.android.material.R$styleable.ThemeEnforcement
-            android.content.res.TypedArray r0 = r5.obtainStyledAttributes(r6, r0, r8, r9)
-            r1 = 2
-            r2 = 0
-            boolean r1 = r0.getBoolean(r1, r2)
-            if (r1 != 0) goto L12
-            r0.recycle()
-            return
-        L12:
-            int r1 = r10.length
-            r3 = 1
-            r4 = -1
-            if (r1 != 0) goto L1f
-            int r5 = r0.getResourceId(r2, r4)
-            if (r5 == r4) goto L3a
-        L1d:
-            r2 = 1
-            goto L3a
-        L1f:
-            android.content.res.TypedArray r5 = r5.obtainStyledAttributes(r6, r7, r8, r9)
-            int r6 = r10.length
-            r7 = 0
-        L25:
-            if (r7 >= r6) goto L36
-            r8 = r10[r7]
-            int r8 = r5.getResourceId(r8, r4)
-            if (r8 != r4) goto L33
-            r5.recycle()
-            goto L3a
-        L33:
-            int r7 = r7 + 1
-            goto L25
-        L36:
-            r5.recycle()
-            goto L1d
-        L3a:
-            r0.recycle()
-            if (r2 == 0) goto L40
-            return
-        L40:
-            java.lang.IllegalArgumentException r5 = new java.lang.IllegalArgumentException
-            java.lang.String r6 = "This component requires that you specify a valid TextAppearance attribute. Update your app theme to inherit from Theme.MaterialComponents (or a descendant)."
-            r5.<init>(r6)
-            throw r5
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.internal.ViewUtils.checkTextAppearance(android.content.Context, android.util.AttributeSet, int[], int, int, int[]):void");
+    public static void checkTextAppearance(Context context, AttributeSet attributeSet, int[] iArr, int i, int i2, int... iArr2) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R$styleable.ThemeEnforcement, i, i2);
+        boolean z = false;
+        if (!obtainStyledAttributes.getBoolean(2, false)) {
+            obtainStyledAttributes.recycle();
+        } else if (iArr2.length != 0) {
+            TypedArray obtainStyledAttributes2 = context.obtainStyledAttributes(attributeSet, iArr, i, i2);
+            for (int i3 : iArr2) {
+                if (obtainStyledAttributes2.getResourceId(i3, -1) == -1) {
+                    obtainStyledAttributes2.recycle();
+                    break;
+                }
+            }
+            obtainStyledAttributes2.recycle();
+            z = true;
+            obtainStyledAttributes.recycle();
+            if (!z) {
+                throw new IllegalArgumentException("This component requires that you specify a valid TextAppearance attribute. Update your app theme to inherit from Theme.MaterialComponents (or a descendant).");
+            }
+        }
     }
 
     public static void checkTheme(Context context, int[] iArr, String str) {
@@ -118,7 +89,7 @@ public abstract class ViewUtils {
         for (int i = 0; i < iArr.length; i++) {
             if (!obtainStyledAttributes.hasValue(i)) {
                 obtainStyledAttributes.recycle();
-                throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m("The style on this component requires your app theme to be ", str, " (or a descendant)."));
+                throw new IllegalArgumentException(ViewModelProvider.Factory.CC.m595m("The style on this component requires your app theme to be ", str, " (or a descendant)."));
             }
         }
         obtainStyledAttributes.recycle();

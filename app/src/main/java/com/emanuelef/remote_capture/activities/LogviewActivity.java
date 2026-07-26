@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.fragments.LogviewFragment;
 import com.google.android.gms.tasks.zzw;
@@ -54,7 +54,7 @@ public class LogviewActivity extends BaseActivity implements MenuProvider {
         }
 
         public int getPageTitle(int i) {
-            return i != 0 ? i != 1 ? R.string.mitm_addon : R.string.root : R.string.app;
+            return i != 0 ? i != 1 ? C0130R.string.mitm_addon : C0130R.string.root : C0130R.string.app;
         }
     }
 
@@ -66,7 +66,7 @@ public class LogviewActivity extends BaseActivity implements MenuProvider {
         StateAdapter stateAdapter = new StateAdapter(this);
         this.mPagerAdapter = stateAdapter;
         this.mPager.setAdapter(stateAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        TabLayout tabLayout = (TabLayout) findViewById(C0130R.C0132id.tablayout);
         Utils.fixScrollableTabLayoutInsets(tabLayout);
         new zzw(tabLayout, this.mPager, new InputConnectionCompat$$ExternalSyntheticLambda0(4, this)).attach();
     }
@@ -74,10 +74,10 @@ public class LogviewActivity extends BaseActivity implements MenuProvider {
     @Override // com.emanuelef.remote_capture.activities.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setTitle(R.string.app_log);
-        setContentView(R.layout.tabs_activity_fixed);
+        setTitle(C0130R.string.app_log);
+        setContentView(C0130R.layout.tabs_activity_fixed);
         addMenuProvider(this);
-        ViewPager2 viewPager2 = (ViewPager2) findViewById(R.id.pager);
+        ViewPager2 viewPager2 = (ViewPager2) findViewById(C0130R.C0132id.pager);
         this.mPager = viewPager2;
         Utils.fixViewPager2Insets(viewPager2);
         setupTabs();
@@ -85,18 +85,18 @@ public class LogviewActivity extends BaseActivity implements MenuProvider {
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.log_menu, menu);
+        menuInflater.inflate(C0130R.C0134menu.log_menu, menu);
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
     public boolean onKeyDown(int i, KeyEvent keyEvent) {
         if (i == 20) {
             View currentFocus = getCurrentFocus();
-            Log.d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
+            Log.m587d(TAG, "onKeyDown focus ".concat(currentFocus.getClass().getName()));
             if (currentFocus instanceof TabLayout.TabView) {
                 int currentItem = this.mPager.getCurrentItem();
-                Log.d(TAG, "TabLayout.TabView focus pos " + currentItem);
-                View findViewById = findViewById(R.id.scrollView);
+                Log.m587d(TAG, "TabLayout.TabView focus pos " + currentItem);
+                View findViewById = findViewById(C0130R.C0132id.scrollView);
                 if (findViewById != null) {
                     findViewById.requestFocus();
                     return true;
@@ -118,16 +118,16 @@ public class LogviewActivity extends BaseActivity implements MenuProvider {
             return false;
         }
         String log = logviewFragment.getLog();
-        if (itemId == R.id.reload) {
+        if (itemId == C0130R.C0132id.reload) {
             logviewFragment.reloadLog();
             return true;
-        } else if (itemId == R.id.copy_to_clipboard) {
+        } else if (itemId == C0130R.C0132id.copy_to_clipboard) {
             Utils.copyToClipboard(this, log);
             return true;
-        } else if (itemId != R.id.share) {
+        } else if (itemId != C0130R.C0132id.share) {
             return false;
         } else {
-            Utils.shareText(this, getString(R.string.app_log), log);
+            Utils.shareText(this, getString(C0130R.string.app_log), log);
             return true;
         }
     }

@@ -12,7 +12,7 @@ public abstract class AppIntro2 extends AppIntroBase {
     private ConstraintLayout backgroundFrame;
     private Integer backgroundResource;
     private View bottomBar;
-    private final int layoutId = R.layout.appintro_intro_layout2;
+    private final int layoutId = C0161R.layout.appintro_intro_layout2;
     private ImageButton skipImageButton;
 
     public final Drawable getBackgroundDrawable() {
@@ -31,13 +31,13 @@ public abstract class AppIntro2 extends AppIntroBase {
     @Override // com.github.appintro.AppIntroBase, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        View findViewById = findViewById(R.id.background);
+        View findViewById = findViewById(C0161R.C0163id.background);
         Intrinsics.checkNotNullExpressionValue(findViewById, "findViewById(R.id.background)");
         this.backgroundFrame = (ConstraintLayout) findViewById;
-        View findViewById2 = findViewById(R.id.bottom);
+        View findViewById2 = findViewById(C0161R.C0163id.bottom);
         Intrinsics.checkNotNullExpressionValue(findViewById2, "findViewById(R.id.bottom)");
         this.bottomBar = findViewById2;
-        View findViewById3 = findViewById(R.id.skip);
+        View findViewById3 = findViewById(C0161R.C0163id.skip);
         Intrinsics.checkNotNullExpressionValue(findViewById3, "findViewById(R.id.skip)");
         this.skipImageButton = (ImageButton) findViewById3;
         if (isRtl$appintro_release()) {
@@ -100,10 +100,10 @@ public abstract class AppIntro2 extends AppIntroBase {
     }
 
     public final void setNextArrowColor(int i) {
-        ((ImageButton) findViewById(R.id.next)).setColorFilter(i);
+        ((ImageButton) findViewById(C0161R.C0163id.next)).setColorFilter(i);
     }
 
     public final void setSkipArrowColor(int i) {
-        ((ImageButton) findViewById(R.id.skip)).setColorFilter(i);
+        ((ImageButton) findViewById(C0161R.C0163id.skip)).setColorFilter(i);
     }
 }

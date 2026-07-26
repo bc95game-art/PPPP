@@ -6,11 +6,11 @@ import com.google.gson.JsonNull;
 import com.google.gson.internal.bind.TypeAdapters;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.MalformedJsonException;
-import j$.util.Objects;
 import java.io.EOFException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.GenericDeclaration;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import p004j$.util.Objects;
 /* loaded from: classes.dex */
 public abstract class Streams {
     public static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
@@ -104,7 +106,7 @@ public abstract class Streams {
     public static void getFilterResult(List list) {
         Iterator it = list.iterator();
         if (it.hasNext()) {
-            throw ViewModelProvider.Factory.CC.m(it);
+            throw ViewModelProvider.Factory.CC.m592m(it);
         }
     }
 
@@ -240,14 +242,132 @@ public abstract class Streams {
     /* JADX WARN: Type inference failed for: r13v0, types: [java.util.HashMap] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static java.lang.reflect.Type resolve(java.lang.reflect.Type r10, java.lang.Class r11, java.lang.reflect.Type r12, java.util.HashMap r13) {
-        /*
-            Method dump skipped, instructions count: 330
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.gson.internal.Streams.resolve(java.lang.reflect.Type, java.lang.Class, java.lang.reflect.Type, java.util.HashMap):java.lang.reflect.Type");
+    public static Type resolve(Type type, Class cls, Type type2, HashMap hashMap) {
+        Type[] typeArr;
+        Type[] typeArr2;
+        Type gsonTypes$ParameterizedTypeImpl;
+        Class cls2;
+        TypeVariable typeVariable = null;
+        while (true) {
+            int i = 0;
+            if (type2 instanceof TypeVariable) {
+                TypeVariable typeVariable2 = type2;
+                Type type3 = (Type) hashMap.get(typeVariable2);
+                Class cls3 = Void.TYPE;
+                if (type3 == null) {
+                    hashMap.put(typeVariable2, cls3);
+                    if (typeVariable == null) {
+                        typeVariable = typeVariable2;
+                    }
+                    GenericDeclaration genericDeclaration = typeVariable2.getGenericDeclaration();
+                    if (genericDeclaration instanceof Class) {
+                        cls2 = (Class) genericDeclaration;
+                    } else {
+                        cls2 = null;
+                    }
+                    if (cls2 != null) {
+                        Type genericSupertype = getGenericSupertype(type, cls, cls2);
+                        if (genericSupertype instanceof ParameterizedType) {
+                            TypeVariable[] typeParameters = cls2.getTypeParameters();
+                            int length = typeParameters.length;
+                            while (i < length) {
+                                if (typeVariable2.equals(typeParameters[i])) {
+                                    type2 = ((ParameterizedType) genericSupertype).getActualTypeArguments()[i];
+                                    continue;
+                                    if (type2 == typeVariable2) {
+                                        break;
+                                    }
+                                } else {
+                                    i++;
+                                }
+                            }
+                            throw new NoSuchElementException();
+                        }
+                    }
+                    type2 = typeVariable2;
+                    continue;
+                    if (type2 == typeVariable2) {
+                    }
+                } else if (type3 == cls3) {
+                    return type2;
+                } else {
+                    return type3;
+                }
+            } else {
+                if (type2 instanceof Class) {
+                    Class cls4 = type2;
+                    if (cls4.isArray()) {
+                        Class<?> componentType = cls4.getComponentType();
+                        Type resolve = resolve(type, cls, componentType, hashMap);
+                        if (Objects.equals(componentType, resolve)) {
+                            type2 = cls4;
+                        } else {
+                            gsonTypes$ParameterizedTypeImpl = new GsonTypes$GenericArrayTypeImpl(resolve);
+                            type2 = gsonTypes$ParameterizedTypeImpl;
+                        }
+                    }
+                }
+                if (type2 instanceof GenericArrayType) {
+                    type2 = (GenericArrayType) type2;
+                    Type genericComponentType = type2.getGenericComponentType();
+                    Type resolve2 = resolve(type, cls, genericComponentType, hashMap);
+                    if (!Objects.equals(genericComponentType, resolve2)) {
+                        gsonTypes$ParameterizedTypeImpl = new GsonTypes$GenericArrayTypeImpl(resolve2);
+                        type2 = gsonTypes$ParameterizedTypeImpl;
+                    }
+                } else if (type2 instanceof ParameterizedType) {
+                    type2 = (ParameterizedType) type2;
+                    Type ownerType = type2.getOwnerType();
+                    Type resolve3 = resolve(type, cls, ownerType, hashMap);
+                    boolean equals = Objects.equals(resolve3, ownerType);
+                    Type[] actualTypeArguments = type2.getActualTypeArguments();
+                    int length2 = actualTypeArguments.length;
+                    Type[] typeArr3 = actualTypeArguments;
+                    boolean z = false;
+                    while (i < length2) {
+                        Type resolve4 = resolve(type, cls, typeArr3[i], hashMap);
+                        if (!Objects.equals(resolve4, typeArr3[i])) {
+                            if (!z) {
+                                typeArr3 = (Type[]) typeArr3.clone();
+                                z = true;
+                            }
+                            typeArr3[i] = resolve4;
+                        }
+                        i++;
+                    }
+                    if (!equals || z) {
+                        gsonTypes$ParameterizedTypeImpl = new GsonTypes$ParameterizedTypeImpl(resolve3, (Class) type2.getRawType(), typeArr3);
+                        type2 = gsonTypes$ParameterizedTypeImpl;
+                    }
+                } else if (type2 instanceof WildcardType) {
+                    type2 = (WildcardType) type2;
+                    Type[] lowerBounds = type2.getLowerBounds();
+                    Type[] upperBounds = type2.getUpperBounds();
+                    if (lowerBounds.length == 1) {
+                        Type resolve5 = resolve(type, cls, lowerBounds[0], hashMap);
+                        if (resolve5 != lowerBounds[0]) {
+                            if (resolve5 instanceof WildcardType) {
+                                typeArr2 = ((WildcardType) resolve5).getLowerBounds();
+                            } else {
+                                typeArr2 = new Type[]{resolve5};
+                            }
+                            type2 = new GsonTypes$WildcardTypeImpl(new Type[]{Object.class}, typeArr2);
+                        }
+                    } else if (upperBounds.length == 1) {
+                        Type resolve6 = resolve(type, cls, upperBounds[0], hashMap);
+                        if (resolve6 != upperBounds[0]) {
+                            if (resolve6 instanceof WildcardType) {
+                                typeArr = ((WildcardType) resolve6).getUpperBounds();
+                            } else {
+                                typeArr = new Type[]{resolve6};
+                            }
+                            type2 = new GsonTypes$WildcardTypeImpl(typeArr, EMPTY_TYPE_ARRAY);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static String typeToString(Type type) {

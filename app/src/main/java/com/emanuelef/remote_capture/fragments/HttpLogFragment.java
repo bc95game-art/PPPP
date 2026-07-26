@@ -32,22 +32,27 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.billingclient.api.zzbv;
 import com.emanuelef.remote_capture.AppsResolver;
+import com.emanuelef.remote_capture.C0130R;
 import com.emanuelef.remote_capture.CaptureService;
+import com.emanuelef.remote_capture.HarWriter;
 import com.emanuelef.remote_capture.HttpLog;
 import com.emanuelef.remote_capture.Log;
-import com.emanuelef.remote_capture.R;
 import com.emanuelef.remote_capture.Utils;
 import com.emanuelef.remote_capture.activities.HttpDetailsActivity;
 import com.emanuelef.remote_capture.activities.HttpLogFilterActivity;
 import com.emanuelef.remote_capture.adapters.HttpLogAdapter;
 import com.emanuelef.remote_capture.adapters.HttpLogAdapter$$ExternalSyntheticLambda0;
 import com.emanuelef.remote_capture.model.HttpLogFilterDescriptor;
+import com.emanuelef.remote_capture.model.PayloadChunk;
 import com.emanuelef.remote_capture.views.EmptyRecyclerView;
 import com.google.android.datatransport.runtime.TransportImpl$$ExternalSyntheticLambda0;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.BaseOnSliderTouchListener;
 import com.google.android.material.slider.Slider;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -90,7 +95,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
         @Override // androidx.appcompat.view.ActionMode.Callback
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
             int itemId = menuItem.getItemId();
-            if (itemId == R.id.select_all) {
+            if (itemId == C0130R.C0132id.select_all) {
                 if (HttpLogFragment.this.mAdapter.getSelectedCount() == HttpLogFragment.this.mAdapter.getItemCount()) {
                     actionMode.finish();
                     return true;
@@ -98,10 +103,10 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
                 HttpLogFragment.this.mAdapter.selectAll();
                 HttpLogFragment.this.updateActionModeTitle();
                 return true;
-            } else if (itemId == R.id.save) {
+            } else if (itemId == C0130R.C0132id.save) {
                 HttpLogFragment.this.openFileSelector();
                 return true;
-            } else if (itemId != R.id.save_as_har) {
+            } else if (itemId != C0130R.C0132id.save_as_har) {
                 return false;
             } else {
                 HttpLogFragment.this.openHarFileSelector();
@@ -111,7 +116,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
 
         @Override // androidx.appcompat.view.ActionMode.Callback
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            actionMode.getMenuInflater().inflate(R.menu.http_log_cab, menu);
+            actionMode.getMenuInflater().inflate(C0130R.C0134menu.http_log_cab, menu);
             return true;
         }
 
@@ -135,7 +140,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             } else {
                 z = false;
             }
-            Log.d(TAG, "Writing HTTP log file: " + this.mTxtFname);
+            Log.m587d(TAG, "Writing HTTP log file: " + this.mTxtFname);
             ArrayList arrayList = new ArrayList();
             for (int i = 0; i < this.mAdapter.getItemCount(); i++) {
                 HttpLog.HttpRequest item = this.mAdapter.getItem(i);
@@ -147,8 +152,8 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             Handler handler = new Handler(Looper.getMainLooper());
             boolean[] zArr = {false};
             zzbv zzbvVar = new zzbv(requireContext());
-            zzbvVar.setTitle(R.string.exporting);
-            zzbvVar.setMessage(R.string.export_in_progress);
+            zzbvVar.setTitle(C0130R.string.exporting);
+            zzbvVar.setMessage(C0130R.string.export_in_progress);
             zzbvVar.setNegativeButton(17039360, new HttpLogFragment$$ExternalSyntheticLambda4(zArr, newSingleThreadExecutor, 2));
             AlertDialog create = zzbvVar.create();
             this.mAlertDialog = create;
@@ -170,7 +175,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             } else {
                 z = false;
             }
-            Log.d(TAG, "Writing HAR file: " + this.mHarFname);
+            Log.m587d(TAG, "Writing HAR file: " + this.mHarFname);
             ArrayList arrayList = new ArrayList();
             for (int i = 0; i < this.mAdapter.getItemCount(); i++) {
                 HttpLog.HttpRequest item = this.mAdapter.getItem(i);
@@ -182,8 +187,8 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             Handler handler = new Handler(Looper.getMainLooper());
             boolean[] zArr = {false};
             zzbv zzbvVar = new zzbv(requireContext());
-            zzbvVar.setTitle(R.string.exporting);
-            zzbvVar.setMessage(R.string.export_in_progress);
+            zzbvVar.setTitle(C0130R.string.exporting);
+            zzbvVar.setMessage(C0130R.string.export_in_progress);
             zzbvVar.setNegativeButton(17039360, new HttpLogFragment$$ExternalSyntheticLambda4(zArr, newSingleThreadExecutor, 0));
             AlertDialog create = zzbvVar.create();
             this.mAlertDialog = create;
@@ -250,13 +255,13 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
     }
 
     public static /* synthetic */ void lambda$dumpHttpLog$12(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface, int i) {
-        Log.i(TAG, "Abort TXT export");
+        Log.m583i(TAG, "Abort TXT export");
         zArr[0] = true;
         executorService.shutdownNow();
     }
 
     public static /* synthetic */ void lambda$dumpHttpLog$13(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface) {
-        Log.i(TAG, "Abort TXT export (back button)");
+        Log.m583i(TAG, "Abort TXT export (back button)");
         zArr[0] = true;
         executorService.shutdownNow();
     }
@@ -271,11 +276,11 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             alertDialog.dismiss();
         }
         if (!z) {
-            Utils.showToast(requireContext(), R.string.cannot_write_file, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.cannot_write_file, new Object[0]);
         } else if (uriStat != null) {
-            Toast.makeText(requireContext(), String.format(getString(R.string.file_saved_with_name), uriStat.name), 0).show();
+            Toast.makeText(requireContext(), String.format(getString(C0130R.string.file_saved_with_name), uriStat.name), 0).show();
         } else {
-            Utils.showToast(requireContext(), R.string.save_ok, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.save_ok, new Object[0]);
         }
         ActionMode actionMode = this.mActionMode;
         if (actionMode != null) {
@@ -287,128 +292,87 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
     /* JADX WARN: Removed duplicated region for block: B:40:0x00c1  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public /* synthetic */ void lambda$dumpHttpLog$16(android.net.Uri r16, java.util.ArrayList r17, boolean[] r18, android.os.Handler r19) {
-        /*
-            r15 = this;
-            r1 = r16
-            java.lang.String r0 = "]\n"
-            java.lang.String r2 = "["
-            r3 = 0
-            androidx.fragment.app.FragmentActivity r4 = r15.requireActivity()     // Catch: java.io.IOException -> L49
-            android.content.ContentResolver r4 = r4.getContentResolver()     // Catch: java.io.IOException -> L49
-            java.lang.String r5 = "rwt"
-            java.io.OutputStream r4 = r4.openOutputStream(r1, r5)     // Catch: java.io.IOException -> L49
-            if (r4 == 0) goto Lbb
-            int r5 = r17.size()     // Catch: java.io.IOException -> L49
-            r6 = 0
-        L1c:
-            if (r6 >= r5) goto Laf
-            r7 = r17
-            java.lang.Object r8 = r7.get(r6)     // Catch: java.io.IOException -> L49
-            int r6 = r6 + 1
-            com.emanuelef.remote_capture.HttpLog$HttpRequest r8 = (com.emanuelef.remote_capture.HttpLog.HttpRequest) r8     // Catch: java.io.IOException -> L49
-            boolean r9 = java.lang.Thread.interrupted()     // Catch: java.io.IOException -> L49
-            if (r9 == 0) goto L30
-            goto Laf
-        L30:
-            java.lang.StringBuilder r9 = new java.lang.StringBuilder     // Catch: java.io.IOException -> L49
-            r9.<init>()     // Catch: java.io.IOException -> L49
-            com.emanuelef.remote_capture.model.ConnectionDescriptor r10 = r8.conn     // Catch: java.io.IOException -> L49
-            int r11 = r8.firstChunkPos     // Catch: java.io.IOException -> L49
-            com.emanuelef.remote_capture.model.PayloadChunk r10 = r10.getHttpRequestChunk(r11)     // Catch: java.io.IOException -> L49
-            if (r10 == 0) goto L4b
-            java.lang.String r11 = new java.lang.String     // Catch: java.io.IOException -> L49
-            byte[] r10 = r10.payload     // Catch: java.io.IOException -> L49
-            java.nio.charset.Charset r12 = java.nio.charset.StandardCharsets.UTF_8     // Catch: java.io.IOException -> L49
-            r11.<init>(r10, r12)     // Catch: java.io.IOException -> L49
-            goto L4d
-        L49:
-            r0 = move-exception
-            goto Lb4
-        L4b:
-            java.lang.String r11 = ""
-        L4d:
-            r9.append(r2)     // Catch: java.io.IOException -> L49
-            long r12 = r8.timestamp     // Catch: java.io.IOException -> L49
-            r9.append(r12)     // Catch: java.io.IOException -> L49
-            r9.append(r0)     // Catch: java.io.IOException -> L49
-            boolean r10 = r11.isEmpty()     // Catch: java.io.IOException -> L49
-            java.lang.String r12 = "\n"
-            if (r10 != 0) goto L6c
-            r9.append(r11)     // Catch: java.io.IOException -> L49
-            boolean r10 = r11.endsWith(r12)     // Catch: java.io.IOException -> L49
-            if (r10 != 0) goto L6c
-            r9.append(r12)     // Catch: java.io.IOException -> L49
-        L6c:
-            r9.append(r12)     // Catch: java.io.IOException -> L49
-            com.emanuelef.remote_capture.HttpLog$HttpReply r10 = r8.reply     // Catch: java.io.IOException -> L49
-            if (r10 == 0) goto La0
-            com.emanuelef.remote_capture.model.ConnectionDescriptor r8 = r8.conn     // Catch: java.io.IOException -> L49
-            int r10 = r10.firstChunkPos     // Catch: java.io.IOException -> L49
-            com.emanuelef.remote_capture.model.PayloadChunk r8 = r8.getHttpResponseChunk(r10)     // Catch: java.io.IOException -> L49
-            if (r8 == 0) goto La0
-            java.lang.String r10 = new java.lang.String     // Catch: java.io.IOException -> L49
-            byte[] r11 = r8.payload     // Catch: java.io.IOException -> L49
-            java.nio.charset.Charset r13 = java.nio.charset.StandardCharsets.UTF_8     // Catch: java.io.IOException -> L49
-            r10.<init>(r11, r13)     // Catch: java.io.IOException -> L49
-            r9.append(r2)     // Catch: java.io.IOException -> L49
-            long r13 = r8.timestamp     // Catch: java.io.IOException -> L49
-            r9.append(r13)     // Catch: java.io.IOException -> L49
-            r9.append(r0)     // Catch: java.io.IOException -> L49
-            r9.append(r10)     // Catch: java.io.IOException -> L49
-            boolean r8 = r10.endsWith(r12)     // Catch: java.io.IOException -> L49
-            if (r8 != 0) goto L9d
-            r9.append(r12)     // Catch: java.io.IOException -> L49
-        L9d:
-            r9.append(r12)     // Catch: java.io.IOException -> L49
-        La0:
-            java.lang.String r8 = r9.toString()     // Catch: java.io.IOException -> L49
-            java.nio.charset.Charset r9 = java.nio.charset.StandardCharsets.UTF_8     // Catch: java.io.IOException -> L49
-            byte[] r8 = r8.getBytes(r9)     // Catch: java.io.IOException -> L49
-            r4.write(r8)     // Catch: java.io.IOException -> L49
-            goto L1c
-        Laf:
-            r4.close()     // Catch: java.io.IOException -> L49
-            r0 = 1
-            goto Lbc
-        Lb4:
-            boolean r2 = r18[r3]
-            if (r2 != 0) goto Lbb
-            r0.printStackTrace()
-        Lbb:
-            r0 = 0
-        Lbc:
-            boolean r2 = r18[r3]
-            if (r2 == 0) goto Lc1
-            return
-        Lc1:
-            if (r0 == 0) goto Lcc
-            android.content.Context r2 = r15.requireContext()
-            com.emanuelef.remote_capture.Utils$UriStat r1 = com.emanuelef.remote_capture.Utils.getUriStat(r2, r1)
-            goto Lcd
-        Lcc:
-            r1 = 0
-        Lcd:
-            com.emanuelef.remote_capture.fragments.HttpLogFragment$$ExternalSyntheticLambda1 r2 = new com.emanuelef.remote_capture.fragments.HttpLogFragment$$ExternalSyntheticLambda1
-            r3 = 1
-            r2.<init>(r15, r0, r1, r3)
-            r1 = r19
-            r1.post(r2)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.fragments.HttpLogFragment.lambda$dumpHttpLog$16(android.net.Uri, java.util.ArrayList, boolean[], android.os.Handler):void");
+    public /* synthetic */ void lambda$dumpHttpLog$16(Uri uri, ArrayList arrayList, boolean[] zArr, Handler handler) {
+        boolean z;
+        Utils.UriStat uriStat;
+        OutputStream openOutputStream;
+        String str;
+        PayloadChunk httpResponseChunk;
+        try {
+            openOutputStream = requireActivity().getContentResolver().openOutputStream(uri, "rwt");
+        } catch (IOException e) {
+            if (!zArr[0]) {
+                e.printStackTrace();
+            }
+        }
+        if (openOutputStream != null) {
+            int size = arrayList.size();
+            int i = 0;
+            while (i < size) {
+                Object obj = arrayList.get(i);
+                i++;
+                HttpLog.HttpRequest httpRequest = (HttpLog.HttpRequest) obj;
+                if (Thread.interrupted()) {
+                    break;
+                }
+                StringBuilder sb = new StringBuilder();
+                PayloadChunk httpRequestChunk = httpRequest.conn.getHttpRequestChunk(httpRequest.firstChunkPos);
+                if (httpRequestChunk != null) {
+                    str = new String(httpRequestChunk.payload, StandardCharsets.UTF_8);
+                } else {
+                    str = "";
+                }
+                sb.append("[");
+                sb.append(httpRequest.timestamp);
+                sb.append("]\n");
+                if (!str.isEmpty()) {
+                    sb.append(str);
+                    if (!str.endsWith("\n")) {
+                        sb.append("\n");
+                    }
+                }
+                sb.append("\n");
+                HttpLog.HttpReply httpReply = httpRequest.reply;
+                if (!(httpReply == null || (httpResponseChunk = httpRequest.conn.getHttpResponseChunk(httpReply.firstChunkPos)) == null)) {
+                    String str2 = new String(httpResponseChunk.payload, StandardCharsets.UTF_8);
+                    sb.append("[");
+                    sb.append(httpResponseChunk.timestamp);
+                    sb.append("]\n");
+                    sb.append(str2);
+                    if (!str2.endsWith("\n")) {
+                        sb.append("\n");
+                    }
+                    sb.append("\n");
+                }
+                openOutputStream.write(sb.toString().getBytes(StandardCharsets.UTF_8));
+            }
+            openOutputStream.close();
+            z = true;
+            if (zArr[0]) {
+                if (z) {
+                    uriStat = Utils.getUriStat(requireContext(), uri);
+                } else {
+                    uriStat = null;
+                }
+                handler.post(new HttpLogFragment$$ExternalSyntheticLambda1(this, z, uriStat, 1));
+                return;
+            }
+            return;
+        }
+        z = false;
+        if (zArr[0]) {
+        }
     }
 
     public static /* synthetic */ void lambda$exportHttpLogHar$17(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface, int i) {
-        Log.i(TAG, "Abort HAR export");
+        Log.m583i(TAG, "Abort HAR export");
         zArr[0] = true;
         executorService.shutdownNow();
     }
 
     public static /* synthetic */ void lambda$exportHttpLogHar$18(boolean[] zArr, ExecutorService executorService, DialogInterface dialogInterface) {
-        Log.i(TAG, "Abort HAR export (back button)");
+        Log.m583i(TAG, "Abort HAR export (back button)");
         zArr[0] = true;
         executorService.shutdownNow();
     }
@@ -423,11 +387,11 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             alertDialog.dismiss();
         }
         if (!z) {
-            Utils.showToast(requireContext(), R.string.cannot_write_file, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.cannot_write_file, new Object[0]);
         } else if (uriStat != null) {
-            Toast.makeText(requireContext(), String.format(getString(R.string.file_saved_with_name), uriStat.name), 0).show();
+            Toast.makeText(requireContext(), String.format(getString(C0130R.string.file_saved_with_name), uriStat.name), 0).show();
         } else {
-            Utils.showToast(requireContext(), R.string.save_ok, new Object[0]);
+            Utils.showToast(requireContext(), C0130R.string.save_ok, new Object[0]);
         }
         ActionMode actionMode = this.mActionMode;
         if (actionMode != null) {
@@ -439,50 +403,36 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
     /* JADX WARN: Removed duplicated region for block: B:15:0x0030  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public /* synthetic */ void lambda$exportHttpLogHar$21(android.net.Uri r5, java.util.ArrayList r6, boolean[] r7, android.os.Handler r8) {
-        /*
-            r4 = this;
-            r0 = 0
-            androidx.fragment.app.FragmentActivity r1 = r4.requireActivity()     // Catch: java.io.IOException -> L22
-            android.content.ContentResolver r1 = r1.getContentResolver()     // Catch: java.io.IOException -> L22
-            java.lang.String r2 = "rwt"
-            java.io.OutputStream r1 = r1.openOutputStream(r5, r2)     // Catch: java.io.IOException -> L22
-            if (r1 == 0) goto L2a
-            com.emanuelef.remote_capture.HarWriter r2 = new com.emanuelef.remote_capture.HarWriter     // Catch: java.io.IOException -> L22
-            android.content.Context r3 = r4.requireContext()     // Catch: java.io.IOException -> L22
-            r2.<init>(r3, r6)     // Catch: java.io.IOException -> L22
-            r2.write(r1)     // Catch: java.io.IOException -> L22
-            r1.close()     // Catch: java.io.IOException -> L22
-            r6 = 1
-            goto L2b
-        L22:
-            r6 = move-exception
-            boolean r1 = r7[r0]
-            if (r1 != 0) goto L2a
-            r6.printStackTrace()
-        L2a:
-            r6 = 0
-        L2b:
-            boolean r7 = r7[r0]
-            if (r7 == 0) goto L30
-            return
-        L30:
-            if (r6 == 0) goto L3b
-            android.content.Context r7 = r4.requireContext()
-            com.emanuelef.remote_capture.Utils$UriStat r5 = com.emanuelef.remote_capture.Utils.getUriStat(r7, r5)
-            goto L3c
-        L3b:
-            r5 = 0
-        L3c:
-            com.emanuelef.remote_capture.fragments.HttpLogFragment$$ExternalSyntheticLambda1 r7 = new com.emanuelef.remote_capture.fragments.HttpLogFragment$$ExternalSyntheticLambda1
-            r0 = 0
-            r7.<init>(r4, r6, r5, r0)
-            r8.post(r7)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.emanuelef.remote_capture.fragments.HttpLogFragment.lambda$exportHttpLogHar$21(android.net.Uri, java.util.ArrayList, boolean[], android.os.Handler):void");
+    public /* synthetic */ void lambda$exportHttpLogHar$21(Uri uri, ArrayList arrayList, boolean[] zArr, Handler handler) {
+        boolean z;
+        Utils.UriStat uriStat;
+        OutputStream openOutputStream;
+        try {
+            openOutputStream = requireActivity().getContentResolver().openOutputStream(uri, "rwt");
+        } catch (IOException e) {
+            if (!zArr[0]) {
+                e.printStackTrace();
+            }
+        }
+        if (openOutputStream != null) {
+            new HarWriter(requireContext(), arrayList).write(openOutputStream);
+            openOutputStream.close();
+            z = true;
+            if (zArr[0]) {
+                if (z) {
+                    uriStat = Utils.getUriStat(requireContext(), uri);
+                } else {
+                    uriStat = null;
+                }
+                handler.post(new HttpLogFragment$$ExternalSyntheticLambda1(this, z, uriStat, 0));
+                return;
+            }
+            return;
+        }
+        z = false;
+        if (zArr[0]) {
+        }
     }
 
     public /* synthetic */ void lambda$onHttpRequestAdded$9(int i) {
@@ -592,7 +542,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             registerHttpListener();
             this.autoScroll = true;
             showFabDown(false);
-            this.mEmptyText.setText(R.string.no_requests);
+            this.mEmptyText.setText(C0130R.string.no_requests);
             this.mApps.clear();
         }
         refreshMenuIcons();
@@ -663,14 +613,14 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
         if (CaptureService.getHttpLog() != null || CaptureService.isServiceActive()) {
             TextView textView = this.mEmptyText;
             if (this.mAdapter.hasFilter()) {
-                i = R.string.no_matches_found;
+                i = C0130R.string.no_matches_found;
             } else {
-                i = R.string.no_requests;
+                i = C0130R.string.no_requests;
             }
             textView.setText(i);
             return;
         }
-        this.mEmptyText.setText(R.string.capture_not_running_status);
+        this.mEmptyText.setText(C0130R.string.capture_not_running_status);
     }
 
     private void refreshFilteredRequests() {
@@ -770,7 +720,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
     public void updateActionModeTitle() {
         ActionMode actionMode = this.mActionMode;
         if (actionMode != null) {
-            actionMode.setTitle(getString(R.string.n_selected, Integer.valueOf(this.mAdapter.getSelectedCount())));
+            actionMode.setTitle(getString(C0130R.string.n_selected, Integer.valueOf(this.mAdapter.getSelectedCount())));
         }
     }
 
@@ -794,10 +744,10 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
 
     @Override // androidx.core.view.MenuProvider
     public void onCreateMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.http_log_menu, menu);
-        this.mSave = menu.findItem(R.id.save);
-        this.mSaveAsHar = menu.findItem(R.id.save_as_har);
-        MenuItem findItem = menu.findItem(R.id.search);
+        menuInflater.inflate(C0130R.C0134menu.http_log_menu, menu);
+        this.mSave = menu.findItem(C0130R.C0132id.save);
+        this.mSaveAsHar = menu.findItem(C0130R.C0132id.save_as_har);
+        MenuItem findItem = menu.findItem(C0130R.C0132id.search);
         this.mMenuItemSearch = findItem;
         SearchView searchView = (SearchView) findItem.getActionView();
         this.mSearchView = searchView;
@@ -816,7 +766,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
         if (!(getParentFragment() instanceof DataViewContainerFragment)) {
             requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
         }
-        return layoutInflater.inflate(R.layout.connections, viewGroup, false);
+        return layoutInflater.inflate(C0130R.layout.connections, viewGroup, false);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -867,13 +817,13 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
     @Override // androidx.core.view.MenuProvider
     public boolean onMenuItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        if (itemId == R.id.save) {
+        if (itemId == C0130R.C0132id.save) {
             openFileSelector();
             return true;
-        } else if (itemId == R.id.save_as_har) {
+        } else if (itemId == C0130R.C0132id.save_as_har) {
             openHarFileSelector();
             return true;
-        } else if (itemId != R.id.edit_filter) {
+        } else if (itemId != C0130R.C0132id.edit_filter) {
             return false;
         } else {
             Intent intent = new Intent(requireContext(), HttpLogFilterActivity.class);
@@ -960,13 +910,13 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(View view, Bundle bundle) {
         this.mHandler = new Handler(Looper.getMainLooper());
-        this.mFabDown = (FloatingActionButton) view.findViewById(R.id.fabDown);
-        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.connections_view);
+        this.mFabDown = (FloatingActionButton) view.findViewById(C0130R.C0132id.fabDown);
+        this.mRecyclerView = (EmptyRecyclerView) view.findViewById(C0130R.C0132id.connections_view);
         EmptyRecyclerView.MyLinearLayoutManager myLinearLayoutManager = new EmptyRecyclerView.MyLinearLayoutManager(requireContext());
         this.mRecyclerView.setLayoutManager(myLinearLayoutManager);
         this.mApps = new AppsResolver(requireContext());
-        this.mEmptyText = (TextView) view.findViewById(R.id.no_connections);
-        Slider slider = (Slider) view.findViewById(R.id.size_slider);
+        this.mEmptyText = (TextView) view.findViewById(C0130R.C0132id.no_connections);
+        Slider slider = (Slider) view.findViewById(C0130R.C0132id.size_slider);
         this.mSizeSlider = slider;
         slider.setLabelFormatter(new TransportImpl$$ExternalSyntheticLambda0(8));
         Slider slider2 = this.mSizeSlider;
@@ -990,7 +940,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
                 HttpLogFragment.this.recheckMaxPayloadSize();
             }
         });
-        ChipGroup chipGroup = (ChipGroup) view.findViewById(R.id.active_filter);
+        ChipGroup chipGroup = (ChipGroup) view.findViewById(C0130R.C0132id.active_filter);
         this.mActiveFilter = chipGroup;
         chipGroup.setOnCheckedStateChangeListener(new HttpLogFragment$$ExternalSyntheticLambda9(this, 3));
         HttpLogAdapter httpLogAdapter = new HttpLogAdapter(requireContext(), this.mApps);
@@ -1020,7 +970,7 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
         this.autoScroll = true;
         this.listenerSet = false;
         showFabDown(false);
-        View findViewById = view.findViewById(R.id.linearlayout);
+        View findViewById = view.findViewById(C0130R.C0132id.linearlayout);
         TransportImpl$$ExternalSyntheticLambda0 transportImpl$$ExternalSyntheticLambda0 = new TransportImpl$$ExternalSyntheticLambda0(9);
         WeakHashMap weakHashMap = ViewCompat.sViewPropertyAnimatorMap;
         ViewCompat.Api21Impl.setOnApplyWindowInsetsListener(findViewById, transportImpl$$ExternalSyntheticLambda0);
@@ -1080,14 +1030,14 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             } catch (ActivityNotFoundException unused) {
             }
         }
-        Log.d(TAG, "No app found to handle file selection");
+        Log.m587d(TAG, "No app found to handle file selection");
         Uri downloadsUri = Utils.getDownloadsUri(requireContext(), exportFileName);
         if (downloadsUri != null) {
             this.mTxtFname = downloadsUri;
             dumpHttpLog();
             return;
         }
-        Utils.showToastLong(requireContext(), R.string.no_activity_file_selection, new Object[0]);
+        Utils.showToastLong(requireContext(), C0130R.string.no_activity_file_selection, new Object[0]);
     }
 
     public void openHarFileSelector() {
@@ -1103,13 +1053,13 @@ public class HttpLogFragment extends Fragment implements HttpLog.Listener, MenuP
             } catch (ActivityNotFoundException unused) {
             }
         }
-        Log.d(TAG, "No app found to handle file selection");
+        Log.m587d(TAG, "No app found to handle file selection");
         Uri downloadsUri = Utils.getDownloadsUri(requireContext(), exportFileName);
         if (downloadsUri != null) {
             this.mHarFname = downloadsUri;
             exportHttpLogHar();
             return;
         }
-        Utils.showToastLong(requireContext(), R.string.no_activity_file_selection, new Object[0]);
+        Utils.showToastLong(requireContext(), C0130R.string.no_activity_file_selection, new Object[0]);
     }
 }
