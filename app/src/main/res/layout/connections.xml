@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/connections" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/linearlayout" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <TextView android:textSize="15.0sp" android:textStyle="italic" android:id="@id/old_connections_notice" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="8.0dip" />
+        <com.google.android.material.chip.ChipGroup android:id="@id/active_filter" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="2.0dip" android:layout_marginTop="4.0dip" android:layout_marginRight="2.0dip" android:layout_marginBottom="4.0dip" app:singleSelection="true" />
+        <com.google.android.material.slider.Slider android:id="@id/size_slider" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginRight="10.0dip" android:stepSize="1.0" android:valueFrom="0" android:valueTo="1024" app:labelBehavior="visible" app:thumbColor="@color/colorAccent" app:trackColorActive="@color/colorAccent" app:trackColorInactive="@color/colorAccentLight" />
+        <TextView android:textSize="15.0sp" android:textStyle="italic" android:gravity="center_horizontal" android:id="@id/no_connections" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="40.0dip" android:layout_weight="1.0" />
+        <com.emanuelef.remote_capture.views.EmptyRecyclerView android:scrollbarStyle="outsideOverlay" android:id="@id/connections_view" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:fillViewport="true" android:layout_weight="1.0" />
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@id/fabDown" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16.0dip" android:src="@drawable/ic_arrow_drop_down" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" app:backgroundTint="@color/colorAccent" app:maxImageSize="48.0dip" app:tint="@null" />
+</RelativeLayout>

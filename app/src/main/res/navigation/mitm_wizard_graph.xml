@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation android:id="@id/mitm_wizard_graph" app:startDestination="@id/intro"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <fragment android:name="com.emanuelef.remote_capture.fragments.mitmwizard.Intro" android:id="@id/intro">
+        <action android:id="@id/navto_install_addon" app:destination="@id/installMitmApp" app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_right" app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment android:name="com.emanuelef.remote_capture.fragments.mitmwizard.InstallAddon" android:id="@id/installMitmApp">
+        <action android:id="@id/navto_install_cert" app:destination="@id/InstallCertificate" app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_right" app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment android:name="com.emanuelef.remote_capture.fragments.mitmwizard.InstallCertificate" android:id="@id/InstallCertificate">
+        <action android:id="@id/navto_done" app:destination="@id/Done" app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_right" app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment android:name="com.emanuelef.remote_capture.fragments.mitmwizard.Done" android:id="@id/Done" />
+</navigation>

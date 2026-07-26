@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference android:title="@string/use_system_dns" android:defaultValue="true" app:iconSpaceReserved="false" app:key="system_dns" app:summary="@string/use_system_dns_summary" />
+    <EditTextPreference app:defaultValue="1.1.1.1" app:iconSpaceReserved="false" app:key="dns_v4" app:title="@string/ipv4_dns_server" app:useSimpleSummaryProvider="true" />
+    <EditTextPreference app:defaultValue="2606:4700:4700::1111" app:iconSpaceReserved="false" app:key="dns_v6" app:title="@string/ipv6_dns_server" app:useSimpleSummaryProvider="true" />
+</PreferenceScreen>

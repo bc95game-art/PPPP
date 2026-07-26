@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdk 35
+    namespace 'com.emanuelef.remote_capture'
+
+    defaultConfig {
+        applicationId "com.emanuelef.remote_capture"
+        minSdk 21
+        targetSdk 35
+    }
+}
