@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="?android:activatedBackgroundIndicator" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/icon" android:layout_width="30.0dip" android:layout_height="wrap_content" android:adjustViewBounds="true" android:layout_marginEnd="10.0dip" />
+    <com.haipq.android.flagkit.FlagImageView android:id="@id/country_flag" android:padding="4.0dip" android:visibility="gone" android:layout_width="30.0dip" android:layout_height="wrap_content" android:layout_marginEnd="10.0dip" />
+    <TextView android:gravity="center_vertical" android:id="@id/item_label" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout android:id="@id/app_bar_layout" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar android:theme="@style/AppBarOverlay" android:id="@id/toolbar" android:background="@color/colorActionBar" android:layout_width="fill_parent" android:layout_height="wrap_content" app:popupTheme="@style/PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="15.0dip">
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="@string/status" android:labelFor="@id/decryption_error_group" />
+            <com.google.android.material.chip.ChipGroup android:id="@id/decryption_error_group" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip" app:singleSelection="true">
+                <com.google.android.material.chip.Chip android:id="@id/decryption_no_error_chip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ok" style="@style/Widget.MaterialComponents.Chip.Choice" />
+                <com.google.android.material.chip.Chip android:id="@id/decryption_error_chip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/decryption_error" style="@style/Widget.MaterialComponents.Chip.Choice" />
+            </com.google.android.material.chip.ChipGroup>
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:id="@id/method_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="@string/request_method" android:labelFor="@id/method_group" />
+            <com.google.android.material.chip.ChipGroup android:id="@id/method_group" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip" app:singleSelection="true" />
+            <View android:id="@id/http_method_filter" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="0.0dip" />
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:id="@id/content_type_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="@string/content_type" android:labelFor="@id/content_type_group" />
+            <com.google.android.material.chip.ChipGroup android:id="@id/content_type_group" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip" app:singleSelection="true" />
+            <View android:id="@id/http_content_type_filter" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="0.0dip" />
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:id="@id/http_status_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="@string/http_status" android:labelFor="@id/http_status_group" />
+            <com.google.android.material.chip.ChipGroup android:id="@id/http_status_group" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip" app:singleSelection="true" />
+            <View android:id="@id/http_status_filter" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="0.0dip" />
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:id="@id/payload_size_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="@string/payload_size_threshold" android:labelFor="@id/payload_size_slider" />
+            <com.google.android.material.slider.Slider android:id="@id/payload_size_slider" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:stepSize="1.0" android:valueFrom="0" android:valueTo="1024" app:labelBehavior="visible" app:thumbColor="@color/colorAccent" app:trackColorActive="@color/colorAccent" app:trackColorInactive="@color/colorAccentLight" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

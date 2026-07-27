@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:icon="@drawable/ic_info" android:id="@id/build_info" android:orderInCategory="5" android:title="@string/build_info" app:showAsAction="ifRoom" />
+    <item android:id="@id/on_boarding" android:orderInCategory="10" android:title="@string/welcome_to_pcapdroid" app:showAsAction="never" />
+    <item android:id="@id/paid_features" android:orderInCategory="20" android:title="@string/paid_features" app:showAsAction="never" />
+</menu>

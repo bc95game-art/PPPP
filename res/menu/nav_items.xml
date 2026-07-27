@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@id/group_app">
+        <item android:icon="@drawable/ic_apps" android:id="@id/item_apps" android:title="@string/apps" />
+        <item android:icon="@drawable/ic_stacked_bar_chart" android:id="@id/action_stats" android:title="@string/stats" />
+        <item android:icon="@drawable/ic_lock_open_alt" android:id="@id/tls_decryption" android:title="@string/decryption_rules" />
+        <item android:icon="@drawable/ic_shield" android:id="@id/firewall" android:title="@string/firewall" />
+        <item android:icon="@drawable/ic_bug" android:id="@id/malware_detection" android:title="@string/malware_detection" />
+        <item android:icon="@drawable/ic_text_snippet" android:id="@id/open_log" android:title="@string/app_log" />
+        <item android:icon="@drawable/ic_money" android:id="@id/paid_features" android:visible="false" android:title="@string/paid_features" />
+    </group>
+    <group android:id="@id/group_social">
+        <item android:icon="@drawable/ic_book" android:id="@id/action_open_user_guide" android:title="@string/user_guide" />
+        <item android:icon="@drawable/ic_money" android:id="@id/action_donate" android:title="@string/donate" />
+        <item android:icon="@drawable/ic_share" android:id="@id/action_share_app" android:title="@string/share" />
+        <item android:icon="@drawable/ic_telegram" android:id="@id/action_open_telegram" android:title="@string/open_telegram_group" />
+        <item android:icon="@drawable/ic_copyright" android:id="@id/action_about" android:title="@string/about" />
+    </group>
+</menu>

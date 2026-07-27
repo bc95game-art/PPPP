@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:padding="8.0dip" android:paddingTop="12.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout android:theme="@style/Theme.TextInputLayoutOutlined" android:id="@id/combo_field" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" style="@style/TextInputLayoutOutlinedDropdown">
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView android:id="@id/combo_text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout android:theme="@style/Theme.TextInputLayoutOutlined" android:id="@id/text_field" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" style="@style/TextInputLayoutOutlined">
+            <com.google.android.material.textfield.TextInputEditText android:id="@id/text_value" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</ScrollView>

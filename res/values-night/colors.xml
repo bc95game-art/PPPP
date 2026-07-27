@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="backgroundColor">@color/background_material_dark</color>
+    <color name="colorAccent">#ff03dac6</color>
+    <color name="colorAccentLight">#ffbcebe7</color>
+    <color name="colorActionBar">#ff121212</color>
+    <color name="colorBackgroundGray">#1cffffff</color>
+    <color name="colorPrimary">#ff6c52ab</color>
+    <color name="colorPrimaryDark">#ff24144d</color>
+    <color name="colorTab">#ff5a458d</color>
+    <color name="colorTabText">@android:color/secondary_text_dark</color>
+    <color name="colorTabTextSelected">@android:color/primary_text_dark</color>
+    <color name="drawerItemColor">@android:color/primary_text_dark</color>
+    <color name="highContrast">#ffffffff</color>
+    <color name="navViewBackground">#ff202020</color>
+</resources>
