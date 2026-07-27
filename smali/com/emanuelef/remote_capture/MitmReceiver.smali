@@ -282,7 +282,7 @@
 
     .line 67
     :cond_0
-    const/4 p3, 0x0
+    const/4 p3, 0x1
 
     .line 68
     :goto_0
@@ -302,7 +302,7 @@
 
     .line 75
     .line 76
-    xor-int/2addr p3, v2
+    const/4 p3, 0x0
 
     .line 77
     iput-boolean p3, v0, Lcom/pcapdroid/mitm/MitmAPI$MitmConfig;->shortPayload:Z

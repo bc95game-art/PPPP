@@ -1082,7 +1082,7 @@
     .line 5
     const-string v0, "block_quic_mode"
 
-    const-string v1, "never"
+    const-string v1, "to_decrypt"
 
     invoke-interface {p0, v0, v1}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1721,7 +1721,7 @@
 
     .line 2
     .line 3
-    const/4 v1, 0x0
+    const/4 v1, 0x1
 
     .line 4
     invoke-interface {p0, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
@@ -2632,7 +2632,7 @@
 
     .line 2
     .line 3
-    const/4 v1, 0x0
+    const/4 v1, 0x1
 
     .line 4
     invoke-interface {p0, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
@@ -3809,7 +3809,7 @@
 
     .line 2
     .line 3
-    const/4 v1, 0x0
+    const/4 v1, 0x1
 
     .line 4
     invoke-interface {p0, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z

@@ -811,7 +811,7 @@
 
     .line 6
     .line 7
-    const/4 v1, 0x0
+    const/4 v1, 0x1
 
     .line 8
     invoke-interface {p0, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
