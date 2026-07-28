@@ -78,6 +78,31 @@ jobs:
             echo "No unknown/ dir in decoded APK"
           fi
 
+      # ─── Extract native libs (.so) from original PCAPdroid APK ───────────────
+      - name: Extract native libraries from original PCAPdroid APK
+        run: |
+          echo "Extracting native .so files from original APK..."
+          mkdir -p /tmp/pcapdroid_libs
+          # APK is a ZIP — extract lib/ directory directly
+          cd /tmp/pcapdroid_libs
+          unzip -o /tmp/original_pcapdroid.apk "lib/*" 2>/dev/null || true
+          cd -
+
+          # Copy .so files for each ABI into our lib/ directory
+          for ARCH_DIR in /tmp/pcapdroid_libs/lib/*/; do
+            if [ -d "$ARCH_DIR" ]; then
+              ARCH=$(basename "$ARCH_DIR")
+              mkdir -p "lib/$ARCH"
+              cp "$ARCH_DIR"*.so "lib/$ARCH/" 2>/dev/null || true
+              echo "✓ Copied $(ls lib/$ARCH/*.so 2>/dev/null | wc -l) .so files for $ARCH"
+              ls lib/$ARCH/*.so 2>/dev/null | xargs -I{} basename {}
+            fi
+          done
+
+          echo ""
+          echo "=== Final lib/ native files ==="
+          find lib -name "*.so" | sort
+
       # ─── Patch AndroidManifest.xml: add MitmService ──────────────────────────
       - name: Add MitmService to AndroidManifest.xml
         run: |
