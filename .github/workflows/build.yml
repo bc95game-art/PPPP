@@ -176,6 +176,48 @@ jobs:
           echo "=== assets/ ==="
           ls -la assets/
 
+      # ─── Prepare unknown/ directory ──────────────────────────────────────────
+      - name: Populate unknown/ directory (files listed in apktool.yml unknownFiles)
+        run: |
+          mkdir -p unknown
+          # All files listed in apktool.yml unknownFiles must be in unknown/
+          # They exist at repo root — copy them to unknown/
+          for f in \
+            billing.properties \
+            firebase-encoders.properties \
+            firebase-encoders-json.properties \
+            firebase-encoders-proto.properties \
+            play-services-base.properties \
+            play-services-basement.properties \
+            play-services-location.properties \
+            play-services-places-placereport.properties \
+            play-services-tasks.properties \
+            transport-api.properties \
+            transport-backend-cct.properties \
+            transport-runtime.properties \
+            stamp-cert-sha256; do
+            if [ -f "$f" ]; then
+              cp "$f" "unknown/$f"
+              echo "✓ Copied $f → unknown/"
+            elif [ -f "original/$f" ]; then
+              cp "original/$f" "unknown/$f"
+              echo "✓ Copied original/$f → unknown/"
+            else
+              echo "⚠ Not found: $f"
+            fi
+          done
+          # DebugProbesKt.bin — from decoded original APK or existing unknown/
+          if [ ! -f unknown/DebugProbesKt.bin ]; then
+            if [ -f /tmp/original_decoded/unknown/DebugProbesKt.bin ]; then
+              cp /tmp/original_decoded/unknown/DebugProbesKt.bin unknown/
+              echo "✓ Copied DebugProbesKt.bin from decoded APK"
+            else
+              echo "⚠ DebugProbesKt.bin not found anywhere"
+            fi
+          fi
+          echo "=== unknown/ contents ==="
+          ls -la unknown/
+
       # ─── Build ────────────────────────────────────────────────────────────────
       - name: Build APK from smali + resources
         run: |
