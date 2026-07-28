@@ -53,13 +53,12 @@ jobs:
             -O /tmp/original_pcapdroid.apk
           echo "APK size: $(ls -lh /tmp/original_pcapdroid.apk | awk '{print $5}')"
 
-          echo "Decoding APK with apktool (manifest only, no smali)..."
+          echo "Decoding APK with apktool (resources + manifest, no smali)..."
           apktool d /tmp/original_pcapdroid.apk \
             -o /tmp/original_decoded \
             -f \
             --no-debug-info \
-            --no-src \
-            --no-res
+            --no-src
           
           echo "=== Decoded manifest (first 30 lines) ==="
           head -30 /tmp/original_decoded/AndroidManifest.xml
