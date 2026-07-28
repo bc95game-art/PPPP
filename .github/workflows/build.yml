@@ -38,6 +38,15 @@ jobs:
       - name: Verify apktool
         run: apktool --version
 
+      - name: Install Android API-35 framework into apktool
+        run: |
+          # apktool bundles an old framework; API-31+ added dynamic-color system
+          # colors (android:color/Indigo_800 etc.) that the old framework lacks.
+          ANDROID_JAR=$(find $ANDROID_HOME/platforms -name "android.jar" | sort -V | tail -1)
+          echo "Using framework: $ANDROID_JAR"
+          apktool if "$ANDROID_JAR" --tag 1
+          echo "Framework installed ✓"
+
       # ─── Download & Decompile MITM Addon ─────────────────────────────────────
       - name: Download PCAPdroid-mitm addon APK
         run: |
