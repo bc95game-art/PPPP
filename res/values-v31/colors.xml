@@ -52,12 +52,12 @@
     <color name="m3_ref_palette_dynamic_secondary90">@android:color/system_accent2_500</color>
     <color name="m3_ref_palette_dynamic_secondary95">@android:color/system_accent2_400</color>
     <color name="m3_ref_palette_dynamic_secondary99">@android:color/system_accent2_300</color>
-    <color name="m3_ref_palette_dynamic_tertiary0">@*android:color/Indigo_800</color>
-    <color name="m3_ref_palette_dynamic_tertiary10">@*android:color/Indigo_700</color>
+    <color name="m3_ref_palette_dynamic_tertiary0">#283593</color>
+    <color name="m3_ref_palette_dynamic_tertiary10">#303F9F</color>
     <color name="m3_ref_palette_dynamic_tertiary100">@android:color/system_accent3_300</color>
-    <color name="m3_ref_palette_dynamic_tertiary20">@*android:color/GM2_grey_800</color>
-    <color name="m3_ref_palette_dynamic_tertiary30">@*android:color/Blue_800</color>
-    <color name="m3_ref_palette_dynamic_tertiary40">@*android:color/Blue_700</color>
+    <color name="m3_ref_palette_dynamic_tertiary20">#424242</color>
+    <color name="m3_ref_palette_dynamic_tertiary30">#1565C0</color>
+    <color name="m3_ref_palette_dynamic_tertiary40">#1976D2</color>
     <color name="m3_ref_palette_dynamic_tertiary50">@android:color/system_accent3_1000</color>
     <color name="m3_ref_palette_dynamic_tertiary60">@android:color/system_accent3_900</color>
     <color name="m3_ref_palette_dynamic_tertiary70">@android:color/system_accent3_800</color>
