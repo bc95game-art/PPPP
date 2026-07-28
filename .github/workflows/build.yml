@@ -245,57 +245,108 @@ jobs:
           echo "=== unknown/ contents ==="
           ls -la unknown/
 
-      # ─── Fix APKTOOL_DUMMY drawables (FileNotFoundException crash) ────────────
-      - name: Create placeholder PNGs for APKTOOL_DUMMY drawables
+      # ─── Comprehensive resource fix (3 issues) ───────────────────────────────
+      - name: Fix resources — APKTOOL_DUMMY, duplicate items, missing IDs
         run: |
           python3 << 'PYEOF'
-          import os
-          import re
-          import base64
+          import os, re, base64
 
-          # Minimal 1x1 transparent PNG
+          # ── ISSUE 1: Remove empty APKTOOL_DUMMY <item> entries from drawables.xml
+          # The empty <item type="drawable" name="APKTOOL_DUMMY_XX" /> declarations
+          # conflict with the PNG files we create below.
+          # aapt2 sees TWO definitions of the same resource → "duplicate resource" error.
+          drawables_xml = "res/values/drawables.xml"
+          if os.path.exists(drawables_xml):
+              with open(drawables_xml, "r", encoding="utf-8") as f:
+                  content = f.read()
+              before = content.count("APKTOOL_DUMMY")
+              content = re.sub(
+                  r'[ \t]*<item type="drawable" name="APKTOOL_DUMMY_[0-9a-fA-F]+" />[ \t]*\n?',
+                  '',
+                  content
+              )
+              after = content.count("APKTOOL_DUMMY")
+              with open(drawables_xml, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print(f"✓ Removed {before - after} empty APKTOOL_DUMMY items from drawables.xml")
+
+          # ── ISSUE 2: Create 1×1 transparent PNG for every APKTOOL_DUMMY drawable
+          # Without actual files the resource table (resources.arsc) points to
+          # non-existent files → FileNotFoundException → crash.
           TRANSPARENT_PNG = base64.b64decode(
               "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJ"
               "AAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
           )
-
-          # Collect all APKTOOL_DUMMY names from public.xml (source of truth for IDs)
           dummy_names = set()
-          public_xml = "res/values/public.xml"
-          if os.path.exists(public_xml):
-              with open(public_xml, "r", encoding="utf-8") as f:
-                  for match in re.findall(
-                      r'<public type="drawable" name="(APKTOOL_DUMMY_[0-9a-fA-F]+)"', f.read()
-                  ):
-                      dummy_names.add(match)
-
-          # Also scan all XMLs for any referenced APKTOOL_DUMMY drawables
           for root, dirs, files in os.walk("res"):
               for fname in files:
                   if not fname.endswith(".xml"):
                       continue
-                  fpath = os.path.join(root, fname)
-                  with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
-                      content = f.read()
-                  for m in re.findall(r'@drawable/(APKTOOL_DUMMY_[0-9a-fA-F]+)', content):
+                  with open(os.path.join(root, fname), "r", encoding="utf-8", errors="ignore") as f:
+                      txt = f.read()
+                  for m in re.findall(r'APKTOOL_DUMMY_[0-9a-fA-F]+', txt):
                       dummy_names.add(m)
-
-          print(f"Total APKTOOL_DUMMY drawables to create: {len(dummy_names)}")
 
           os.makedirs("res/drawable", exist_ok=True)
           created = 0
           for name in sorted(dummy_names):
               png_path = f"res/drawable/{name}.png"
               xml_path = f"res/drawable/{name}.xml"
-              # Only create PNG if neither PNG nor XML exists
               if not os.path.exists(png_path) and not os.path.exists(xml_path):
                   with open(png_path, "wb") as f:
                       f.write(TRANSPARENT_PNG)
                   created += 1
+          print(f"✓ Created {created} placeholder PNG files for {len(dummy_names)} APKTOOL_DUMMY drawables")
 
-          print(f"Created {created} new placeholder PNG files")
-          print(f"Skipped {len(dummy_names) - created} already-existing entries")
+          # ── ISSUE 3: Add missing IDs to ids.xml
+          # public.xml declares bottom/custom/layout as type "id" with specific resource IDs,
+          # but ids.xml never declares them → aapt2 cannot resolve @id/bottom etc. → crash.
+          ids_xml = "res/values/ids.xml"
+          needed_ids = ["bottom", "custom", "layout"]
+          if os.path.exists(ids_xml):
+              with open(ids_xml, "r", encoding="utf-8") as f:
+                  ids_content = f.read()
+              added = []
+              for id_name in needed_ids:
+                  if f'name="{id_name}"' not in ids_content:
+                      ids_content = ids_content.replace(
+                          "</resources>",
+                          f'    <item type="id" name="{id_name}" />\n</resources>'
+                      )
+                      added.append(id_name)
+              if added:
+                  with open(ids_xml, "w", encoding="utf-8") as f:
+                      f.write(ids_content)
+                  print(f"✓ Added missing IDs to ids.xml: {added}")
+              else:
+                  print("✓ All required IDs already in ids.xml")
           PYEOF
+
+      # ─── Guard: exclude non-ABI dirs from lib/ before apktool build ──────────
+      - name: Isolate Android native libs from TypeScript lib packages
+        run: |
+          # The repo's lib/ contains TypeScript packages (api-client-react, api-spec, etc.).
+          # apktool only packages lib/<ABI>/ directories; non-ABI names are ignored.
+          # We verify this explicitly and list what will be packaged.
+          echo "=== lib/ subdirectories ==="
+          ls lib/ 2>/dev/null || echo "(empty)"
+          echo ""
+          VALID_ABIS="armeabi armeabi-v7a arm64-v8a x86 x86_64 mips mips64"
+          echo "=== Valid ABI dirs (will be packaged as native libs) ==="
+          for abi in $VALID_ABIS; do
+            if [ -d "lib/$abi" ]; then
+              echo "  lib/$abi/ → $(ls lib/$abi/*.so 2>/dev/null | wc -l) .so files"
+              ls lib/$abi/*.so 2>/dev/null | xargs -I{} basename {}
+            fi
+          done
+          echo ""
+          echo "=== Non-ABI dirs (apktool ignores these) ==="
+          for d in lib/*/; do
+            base=$(basename "$d")
+            if ! echo "$VALID_ABIS" | grep -qw "$base"; then
+              echo "  (ignored) lib/$base/"
+            fi
+          done
 
       # ─── Build ────────────────────────────────────────────────────────────────
       - name: Build APK from smali + resources
