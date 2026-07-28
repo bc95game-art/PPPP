@@ -67,6 +67,15 @@ jobs:
           cp /tmp/original_decoded/AndroidManifest.xml ./AndroidManifest.xml
           echo "✓ Manifest replaced successfully"
 
+          echo "Copying unknown/ directory (DebugProbesKt.bin etc.)..."
+          if [ -d /tmp/original_decoded/unknown ]; then
+            mkdir -p unknown
+            cp -r /tmp/original_decoded/unknown/. unknown/
+            echo "Copied unknown/: $(ls unknown/ | head -20)"
+          else
+            echo "No unknown/ dir in decoded APK"
+          fi
+
       # ─── Patch AndroidManifest.xml: add MitmService ──────────────────────────
       - name: Add MitmService to AndroidManifest.xml
         run: |
