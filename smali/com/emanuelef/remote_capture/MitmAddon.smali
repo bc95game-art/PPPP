@@ -324,7 +324,7 @@
     move-result-object p0
 
     .line 5
-    const-string v0, "com.pcapdroid.mitm"
+    const-string v0, "com.emanuelef.remote_capture"
 
     .line 6
     .line 7
@@ -424,7 +424,7 @@
     move-result-object p0
 
     .line 5
-    const-string v0, "com.pcapdroid.mitm"
+    const-string v0, "com.emanuelef.remote_capture"
 
     .line 6
     .line 7
@@ -537,7 +537,7 @@
     move-result-object p0
 
     .line 18
-    const-string v0, "com.pcapdroid.mitm"
+    const-string v0, "com.emanuelef.remote_capture"
 
     .line 19
     .line 20
@@ -644,7 +644,7 @@
     move-result-object p0
 
     .line 5
-    const-string v0, "com.pcapdroid.mitm"
+    const-string v0, "com.emanuelef.remote_capture"
 
     .line 6
     .line 7
@@ -906,7 +906,7 @@
 
     .line 16
     .line 17
-    const-string v0, "com.pcapdroid.mitm"
+    const-string v0, "com.emanuelef.remote_capture"
 
     .line 18
     .line 19
@@ -980,7 +980,7 @@
     move-result-object p0
 
     .line 6
-    const-string v1, "com.pcapdroid.mitm"
+    const-string v1, "com.emanuelef.remote_capture"
 
     .line 7
     .line 8
@@ -1445,7 +1445,7 @@
 
     .line 7
     .line 8
-    const-string v2, "com.pcapdroid.mitm"
+    const-string v2, "com.emanuelef.remote_capture"
 
     .line 9
     .line 10

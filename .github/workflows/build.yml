@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build PCAPdroid APK with apktool
+    name: Build PCAPdroid APK with embedded MITM
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +22,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Download apktool
         run: |
           mkdir -p $HOME/bin
@@ -33,6 +38,134 @@ jobs:
       - name: Verify apktool
         run: apktool --version
 
+      # ─── Download & Decompile MITM Addon ─────────────────────────────────────
+      - name: Download PCAPdroid-mitm addon APK
+        run: |
+          # Try to get the download URL from GitHub releases API
+          RELEASE_URL=$(curl -s https://api.github.com/repos/emanuele-f/PCAPdroid-mitm/releases/tags/v1.4 \
+            | python3 -c "
+          import sys, json
+          rel = json.load(sys.stdin)
+          assets = rel.get('assets', [])
+          for a in assets:
+              print(a['browser_download_url'])
+          ")
+          echo "Available assets:"
+          echo "$RELEASE_URL"
+
+          # Download arm64-v8a version
+          DL_URL=$(echo "$RELEASE_URL" | grep -i "arm64" | head -1)
+          if [ -z "$DL_URL" ]; then
+            # Fallback: try direct URL patterns
+            DL_URL="https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v1.4/PCAPdroid-mitm_v1.4_arm64-v8a.apk"
+          fi
+          echo "Downloading: $DL_URL"
+          wget -q "$DL_URL" -O /tmp/mitm_addon.apk
+          echo "Addon APK size: $(ls -lh /tmp/mitm_addon.apk | awk '{print $5}')"
+
+      - name: Decompile MITM addon with apktool
+        run: |
+          apktool d /tmp/mitm_addon.apk -o /tmp/mitm_decoded -f --no-debug-info
+          echo "=== Smali dirs ==="
+          ls /tmp/mitm_decoded/smali* 2>/dev/null || echo "(no smali dirs)"
+          echo "=== Lib dirs ==="
+          ls /tmp/mitm_decoded/lib/ 2>/dev/null || echo "(no lib dir)"
+          echo "=== Assets ==="
+          ls /tmp/mitm_decoded/assets/ 2>/dev/null || echo "(no assets)"
+
+      # ─── Merge Addon into Our Project ────────────────────────────────────────
+      - name: Merge addon smali (MitmService + Chaquopy)
+        run: |
+          # Merge all smali directories from the addon
+          for SMALI_DIR in /tmp/mitm_decoded/smali /tmp/mitm_decoded/smali_classes2 /tmp/mitm_decoded/smali_classes3; do
+            if [ -d "$SMALI_DIR" ]; then
+              echo "Merging $SMALI_DIR ..."
+              cp -rn "$SMALI_DIR"/. smali/ 2>/dev/null || true
+            fi
+          done
+          echo "=== MitmService smali ==="
+          find smali/com/pcapdroid -name "*.smali" | head -20
+          echo "=== Chaquopy smali ==="
+          find smali/com/chaquo -name "*.smali" 2>/dev/null | wc -l || echo "0"
+
+      - name: Copy addon native libraries
+        run: |
+          for ARCH_DIR in /tmp/mitm_decoded/lib/*/; do
+            ARCH=$(basename "$ARCH_DIR")
+            mkdir -p "lib/$ARCH"
+            cp "$ARCH_DIR"*.so "lib/$ARCH/" 2>/dev/null || true
+            echo "Copied $(ls lib/$ARCH/*.so 2>/dev/null | wc -l) .so files for $ARCH"
+          done
+          echo "=== lib/ contents ==="
+          find lib -name "*.so" 2>/dev/null | head -20 || echo "(none)"
+
+      - name: Copy addon assets (Chaquopy Python runtime + mitmproxy)
+        run: |
+          if [ -d /tmp/mitm_decoded/assets/chaquopy ]; then
+            mkdir -p assets/chaquopy
+            cp -r /tmp/mitm_decoded/assets/chaquopy/. assets/chaquopy/
+            echo "Copied chaquopy assets: $(du -sh assets/chaquopy | awk '{print $1}')"
+          fi
+          # Copy CA cert if present
+          if [ -f /tmp/mitm_decoded/assets/cacert.pem ]; then
+            cp /tmp/mitm_decoded/assets/cacert.pem assets/
+            echo "Copied cacert.pem"
+          fi
+          echo "=== assets/ ==="
+          ls -la assets/
+
+      # ─── Patch AndroidManifest.xml ────────────────────────────────────────────
+      - name: Install androguard for manifest decoding
+        run: pip install -q "androguard==3.3.5"
+
+      - name: Decode binary AndroidManifest.xml and add MitmService
+        run: |
+          python3 << 'PYEOF'
+          import sys
+
+          # ── Decode binary AXML → text XML ──────────────────────────────────
+          try:
+              from androguard.core.bytecodes.axml import AXMLPrinter
+          except ImportError:
+              from androguard.core.axml import AXMLPrinter
+
+          with open("AndroidManifest.xml", "rb") as f:
+              raw = f.read()
+
+          # Check if it's already text XML
+          if raw.lstrip().startswith(b"<?xml"):
+              xml_str = raw.decode("utf-8")
+              print("Manifest is already text XML")
+          else:
+              printer = AXMLPrinter(raw)
+              xml_bytes = printer.get_xml()
+              xml_str = xml_bytes.decode("utf-8") if isinstance(xml_bytes, bytes) else xml_bytes
+              print(f"Decoded binary manifest ({len(raw)} bytes → {len(xml_str)} chars)")
+
+          # ── Patch: add MitmService before </application> ───────────────────
+          SERVICE_DECL = '    <service android:name="com.pcapdroid.mitm.MitmService" android:exported="false" />'
+
+          if "com.pcapdroid.mitm.MitmService" in xml_str:
+              print("MitmService already present in manifest — skipping patch")
+          else:
+              if "</application>" not in xml_str:
+                  print("ERROR: </application> not found in manifest!", file=sys.stderr)
+                  sys.exit(1)
+              xml_str = xml_str.replace("</application>", SERVICE_DECL + "\n</application>", 1)
+              print("Added MitmService declaration to manifest")
+
+          # ── Save patched text XML ──────────────────────────────────────────
+          with open("AndroidManifest.xml", "w", encoding="utf-8") as f:
+              f.write(xml_str)
+
+          # Quick verify
+          with open("AndroidManifest.xml") as f:
+              content = f.read()
+          assert "com.pcapdroid.mitm.MitmService" in content, "Patch verification failed!"
+          print("Manifest patch verified OK")
+          PYEOF
+
+      # ─── Build ────────────────────────────────────────────────────────────────
       - name: Build APK from smali + resources
         run: |
           mkdir -p output
@@ -80,16 +213,26 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.9.1-rebuilt
-          name: PCAPdroid v1.9.1 — Rebuilt from source
+          tag_name: v1.9.1-mitm-embedded
+          name: PCAPdroid v1.9.1 — با رمزگشایی HTTPS داخلی
           body: |
-            ## PCAPdroid v1.9.1 — Rebuilt APK
+            ## PCAPdroid v1.9.1 — MITM Embedded
 
-            این APK از سورس کد decompile شده با استفاده از apktool بازسازی شده است.
+            این APK شامل رمزگشای HTTPS داخلی است و نیاز به نصب addon جداگانه ندارد.
 
-            - **روش build:** apktool (smali → APK)
-            - **امضا:** debug keystore
-            - **نسخه اصلی:** 1.9.1 (versionCode: 91)
+            ### تغییرات:
+            - **MITM addon جاسازی‌شده:** سرویس رمزگشایی TLS مستقیماً درون APK
+            - **مشاهده ترافیک HTTPS:** بدون نیاز به `com.pcapdroid.mitm` جداگانه
+            - **Python runtime:** Chaquopy + mitmproxy (arm64-v8a)
+            - **CA cert:** خودکار برای رمزگشایی TLS
+
+            ### نصب:
+            1. APK را نصب کنید
+            2. در تنظیمات، **TLS Decryption** را فعال کنید
+            3. CA certificate را ایمپورت کنید
+
+            - **روش build:** apktool + addon merge
+            - **معماری:** arm64-v8a
           files: output/PCAPdroid-signed.apk
           draft: false
           prerelease: false
