@@ -1,0 +1,295 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build PCAPdroid APK with embedded MITM
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Download apktool
+        run: |
+          mkdir -p $HOME/bin
+          wget -q https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar -O $HOME/bin/apktool.jar
+          wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O $HOME/bin/apktool
+          chmod +x $HOME/bin/apktool
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Verify apktool
+        run: apktool --version
+
+      - name: Install Android API-35 framework into apktool
+        run: |
+          ANDROID_JAR=$(find $ANDROID_HOME/platforms -name "android.jar" | sort -V | tail -1)
+          echo "Using framework: $ANDROID_JAR"
+          apktool if "$ANDROID_JAR" --tag 1
+          echo "Framework installed ✓"
+
+      # ─── Decode AndroidManifest.xml from original APK ────────────────────────
+      - name: Download original PCAPdroid APK and decode manifest
+        run: |
+          echo "Downloading original PCAPdroid v1.9.1 APK..."
+          wget -q "https://github.com/emanuele-f/PCAPdroid/releases/download/v1.9.1/PCAPdroid_v1.9.1.apk" \
+            -O /tmp/original_pcapdroid.apk
+          echo "APK size: $(ls -lh /tmp/original_pcapdroid.apk | awk '{print $5}')"
+
+          echo "Decoding APK with apktool (resources + manifest, no smali)..."
+          apktool d /tmp/original_pcapdroid.apk \
+            -o /tmp/original_decoded \
+            -f \
+            --no-debug-info \
+            --no-src
+          
+          echo "=== Decoded manifest (first 30 lines) ==="
+          head -30 /tmp/original_decoded/AndroidManifest.xml
+          
+          echo "Replacing binary manifest with decoded text version..."
+          cp /tmp/original_decoded/AndroidManifest.xml ./AndroidManifest.xml
+          echo "✓ Manifest replaced successfully"
+
+          echo "Copying unknown/ directory (DebugProbesKt.bin etc.)..."
+          if [ -d /tmp/original_decoded/unknown ]; then
+            mkdir -p unknown
+            cp -r /tmp/original_decoded/unknown/. unknown/
+            echo "Copied unknown/: $(ls unknown/ | head -20)"
+          else
+            echo "No unknown/ dir in decoded APK"
+          fi
+
+      # ─── Patch AndroidManifest.xml: add MitmService ──────────────────────────
+      - name: Add MitmService to AndroidManifest.xml
+        run: |
+          python3 << 'PYEOF'
+          SERVICE_DECL = '    <service android:name="com.pcapdroid.mitm.MitmService" android:exported="false" />'
+
+          with open("AndroidManifest.xml", "r", encoding="utf-8") as f:
+              xml_str = f.read()
+
+          if "com.pcapdroid.mitm.MitmService" in xml_str:
+              print("MitmService already present — skipping patch")
+          else:
+              if "</application>" not in xml_str:
+                  print("ERROR: </application> not found in manifest!")
+                  import sys; sys.exit(1)
+              xml_str = xml_str.replace("</application>", SERVICE_DECL + "\n</application>", 1)
+              print("✓ Added MitmService declaration to manifest")
+
+          with open("AndroidManifest.xml", "w", encoding="utf-8") as f:
+              f.write(xml_str)
+
+          # Verify
+          with open("AndroidManifest.xml") as f:
+              content = f.read()
+          assert "com.pcapdroid.mitm.MitmService" in content, "Patch verification failed!"
+          print("✓ Manifest patch verified OK")
+          print(f"  Manifest size: {len(content)} chars")
+          PYEOF
+
+      # ─── Download & Decompile MITM Addon ─────────────────────────────────────
+      - name: Download PCAPdroid-mitm addon APK
+        run: |
+          RELEASE_URL=$(curl -s https://api.github.com/repos/emanuele-f/PCAPdroid-mitm/releases/tags/v1.4 \
+            | python3 -c "
+          import sys, json
+          rel = json.load(sys.stdin)
+          assets = rel.get('assets', [])
+          for a in assets:
+              print(a['browser_download_url'])
+          ")
+          echo "Available assets:"
+          echo "$RELEASE_URL"
+
+          DL_URL=$(echo "$RELEASE_URL" | grep -i "arm64" | head -1)
+          if [ -z "$DL_URL" ]; then
+            DL_URL="https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v1.4/PCAPdroid-mitm_v1.4_arm64-v8a.apk"
+          fi
+          echo "Downloading: $DL_URL"
+          wget -q "$DL_URL" -O /tmp/mitm_addon.apk
+          echo "Addon APK size: $(ls -lh /tmp/mitm_addon.apk | awk '{print $5}')"
+
+      - name: Decompile MITM addon with apktool
+        run: |
+          apktool d /tmp/mitm_addon.apk -o /tmp/mitm_decoded -f --no-debug-info
+          echo "=== Smali dirs ==="
+          ls /tmp/mitm_decoded/smali* 2>/dev/null || echo "(no smali dirs)"
+          echo "=== Lib dirs ==="
+          ls /tmp/mitm_decoded/lib/ 2>/dev/null || echo "(no lib dir)"
+          echo "=== Assets ==="
+          ls /tmp/mitm_decoded/assets/ 2>/dev/null || echo "(no assets)"
+
+      # ─── Merge Addon into Our Project ────────────────────────────────────────
+      - name: Merge addon smali (MitmService + Chaquopy)
+        run: |
+          for SMALI_DIR in /tmp/mitm_decoded/smali /tmp/mitm_decoded/smali_classes2 /tmp/mitm_decoded/smali_classes3; do
+            if [ -d "$SMALI_DIR" ]; then
+              echo "Merging $SMALI_DIR ..."
+              cp -rn "$SMALI_DIR"/. smali/ 2>/dev/null || true
+            fi
+          done
+          echo "=== MitmService smali ==="
+          find smali/com/pcapdroid -name "*.smali" 2>/dev/null | head -20 || echo "(not found)"
+          echo "=== Chaquopy smali ==="
+          find smali/com/chaquo -name "*.smali" 2>/dev/null | wc -l || echo "0"
+
+      - name: Copy addon native libraries
+        run: |
+          for ARCH_DIR in /tmp/mitm_decoded/lib/*/; do
+            ARCH=$(basename "$ARCH_DIR")
+            mkdir -p "lib/$ARCH"
+            cp "$ARCH_DIR"*.so "lib/$ARCH/" 2>/dev/null || true
+            echo "Copied $(ls lib/$ARCH/*.so 2>/dev/null | wc -l) .so files for $ARCH"
+          done
+          echo "=== lib/ contents ==="
+          find lib -name "*.so" 2>/dev/null | head -20 || echo "(none)"
+
+      - name: Copy addon assets (Chaquopy Python runtime + mitmproxy)
+        run: |
+          if [ -d /tmp/mitm_decoded/assets/chaquopy ]; then
+            mkdir -p assets/chaquopy
+            cp -r /tmp/mitm_decoded/assets/chaquopy/. assets/chaquopy/
+            echo "Copied chaquopy assets: $(du -sh assets/chaquopy | awk '{print $1}')"
+          fi
+          if [ -f /tmp/mitm_decoded/assets/cacert.pem ]; then
+            cp /tmp/mitm_decoded/assets/cacert.pem assets/
+            echo "Copied cacert.pem"
+          fi
+          echo "=== assets/ ==="
+          ls -la assets/
+
+      # ─── Prepare unknown/ directory ──────────────────────────────────────────
+      - name: Populate unknown/ directory (files listed in apktool.yml unknownFiles)
+        run: |
+          mkdir -p unknown
+          # All files listed in apktool.yml unknownFiles must be in unknown/
+          # They exist at repo root — copy them to unknown/
+          for f in \
+            billing.properties \
+            firebase-encoders.properties \
+            firebase-encoders-json.properties \
+            firebase-encoders-proto.properties \
+            play-services-base.properties \
+            play-services-basement.properties \
+            play-services-location.properties \
+            play-services-places-placereport.properties \
+            play-services-tasks.properties \
+            transport-api.properties \
+            transport-backend-cct.properties \
+            transport-runtime.properties \
+            stamp-cert-sha256; do
+            if [ -f "$f" ]; then
+              cp "$f" "unknown/$f"
+              echo "✓ Copied $f → unknown/"
+            elif [ -f "original/$f" ]; then
+              cp "original/$f" "unknown/$f"
+              echo "✓ Copied original/$f → unknown/"
+            else
+              echo "⚠ Not found: $f"
+            fi
+          done
+          # DebugProbesKt.bin — from decoded original APK or existing unknown/
+          if [ ! -f unknown/DebugProbesKt.bin ]; then
+            if [ -f /tmp/original_decoded/unknown/DebugProbesKt.bin ]; then
+              cp /tmp/original_decoded/unknown/DebugProbesKt.bin unknown/
+              echo "✓ Copied DebugProbesKt.bin from decoded APK"
+            else
+              echo "⚠ DebugProbesKt.bin not found anywhere"
+            fi
+          fi
+          echo "=== unknown/ contents ==="
+          ls -la unknown/
+
+      # ─── Build ────────────────────────────────────────────────────────────────
+      - name: Build APK from smali + resources
+        run: |
+          mkdir -p output
+          apktool b . -o output/PCAPdroid-rebuilt.apk --use-aapt2
+          echo "Build done: $(ls -lh output/PCAPdroid-rebuilt.apk)"
+
+      - name: Generate debug keystore
+        run: |
+          keytool -genkey -v \
+            -keystore debug.keystore \
+            -alias androiddebugkey \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass android \
+            -keypass android \
+            -dname "CN=Android Debug,O=Android,C=US"
+
+      - name: Zipalign APK
+        run: |
+          $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -V | tail -1)/zipalign \
+            -v 4 \
+            output/PCAPdroid-rebuilt.apk \
+            output/PCAPdroid-aligned.apk
+
+      - name: Sign APK
+        run: |
+          $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -V | tail -1)/apksigner sign \
+            --ks debug.keystore \
+            --ks-key-alias androiddebugkey \
+            --ks-pass pass:android \
+            --key-pass pass:android \
+            --out output/PCAPdroid-signed.apk \
+            output/PCAPdroid-aligned.apk
+          echo "Signed APK: $(ls -lh output/PCAPdroid-signed.apk)"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PCAPdroid-APK
+          path: output/PCAPdroid-signed.apk
+          retention-days: 30
+
+      - name: Create Release (on push to main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.9.1-mitm-embedded
+          name: PCAPdroid v1.9.1 — با رمزگشایی HTTPS داخلی
+          body: |
+            ## PCAPdroid v1.9.1 — MITM Embedded
+
+            این APK شامل رمزگشای HTTPS داخلی است و نیاز به نصب addon جداگانه ندارد.
+
+            ### تغییرات:
+            - **MITM addon جاسازی‌شده:** سرویس رمزگشایی TLS مستقیماً درون APK
+            - **مشاهده ترافیک HTTPS:** بدون نیاز به `com.pcapdroid.mitm` جداگانه
+            - **Python runtime:** Chaquopy + mitmproxy (arm64-v8a)
+            - **CA cert:** خودکار برای رمزگشایی TLS
+
+            ### نصب:
+            1. APK را نصب کنید
+            2. در تنظیمات، **TLS Decryption** را فعال کنید
+            3. CA certificate را ایمپورت کنید
+
+            - **روش build:** apktool + addon merge
+            - **معماری:** arm64-v8a
+          files: output/PCAPdroid-signed.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

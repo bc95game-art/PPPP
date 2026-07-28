@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:id="@id/app_overview" android:padding="8.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent" android:fillViewport="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/layout" android:padding="8.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@id/app_icon" android:layout_width="wrap_content" android:layout_height="80.0dip" android:layout_marginTop="10.0dip" android:adjustViewBounds="true" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TableLayout android:id="@id/table" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/app_icon">
+            <TableRow android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/app_name" android:layout_weight="0.35" />
+                <TextView android:id="@id/name" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:id="@id/package_name_row" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/package_name" android:layout_weight="0.35" />
+                <TextView android:id="@id/package_name" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/uid" android:layout_weight="0.35" />
+                <TextView android:id="@id/uid" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:id="@id/version_row" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/version" android:layout_weight="0.35" />
+                <TextView android:id="@id/version" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:id="@id/target_sdk_row" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/target_sdk" android:layout_weight="0.35" />
+                <TextView android:id="@id/target_sdk" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:id="@id/install_date_row" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/installed_on" android:layout_weight="0.35" />
+                <TextView android:id="@id/install_date" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:id="@id/last_update_row" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/last_update" android:layout_weight="0.35" />
+                <TextView android:id="@id/last_update" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/network_traffic" android:layout_weight="0.35" />
+                <TextView android:id="@id/detail_bytes" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/connections_view" android:layout_weight="0.35" />
+                <TextView android:id="@id/connections" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+            <TableRow android:id="@id/conns_blocked_row" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/connections_blocked" android:layout_weight="0.35" />
+                <TextView android:id="@id/conns_blocked" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.65" android:textIsSelectable="true" />
+            </TableRow>
+        </TableLayout>
+        <TextView android:textStyle="italic" android:id="@id/vapp_info" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/table" />
+        <TextView android:textStyle="bold" android:id="@id/permissions_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dip" android:text="@string/permissions" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/table" />
+        <HorizontalScrollView android:id="@id/permissionsSv" android:background="@color/colorBackgroundGray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/permissions_label">
+            <TextView android:textSize="12.0sp" android:id="@id/permissions" android:padding="0.0sp" android:focusable="true" android:nextFocusUp="@id/show_connections" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scrollHorizontally="true" android:textIsSelectable="true" android:fontFamily="monospace" />
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

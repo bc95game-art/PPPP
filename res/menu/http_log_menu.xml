@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:icon="@drawable/ic_search" android:id="@id/search" android:orderInCategory="15" android:title="@string/search" app:actionViewClass="androidx.appcompat.widget.SearchView" app:showAsAction="always|collapseActionView" />
+    <item android:icon="@drawable/ic_filter" android:id="@id/edit_filter" android:orderInCategory="20" android:title="@string/edit_filter" app:showAsAction="always" />
+    <item android:icon="@drawable/ic_save" android:id="@id/save" android:orderInCategory="30" android:title="@string/save_as_text" app:showAsAction="never" />
+    <item android:id="@id/save_as_har" android:orderInCategory="31" android:title="@string/save_as_har" app:showAsAction="never" />
+    <item android:id="@id/switch_to_connections" android:visible="false" />
+</menu>

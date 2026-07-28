@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference android:summary="@string/geo_db_not_found" app:iconSpaceReserved="false" app:key="status" app:title="@string/database">
+        <intent android:action="android.intent.action.VIEW" android:data="https://db-ip.com/db/lite.php" />
+    </Preference>
+    <Preference android:summary="@string/geo_db_download" app:iconSpaceReserved="false" app:key="download" app:title="@string/download" />
+    <Preference android:summary="@string/geo_db_delete" app:iconSpaceReserved="false" app:key="delete" app:title="@string/delete" />
+</PreferenceScreen>
