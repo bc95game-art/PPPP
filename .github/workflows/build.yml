@@ -40,17 +40,66 @@ jobs:
 
       - name: Install Android API-35 framework into apktool
         run: |
-          # apktool bundles an old framework; API-31+ added dynamic-color system
-          # colors (android:color/Indigo_800 etc.) that the old framework lacks.
           ANDROID_JAR=$(find $ANDROID_HOME/platforms -name "android.jar" | sort -V | tail -1)
           echo "Using framework: $ANDROID_JAR"
           apktool if "$ANDROID_JAR" --tag 1
           echo "Framework installed ✓"
 
+      # ─── Decode AndroidManifest.xml from original APK ────────────────────────
+      - name: Download original PCAPdroid APK and decode manifest
+        run: |
+          echo "Downloading original PCAPdroid v1.9.1 APK..."
+          wget -q "https://github.com/emanuele-f/PCAPdroid/releases/download/v1.9.1/PCAPdroid_v1.9.1.apk" \
+            -O /tmp/original_pcapdroid.apk
+          echo "APK size: $(ls -lh /tmp/original_pcapdroid.apk | awk '{print $5}')"
+
+          echo "Decoding APK with apktool (manifest only, no smali)..."
+          apktool d /tmp/original_pcapdroid.apk \
+            -o /tmp/original_decoded \
+            -f \
+            --no-debug-info \
+            --no-src \
+            --no-res
+          
+          echo "=== Decoded manifest (first 30 lines) ==="
+          head -30 /tmp/original_decoded/AndroidManifest.xml
+          
+          echo "Replacing binary manifest with decoded text version..."
+          cp /tmp/original_decoded/AndroidManifest.xml ./AndroidManifest.xml
+          echo "✓ Manifest replaced successfully"
+
+      # ─── Patch AndroidManifest.xml: add MitmService ──────────────────────────
+      - name: Add MitmService to AndroidManifest.xml
+        run: |
+          python3 << 'PYEOF'
+          SERVICE_DECL = '    <service android:name="com.pcapdroid.mitm.MitmService" android:exported="false" />'
+
+          with open("AndroidManifest.xml", "r", encoding="utf-8") as f:
+              xml_str = f.read()
+
+          if "com.pcapdroid.mitm.MitmService" in xml_str:
+              print("MitmService already present — skipping patch")
+          else:
+              if "</application>" not in xml_str:
+                  print("ERROR: </application> not found in manifest!")
+                  import sys; sys.exit(1)
+              xml_str = xml_str.replace("</application>", SERVICE_DECL + "\n</application>", 1)
+              print("✓ Added MitmService declaration to manifest")
+
+          with open("AndroidManifest.xml", "w", encoding="utf-8") as f:
+              f.write(xml_str)
+
+          # Verify
+          with open("AndroidManifest.xml") as f:
+              content = f.read()
+          assert "com.pcapdroid.mitm.MitmService" in content, "Patch verification failed!"
+          print("✓ Manifest patch verified OK")
+          print(f"  Manifest size: {len(content)} chars")
+          PYEOF
+
       # ─── Download & Decompile MITM Addon ─────────────────────────────────────
       - name: Download PCAPdroid-mitm addon APK
         run: |
-          # Try to get the download URL from GitHub releases API
           RELEASE_URL=$(curl -s https://api.github.com/repos/emanuele-f/PCAPdroid-mitm/releases/tags/v1.4 \
             | python3 -c "
           import sys, json
@@ -62,10 +111,8 @@ jobs:
           echo "Available assets:"
           echo "$RELEASE_URL"
 
-          # Download arm64-v8a version
           DL_URL=$(echo "$RELEASE_URL" | grep -i "arm64" | head -1)
           if [ -z "$DL_URL" ]; then
-            # Fallback: try direct URL patterns
             DL_URL="https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v1.4/PCAPdroid-mitm_v1.4_arm64-v8a.apk"
           fi
           echo "Downloading: $DL_URL"
@@ -85,7 +132,6 @@ jobs:
       # ─── Merge Addon into Our Project ────────────────────────────────────────
       - name: Merge addon smali (MitmService + Chaquopy)
         run: |
-          # Merge all smali directories from the addon
           for SMALI_DIR in /tmp/mitm_decoded/smali /tmp/mitm_decoded/smali_classes2 /tmp/mitm_decoded/smali_classes3; do
             if [ -d "$SMALI_DIR" ]; then
               echo "Merging $SMALI_DIR ..."
@@ -93,7 +139,7 @@ jobs:
             fi
           done
           echo "=== MitmService smali ==="
-          find smali/com/pcapdroid -name "*.smali" | head -20
+          find smali/com/pcapdroid -name "*.smali" 2>/dev/null | head -20 || echo "(not found)"
           echo "=== Chaquopy smali ==="
           find smali/com/chaquo -name "*.smali" 2>/dev/null | wc -l || echo "0"
 
@@ -115,64 +161,12 @@ jobs:
             cp -r /tmp/mitm_decoded/assets/chaquopy/. assets/chaquopy/
             echo "Copied chaquopy assets: $(du -sh assets/chaquopy | awk '{print $1}')"
           fi
-          # Copy CA cert if present
           if [ -f /tmp/mitm_decoded/assets/cacert.pem ]; then
             cp /tmp/mitm_decoded/assets/cacert.pem assets/
             echo "Copied cacert.pem"
           fi
           echo "=== assets/ ==="
           ls -la assets/
-
-      # ─── Patch AndroidManifest.xml ────────────────────────────────────────────
-      - name: Install androguard for manifest decoding
-        run: pip install -q "androguard==3.3.5"
-
-      - name: Decode binary AndroidManifest.xml and add MitmService
-        run: |
-          python3 << 'PYEOF'
-          import sys
-
-          # ── Decode binary AXML → text XML ──────────────────────────────────
-          try:
-              from androguard.core.bytecodes.axml import AXMLPrinter
-          except ImportError:
-              from androguard.core.axml import AXMLPrinter
-
-          with open("AndroidManifest.xml", "rb") as f:
-              raw = f.read()
-
-          # Check if it's already text XML
-          if raw.lstrip().startswith(b"<?xml"):
-              xml_str = raw.decode("utf-8")
-              print("Manifest is already text XML")
-          else:
-              printer = AXMLPrinter(raw)
-              xml_bytes = printer.get_xml()
-              xml_str = xml_bytes.decode("utf-8") if isinstance(xml_bytes, bytes) else xml_bytes
-              print(f"Decoded binary manifest ({len(raw)} bytes → {len(xml_str)} chars)")
-
-          # ── Patch: add MitmService before </application> ───────────────────
-          SERVICE_DECL = '    <service android:name="com.pcapdroid.mitm.MitmService" android:exported="false" />'
-
-          if "com.pcapdroid.mitm.MitmService" in xml_str:
-              print("MitmService already present in manifest — skipping patch")
-          else:
-              if "</application>" not in xml_str:
-                  print("ERROR: </application> not found in manifest!", file=sys.stderr)
-                  sys.exit(1)
-              xml_str = xml_str.replace("</application>", SERVICE_DECL + "\n</application>", 1)
-              print("Added MitmService declaration to manifest")
-
-          # ── Save patched text XML ──────────────────────────────────────────
-          with open("AndroidManifest.xml", "w", encoding="utf-8") as f:
-              f.write(xml_str)
-
-          # Quick verify
-          with open("AndroidManifest.xml") as f:
-              content = f.read()
-          assert "com.pcapdroid.mitm.MitmService" in content, "Patch verification failed!"
-          print("Manifest patch verified OK")
-          PYEOF
 
       # ─── Build ────────────────────────────────────────────────────────────────
       - name: Build APK from smali + resources
