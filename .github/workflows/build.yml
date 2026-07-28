@@ -245,6 +245,58 @@ jobs:
           echo "=== unknown/ contents ==="
           ls -la unknown/
 
+      # ─── Fix APKTOOL_DUMMY drawables (FileNotFoundException crash) ────────────
+      - name: Create placeholder PNGs for APKTOOL_DUMMY drawables
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import re
+          import base64
+
+          # Minimal 1x1 transparent PNG
+          TRANSPARENT_PNG = base64.b64decode(
+              "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJ"
+              "AAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+          )
+
+          # Collect all APKTOOL_DUMMY names from public.xml (source of truth for IDs)
+          dummy_names = set()
+          public_xml = "res/values/public.xml"
+          if os.path.exists(public_xml):
+              with open(public_xml, "r", encoding="utf-8") as f:
+                  for match in re.findall(
+                      r'<public type="drawable" name="(APKTOOL_DUMMY_[0-9a-fA-F]+)"', f.read()
+                  ):
+                      dummy_names.add(match)
+
+          # Also scan all XMLs for any referenced APKTOOL_DUMMY drawables
+          for root, dirs, files in os.walk("res"):
+              for fname in files:
+                  if not fname.endswith(".xml"):
+                      continue
+                  fpath = os.path.join(root, fname)
+                  with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                      content = f.read()
+                  for m in re.findall(r'@drawable/(APKTOOL_DUMMY_[0-9a-fA-F]+)', content):
+                      dummy_names.add(m)
+
+          print(f"Total APKTOOL_DUMMY drawables to create: {len(dummy_names)}")
+
+          os.makedirs("res/drawable", exist_ok=True)
+          created = 0
+          for name in sorted(dummy_names):
+              png_path = f"res/drawable/{name}.png"
+              xml_path = f"res/drawable/{name}.xml"
+              # Only create PNG if neither PNG nor XML exists
+              if not os.path.exists(png_path) and not os.path.exists(xml_path):
+                  with open(png_path, "wb") as f:
+                      f.write(TRANSPARENT_PNG)
+                  created += 1
+
+          print(f"Created {created} new placeholder PNG files")
+          print(f"Skipped {len(dummy_names) - created} already-existing entries")
+          PYEOF
+
       # ─── Build ────────────────────────────────────────────────────────────────
       - name: Build APK from smali + resources
         run: |
