@@ -178,6 +178,100 @@ jobs:
           echo "=== Chaquopy smali ==="
           find smali/com/chaquo -name "*.smali" 2>/dev/null | wc -l || echo "0"
 
+      # ─── Patch MitmService smali: init AndroidPlatform before Python.getInstance() ─
+      - name: Patch MitmService smali — AndroidPlatform init
+        run: |
+          python3 << 'PYEOF'
+          import re, os, sys
+
+          # Find MitmService.smali (merged from addon at build time)
+          smali_path = None
+          for root, dirs, files in os.walk("smali"):
+              for fname in files:
+                  if fname == "MitmService.smali":
+                      smali_path = os.path.join(root, fname)
+                      break
+              if smali_path:
+                  break
+
+          if not smali_path:
+              print("ERROR: MitmService.smali not found after smali merge!")
+              sys.exit(1)
+
+          print(f"Found: {smali_path}")
+          with open(smali_path, "r") as f:
+              content = f.read()
+
+          if "AndroidPlatform" in content:
+              print("Already contains AndroidPlatform — skipping patch")
+              sys.exit(0)
+
+          # ── Step 1: Find onCreate method and bump .registers by 1
+          # In smali: for onCreate(this)V with .registers = R
+          #   p0 = v(R-1)  ← 'this' (the Service/Context)
+          #   locals = v0 .. v(R-2)
+          # After bump to R+1:
+          #   p0 = v(R)    ← 'this' (shifted up)
+          #   locals = v0 .. v(R-1)   ← v(R-1) is a brand-new free register
+          method_match = re.search(
+              r'(\.method public onCreate\(\)V\s*\n(\s*\.registers\s+(\d+)\s*\n))',
+              content, re.MULTILINE
+          )
+          if not method_match:
+              print("ERROR: '.method public onCreate()V' with .registers not found!")
+              # Print what methods exist
+              for line in content.split('\n'):
+                  if '.method' in line:
+                      print(' ', line)
+              sys.exit(1)
+
+          old_regs = int(method_match.group(3))
+          new_regs = old_regs + 1
+          temp_reg = f"v{old_regs - 1}"   # the new free local after bump
+          print(f"onCreate .registers: {old_regs} → {new_regs}, temp register: {temp_reg}")
+
+          # Replace just the .registers line inside onCreate
+          content = (
+              content[:method_match.start(2)]
+              + f"    .registers {new_regs}\n"
+              + content[method_match.end(2):]
+          )
+
+          # ── Step 2: Build the injection snippet
+          # Guard with Python.isStarted() so we don't double-init
+          PATCH = (
+              f"    invoke-static {{}}, Lcom/chaquo/python/Python;->isStarted()Z\n"
+              f"    move-result {temp_reg}\n"
+              f"    if-nez {temp_reg}, :cond_py_started\n"
+              f"    new-instance {temp_reg}, Lcom/chaquo/python/android/AndroidPlatform;\n"
+              f"    invoke-direct {{{temp_reg}, p0}}, Lcom/chaquo/python/android/AndroidPlatform;-><init>(Landroid/content/Context;)V\n"
+              f"    invoke-static {{{temp_reg}}}, Lcom/chaquo/python/Python;->start(Lcom/chaquo/python/Platform;)V\n"
+              f"    :cond_py_started\n"
+          )
+
+          # ── Step 3: Find Python.getInstance() call and inject before it
+          TARGET = "    invoke-static {}, Lcom/chaquo/python/Python;->getInstance()Lcom/chaquo/python/Python;"
+          if TARGET not in content:
+              print("ERROR: Could not find Python.getInstance() call in MitmService!")
+              print("=== All Python-related lines ===")
+              for line in content.split('\n'):
+                  if 'Python' in line or 'getInstance' in line:
+                      print(' ', repr(line))
+              sys.exit(1)
+
+          content = content.replace(TARGET, PATCH + TARGET, 1)
+          print(f"✓ Injected AndroidPlatform init (register {temp_reg}) before Python.getInstance()")
+
+          with open(smali_path, "w") as f:
+              f.write(content)
+
+          print("✓ MitmService.smali patched successfully")
+          print("=== Patched onCreate ===")
+          m2 = re.search(r'\.method public onCreate\(\)V.*?\.end method', content, re.DOTALL)
+          if m2:
+              print(m2.group()[:1200])
+          PYEOF
+
       - name: Copy addon native libraries
         run: |
           for ARCH_DIR in /tmp/mitm_decoded/lib/*/; do
