@@ -31,7 +31,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
-        <item name="android:windowCornerRadius">12.0dip</item>
     </style>
     <style name="AppBarOverlay" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
     <style name="AppIntro2ButtonStyleCompat" parent="@style/Widget.AppCompat.Button.Borderless">
