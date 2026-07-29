@@ -458,6 +458,8 @@
     <item type="id" name="permissionsSv" />
     <item type="id" name="permissions_label" />
     <item type="id" name="pkts_dropped" />
+    <item type="id" name="pkts_rcvd" />
+    <item type="id" name="pkts_sent" />
     <item type="id" name="pooling_container_listener_holder_tag" />
     <item type="id" name="preferences_detail" />
     <item type="id" name="preferences_header" />
