@@ -80,7 +80,7 @@
     <string name="app_language">زبان برنامه</string>
     <string name="app_license">PCAPdroid با این امید توزیع می‌شود که مفید باشد، اما بدون هیچ‌گونه ضمانتی؛ بدون حتی ضمانت ضمنی قابلیت فروش یا مناسب بودن برای هدف خاص. برای جزئیات بیشتر <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html">مجوز عمومی GNU</a> را مطالعه کنید</string>
     <string name="app_log">لاگ</string>
-    <string name="app_name">نام</string>
+    <string name="app_name">PCAPdroid</string>
     <string name="app_not_found">برنامه %1$s پیدا نشد</string>
     <string name="app_unblocked">برنامه %1$s رفع مسدودیت شد</string>
     <string name="app_val">برنامه: %1$s</string>
@@ -828,4 +828,9 @@
  "</string>
     <string name="write_ext_storage_failed">نوشتن در حافظه خارجی ناموفق بود. لاگ برنامه را برای جزئیات بررسی کنید</string>
     <string name="yes">بله</string>
+    <string name="traffic">ترافیک شبکه</string>
+    <string name="connections">اتصالات</string>
+    <string name="pkts_sent">بسته‌های ارسالی</string>
+    <string name="pkts_rcvd">بسته‌های دریافتی</string>
+    <string name="pkts_dropped">بسته‌های از دست رفته</string>
 </resources>

@@ -548,12 +548,22 @@ PYEOF
           path: output/PCAPdroid-signed.apk
           retention-days: 30
 
+      - name: Generate release tag
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        id: tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          DATE=$(date -u +%Y%m%d-%H%M)
+          TAG="v1.9.1-mitm-${DATE}-${SHORT_SHA}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "Generated tag: $TAG"
+
       - name: Create Release (on push to main)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.9.1-mitm-embedded
-          name: PCAPdroid v1.9.1 — با رمزگشایی HTTPS داخلی
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "PCAPdroid v1.9.1 — MITM (${{ steps.tag.outputs.tag }})"
           body: |
             ## PCAPdroid v1.9.1 — MITM Embedded
 
@@ -564,6 +574,8 @@ PYEOF
             - **مشاهده ترافیک HTTPS:** بدون نیاز به `com.pcapdroid.mitm` جداگانه
             - **Python runtime:** Chaquopy + mitmproxy (arm64-v8a)
             - **CA cert:** خودکار برای رمزگشایی TLS
+            - **UI مدرن:** طراحی جدید با رنگ‌بندی آبی/سبز/قرمز
+            - **app_name اصلاح شد:** نام برنامه به PCAPdroid تغییر یافت
 
             ### نصب:
             1. APK را نصب کنید
@@ -572,8 +584,10 @@ PYEOF
 
             - **روش build:** apktool + addon merge
             - **معماری:** arm64-v8a
+            - **commit:** ${{ github.sha }}
           files: output/PCAPdroid-signed.apk
           draft: false
           prerelease: false
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
