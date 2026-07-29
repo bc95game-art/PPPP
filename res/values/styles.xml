@@ -121,7 +121,7 @@
     </style>
     <style name="Base.AppTheme" parent="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:textColorPrimary">#FFFFFFFF</item>
-        <item name="android:textColorSecondary">#CCE3F2FD</item>
+        <item name="android:textColorSecondary">#99E3F2FD</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
@@ -3511,6 +3511,7 @@
     <style name="PreferenceThemeOverlay.v14" parent="@style/PreferenceThemeOverlay" />
     <style name="PreferenceThemeOverlay.v14.Material" parent="@style/PreferenceThemeOverlay.v14" />
     <style name="QuickSettings.Title" parent="@style/AppTheme">
+        <item name="android:textColor">#FFFFFFFF</item>
         <item name="android:textSize">18.0sp</item>
         <item name="android:textStyle">bold</item>
     </style>

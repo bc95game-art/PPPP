@@ -13,67 +13,124 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView android:id="@id/scrollView"
-      android:layout_width="fill_parent" android:layout_height="fill_parent">
-        <RelativeLayout android:padding="20.0dip"
+      android:layout_width="fill_parent" android:layout_height="fill_parent"
+      app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout android:orientation="vertical"
           android:layout_width="fill_parent" android:layout_height="wrap_content">
 
-            <ImageView android:id="@id/logo"
-              android:layout_width="100.0dip" android:layout_height="wrap_content"
-              android:layout_marginTop="24.0dip"
-              android:src="@mipmap/ic_launcher"
-              android:adjustViewBounds="true"
-              android:layout_alignParentTop="true"
-              android:layout_centerHorizontal="true" />
-
-            <TextView android:textSize="22.0sp" android:textStyle="bold"
-              android:id="@id/app_version"
-              android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:layout_marginTop="16.0dip"
-              android:textColor="@color/colorPrimary"
-              android:layout_below="@id/logo"
-              android:layout_centerHorizontal="true" />
-
+            <!-- Hero header with gradient -->
             <LinearLayout android:orientation="vertical"
-              android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:layout_below="@id/app_version"
-              android:layout_alignParentStart="true">
+              android:gravity="center"
+              android:background="@color/colorPrimary"
+              android:paddingTop="32.0dip" android:paddingBottom="28.0dip"
+              android:layout_width="fill_parent" android:layout_height="wrap_content">
 
-                <TextView android:id="@id/app_description"
-                  android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_marginTop="32.0dip" android:textSize="14.0sp"
-                  android:lineSpacingMultiplier="1.4"
-                  android:text="@string/about_text" />
+                <ImageView android:id="@id/logo"
+                  android:layout_width="88.0dip" android:layout_height="88.0dip"
+                  android:src="@mipmap/ic_launcher"
+                  android:adjustViewBounds="true" />
 
-                <TextView android:autoLink="email"
-                  android:id="@id/app_copyright"
+                <TextView android:textSize="24.0sp" android:textStyle="bold"
+                  android:id="@id/app_version"
                   android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_marginTop="20.0dip" android:textSize="13.0sp"
-                  android:alpha="0.70"
-                  android:text="@string/copyright_text" />
+                  android:layout_marginTop="12.0dip"
+                  android:textColor="#FFFFFFFF"
+                  android:letterSpacing="0.03" />
 
-                <TextView android:id="@id/app_license"
-                  android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_marginTop="16.0dip" android:textSize="13.0sp"
-                  android:text="@string/app_license" />
-
-                <TextView android:id="@id/app_source_link"
-                  android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_marginTop="12.0dip" android:textSize="13.0sp"
-                  android:textColor="@color/colorPrimary"
-                  android:text="@string/source_code" />
-
-                <TextView android:id="@id/opensource_licenses"
-                  android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_marginTop="12.0dip" android:textSize="13.0sp"
-                  android:text="@string/opensource_licenses" />
-
-                <TextView android:id="@id/wireshark_licenses"
-                  android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_marginTop="6.0dip" android:textSize="13.0sp"
-                  android:text="@string/wireshark_licenses" />
+                <View android:layout_width="40.0dip" android:layout_height="3.0dip"
+                  android:layout_marginTop="12.0dip"
+                  android:background="@color/colorAccent" />
 
             </LinearLayout>
-        </RelativeLayout>
+
+            <!-- Description card -->
+            <com.google.android.material.card.MaterialCardView
+              android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:layout_margin="12.0dip"
+              app:cardCornerRadius="10.0dip"
+              app:cardElevation="3.0dip"
+              app:strokeWidth="0.0dip">
+                <LinearLayout android:orientation="vertical"
+                  android:padding="16.0dip"
+                  android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+                    <TextView android:textSize="11.0sp" android:textStyle="bold"
+                      android:textColor="@color/colorAccent"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginBottom="6.0dip"
+                      android:letterSpacing="0.12"
+                      android:text="ABOUT" />
+
+                    <TextView android:id="@id/app_description"
+                      android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:textSize="14.0sp"
+                      android:lineSpacingMultiplier="1.5"
+                      android:textColor="#E0FFFFFF"
+                      android:text="@string/about_text" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Legal card -->
+            <com.google.android.material.card.MaterialCardView
+              android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:layout_marginLeft="12.0dip" android:layout_marginRight="12.0dip"
+              android:layout_marginBottom="12.0dip"
+              app:cardCornerRadius="10.0dip"
+              app:cardElevation="3.0dip"
+              app:strokeWidth="0.0dip">
+                <LinearLayout android:orientation="vertical"
+                  android:padding="16.0dip"
+                  android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+                    <TextView android:textSize="11.0sp" android:textStyle="bold"
+                      android:textColor="@color/colorAccent"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginBottom="10.0dip"
+                      android:letterSpacing="0.12"
+                      android:text="LEGAL" />
+
+                    <TextView android:autoLink="email"
+                      android:id="@id/app_copyright"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginBottom="10.0dip"
+                      android:textSize="13.0sp"
+                      android:textColor="#99E3F2FD"
+                      android:text="@string/copyright_text" />
+
+                    <View android:layout_width="fill_parent" android:layout_height="0.5dip"
+                      android:background="#1AFFFFFF" android:layout_marginBottom="10.0dip" />
+
+                    <TextView android:id="@id/app_license"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginBottom="8.0dip"
+                      android:textSize="13.0sp"
+                      android:textColor="#CCE3F2FD"
+                      android:text="@string/app_license" />
+
+                    <TextView android:id="@id/app_source_link"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginBottom="8.0dip"
+                      android:textSize="13.0sp"
+                      android:textColor="@color/colorAccent"
+                      android:text="@string/source_code" />
+
+                    <TextView android:id="@id/opensource_licenses"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginBottom="6.0dip"
+                      android:textSize="13.0sp"
+                      android:textColor="#CCE3F2FD"
+                      android:text="@string/opensource_licenses" />
+
+                    <TextView android:id="@id/wireshark_licenses"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textSize="13.0sp"
+                      android:textColor="#CCE3F2FD"
+                      android:text="@string/wireshark_licenses" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
     </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
