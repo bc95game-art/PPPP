@@ -27,9 +27,11 @@
         <item name="android:windowExitAnimation">@anim/mtrl_bottom_sheet_slide_out</item>
     </style>
     <style name="AppAlertDialogTheme" parent="@style/Theme.MaterialComponents.DayNight.Dialog">
-        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:windowCornerRadius">12.0dip</item>
     </style>
     <style name="AppBarOverlay" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
     <style name="AppIntro2ButtonStyleCompat" parent="@style/Widget.AppCompat.Button.Borderless">
@@ -126,6 +128,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">?android:colorBackground</item>
+        <item name="elevationOverlayEnabled">true</item>
     </style>
     <style name="Base.CardView" parent="@android:style/Widget">
         <item name="cardCornerRadius">@dimen/cardview_default_radius</item>
@@ -3313,7 +3319,13 @@
     </style>
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="background">@color/colorActionBar</item>
-        <item name="elevation">0.0dip</item>
+        <item name="elevation">4.0dip</item>
+        <item name="titleTextStyle">@style/MyActionBarTitle</item>
+    </style>
+    <style name="MyActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:letterSpacing">0.01</item>
     </style>
     <style name="Platform.AppCompat" parent="@style/Platform.V21.AppCompat" />
     <style name="Platform.AppCompat.Light" parent="@style/Platform.V21.AppCompat.Light" />
