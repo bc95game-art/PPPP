@@ -28,6 +28,8 @@
     <string name="abc_shareactionprovider_share_with_application">اشتراک‌گذاری با %s</string>
     <string name="abc_toolbar_collapse_description">جمع کردن</string>
     <string name="about">درباره</string>
+    <string name="copyright_text">کپی‌رایت © ۲۰۲۰-۲۰۲۶ - Emanuele Faranda</string>
+    <string name="tcp_flags">پرچم‌های TCP</string>
     <string name="about_text">PCAPdroid یک ابزار متن‌باز برای ضبط و پایش شبکه است که بدون نیاز به دسترسی روت کار می‌کند</string>
     <string name="access_paid_features_msg">برای آشنایی با نحوه دسترسی به ویژگی‌های پولی <a href="%1$s">راهنمای کاربر</a> را مطالعه کنید</string>
     <string name="action_block">مسدود کردن</string>
@@ -316,7 +318,7 @@
     <string name="get_app">دریافت:</string>
     <string name="headers">سرآیندها</string>
     <string name="heap_usage">مصرف heap</string>
-    <string name="hexdump">Hexdump</string>
+    <string name="hexdump">نمایش هگز</string>
     <string name="hidden_connections_help">لیست قوانین برای پنهان کردن ورودی‌های لیست اتصالات تا بتوانید روی موارد مرتبط تمرکز کنید</string>
     <string name="hidden_connections_rules">قوانین اتصالات پنهان</string>
     <string name="hide">پنهان کردن…</string>

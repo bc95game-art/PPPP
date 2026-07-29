@@ -79,7 +79,7 @@
                 <TextView android:id="@id/detail_bytes" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.75" android:textIsSelectable="true" />
             </TableRow>
             <TableRow android:id="@id/tcp_flags_row" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
-                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="TCP Flags" android:layout_weight="0.25" />
+                <TextView android:textStyle="bold" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/tcp_flags" android:layout_weight="0.25" />
                 <TextView android:id="@id/tcp_flags" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="0.75" android:textIsSelectable="true" />
             </TableRow>
             <TableRow android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="4.0dip">
