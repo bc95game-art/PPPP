@@ -29,7 +29,7 @@
           android:layout_width="0.0dip" android:layout_height="wrap_content"
           android:layout_weight="1.0" />
 
-        <TextView android:id="@id/log_line_count"
+        <TextView android:id="@+id/log_line_count"
           android:textSize="10.0sp"
           android:fontFamily="monospace"
           android:textColor="#FF3FB950"
