@@ -319,34 +319,44 @@ jobs:
       # ─── Replace app icon with custom icon ───────────────────────────────────
       - name: Replace app icons with custom icon
         run: |
-          # ImageMagick is pre-installed on ubuntu-latest
           SRC="app_icon_source.png"
           echo "Source icon: $(ls -lh $SRC)"
 
-          # Android mipmap icon sizes (density → px)
-          declare -A SIZES=(
-            ["mipmap-mdpi"]=48
-            ["mipmap-hdpi"]=72
-            ["mipmap-xhdpi"]=96
-            ["mipmap-xxhdpi"]=144
-            ["mipmap-xxxhdpi"]=192
-            ["mipmap-television-xhdpi"]=96
-          )
+          # Use Python Pillow (always available) instead of ImageMagick convert
+          pip install --quiet Pillow
 
-          for DIR in "${!SIZES[@]}"; do
-            PX="${SIZES[$DIR]}"
-            if [ -d "res/$DIR" ]; then
-              convert "$SRC" -resize "${PX}x${PX}" "res/$DIR/ic_launcher.png"
-              echo "✓ res/$DIR/ic_launcher.png → ${PX}×${PX}"
-              # round icon = same image (circular mask applied by Android)
-              if [ -f "res/$DIR/ic_launcher_round.png" ]; then
-                convert "$SRC" -resize "${PX}x${PX}" "res/$DIR/ic_launcher_round.png"
-                echo "  ↳ ic_launcher_round.png updated"
-              fi
-            fi
-          done
+          python3 - <<'PYEOF'
+import os
+from PIL import Image
 
-          echo "=== Updated icons ==="
+src = "app_icon_source.png"
+sizes = {
+    "mipmap-mdpi":              48,
+    "mipmap-hdpi":              72,
+    "mipmap-xhdpi":             96,
+    "mipmap-xxhdpi":            144,
+    "mipmap-xxxhdpi":           192,
+    "mipmap-television-xhdpi":  96,
+}
+
+img = Image.open(src).convert("RGBA")
+
+for dirname, px in sizes.items():
+    dirpath = os.path.join("res", dirname)
+    if not os.path.isdir(dirpath):
+        continue
+    resized = img.resize((px, px), Image.LANCZOS)
+    out = os.path.join(dirpath, "ic_launcher.png")
+    resized.save(out, "PNG")
+    print(f"✓ {out} → {px}×{px}")
+    out_round = os.path.join(dirpath, "ic_launcher_round.png")
+    if os.path.isfile(out_round):
+        resized.save(out_round, "PNG")
+        print(f"  ↳ ic_launcher_round.png updated")
+
+print("=== Updated icons ===")
+PYEOF
+
           find res -name "ic_launcher*.png" | sort | xargs ls -lh
 
       # ─── Prepare unknown/ directory ──────────────────────────────────────────
