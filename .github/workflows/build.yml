@@ -178,8 +178,21 @@ jobs:
           echo "=== Chaquopy smali ==="
           find smali/com/chaquo -name "*.smali" 2>/dev/null | wc -l || echo "0"
 
-      # ─── Patch MitmService smali: init AndroidPlatform before Python.getInstance() ─
-      - name: Patch MitmService smali — AndroidPlatform init
+      # ─── Debug: show MitmService.smali after merge ───────────────────────────
+      - name: Debug — print MitmService.smali (first 120 lines)
+        run: |
+          SMALI=$(find smali -name "MitmService.smali" 2>/dev/null | head -1)
+          if [ -n "$SMALI" ]; then
+            echo "Found: $SMALI"
+            head -120 "$SMALI"
+          else
+            echo "WARNING: MitmService.smali not found"
+          fi
+
+      # ─── Patch MitmService smali: belt-and-suspenders AndroidPlatform init ───
+      # NOTE: PCAPdroid.smali already inits Python in Application.onCreate().
+      # This step patches MitmService as an extra safety net, but is non-fatal.
+      - name: Patch MitmService smali — AndroidPlatform init (non-fatal backup)
         run: |
           python3 << 'PYEOF'
           import re, os, sys
@@ -195,8 +208,8 @@ jobs:
                   break
 
           if not smali_path:
-              print("ERROR: MitmService.smali not found after smali merge!")
-              sys.exit(1)
+              print("WARNING: MitmService.smali not found — skipping backup patch")
+              sys.exit(0)
 
           print(f"Found: {smali_path}")
           with open(smali_path, "r") as f:
@@ -206,54 +219,32 @@ jobs:
               print("Already contains AndroidPlatform — skipping patch")
               sys.exit(0)
 
-          # ── Step 1: Find onCreate method start, then find .registers within it
-          # NOTE: .registers may NOT be immediately after .method — there can be
-          # annotations or blank lines between them. So we do a two-step search:
-          #   a) find the position of ".method public onCreate()V"
-          #   b) from that position, find the next ".registers N" line
-          #
-          # Register convention for onCreate(this)V:
-          #   BEFORE: .registers = R → p0 = v(R-1), locals = v0..v(R-2)
-          #   AFTER:  .registers = R+1 → p0 = v(R), locals = v0..v(R-1)
-          #   New free temp = v(R-1)
-
-          method_match = re.search(
-              r'\.method public onCreate\(\)V\b',
-              content, re.MULTILINE
-          )
+          # ── Step 1: Find onCreate, then find .registers within it
+          method_match = re.search(r'\.method public onCreate\(\)V\b', content, re.MULTILINE)
           if not method_match:
-              print("ERROR: '.method public onCreate()V' not found!")
+              print("WARNING: onCreate()V not found in MitmService.smali — skipping")
               for line in content.split('\n'):
                   if '.method' in line:
                       print(' ', line)
-              sys.exit(1)
+              sys.exit(0)
 
-          # Search for .registers anywhere after the method declaration line
           after_method = content[method_match.end():]
-          regs_match = re.search(
-              r'(\s*\.registers\s+(\d+)\s*\n)',
-              after_method
-          )
+          regs_match = re.search(r'(\s*\.registers\s+(\d+)\s*\n)', after_method)
           if not regs_match:
-              print("ERROR: .registers not found within onCreate()V!")
+              print("WARNING: .registers not found within onCreate()V — skipping")
               print(after_method[:300])
-              sys.exit(1)
+              sys.exit(0)
 
           old_regs = int(regs_match.group(2))
           new_regs = old_regs + 1
-          temp_reg = f"v{old_regs - 1}"   # new free local after bump
+          temp_reg = f"v{old_regs - 1}"
           print(f"onCreate .registers: {old_regs} → {new_regs}, temp register: {temp_reg}")
 
-          # Compute absolute positions and replace the .registers value
           abs_start = method_match.end() + regs_match.start()
           abs_end   = method_match.end() + regs_match.end()
-          new_regs_line = regs_match.group(1).replace(
-              f".registers {old_regs}", f".registers {new_regs}", 1
-          )
+          new_regs_line = regs_match.group(1).replace(f".registers {old_regs}", f".registers {new_regs}", 1)
           content = content[:abs_start] + new_regs_line + content[abs_end:]
 
-          # ── Step 2: Build the injection snippet
-          # Guard with Python.isStarted() so we don't double-init
           PATCH = (
               f"    invoke-static {{}}, Lcom/chaquo/python/Python;->isStarted()Z\n"
               f"    move-result {temp_reg}\n"
@@ -264,26 +255,39 @@ jobs:
               f"    :cond_py_started\n"
           )
 
-          # ── Step 3: Find Python.getInstance() call and inject before it
-          TARGET = "    invoke-static {}, Lcom/chaquo/python/Python;->getInstance()Lcom/chaquo/python/Python;"
-          if TARGET not in content:
-              print("ERROR: Could not find Python.getInstance() call in MitmService!")
-              print("=== All Python-related lines ===")
-              for line in content.split('\n'):
-                  if 'Python' in line or 'getInstance' in line:
-                      print(' ', repr(line))
-              sys.exit(1)
+          # Flexible TARGET search — strip whitespace to find the line, then replace in full content
+          lines = content.split('\n')
+          target_idx = None
+          for i, line in enumerate(lines):
+              stripped = line.strip()
+              if (stripped.startswith('invoke-static') and
+                  'Python' in stripped and
+                  'getInstance' in stripped):
+                  target_idx = i
+                  print(f"Found getInstance() at line {i}: {repr(line)}")
+                  break
 
-          content = content.replace(TARGET, PATCH + TARGET, 1)
-          print(f"✓ Injected AndroidPlatform init (register {temp_reg}) before Python.getInstance()")
+          if target_idx is None:
+              print("WARNING: Could not find Python.getInstance() in MitmService")
+              print("=== All Python/invoke-static lines ===")
+              for line in lines:
+                  if 'Python' in line or 'invoke-static' in line:
+                      print(' ', repr(line))
+              print("NOTE: PCAPdroid Application.onCreate() will still init Python correctly.")
+              sys.exit(0)
+
+          # Rebuild content with patch inserted before the target line
+          lines.insert(target_idx, PATCH.rstrip('\n'))
+          content = '\n'.join(lines)
+          print(f"✓ Injected AndroidPlatform init before Python.getInstance()")
 
           with open(smali_path, "w") as f:
               f.write(content)
 
-          print("✓ MitmService.smali patched successfully")
-          print("=== Patched onCreate ===")
+          print("✓ MitmService.smali backup patch applied")
           m2 = re.search(r'\.method public onCreate\(\)V.*?\.end method', content, re.DOTALL)
           if m2:
+              print("=== Patched onCreate ===")
               print(m2.group()[:1200])
           PYEOF
 

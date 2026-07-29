@@ -1990,10 +1990,19 @@
 .end method
 
 .method public onCreate()V
-    .locals 4
+    .locals 5
 
     .line 1
     invoke-super {p0}, Landroid/app/Application;->onCreate()V
+
+    # PCAPdroid-mod: init Chaquopy Python before any Service uses Python.getInstance()
+    invoke-static {}, Lcom/chaquo/python/Python;->isStarted()Z
+    move-result v4
+    if-nez v4, :cond_py_init
+    new-instance v4, Lcom/chaquo/python/android/AndroidPlatform;
+    invoke-direct {v4, p0}, Lcom/chaquo/python/android/AndroidPlatform;-><init>(Landroid/content/Context;)V
+    invoke-static {v4}, Lcom/chaquo/python/Python;->start(Lcom/chaquo/python/Platform;)V
+    :cond_py_init
 
     .line 2
     .line 3
