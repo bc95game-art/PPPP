@@ -3929,6 +3929,7 @@
     <public type="drawable" name="test_level_drawable" id="0x7f08021d" />
     <public type="drawable" name="tooltip_frame_dark" id="0x7f08021e" />
     <public type="drawable" name="tooltip_frame_light" id="0x7f08021f" />
+    <public type="drawable" name="drawer_background_gradient" id="0x7f080220" />
     <public type="drawable" name="APKTOOL_DUMMY_28" id="0x7f080028" />
     <public type="drawable" name="APKTOOL_DUMMY_2d" id="0x7f08002d" />
     <public type="drawable" name="APKTOOL_DUMMY_2e" id="0x7f08002e" />
