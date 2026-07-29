@@ -104,7 +104,7 @@
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
-    <color name="drawerItemColor">#FF0D47A1</color>
+    <color name="drawerItemColor">#FF64B5F6</color>
     <color name="error_color_material_dark">#ffff7043</color>
     <color name="error_color_material_light">#ffff5722</color>
     <color name="foreground_material_dark">@android:color/white</color>
@@ -499,7 +499,7 @@
     <color name="mtrl_textinput_filled_box_default_background_color">#0a000000</color>
     <color name="mtrl_textinput_focused_box_stroke_color">#00000000</color>
     <color name="mtrl_textinput_hovered_box_stroke_color">#de000000</color>
-    <color name="navViewBackground">#FFEDF2FF</color>
+    <color name="navViewBackground">#FF0A1628</color>
     <color name="notification_action_color_filter">@color/androidx_core_secondary_text_default_material_light</color>
     <color name="notification_icon_bg_color">#ff9e9e9e</color>
     <color name="ok">#FF43A047</color>

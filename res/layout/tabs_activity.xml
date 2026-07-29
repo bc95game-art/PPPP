@@ -38,7 +38,8 @@
               app:tabSelectedTextColor="@color/colorTabTextSelected"
               app:tabTextColor="@color/colorTabText"
               app:tabRippleColor="@color/colorAccent"
-              app:tabMode="fixed" />
+              app:tabMode="fixed"
+              app:elevation="4.0dip" />
 
             <ImageButton android:layout_gravity="center_vertical"
               android:id="@id/tab_switch_button"

@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  android:background="#FF0D1117"
   xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.appbar.AppBarLayout android:id="@id/app_bar_layout" android:layout_width="fill_parent" android:layout_height="wrap_content">
-        <androidx.appcompat.widget.Toolbar android:theme="@style/AppBarOverlay" android:id="@id/toolbar" android:background="@color/colorActionBar" android:layout_width="fill_parent" android:layout_height="wrap_content" app:popupTheme="@style/PopupOverlay" />
+
+    <com.google.android.material.appbar.AppBarLayout
+      android:id="@id/app_bar_layout"
+      android:layout_width="fill_parent" android:layout_height="wrap_content"
+      android:background="#FF0D1117"
+      android:elevation="0.0dip">
+
+        <androidx.appcompat.widget.Toolbar
+          android:theme="@style/AppBarOverlay"
+          android:id="@id/toolbar"
+          android:background="#FF0D1117"
+          android:layout_width="fill_parent" android:layout_height="wrap_content"
+          app:popupTheme="@style/PopupOverlay" />
+
     </com.google.android.material.appbar.AppBarLayout>
-    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-        <com.google.android.material.tabs.TabLayout android:id="@id/tablayout" android:layout_width="fill_parent" android:layout_height="wrap_content" app:tabGravity="start" app:tabIndicatorColor="@color/colorTab" app:tabMode="scrollable" app:tabSelectedTextColor="@color/colorTabTextSelected" app:tabTextColor="@color/colorTabText" />
-        <androidx.viewpager2.widget.ViewPager2 android:id="@id/pager" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0" />
+
+    <LinearLayout android:orientation="vertical"
+      android:layout_width="fill_parent" android:layout_height="fill_parent"
+      android:background="#FF0D1117"
+      app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <!-- Tab bar with terminal styling -->
+        <com.google.android.material.tabs.TabLayout
+          android:id="@id/tablayout"
+          android:layout_width="fill_parent" android:layout_height="48.0dip"
+          android:background="#FF161B22"
+          app:tabGravity="start"
+          app:tabIndicatorColor="#FF00E5FF"
+          app:tabIndicatorHeight="2.0dip"
+          app:tabMode="scrollable"
+          app:tabSelectedTextColor="#FF00E5FF"
+          app:tabTextColor="#FF8B949E"
+          app:tabRippleColor="#2200E5FF"
+          app:tabTextAppearance="@android:style/TextAppearance.Small" />
+
+        <!-- Neon separator line -->
+        <View android:layout_width="fill_parent" android:layout_height="1.0dip"
+          android:background="#2200E5FF" />
+
+        <androidx.viewpager2.widget.ViewPager2
+          android:id="@id/pager"
+          android:layout_width="fill_parent" android:layout_height="0.0dip"
+          android:layout_weight="1.0"
+          android:background="#FF0D1117" />
+
     </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
