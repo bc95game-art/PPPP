@@ -251,7 +251,7 @@ jobs:
               f"    if-nez {temp_reg}, :cond_py_started\n"
               f"    new-instance {temp_reg}, Lcom/chaquo/python/android/AndroidPlatform;\n"
               f"    invoke-direct {{{temp_reg}, p0}}, Lcom/chaquo/python/android/AndroidPlatform;-><init>(Landroid/content/Context;)V\n"
-              f"    invoke-static {{{temp_reg}}}, Lcom/chaquo/python/Python;->start(Lcom/chaquo/python/Platform;)V\n"
+              f"    invoke-static {{{temp_reg}}}, Lcom/chaquo/python/Python;->start(Lcom/chaquo/python/Python$Platform;)V\n"
               f"    :cond_py_started\n"
           )
 

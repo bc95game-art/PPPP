@@ -2001,7 +2001,7 @@
     if-nez v4, :cond_py_init
     new-instance v4, Lcom/chaquo/python/android/AndroidPlatform;
     invoke-direct {v4, p0}, Lcom/chaquo/python/android/AndroidPlatform;-><init>(Landroid/content/Context;)V
-    invoke-static {v4}, Lcom/chaquo/python/Python;->start(Lcom/chaquo/python/Platform;)V
+    invoke-static {v4}, Lcom/chaquo/python/Python;->start(Lcom/chaquo/python/Python$Platform;)V
     :cond_py_init
 
     .line 2
