@@ -17,9 +17,6 @@
       app:itemIconPadding="16.0dip"
       app:itemIconTint="@color/drawerItemColor"
       app:itemTextColor="@color/drawerItemColor"
-      app:itemRippleColor="@color/colorBackgroundGray"
-      app:itemShapeFillColor="@color/colorBackgroundGray"
-      app:menu="@menu/nav_items"
-      app:elevation="8.0dip" />
+      app:menu="@menu/nav_items" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
