@@ -16,7 +16,7 @@
       android:layout_width="0.0dip" android:layout_height="wrap_content"
       android:layout_weight="0.5" android:layout_marginStart="6.0dip">
         <TextView android:textSize="14.0sp" android:textStyle="bold"
-          android:ellipsize="end" android:id="@id/app_info"
+          android:ellipsize="end" android:id="@id/app_info" android:textColor="#FFFFFFFF"
           android:layout_width="wrap_content" android:layout_height="wrap_content"
           android:singleLine="true" android:letterSpacing="0.01" />
         <TextView android:textSize="11.0sp" android:id="@id/sent_rcvd"

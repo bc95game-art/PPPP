@@ -29,7 +29,8 @@
               android:ellipsize="end" android:id="@id/app_name"
               android:layout_width="0.0dip" android:layout_height="wrap_content"
               android:singleLine="true" android:layout_weight="1.0"
-              android:letterSpacing="0.01" />
+              android:letterSpacing="0.01"
+              android:textColor="#FFFFFFFF" />
 
             <LinearLayout android:gravity="center_vertical" android:orientation="horizontal"
               android:layout_width="wrap_content" android:layout_height="fill_parent">
@@ -62,6 +63,7 @@
           android:visibility="invisible"
           android:layout_width="wrap_content" android:layout_height="wrap_content"
           android:text="@string/conn_status_unreachable"
+          android:textColor="#FFFFFFFF"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,6 +77,7 @@
         <TextView android:textSize="11.0sp" android:id="@id/last_seen"
           android:layout_width="wrap_content" android:layout_height="wrap_content"
           android:alpha="0.65"
+          android:textColor="#FFFFFFFF"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/app_name_layout" />
 
@@ -104,13 +107,14 @@
             <TextView android:textSize="11.0sp" android:ellipsize="end"
               android:id="@id/remote"
               android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:singleLine="true" android:alpha="0.70" />
+              android:singleLine="true" android:alpha="0.70"
+              android:textColor="#FFFFFFFF" />
         </LinearLayout>
 
         <TextView android:textSize="13.0sp" android:gravity="end"
           android:id="@id/traffic"
           android:layout_width="wrap_content" android:layout_height="wrap_content"
-          android:textColor="@color/colorPrimary" android:textStyle="bold"
+          android:textColor="@color/colorAccentBlue" android:textStyle="bold"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent" />
 

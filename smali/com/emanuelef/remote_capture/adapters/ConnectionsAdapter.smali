@@ -1274,7 +1274,7 @@
 
     .line 45
     .line 46
-    invoke-direct {p0, v0}, Lcom/emanuelef/remote_capture/adapters/ConnectionsAdapter;->removeFilteredItemAt(I)V
+    invoke-direct {p0, v2}, Lcom/emanuelef/remote_capture/adapters/ConnectionsAdapter;->removeFilteredItemAt(I)V
 
     .line 47
     .line 48
