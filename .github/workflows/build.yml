@@ -206,36 +206,51 @@ jobs:
               print("Already contains AndroidPlatform — skipping patch")
               sys.exit(0)
 
-          # ── Step 1: Find onCreate method and bump .registers by 1
-          # In smali: for onCreate(this)V with .registers = R
-          #   p0 = v(R-1)  ← 'this' (the Service/Context)
-          #   locals = v0 .. v(R-2)
-          # After bump to R+1:
-          #   p0 = v(R)    ← 'this' (shifted up)
-          #   locals = v0 .. v(R-1)   ← v(R-1) is a brand-new free register
+          # ── Step 1: Find onCreate method start, then find .registers within it
+          # NOTE: .registers may NOT be immediately after .method — there can be
+          # annotations or blank lines between them. So we do a two-step search:
+          #   a) find the position of ".method public onCreate()V"
+          #   b) from that position, find the next ".registers N" line
+          #
+          # Register convention for onCreate(this)V:
+          #   BEFORE: .registers = R → p0 = v(R-1), locals = v0..v(R-2)
+          #   AFTER:  .registers = R+1 → p0 = v(R), locals = v0..v(R-1)
+          #   New free temp = v(R-1)
+
           method_match = re.search(
-              r'(\.method public onCreate\(\)V\s*\n(\s*\.registers\s+(\d+)\s*\n))',
+              r'\.method public onCreate\(\)V\b',
               content, re.MULTILINE
           )
           if not method_match:
-              print("ERROR: '.method public onCreate()V' with .registers not found!")
-              # Print what methods exist
+              print("ERROR: '.method public onCreate()V' not found!")
               for line in content.split('\n'):
                   if '.method' in line:
                       print(' ', line)
               sys.exit(1)
 
-          old_regs = int(method_match.group(3))
+          # Search for .registers anywhere after the method declaration line
+          after_method = content[method_match.end():]
+          regs_match = re.search(
+              r'(\s*\.registers\s+(\d+)\s*\n)',
+              after_method
+          )
+          if not regs_match:
+              print("ERROR: .registers not found within onCreate()V!")
+              print(after_method[:300])
+              sys.exit(1)
+
+          old_regs = int(regs_match.group(2))
           new_regs = old_regs + 1
-          temp_reg = f"v{old_regs - 1}"   # the new free local after bump
+          temp_reg = f"v{old_regs - 1}"   # new free local after bump
           print(f"onCreate .registers: {old_regs} → {new_regs}, temp register: {temp_reg}")
 
-          # Replace just the .registers line inside onCreate
-          content = (
-              content[:method_match.start(2)]
-              + f"    .registers {new_regs}\n"
-              + content[method_match.end(2):]
+          # Compute absolute positions and replace the .registers value
+          abs_start = method_match.end() + regs_match.start()
+          abs_end   = method_match.end() + regs_match.end()
+          new_regs_line = regs_match.group(1).replace(
+              f".registers {old_regs}", f".registers {new_regs}", 1
           )
+          content = content[:abs_start] + new_regs_line + content[abs_end:]
 
           # ── Step 2: Build the injection snippet
           # Guard with Python.isStarted() so we don't double-init
