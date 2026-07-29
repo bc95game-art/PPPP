@@ -297,6 +297,39 @@ jobs:
           echo "=== assets/ ==="
           ls -la assets/
 
+      # ─── Replace app icon with custom icon ───────────────────────────────────
+      - name: Replace app icons with custom icon
+        run: |
+          # ImageMagick is pre-installed on ubuntu-latest
+          SRC="app_icon_source.png"
+          echo "Source icon: $(ls -lh $SRC)"
+
+          # Android mipmap icon sizes (density → px)
+          declare -A SIZES=(
+            ["mipmap-mdpi"]=48
+            ["mipmap-hdpi"]=72
+            ["mipmap-xhdpi"]=96
+            ["mipmap-xxhdpi"]=144
+            ["mipmap-xxxhdpi"]=192
+            ["mipmap-television-xhdpi"]=96
+          )
+
+          for DIR in "${!SIZES[@]}"; do
+            PX="${SIZES[$DIR]}"
+            if [ -d "res/$DIR" ]; then
+              convert "$SRC" -resize "${PX}x${PX}" "res/$DIR/ic_launcher.png"
+              echo "✓ res/$DIR/ic_launcher.png → ${PX}×${PX}"
+              # round icon = same image (circular mask applied by Android)
+              if [ -f "res/$DIR/ic_launcher_round.png" ]; then
+                convert "$SRC" -resize "${PX}x${PX}" "res/$DIR/ic_launcher_round.png"
+                echo "  ↳ ic_launcher_round.png updated"
+              fi
+            fi
+          done
+
+          echo "=== Updated icons ==="
+          find res -name "ic_launcher*.png" | sort | xargs ls -lh
+
       # ─── Prepare unknown/ directory ──────────────────────────────────────────
       - name: Populate unknown/ directory (files listed in apktool.yml unknownFiles)
         run: |
