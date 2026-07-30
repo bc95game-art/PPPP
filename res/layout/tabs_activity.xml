@@ -5,11 +5,12 @@
     <com.google.android.material.appbar.AppBarLayout android:id="@id/app_bar_layout"
       android:layout_width="match_parent" android:layout_height="wrap_content"
       android:elevation="6.0dip"
+      android:background="@drawable/appbar_gradient"
       app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar android:theme="@style/AppBarOverlay"
           android:id="@id/toolbar"
-          android:background="@color/colorActionBar"
+          android:background="@drawable/appbar_gradient"
           android:layout_width="match_parent" android:layout_height="wrap_content"
           app:popupTheme="@style/PopupOverlay"
           app:layout_scrollFlags="scroll|enterAlways|snap" />
@@ -21,23 +22,23 @@
       app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout android:orientation="horizontal"
-          android:background="@color/colorPrimary"
+          android:background="@drawable/tab_bar_gradient"
           android:elevation="4.0dip"
           android:layout_width="match_parent" android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabLayout
               android:id="@id/tablayout"
-              android:background="@color/colorPrimary"
+              android:background="@android:color/transparent"
               android:layout_width="0.0dip" android:layout_height="wrap_content"
               android:layout_weight="1.0"
               app:tabGravity="fill"
-              app:tabIndicatorColor="@color/colorAccent"
+              app:tabIndicatorColor="#FF00C853"
               app:tabIndicatorHeight="3.0dip"
               app:tabIndicatorFullWidth="true"
               app:tabMaxWidth="0.0dip"
-              app:tabSelectedTextColor="@color/colorTabTextSelected"
-              app:tabTextColor="@color/colorTabText"
-              app:tabRippleColor="@color/colorAccent"
+              app:tabSelectedTextColor="#FFFFFFFF"
+              app:tabTextColor="#AAFFFFFF"
+              app:tabRippleColor="#2200C853"
               app:tabMode="fixed"
               app:elevation="4.0dip" />
 
@@ -48,7 +49,7 @@
               android:visibility="gone" android:clickable="true"
               android:layout_width="44.0dip" android:layout_height="44.0dip"
               android:src="@drawable/ic_swap_horiz"
-              android:tint="@color/colorTabTextSelected"
+              android:tint="#FFFFFFFF"
               android:contentDescription="@string/switch_to_http" />
         </LinearLayout>
 

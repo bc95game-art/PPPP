@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="backgroundColor">@color/background_material_dark</color>
-    <color name="colorAccent">#FF64FFDA</color>
+    <color name="colorAccent">#FF00E5FF</color>
     <color name="colorAccentLight">#FF1DE9B6</color>
-    <color name="colorAccentGreen">#FF69F0AE</color>
+    <color name="colorAccentGreen">#FF00E676</color>
     <color name="colorAccentRed">#FFFF5252</color>
     <color name="colorAccentBlue">#FF448AFF</color>
-    <color name="colorActionBar">#FF0A1628</color>
+    <color name="colorActionBar">#FF040D1E</color>
     <color name="colorBackgroundGray">#1C1976D2</color>
-    <color name="colorPrimary">#FF1976D2</color>
-    <color name="colorPrimaryDark">#FF0D47A1</color>
-    <color name="colorTab">#FF1565C0</color>
+    <color name="colorPrimary">#FF1565C0</color>
+    <color name="colorPrimaryDark">#FF0D1B3E</color>
+    <color name="colorTab">#FF0D1B3E</color>
     <color name="colorTabText">#99FFFFFF</color>
     <color name="colorTabTextSelected">#FFFFFFFF</color>
     <color name="danger">#FFFF5252</color>
     <color name="drawerItemColor">#FFFFFFFF</color>
     <color name="highContrast">#FFFFFFFF</color>
-    <color name="navViewBackground">#FF0A1628</color>
-    <color name="ok">#FF69F0AE</color>
+    <color name="navViewBackground">#FF040D1E</color>
+    <color name="ok">#FF00E676</color>
     <color name="warning">#FFFFAB40</color>
 </resources>

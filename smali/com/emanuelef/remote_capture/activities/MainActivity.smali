@@ -15844,7 +15844,7 @@
     move-result p1
 
     .line 36
-    if-gtz p1, :cond_0
+    goto :cond_0
 
     .line 37
     .line 38
