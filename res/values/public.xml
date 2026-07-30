@@ -2342,6 +2342,7 @@
     <public type="color" name="tooltip_background_dark" id="0x7f0603de" />
     <public type="color" name="tooltip_background_light" id="0x7f0603df" />
     <public type="color" name="warning" id="0x7f0603e0" />
+    <public type="color" name="colorAccentBlue" id="0x7f0603e1" />
     <public type="color" name="abc_color_highlight_material" id="0x7f060004" />
     <public type="color" name="m3_dynamic_dark_default_color_primary_text" id="0x7f0600a1" />
     <public type="color" name="m3_dynamic_dark_default_color_secondary_text" id="0x7f0600a2" />
