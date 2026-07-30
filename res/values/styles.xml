@@ -126,6 +126,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
+        <item name="android:textColorSecondary">@color/abc_secondary_text_material_dark</item>
     </style>
     <style name="Base.CardView" parent="@android:style/Widget">
         <item name="cardCornerRadius">@dimen/cardview_default_radius</item>
@@ -7065,6 +7067,8 @@
         <item name="itemShapeInsetTop">@dimen/mtrl_navigation_item_shape_vertical_margin</item>
         <item name="itemTextAppearance">?textAppearanceSubtitle2</item>
         <item name="itemTextColor">@color/mtrl_navigation_item_text_color</item>
+        <item name="subheaderTextAppearance">?textAppearanceCaption</item>
+        <item name="subheaderColor">?android:textColorSecondary</item>
     </style>
     <style name="Widget.MaterialComponents.PopupMenu" parent="@style/Base.Widget.MaterialComponents.PopupMenu">
         <item name="android:popupBackground">?popupMenuBackground</item>

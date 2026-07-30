@@ -3354,6 +3354,8 @@
     .line 26
     iget v1, v0, Landroid/util/TypedValue;->resourceId:I
 
+    if-eqz v1, :goto_0
+
     .line 27
     .line 28
     invoke-static {p1, v1}, Landroidx/core/os/BundleKt;->getColorStateList(Landroid/content/Context;I)Landroid/content/res/ColorStateList;
