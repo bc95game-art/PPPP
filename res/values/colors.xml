@@ -499,7 +499,7 @@
     <color name="mtrl_textinput_filled_box_default_background_color">#0a000000</color>
     <color name="mtrl_textinput_focused_box_stroke_color">#00000000</color>
     <color name="mtrl_textinput_hovered_box_stroke_color">#de000000</color>
-    <color name="navViewBackground">#FF0A1628</color>
+    <color name="navViewBackground">@color/design_default_color_surface</color>
     <color name="notification_action_color_filter">@color/androidx_core_secondary_text_default_material_light</color>
     <color name="notification_icon_bg_color">#ff9e9e9e</color>
     <color name="ok">#FF43A047</color>
